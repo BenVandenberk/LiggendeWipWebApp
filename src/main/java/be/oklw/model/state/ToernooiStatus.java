@@ -1,7 +1,28 @@
 package be.oklw.model.state;
 
-/**
- * Created by java on 28.11.15.
- */
-public class ToernooiStatus {
+import be.oklw.model.Club;
+import be.oklw.model.Ploeg;
+
+public abstract class ToernooiStatus {
+
+    protected boolean verwijderbaar;
+    protected boolean aanpasbaar;
+
+    public abstract void schrijfPloegInVoor(Club club);
+    public abstract void openInschrijvingen();
+    public abstract void annuleerInschrijving(Ploeg ploeg);
+    public abstract void annuleerInschrijving(int id);
+    public abstract void sluitInschrijvingen();
+    public abstract void loot();
+    public abstract void start();
+    public abstract void stop();
+    public abstract void heropenInschrijvingen();
+
+    public boolean isVerwijderbaar() {
+        return verwijderbaar;
+    }
+
+    public boolean isAanpasbaar() {
+        return aanpasbaar;
+    }
 }
