@@ -12,7 +12,7 @@ public class Kampioenschap extends Evenement {
     private ArrayList<Sponsor> sponsors;
     private ArrayList<Toernooi> toernooien;
 
-    protected Kampioenschap(Club club) {
+    public Kampioenschap(Club club) {
         super(club);
         sponsors = new ArrayList<Sponsor>();
         toernooien = new ArrayList<Toernooi>();

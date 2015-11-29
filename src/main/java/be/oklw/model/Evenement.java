@@ -13,7 +13,7 @@ public class Evenement {
 
     protected Club club;
 
-    protected Evenement(Club club) {
+    public Evenement(Club club) {
         this.club = club;
     }
 

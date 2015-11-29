@@ -1,11 +1,13 @@
 package be.oklw.model;
 
+import be.oklw.model.state.Aangemaakt;
 import be.oklw.model.state.ToernooiStatus;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class Toernooi {
@@ -28,13 +30,22 @@ public class Toernooi {
 
     private ArrayList<Ploeg> ploegen;
 
-    protected Toernooi(Kampioenschap kampioenschap) {
+    public Toernooi(Kampioenschap kampioenschap) {
         this.kampioenschap = kampioenschap;
         ploegen = new ArrayList<Ploeg>();
+        status = new Aangemaakt();
     }
 
 
     //region GETTERS en SETTERS
+
+    public Iterable<Ploeg> getPloegen() {
+        return Collections.unmodifiableList(ploegen);
+    }
+
+    public Kampioenschap getKampioenschap() {
+        return kampioenschap;
+    }
 
     public int getId() {
         return id;
@@ -189,6 +200,40 @@ public class Toernooi {
 
     public int aantalIngeschrevenPloegen() {
         return ploegen.size();
+    }
+
+    //endregion
+
+    //region Object methods
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Toernooi toernooi = (Toernooi) o;
+
+        if (id != toernooi.id) return false;
+        return !(naam != null ? !naam.equals(toernooi.naam) : toernooi.naam != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (naam != null ? naam.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += String.format("Toernooi '%s', ID=%d%n", naam, id);
+        result += String.format("Op %s, start: %s%n", datum, startTijdstip);
+        result += String.format("%d ploegen, %d/ploeg, €%f/ploeg inleg, %d wippen", maximumAantalPloegen, personenPerPloeg, inlegPerPloeg, aantalWippen);
+
+        return result;
     }
 
     //endregion
