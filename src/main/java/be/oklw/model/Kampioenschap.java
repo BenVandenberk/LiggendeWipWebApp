@@ -2,6 +2,7 @@ package be.oklw.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 public class Kampioenschap extends Evenement {
 
@@ -62,22 +63,44 @@ public class Kampioenschap extends Evenement {
 
     //endregion
 
+    //region PUBLIC STATIC METHODS
+
+    public static void addToernooiAanKampioenschap() {
+
+    }
+
+    //endregion
+
     //region PUBLIC METHODS
 
-    public void addSponsor(Sponsor sponsor) {
+    /**
+     * Een Sponsor is gelinkt aan een club. Om een Sponsor te maken moet je de constructor Sponsor(club : Club) gebruiken. Deze method voegt een sponsor
+     * toe aan een Kampioenschap enkel en alleen als de Sponsor gelinkt is aan de Club waaraan ook dit Kampioenschap gelinkt is.
+     * @param sponsor de toe te voegen Sponsor
+     * @throws IllegalArgumentException als de Sponsor niet gelinkt is aan de Club waaraan dit Kampioenschap gelinkt is.
+     */
+    public void addSponsor(Sponsor sponsor) throws IllegalArgumentException {
+        if (!sponsor.getClub().equals(club)) {
+            throw new IllegalArgumentException("De Sponsor moet gelinkt zijn aan de Club waar ook het Kampioenschap aan gelinkt is.");
+        }
         sponsors.add(sponsor);
     }
 
     public void removeSponsor(Sponsor sponsor) {
-
+        sponsors.remove(sponsor);
     }
 
     public void removeSponsor(int id) {
-
+        Optional<Sponsor> sponsor = sponsors.stream().filter(s -> s.getId() == id).findFirst();
+        if (sponsor.isPresent()) {
+            sponsors.remove(sponsor.get());
+        }
     }
 
-    public void addToernooi(Toernooi toernooi) {
-        // CONSISTENT
+    public Toernooi nieuwToernooi() {
+        Toernooi toernooi = new Toernooi(this);
+        toernooien.add(toernooi);
+        return toernooi;
     }
 
     public void removeToernooi(Toernooi toernooi) {

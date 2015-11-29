@@ -13,17 +13,25 @@ public class Sponsor {
     private boolean logoOnline;
     private String logoUrl;
 
+    private Club club;
+
     //endregion
 
     //region CONSTRUCTORS
 
     protected Sponsor(Club club) {
         club.addSponsor(this);
+        this.club = club;
     }
 
     //endregion
 
     //region GETTERS en SETTERS
+
+
+    public Club getClub() {
+        return club;
+    }
 
     public int getId() {
         return id;

@@ -36,10 +36,14 @@ public class Toernooi {
 
     //region CONSTRUCTORS
 
-    public Toernooi(Kampioenschap kampioenschap) {
-        this.kampioenschap = kampioenschap;
+    public Toernooi() {
         ploegen = new ArrayList<Ploeg>();
         status = new Aangemaakt();
+    }
+
+    public Toernooi(Kampioenschap kampioenschap) {
+        this();
+        this.kampioenschap = kampioenschap;
     }
 
     //endregion
