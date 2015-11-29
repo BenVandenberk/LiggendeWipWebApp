@@ -19,13 +19,17 @@ public class Evenement {
 
     //region CONSTRUCTORS
 
-    public Evenement(Club club) {
-        this.club = club;
+    public Evenement() {
+
     }
 
     //endregion
 
     //region GETTERS en SETTERS
+
+    protected void setClub(Club club) {
+        this.club = club;
+    }
 
     public int getId() {
         return id;

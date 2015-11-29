@@ -3,12 +3,14 @@ package be.oklw.model;
 import be.oklw.model.state.Aangemaakt;
 import be.oklw.model.state.ToernooiStatus;
 import be.oklw.util.Datum;
+import org.apache.commons.lang3.StringUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class Toernooi {
 
@@ -30,20 +32,15 @@ public class Toernooi {
 
     private Kampioenschap kampioenschap;
 
-    private ArrayList<Ploeg> ploegen;
+    private HashSet<Ploeg> ploegen;
 
     //endregion
 
     //region CONSTRUCTORS
 
-    protected Toernooi() {
-        ploegen = new ArrayList<Ploeg>();
+    public Toernooi() {
+        ploegen = new HashSet<Ploeg>();
         status = new Aangemaakt();
-    }
-
-    protected Toernooi(Kampioenschap kampioenschap) {
-        this();
-        this.kampioenschap = kampioenschap;
     }
 
     //endregion
@@ -51,11 +48,15 @@ public class Toernooi {
     //region GETTERS en SETTERS
 
     public Iterable<Ploeg> getPloegen() {
-        return Collections.unmodifiableList(ploegen);
+        return Collections.unmodifiableSet(ploegen);
     }
 
     public Kampioenschap getKampioenschap() {
         return kampioenschap;
+    }
+
+    protected void setKampioenschap(Kampioenschap kampioenschap) {
+        this.kampioenschap = kampioenschap;
     }
 
     public int getId() {
@@ -161,12 +162,46 @@ public class Toernooi {
 
     //region PUBLIC METHODS
 
-    public boolean isInstellingenVolledig() {
-        throw new NotImplementedException();
+    protected void addPloeg(Ploeg ploeg) {
+        ploegen.add(ploeg);
     }
 
-    public void schrijfPloegInVoor(Club club) {
-        // CONSISTENT
+    protected void removePloeg(Ploeg ploeg) {
+        ploegen.remove(ploeg);
+    }
+
+    /**
+     * Geeft true als volgende properties geset zijn:
+     * <ul>
+     *     <li>Naam (niet null, niet empty)</li>
+     *     <li>Datum</li>
+     *     <li>StartTijdstip</li>
+     *     <li>PersonenPerPloeg (groter of gelijk aan 1)</li>
+     *     <li>MaximumAantalPloegen (groter of gelijk aan 1)</li>
+     *     <li>InlegPerPloeg (niet null, minimum 0)</li>
+     * </ul>
+     * @return
+     */
+    public boolean isInstellingenVolledig() {
+        if (StringUtils.isBlank(naam)) {
+            return false;
+        }
+        if (datum == null) {
+            return false;
+        }
+        if (startTijdstip == null) {
+            return false;
+        }
+        if (personenPerPloeg < 1) {
+            return false;
+        }
+        if (maximumAantalPloegen < 1) {
+            return false;
+        }
+        if (inlegPerPloeg == null || inlegPerPloeg.floatValue() < 0f) {
+            return false;
+        }
+        return true;
     }
 
     public void openInschrijvingen() {

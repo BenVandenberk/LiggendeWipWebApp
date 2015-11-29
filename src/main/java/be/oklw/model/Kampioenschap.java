@@ -1,8 +1,6 @@
 package be.oklw.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 public class Kampioenschap extends Evenement {
 
@@ -13,16 +11,15 @@ public class Kampioenschap extends Evenement {
     private String overnachtingInfo;
 
     private ArrayList<Sponsor> sponsors;
-    private ArrayList<Toernooi> toernooien;
+    private HashSet<Toernooi> toernooien;
 
     //endregion
 
     //region CONSTRUCTORS
 
-    public Kampioenschap(Club club) {
-        super(club);
+    public Kampioenschap() {
         sponsors = new ArrayList<Sponsor>();
-        toernooien = new ArrayList<Toernooi>();
+        toernooien = new HashSet<Toernooi>();
     }
 
     //endregion
@@ -34,7 +31,7 @@ public class Kampioenschap extends Evenement {
     }
 
     public Iterable<Toernooi> getToernooien() {
-        return Collections.unmodifiableList(toernooien);
+        return Collections.unmodifiableSet(toernooien);
     }
 
     public String getRekeningnummer() {
@@ -59,14 +56,6 @@ public class Kampioenschap extends Evenement {
 
     public void setOvernachtingInfo(String overnachtingInfo) {
         this.overnachtingInfo = overnachtingInfo;
-    }
-
-    //endregion
-
-    //region PUBLIC STATIC METHODS
-
-    public static void addToernooiAanKampioenschap() {
-
     }
 
     //endregion
@@ -97,22 +86,35 @@ public class Kampioenschap extends Evenement {
         }
     }
 
-    public Toernooi nieuwToernooi() {
-        Toernooi toernooi = new Toernooi(this);
+    public void addToernooi(Toernooi toernooi) {
         toernooien.add(toernooi);
-        return toernooi;
+        toernooi.setKampioenschap(this);
     }
 
     public void removeToernooi(Toernooi toernooi) {
-
+        toernooien.remove(toernooi);
     }
 
     public void removeToernooi(int id) {
-
+        Optional<Toernooi> toernooi = toernooien.stream().filter(t -> t.getId() == id).findFirst();
+        if (toernooi.isPresent()) {
+            toernooien.remove(toernooi.get());
+        }
     }
 
+    /**
+     * Een Kampioenschap is verwijderbaar als al de Toernooien in het Kampioenschap verwijderbaar zijn
+     * @return true als dit Kampioenschap verwijderbaar is
+     */
     public boolean isVerwijderbaar() {
-        return false;
+        boolean verwijderbaar = true;
+
+        Iterator<Toernooi> it = toernooien.iterator();
+        while (it.hasNext() && verwijderbaar) {
+            verwijderbaar = it.next().isVerwijderbaar();
+        }
+
+        return  verwijderbaar;
     }
 
     //endregion
