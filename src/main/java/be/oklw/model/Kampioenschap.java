@@ -5,6 +5,8 @@ import java.util.Collections;
 
 public class Kampioenschap extends Evenement {
 
+    //region PRIVATE MEMBERS
+
     private String rekeningnummer;
     private String contact;
     private String overnachtingInfo;
@@ -12,11 +14,19 @@ public class Kampioenschap extends Evenement {
     private ArrayList<Sponsor> sponsors;
     private ArrayList<Toernooi> toernooien;
 
+    //endregion
+
+    //region CONSTRUCTORS
+
     public Kampioenschap(Club club) {
         super(club);
         sponsors = new ArrayList<Sponsor>();
         toernooien = new ArrayList<Toernooi>();
     }
+
+    //endregion
+
+    //region GETTERS en SETTERS
 
     public Iterable<Sponsor> getSponsors() {
         return Collections.unmodifiableList(sponsors);
@@ -50,6 +60,10 @@ public class Kampioenschap extends Evenement {
         this.overnachtingInfo = overnachtingInfo;
     }
 
+    //endregion
+
+    //region PUBLIC METHODS
+
     public void addSponsor(Sponsor sponsor) {
         sponsors.add(sponsor);
     }
@@ -77,5 +91,20 @@ public class Kampioenschap extends Evenement {
     public boolean isVerwijderbaar() {
         return false;
     }
+
+    //endregion
+
+    //region OBJECT METHODS
+
+    @Override
+    public String toString() {
+        String result = super.toString();
+
+        result += String.format("%nEvenement is een Kampioenschap");
+
+        return result;
+    }
+
+    //endregion
 
 }

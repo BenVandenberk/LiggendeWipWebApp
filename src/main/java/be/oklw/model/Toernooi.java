@@ -2,27 +2,29 @@ package be.oklw.model;
 
 import be.oklw.model.state.Aangemaakt;
 import be.oklw.model.state.ToernooiStatus;
+import be.oklw.util.Datum;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
-import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 public class Toernooi {
 
+    //region PRIVATE MEMBERS
+
     private int id;
     private String naam;
-    private Date datum;
-    private Time startTijdstip;
+    private Datum datum;
+    private LocalTime startTijdstip;
     private int personenPerPloeg;
     private BigDecimal inlegPerPloeg;
     private int maximumAantalPloegen;
     private int aantalWippen;
     private String omschrijving;
     private ToernooiStatus status;
-    private Date inschrijfDeadline;
+    private Datum inschrijfDeadline;
     private boolean heeftMaaltijd;
     private String cateringInfo;
 
@@ -30,12 +32,17 @@ public class Toernooi {
 
     private ArrayList<Ploeg> ploegen;
 
+    //endregion
+
+    //region CONSTRUCTORS
+
     public Toernooi(Kampioenschap kampioenschap) {
         this.kampioenschap = kampioenschap;
         ploegen = new ArrayList<Ploeg>();
         status = new Aangemaakt();
     }
 
+    //endregion
 
     //region GETTERS en SETTERS
 
@@ -59,19 +66,19 @@ public class Toernooi {
         this.naam = naam;
     }
 
-    public Date getDatum() {
+    public Datum getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(Datum datum) {
         this.datum = datum;
     }
 
-    public Time getStartTijdstip() {
+    public LocalTime getStartTijdstip() {
         return startTijdstip;
     }
 
-    public void setStartTijdstip(Time startTijdstip) {
+    public void setStartTijdstip(LocalTime startTijdstip) {
         this.startTijdstip = startTijdstip;
     }
 
@@ -123,11 +130,11 @@ public class Toernooi {
         this.status = status;
     }
 
-    public Date getInschrijfDeadline() {
+    public Datum getInschrijfDeadline() {
         return inschrijfDeadline;
     }
 
-    public void setInschrijfDeadline(Date inschrijfDeadline) {
+    public void setInschrijfDeadline(Datum inschrijfDeadline) {
         this.inschrijfDeadline = inschrijfDeadline;
     }
 
@@ -204,7 +211,7 @@ public class Toernooi {
 
     //endregion
 
-    //region Object methods
+    //region OBJECT METHODS
 
     @Override
     public boolean equals(Object o) {
@@ -230,8 +237,9 @@ public class Toernooi {
         String result = "";
 
         result += String.format("Toernooi '%s', ID=%d%n", naam, id);
-        result += String.format("Op %s, start: %s%n", datum, startTijdstip);
-        result += String.format("%d ploegen, %d/ploeg, €%f/ploeg inleg, %d wippen", maximumAantalPloegen, personenPerPloeg, inlegPerPloeg, aantalWippen);
+        result += String.format("Op %s, start: %s%n", datum.getDatumInEuropeesFormaat(), startTijdstip);
+        result += String.format("%d ploegen, %d/ploeg, €%f/ploeg inleg, %d wippen%n", maximumAantalPloegen, personenPerPloeg, inlegPerPloeg, aantalWippen);
+        result += String.format("In het kader van: %s", kampioenschap.getNaam());
 
         return result;
     }
