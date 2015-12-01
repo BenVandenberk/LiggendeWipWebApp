@@ -113,5 +113,49 @@ public class Ploeg {
         return ploeg;
     }
 
+    public void addDeelnemer (Deelnemer deelnemer){
+        deelnemers.add(deelnemer);
+    }
+
+    public void removeDeelnemer (Deelnemer deelnemer){
+        deelnemers.remove(deelnemer);
+    }
+
+    public void removeDeelnemer (int id){
+        deelnemers.remove(id);
+    }
+
+    public boolean isVolzet(){
+        if (deelnemers.size()==aantalLeden){
+            return true;
+        }
+        else return false;
+    }
+
     //endregion
+
+    //region OBJECT METHODS
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (naam != null ? naam.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += String.format("Ploeg '%s', ID=%d%n", naam, id);
+        result += String.format("met deelnemers %n");
+        for (Deelnemer d : deelnemers){
+        result += String.format("%s%n", d.getNaam());
+        }
+
+        return result;
+    }
+
+    //endregion
+
 }
