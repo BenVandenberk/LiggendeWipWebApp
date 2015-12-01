@@ -2,17 +2,25 @@ package be.oklw.model;
 
 import be.oklw.util.Datum;
 
+import javax.persistence.*;
+
+@Entity
 public class Evenement {
 
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
     protected String naam;
     protected String locatie;
+    @Transient
     protected Datum beginDatum;
+    @Transient
     protected Datum eindDatum;
     protected String omschrijving;
 
+    @Transient
     protected Club club;
 
     //endregion

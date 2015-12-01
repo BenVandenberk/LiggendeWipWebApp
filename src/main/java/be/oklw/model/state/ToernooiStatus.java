@@ -28,4 +28,9 @@ public abstract class ToernooiStatus {
     public boolean isInschrijvenMogelijk() {
         return inschrijvenMogelijk;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Verwijderbaar: %s, Aanpasbaar: %s, Inschrijven Mogelijk: %s", verwijderbaar, aanpasbaar, inschrijvenMogelijk);
+    }
 }

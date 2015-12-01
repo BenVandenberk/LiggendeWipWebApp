@@ -2,6 +2,7 @@ package be.oklw.model.state;
 
 
 import be.oklw.model.Ploeg;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Aangemaakt extends ToernooiStatus {
 
@@ -34,21 +35,26 @@ public class Aangemaakt extends ToernooiStatus {
 
     @Override
     public void loot() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void start() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void stop() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void heropenInschrijvingen() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Aangemaakt --- " + super.toString();
     }
 }

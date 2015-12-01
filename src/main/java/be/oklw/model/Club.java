@@ -1,6 +1,7 @@
 package be.oklw.model;
 
 import be.oklw.util.Datum;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -112,12 +113,16 @@ public class Club {
         sponsors.add(sponsor);
     }
 
-    public void addPloeg(Ploeg ploeg){
+    protected void addPloeg(Ploeg ploeg){
         ploegen.add(ploeg);
     }
 
     public void addContact(Contact contact){
         contacten.add(contact);
+    }
+
+    public void addKampioenschap(Kampioenschap kampioenschap) {
+        throw new NotImplementedException();
     }
 
     //endregion

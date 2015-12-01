@@ -1,6 +1,7 @@
 package be.oklw.model.state;
 
 import be.oklw.model.Ploeg;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by java on 28.11.15.
@@ -35,21 +36,26 @@ public class Vol extends ToernooiStatus {
 
     @Override
     public void loot() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void start() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void stop() {
-
+        throw new NotImplementedException();
     }
 
     @Override
     public void heropenInschrijvingen() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Vol --- " + super.toString();
     }
 }
