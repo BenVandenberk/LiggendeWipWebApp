@@ -1,6 +1,5 @@
 package be.oklw.model.state;
 
-import be.oklw.model.Club;
 import be.oklw.model.Ploeg;
 
 /**
@@ -11,11 +10,7 @@ public class Lopend extends ToernooiStatus {
     public Lopend() {
         verwijderbaar = false;
         aanpasbaar = false;
-    }
-
-    @Override
-    public void schrijfPloegInVoor(Club club) {
-
+        inschrijvenMogelijk = false;
     }
 
     @Override

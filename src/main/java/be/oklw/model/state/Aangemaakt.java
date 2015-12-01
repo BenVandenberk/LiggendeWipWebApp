@@ -1,7 +1,6 @@
 package be.oklw.model.state;
 
 
-import be.oklw.model.Club;
 import be.oklw.model.Ploeg;
 
 public class Aangemaakt extends ToernooiStatus {
@@ -10,11 +9,7 @@ public class Aangemaakt extends ToernooiStatus {
     public Aangemaakt() {
         verwijderbaar = true;
         aanpasbaar = true;
-    }
-
-    @Override
-    public void schrijfPloegInVoor(Club club) {
-
+        inschrijvenMogelijk = false;
     }
 
     @Override

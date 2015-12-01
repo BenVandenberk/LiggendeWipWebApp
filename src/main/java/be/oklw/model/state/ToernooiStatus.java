@@ -1,14 +1,13 @@
 package be.oklw.model.state;
 
-import be.oklw.model.Club;
 import be.oklw.model.Ploeg;
 
 public abstract class ToernooiStatus {
 
     protected boolean verwijderbaar;
     protected boolean aanpasbaar;
+    protected boolean inschrijvenMogelijk;
 
-    public abstract void schrijfPloegInVoor(Club club);
     public abstract void openInschrijvingen();
     public abstract void annuleerInschrijving(Ploeg ploeg);
     public abstract void annuleerInschrijving(int id);
@@ -24,5 +23,9 @@ public abstract class ToernooiStatus {
 
     public boolean isAanpasbaar() {
         return aanpasbaar;
+    }
+
+    public boolean isInschrijvenMogelijk() {
+        return inschrijvenMogelijk;
     }
 }

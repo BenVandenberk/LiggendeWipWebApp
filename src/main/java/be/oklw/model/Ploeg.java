@@ -84,16 +84,32 @@ public class Ploeg {
 
     //region PUBLIC METHODS
 
+    /**
+     * Gebruik deze method om een ploeg in te schrijven voor een toernooi
+     * @param club
+     * @param toernooi
+     * @param naam
+     * @param aantalLeden
+     * @return de ingeschreven Ploeg
+     * @throws IllegalArgumentException als club of toernooi null zijn
+     * @throws IllegalStateException als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
+     */
     public static Ploeg koppelClubAanToernooi(Club club, Toernooi toernooi, String naam, int aantalLeden)
-            throws IllegalArgumentException {
+            throws IllegalArgumentException, IllegalStateException {
         if (club == null || toernooi == null) {
             throw new IllegalArgumentException(
                     "De Club en het Toernooi moeten verwijzen naar een bestaand object");
         }
 
         Ploeg ploeg = new Ploeg(naam, aantalLeden);
-        club.addPloeg(ploeg);
-        toernooi.addPloeg(ploeg);
+
+        if (toernooi.getStatus().isInschrijvenMogelijk()) {
+            club.addPloeg(ploeg);
+            toernooi.addPloeg(ploeg);
+        } else {
+            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toString()));
+        }
+
         return ploeg;
     }
 
