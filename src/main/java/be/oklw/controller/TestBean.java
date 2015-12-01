@@ -1,5 +1,7 @@
 package be.oklw.controller;
 
+import be.oklw.model.Evenement;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -19,5 +21,10 @@ public class TestBean {
         configuration.configure();
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         sessionFactory = configuration.buildSessionFactory(ssrb.build());
+
+        Evenement ev = new Evenement();
+        Session sess = sessionFactory.openSession();
+        sess.saveOrUpdate(ev);
+        sess.close();
     }
 }

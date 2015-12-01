@@ -1,14 +1,13 @@
 package be.oklw.model;
 
-public class Contact {
+public class SysteemAccount extends Account {
 
     //region PRIVATE MEMBERS
 
-    private int id;
     private String naam;
-    private String telefoonnummer;
     private String email;
-    private boolean isBeheerder;
+    private String telefoonnummer;
+    private final PermissieNiveau permissieNiveau = PermissieNiveau.SYSTEEM;
 
     //endregion
 
@@ -22,8 +21,12 @@ public class Contact {
         this.naam = naam;
     }
 
-    public int getId() {
-        return id;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTelefoonnummer() {
@@ -34,25 +37,14 @@ public class Contact {
         this.telefoonnummer = telefoonnummer;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isBeheerder() {
-        return isBeheerder;
-    }
-
-    public void setIsBeheerder(boolean isBeheerder) {
-        this.isBeheerder = isBeheerder;
-    }
-
     //endregion
 
     //region CONSTRUCTORS
+
+    public SysteemAccount(Club club, String naam) {
+        super(club);
+        this.naam = naam;
+    }
 
     //endregion
 

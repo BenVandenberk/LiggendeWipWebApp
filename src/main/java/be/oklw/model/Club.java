@@ -1,7 +1,6 @@
 package be.oklw.model;
 
 import be.oklw.util.Datum;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,15 +24,22 @@ public class Club {
     private ArrayList<Sponsor> sponsors;
     private HashSet<Ploeg> ploegen;
     private ArrayList<Contact> contacten;
+    private HashSet<Kampioenschap> kampioenschappen;
 
     //endregion
 
     //region CONSTRUCTORS
 
+    /**
+     * Bij het aanmaken van een Club object worden automatisch
+     * lege lijsten sponsors, kampioenschappen en contacten,
+     * en een club-account aangemaakt
+     */
+
     public Club(String naam, String locatie, Datum sinds){
         sponsors = new ArrayList<Sponsor>();
-        ploegen = new HashSet<Ploeg>();
         contacten = new ArrayList<Contact>();
+        kampioenschappen = new HashSet<Kampioenschap>();
         account = new Account(this);
 
         this.naam = naam;
@@ -55,6 +61,10 @@ public class Club {
 
     public Iterable<Contact> getContacten() {
         return Collections.unmodifiableList(contacten);
+    }
+
+    public Iterable<Kampioenschap> getKampioenschappen() {
+        return Collections.unmodifiableSet(kampioenschappen);
     }
 
     public Account getAccount() {
@@ -113,20 +123,76 @@ public class Club {
         sponsors.add(sponsor);
     }
 
-    protected void addPloeg(Ploeg ploeg){
+    public void removeSponsor(Sponsor sponsor){
+        sponsors.remove(sponsor);
+    }
+
+    public void removeSponsor(int id){
+        sponsors.remove(id);
+    }
+
+    public void addPloeg(Ploeg ploeg){
         ploegen.add(ploeg);
+    }
+
+    public void removePloeg(Ploeg ploeg){
+        ploegen.remove(ploeg);
     }
 
     public void addContact(Contact contact){
         contacten.add(contact);
     }
 
-    public void addKampioenschap(Kampioenschap kampioenschap) {
-        throw new NotImplementedException();
+    public void removeContact(Contact contact){
+        contacten.remove(contact);
+    }
+
+    public void removeContact(int id){
+        contacten.remove(id);
+    }
+
+    /**
+     * Deze method maakt een nieuw Kampioenschap object aan
+     * en voegt deze toe aan de kampioenschappen lijst van de club
+     */
+
+    public void maakKampioenschap(String naam, Datum start, Datum eind){
+
+        Kampioenschap kampioenschap = new Kampioenschap();
+        kampioenschap.setNaam(naam);
+        kampioenschap.setBeginDatum(start);
+        kampioenschap.setEindDatum(eind);
+        kampioenschap.setClub(this);
+
+        kampioenschappen.add(kampioenschap);
+    }
+
+    public void removeKampioenschap(Kampioenschap kampioenschap){
+        kampioenschappen.remove(kampioenschap);
     }
 
     //endregion
 
+    //region OBJECT METHODS
 
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (naam != null ? naam.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+
+        result += String.format("Club '%s', ID=%d%n", naam, id);
+        result += String.format("uit %s%n", locatie);
+        result += String.format("Geregistreerd %s", sinds);
+
+        return result;
+    }
+
+    //endregion
 
 }

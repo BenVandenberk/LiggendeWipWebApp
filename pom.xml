@@ -69,9 +69,6 @@
               <configuration>
                   <webResources>
                       <resource>
-                          <!--<directory>resources</directory>
-                          &lt;!&ndash; override the destination directory for this resource &ndash;&gt;
-                          <targetPath>WEB-INF</targetPath>-->
                           <includes>
                               <include>hibernate.cfg.xml</include>
                           </includes>

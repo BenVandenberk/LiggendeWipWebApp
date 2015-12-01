@@ -4,7 +4,7 @@ import be.oklw.util.Datum;
 
 import javax.persistence.*;
 
-@Entity
+@javax.persistence.Entity
 public class Evenement {
 
     //region PRIVATE MEMBERS
