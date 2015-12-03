@@ -1,7 +1,9 @@
 package be.oklw.model;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
 public class Kampioenschap extends Evenement {
 
     //region PRIVATE MEMBERS
@@ -10,8 +12,11 @@ public class Kampioenschap extends Evenement {
     private String contact;
     private String overnachtingInfo;
 
-    private ArrayList<Sponsor> sponsors;
-    private HashSet<Toernooi> toernooien;
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Sponsor> sponsors;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
+    private Set<Toernooi> toernooien;
 
     //endregion
 
@@ -26,11 +31,11 @@ public class Kampioenschap extends Evenement {
 
     //region GETTERS en SETTERS
 
-    public Iterable<Sponsor> getSponsors() {
+    public List<Sponsor> getSponsors() {
         return Collections.unmodifiableList(sponsors);
     }
 
-    public Iterable<Toernooi> getToernooien() {
+    public Set<Toernooi> getToernooien() {
         return Collections.unmodifiableSet(toernooien);
     }
 

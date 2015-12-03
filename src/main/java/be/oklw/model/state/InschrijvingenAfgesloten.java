@@ -58,4 +58,9 @@ public class InschrijvingenAfgesloten extends ToernooiStatus {
     public String toString() {
         return "Inschrijvingen Afgesloten --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Inschrijvingen Afgesloten";
+    }
 }

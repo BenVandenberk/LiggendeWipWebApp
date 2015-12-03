@@ -1,17 +1,40 @@
 package be.oklw.model;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "accountType", discriminatorType = DiscriminatorType.STRING)
 public class Account {
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String userName;
+    @Enumerated(EnumType.STRING)
     private PermissieNiveau permissieNiveau;
 
+    @Lob
+    private byte[] pwHash;
+    @Lob
+    private byte[] pwSalt;
+
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
     private Club club;
 
     //endregion
 
     //region GETTERS & SETTERS
+
+
+    public byte[] getPwHash() {
+        return pwHash;
+    }
+
+    public byte[] getPwSalt() {
+        return pwSalt;
+    }
 
     public int getId() {
         return id;
@@ -41,6 +64,10 @@ public class Account {
     //endregion
 
     //region CONSTRUCTORS
+
+    protected Account() {
+
+    }
 
     /**
      * Deze constructor wordt gebruikt om een club-account aan te maken

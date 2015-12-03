@@ -58,4 +58,9 @@ public class Afgerond extends ToernooiStatus {
     public String toString() {
         return "Afgerond --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Afgerond";
+    }
 }

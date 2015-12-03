@@ -1,34 +1,52 @@
 package be.oklw.model;
 
 import be.oklw.util.Datum;
+import org.hibernate.annotations.Type;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import javax.persistence.*;
+import java.util.*;
 
-/**
- * Created by java on 28.11.15.
- */
+@Entity
 public class Club {
 
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String naam;
-    private String locatie;
+
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
     private Datum sinds;
+
     private String adres;
     private String link;
+    private String naam;
+    private String locatie;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
-    private ArrayList<Sponsor> sponsors;
-    private HashSet<Ploeg> ploegen;
-    private ArrayList<Contact> contacten;
-    private HashSet<Kampioenschap> kampioenschappen;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")
+    private List<Sponsor> sponsors;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "club")
+    private Set<Ploeg> ploegen;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Contact> contacten;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")
+    private Set<Evenement> evenementen;
 
     //endregion
 
     //region CONSTRUCTORS
+
+    public Club() {
+        sponsors = new ArrayList<Sponsor>();
+        contacten = new ArrayList<Contact>();
+        evenementen = new HashSet<Evenement>();
+    }
 
     /**
      * Bij het aanmaken van een Club object worden automatisch
@@ -37,9 +55,7 @@ public class Club {
      */
 
     public Club(String naam, String locatie, Datum sinds){
-        sponsors = new ArrayList<Sponsor>();
-        contacten = new ArrayList<Contact>();
-        kampioenschappen = new HashSet<Kampioenschap>();
+        this();
         account = new Account(this);
 
         this.naam = naam;
@@ -51,20 +67,20 @@ public class Club {
 
     //region GETTERS & SETTERS
 
-    public Iterable<Sponsor> getSponsors() {
+    public List<Sponsor> getSponsors() {
         return Collections.unmodifiableList(sponsors);
     }
 
-    public Iterable<Ploeg> getPloegen() {
+    public Set<Ploeg> getPloegen() {
         return Collections.unmodifiableSet(ploegen);
     }
 
-    public Iterable<Contact> getContacten() {
+    public List<Contact> getContacten() {
         return Collections.unmodifiableList(contacten);
     }
 
-    public Iterable<Kampioenschap> getKampioenschappen() {
-        return Collections.unmodifiableSet(kampioenschappen);
+    public Set<Evenement> getEvenementen() {
+        return Collections.unmodifiableSet(evenementen);
     }
 
     public Account getAccount() {
@@ -164,11 +180,11 @@ public class Club {
         kampioenschap.setEindDatum(eind);
         kampioenschap.setClub(this);
 
-        kampioenschappen.add(kampioenschap);
+        evenementen.add(kampioenschap);
     }
 
     public void removeKampioenschap(Kampioenschap kampioenschap){
-        kampioenschappen.remove(kampioenschap);
+        evenementen.remove(kampioenschap);
     }
 
     //endregion

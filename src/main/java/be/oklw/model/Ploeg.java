@@ -1,26 +1,45 @@
 package be.oklw.model;
 
 import be.oklw.util.Datum;
+import org.hibernate.annotations.Type;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Collections;
+import java.util.List;
 
+@Entity
 public class Ploeg {
 
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String naam;
     private int aantalLeden;
-    private Datum inschrijfDatum;
     private int aantalMaaltijden;
     private boolean betaald;
 
-    private ArrayList<Deelnemer> deelnemers;
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
+    private Datum inschrijfDatum;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Deelnemer> deelnemers;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Club club;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Toernooi toernooi;
 
     //endregion
 
     //region CONSTRUCTORS
+
+    protected Ploeg() {
+
+    }
 
     private Ploeg(String naam, int aantalLeden){
         this.naam = naam;
@@ -31,7 +50,16 @@ public class Ploeg {
 
     //region GETTERS & SETTERS
 
-    public Iterable<Deelnemer> getDeelnemers() {
+
+    public Toernooi getToernooi() {
+        return toernooi;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public List<Deelnemer> getDeelnemers() {
         return Collections.unmodifiableList(deelnemers);
     }
 

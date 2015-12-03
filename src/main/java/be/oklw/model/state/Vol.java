@@ -58,4 +58,9 @@ public class Vol extends ToernooiStatus {
     public String toString() {
         return "Vol --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Vol";
+    }
 }

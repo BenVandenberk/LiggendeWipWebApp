@@ -58,4 +58,9 @@ public class Geloot extends ToernooiStatus {
     public String toString() {
         return "Geloot --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Geloot";
+    }
 }

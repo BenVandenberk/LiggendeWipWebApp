@@ -57,4 +57,9 @@ public class Aangemaakt extends ToernooiStatus {
     public String toString() {
         return "Aangemaakt --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Aangemaakt";
+    }
 }

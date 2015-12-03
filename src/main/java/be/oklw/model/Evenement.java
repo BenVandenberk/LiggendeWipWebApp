@@ -1,10 +1,13 @@
 package be.oklw.model;
 
 import be.oklw.util.Datum;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
-@javax.persistence.Entity
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "evenementType", discriminatorType = DiscriminatorType.STRING)
 public class Evenement {
 
     //region PRIVATE MEMBERS
@@ -12,15 +15,18 @@ public class Evenement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
+
     protected String naam;
     protected String locatie;
-    @Transient
-    protected Datum beginDatum;
-    @Transient
-    protected Datum eindDatum;
     protected String omschrijving;
 
-    @Transient
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
+    protected Datum beginDatum;
+
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
+    protected Datum eindDatum;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     protected Club club;
 
     //endregion

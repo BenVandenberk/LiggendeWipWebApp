@@ -4,35 +4,48 @@ import be.oklw.model.state.Aangemaakt;
 import be.oklw.model.state.ToernooiStatus;
 import be.oklw.util.Datum;
 import org.apache.commons.lang3.StringUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
+@Entity
 public class Toernooi {
 
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String naam;
-    private Datum datum;
     private LocalTime startTijdstip;
     private int personenPerPloeg;
     private BigDecimal inlegPerPloeg;
     private int maximumAantalPloegen;
     private int aantalWippen;
     private String omschrijving;
-    private ToernooiStatus status;
-    private Datum inschrijfDeadline;
     private boolean heeftMaaltijd;
     private String cateringInfo;
 
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
+    private Datum datum;
+
+    @Type(type= "be.oklw.data.usertype.DatumUserType")
+    private Datum inschrijfDeadline;
+
+    @Type(type = "be.oklw.data.usertype.ToernooiStatusUserType")
+    private ToernooiStatus status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Kampioenschap kampioenschap;
 
-    private HashSet<Ploeg> ploegen;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toernooi")
+    private Set<Ploeg> ploegen;
 
     //endregion
 
@@ -47,7 +60,7 @@ public class Toernooi {
 
     //region GETTERS en SETTERS
 
-    public Iterable<Ploeg> getPloegen() {
+    public Set<Ploeg> getPloegen() {
         return Collections.unmodifiableSet(ploegen);
     }
 

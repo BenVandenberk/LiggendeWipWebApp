@@ -58,4 +58,9 @@ public class Gearchiveerd extends ToernooiStatus {
     public String toString() {
         return "Gearchiveerd --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Gearchiveerd";
+    }
 }

@@ -58,4 +58,9 @@ public class Ingesteld extends ToernooiStatus {
     public String toString() {
         return "Ingesteld --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Ingesteld";
+    }
 }

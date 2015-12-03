@@ -58,4 +58,9 @@ public class InschrijvingenOpen extends ToernooiStatus {
     public String toString() {
         return "Inschrijvingen Open --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Inschrijvingen Open";
+    }
 }

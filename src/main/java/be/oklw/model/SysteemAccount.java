@@ -1,5 +1,10 @@
 package be.oklw.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Entity
 public class SysteemAccount extends Account {
 
     //region PRIVATE MEMBERS
@@ -7,7 +12,6 @@ public class SysteemAccount extends Account {
     private String naam;
     private String email;
     private String telefoonnummer;
-    private final PermissieNiveau permissieNiveau = PermissieNiveau.SYSTEEM;
 
     //endregion
 
@@ -41,8 +45,13 @@ public class SysteemAccount extends Account {
 
     //region CONSTRUCTORS
 
-    public SysteemAccount(Club club, String naam) {
-        super(club);
+    protected SysteemAccount() {
+        super();
+        setPermissieNiveau(PermissieNiveau.SYSTEEM);
+    }
+
+    public SysteemAccount(String naam) {
+        this();
         this.naam = naam;
     }
 

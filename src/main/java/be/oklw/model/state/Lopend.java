@@ -58,4 +58,9 @@ public class Lopend extends ToernooiStatus {
     public String toString() {
         return "Lopend --- " + super.toString();
     }
+
+    @Override
+    public String toStringSimple() {
+        return "Lopend";
+    }
 }

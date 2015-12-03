@@ -1,11 +1,17 @@
 package be.oklw.model;
 
 
+import javax.persistence.*;
+
+@Entity
 public class Sponsor {
 
     //region PRIVATE MEMBERS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String naam;
     private String linksTo;
     private int logoHoogte;
@@ -13,11 +19,16 @@ public class Sponsor {
     private boolean logoOnline;
     private String logoUrl;
 
+    @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
 
     //endregion
 
     //region CONSTRUCTORS
+
+    public Sponsor() {
+
+    }
 
     protected Sponsor(Club club) {
         club.addSponsor(this);

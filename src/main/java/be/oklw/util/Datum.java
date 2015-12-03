@@ -2,6 +2,7 @@ package be.oklw.util;
 
 import static java.lang.Math.abs;
 
+import java.io.Serializable;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -17,7 +18,7 @@ import java.util.Locale;
  * @version 4/10/2014
  *
  */
-public class Datum implements Comparable<Datum> {
+public class Datum implements Comparable<Datum>, Serializable {
 
     private GregorianCalendar gregorianCalendarDatum;
     private static Locale locale = Locale.getDefault();

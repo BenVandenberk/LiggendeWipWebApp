@@ -20,7 +20,7 @@
 
 
         <!-- Database Scheme Auto Update -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">create-drop</property>
 
         <!-- properties -->
 
@@ -33,6 +33,16 @@
 
         <!-- gemapte classes -->
         <mapping class="be.oklw.model.Evenement"/>
+        <mapping class="be.oklw.model.Club"/>
+        <mapping class="be.oklw.model.Account"/>
+        <mapping class="be.oklw.model.SysteemAccount"/>
+        <mapping class="be.oklw.model.Kampioenschap"/>
+        <mapping class="be.oklw.model.Contact"/>
+        <mapping class="be.oklw.model.Deelnemer"/>
+        <mapping class="be.oklw.model.Ploeg"/>
+        <mapping class="be.oklw.model.Sponsor"/>
+        <mapping class="be.oklw.model.Toernooi"/>
+        <mapping class="be.oklw.model.state.ToernooiStatus"/>
 
 
     </session-factory>
