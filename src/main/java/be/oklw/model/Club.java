@@ -46,6 +46,7 @@ public class Club {
         sponsors = new ArrayList<Sponsor>();
         contacten = new ArrayList<Contact>();
         evenementen = new HashSet<Evenement>();
+        this.sinds = new Datum();
     }
 
     /**
@@ -54,13 +55,12 @@ public class Club {
      * en een club-account aangemaakt
      */
 
-    public Club(String naam, String locatie, Datum sinds){
+    public Club(String naam, String locatie){
         this();
         account = new Account(this);
 
         this.naam = naam;
         this.locatie = locatie;
-        this.sinds = sinds;
     }
 
     //endregion
@@ -144,10 +144,14 @@ public class Club {
     }
 
     public void removeSponsor(int id){
-        sponsors.remove(id);
+        for (Sponsor s : sponsors){
+            if (s.getId()==id){
+                sponsors.remove(s);
+            }
+        }
     }
 
-    public void addPloeg(Ploeg ploeg){
+    protected void addPloeg(Ploeg ploeg){
         ploegen.add(ploeg);
     }
 
@@ -164,7 +168,11 @@ public class Club {
     }
 
     public void removeContact(int id){
-        contacten.remove(id);
+        for (Contact c : contacten){
+            if (c.getId()==id){
+                contacten.remove(c);
+            }
+        }
     }
 
     /**
@@ -190,6 +198,18 @@ public class Club {
     //endregion
 
     //region OBJECT METHODS
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Club club = (Club) o;
+
+        if (id != club.id) return false;
+        return !(naam != null ? !naam.equals(club.naam) : club.naam != null);
+
+    }
 
     @Override
     public int hashCode() {

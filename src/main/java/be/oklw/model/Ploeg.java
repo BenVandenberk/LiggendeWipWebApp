@@ -41,9 +41,9 @@ public class Ploeg {
 
     }
 
-    private Ploeg(String naam, int aantalLeden){
+    private Ploeg(String naam){
         this.naam = naam;
-        this.aantalLeden = aantalLeden;
+        inschrijfDatum = new Datum();
     }
 
     //endregion
@@ -55,8 +55,16 @@ public class Ploeg {
         return toernooi;
     }
 
+    public void setToernooi(Toernooi toernooi) {
+        this.toernooi = toernooi;
+    }
+
     public Club getClub() {
         return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public List<Deelnemer> getDeelnemers() {
@@ -117,23 +125,28 @@ public class Ploeg {
      * @param club
      * @param toernooi
      * @param naam
-     * @param aantalLeden
      * @return de ingeschreven Ploeg
      * @throws IllegalArgumentException als club of toernooi null zijn
      * @throws IllegalStateException als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
      */
-    public static Ploeg koppelClubAanToernooi(Club club, Toernooi toernooi, String naam, int aantalLeden)
+    public static Ploeg schrijfPloegInVoorToernooi(Club club, Toernooi toernooi, String naam)
             throws IllegalArgumentException, IllegalStateException {
         if (club == null || toernooi == null) {
             throw new IllegalArgumentException(
                     "De Club en het Toernooi moeten verwijzen naar een bestaand object");
         }
 
-        Ploeg ploeg = new Ploeg(naam, aantalLeden);
+        Ploeg ploeg = new Ploeg(naam);
 
         if (toernooi.getStatus().isInschrijvenMogelijk()) {
+
+            ploeg.setClub(club);
+            ploeg.setToernooi(toernooi);
+            ploeg.setAantalLeden(toernooi.getPersonenPerPloeg());
+
             club.addPloeg(ploeg);
             toernooi.addPloeg(ploeg);
+
         } else {
             throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toString()));
         }
@@ -141,8 +154,14 @@ public class Ploeg {
         return ploeg;
     }
 
-    public void addDeelnemer (Deelnemer deelnemer){
+    public void addDeelnemer (Deelnemer deelnemer)
+            throws Exception {
+        if (!isVolzet()){
         deelnemers.add(deelnemer);
+        }
+        else {
+            throw new Exception(String.format("Ploeg '%s' is volzet", naam));
+        }
     }
 
     public void removeDeelnemer (Deelnemer deelnemer){
@@ -163,6 +182,20 @@ public class Ploeg {
     //endregion
 
     //region OBJECT METHODS
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ploeg ploeg = (Ploeg) o;
+
+        if (id != ploeg.id) return false;
+        return !(naam != null && toernooi != null ?
+                !(naam.equals(ploeg.naam) && toernooi.equals(ploeg.toernooi))
+                : ploeg.naam != null && ploeg.toernooi != null);
+
+    }
 
     @Override
     public int hashCode() {

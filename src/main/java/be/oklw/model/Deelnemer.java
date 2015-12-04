@@ -36,6 +36,12 @@ public class Deelnemer {
 
     //region CONSTRUCTORS
 
+    public Deelnemer(){}
+
+    public Deelnemer(String naam){
+        this.naam = naam;
+    }
+
     //endregion
 
     //region PUBLIC METHODS
