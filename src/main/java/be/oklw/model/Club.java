@@ -180,7 +180,7 @@ public class Club {
      * en voegt deze toe aan de kampioenschappen lijst van de club
      */
 
-    public void maakKampioenschap(String naam, Datum start, Datum eind){
+    public Kampioenschap maakKampioenschap(String naam, Datum start, Datum eind){
 
         Kampioenschap kampioenschap = new Kampioenschap();
         kampioenschap.setNaam(naam);
@@ -189,6 +189,7 @@ public class Club {
         kampioenschap.setClub(this);
 
         evenementen.add(kampioenschap);
+        return kampioenschap;
     }
 
     public void removeKampioenschap(Kampioenschap kampioenschap){

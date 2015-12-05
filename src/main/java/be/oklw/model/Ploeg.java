@@ -155,12 +155,12 @@ public class Ploeg {
     }
 
     public void addDeelnemer (Deelnemer deelnemer)
-            throws Exception {
+            throws IllegalStateException {
         if (!isVolzet()){
         deelnemers.add(deelnemer);
         }
         else {
-            throw new Exception(String.format("Ploeg '%s' is volzet", naam));
+            throw new IllegalStateException(String.format("Ploeg '%s' is volzet", naam));
         }
     }
 
@@ -183,6 +183,7 @@ public class Ploeg {
 
     //region OBJECT METHODS
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -191,9 +192,7 @@ public class Ploeg {
         Ploeg ploeg = (Ploeg) o;
 
         if (id != ploeg.id) return false;
-        return !(naam != null && toernooi != null ?
-                !(naam.equals(ploeg.naam) && toernooi.equals(ploeg.toernooi))
-                : ploeg.naam != null && ploeg.toernooi != null);
+        return !(naam != null ? !naam.equals(ploeg.naam) : ploeg.naam != null);
 
     }
 
