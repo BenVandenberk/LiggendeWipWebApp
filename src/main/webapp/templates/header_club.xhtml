@@ -1,0 +1,37 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition >
+
+        <div class="welkom">
+
+            <p:graphicImage id="logo" style="vertical-align: middle" height="80px"/><br/>
+            <p:outputLabel value="TITEL"/>
+
+        </div>
+
+        <div class="select">
+            <h:form id="select_club">
+
+                <p:commandButton value="Kampioenschappen"/>
+                <p:commandButton value="Foto's"/>
+                <p:commandButton value="Inschrijven"/>
+                <p:commandButton value="Beheer"/>
+
+            </h:form>
+        </div>
+
+        <div class="login">
+            <h:form>
+
+                <p:outputLabel>ingelogd als: </p:outputLabel>
+
+            </h:form>
+        </div>
+
+    </ui:composition>
+
+</ui:fragment>

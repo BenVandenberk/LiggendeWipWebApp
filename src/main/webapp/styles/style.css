@@ -1,0 +1,52 @@
+
+.footer{
+    position:absolute;
+    bottom:0px;
+    height: 30px;
+    left: 0px;
+    right: 0px;
+    background-color: green;
+    border-top-style:solid;
+    border-width:1px;
+    font-size:x-small;
+}
+
+.header{
+    position:absolute;
+    top:0px;
+    height:110px;
+    left: 0px;
+    right: 0px;
+    background-color: green;
+    z-index:1;
+    border-bottom-style: solid;
+    border-width: 3px;
+    font-size:x-large;
+}
+
+.body{
+    position:absolute;
+    top:110px;
+    left: 0px;
+    right: 0px;
+    bottom: 30px;
+    width:100%;
+    z-index:0;
+    overflow-y:scroll;
+}
+
+.welkom{
+    float:left;
+    margin-left: 50px;
+    margin-top: 15px;
+}
+
+.select{
+    margin-top: 40px;
+}
+
+.login{
+    float:right;
+    margin-top: 40px;
+    margin-right: 50px;
+}
