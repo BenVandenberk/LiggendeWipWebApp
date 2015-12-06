@@ -99,18 +99,32 @@
 .subTitel {
     font-size: x-large;
     text-decoration: underline;
-    display: inline-block;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 
 .bodyWrapper {
     display: block;
     text-align: center;
-    position: relative;
-    top: 0px;
-    left: 0px;
+    margin: 0 auto;
+    width: 80%;
+    padding-bottom: 20px;
+}
+
+.formGrid {
+    text-align: left;
+}
+
+.formRow {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.pageButton {
+    text-align: right;
+    margin-right: 20px;
 }
 
 html {
@@ -120,4 +134,5 @@ html {
 body {
     height: 100%;
     background-color: #d2ffce;
+    font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }

@@ -6,7 +6,8 @@
 
     <ui:composition >
 
-        <div class="welkom">
+        <div class="ui-grid-row">
+        <div class="welkom ui-grid-col-2">
 
             <p:outputLabel>
             <p:graphicImage id="logo" value="/images/java-logo.jpg"/>
@@ -15,7 +16,7 @@
 
         </div>
 
-        <div class="select" id="select_systeem">
+        <div class="select ui-grid-col-8" id="select_systeem">
             <h:form>
 
                 <p:outputLabel value="Kampioenschappen" styleClass="menuLink"/>
@@ -27,12 +28,14 @@
             </h:form>
         </div>
 
-        <div class="login">
+        <div class="login ui-grid-col-2">
             <h:form>
 
                 <p:outputLabel>Ingelogd als: Systeembeheerder</p:outputLabel>
 
             </h:form>
+        </div>
+
         </div>
 
     </ui:composition>
