@@ -1,35 +1,21 @@
-
-.footer{
-    position:absolute;
-    bottom:0px;
-    height: 30px;
-    left: 0px;
-    right: 0px;
-    background-color: green;
-    border-top-style:solid;
-    border-width:1px;
-    font-size:x-small;
-}
-
 .header{
     position:absolute;
     top:0px;
-    height:110px;
+    height:100px;
     left: 0px;
     right: 0px;
-    background-color: green;
+    background-color: mediumspringgreen;
     z-index:1;
     border-bottom-style: solid;
-    border-width: 3px;
-    font-size:x-large;
+    border-width: 1px;
 }
 
 .body{
     position:absolute;
-    top:110px;
+    top:100px;
     left: 0px;
     right: 0px;
-    bottom: 30px;
+    bottom: 70px;
     width:100%;
     z-index:0;
     overflow-y:scroll;
@@ -37,16 +23,53 @@
 
 .welkom{
     float:left;
-    margin-left: 50px;
-    margin-top: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    font-size: x-large;
+    vertical-align: middle;
 }
 
 .select{
-    margin-top: 40px;
+    float: left;
+    width: 50%;
+    margin-top: 60px;
+    font-size: small;
+}
+
+.select #select_systeem{
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .login{
     float:right;
-    margin-top: 40px;
-    margin-right: 50px;
+    margin-top: 60px;
+    margin-right: 10px;
+    font-size: small;
+}
+
+#logo{
+    width: 90px;
+    height: 90px;
+    vertical-align: middle;
+}
+
+.footer{
+    position:absolute;
+    bottom:0px;
+    height: 70px;
+    left: 0px;
+    right: 0px;
+    background-color: mediumspringgreen;
+    border-top-style:solid;
+    border-width:1px;
+    font-size:x-small;
+    text-align: center;
+}
+
+.sponsorbanner{
+    width: auto;
+    height: 60px;
+    padding: 5px;
 }
