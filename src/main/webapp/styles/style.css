@@ -106,6 +106,12 @@
     padding-bottom: 15px;
 }
 
+.labelNaastSubTitel {
+    font-size: x-large;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 
 .bodyWrapper {
     display: block;
@@ -155,6 +161,10 @@
 
 .center {
     text-align: center;
+}
+
+.big {
+    font-size: x-large;
 }
 
 html {
