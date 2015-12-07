@@ -22,25 +22,32 @@
                 <h:form>
 
                     <div class="ui-grid-row menuRow">
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel value="Clubbeheer" styleClass="menuLink"/>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Clubbeheer" styleClass="menuLink"/>
                         </div>
-                        <div class="ui-grid-col-6">
-                            <p:outputLabel value="Sponsoring" styleClass="menuLink"/>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Sponsoring" styleClass="menuLink"/>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Kalenderbeheer" styleClass="menuLink"/>
                         </div>
                     </div>
 
                     <div class="ui-grid-row menuRow">
 
-                        <div class="ui-grid-col-4">
+                        <div class="ui-grid-col-3">
                             <p:outputLabel value="Kampioenschappen" styleClass="menuLink"/>
                         </div>
-                        <div class="ui-grid-col-4">
+                        <div class="ui-grid-col-3">
                             <p:outputLabel value="Foto's" styleClass="menuLink"/>
                         </div>
-                        <div class="ui-grid-col-4">
-                            <p:outputLabel value="Kalenderbeheer" styleClass="menuLink"/>
+                        <div class="ui-grid-col-3">
+                            <p:outputLabel rendered="#{gebruikerController.heeftRol('club')}" value="Inschrijven" styleClass="menuLink"/>
                         </div>
+                        <div class="ui-grid-col-3">
+                            <p:outputLabel rendered="#{gebruikerController.heeftRol('club')}" value="Beheer" styleClass="menuLink"/>
+                        </div>
+
 
                     </div>
 

@@ -57,10 +57,10 @@ public class Club {
 
     public Club(String naam, String locatie){
         this();
-        account = new Account(this);
-
         this.naam = naam;
         this.locatie = locatie;
+
+        account = new Account(this);
     }
 
     //endregion

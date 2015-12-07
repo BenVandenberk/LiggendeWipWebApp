@@ -23,6 +23,13 @@ public class GebruikerController {
         return loggedIn;
     }
 
+    public boolean heeftRol(String rol) {
+        if (user == null) {
+            return false;
+        }
+        return user.heeftRol(rol);
+    }
+
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);

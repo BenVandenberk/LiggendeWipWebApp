@@ -2,6 +2,7 @@ package be.oklw.data;
 
 import be.oklw.data.util.HibernateUtil;
 import be.oklw.model.Account;
+import be.oklw.model.Club;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -38,6 +39,13 @@ public class DBFacade implements IDBFacade {
     public void saveAccount(Account account) {
         Session session = hibernateUtil.getCurrentSession();
         session.saveOrUpdate(account);
+        hibernateUtil.endSession();
+    }
+
+    @Override
+    public void saveClub(Club club) {
+        Session session = hibernateUtil.getCurrentSession();
+        session.saveOrUpdate(club);
         hibernateUtil.endSession();
     }
 }

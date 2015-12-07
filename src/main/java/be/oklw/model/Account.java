@@ -1,5 +1,7 @@
 package be.oklw.model;
 
+import be.oklw.util.Authentication;
+
 import javax.persistence.*;
 
 @Entity
@@ -85,6 +87,8 @@ public class Account {
     public Account(Club club){
         this.club = club;
         this.userName = club.getNaam();
+        this.pwSalt = Authentication.nextSalt();
+        this.pwHash = Authentication.hashPw(club.getNaam(), pwSalt);
         this.permissieNiveau = PermissieNiveau.CLUB;
     }
 

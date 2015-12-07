@@ -1,22 +1,22 @@
 package be.oklw.data;
 
-import be.oklw.model.Account;
-import be.oklw.model.PermissieNiveau;
+import be.oklw.model.Club;
 import be.oklw.model.SysteemAccount;
 import be.oklw.util.Authentication;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
-/**
- * Created by java on 07.12.15.
- */
-public class DataSeedServlet extends HttpServlet {
+@WebListener
+public class WebAppSeed implements ServletContextListener {
+
     @Override
-    public void init() throws ServletException {
-        super.init();
-
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
         IDBFacade dbFacade = DBFacade.getUniekeInstantie();
+
+        Club club = new Club("club", "Leuven");
+        dbFacade.saveClub(club);
 
         SysteemAccount systeemAccount = new SysteemAccount("admin");
         systeemAccount.setUserName("admin");
@@ -25,5 +25,10 @@ public class DataSeedServlet extends HttpServlet {
         systeemAccount.setPwHash(pwHash);
         systeemAccount.setPwSalt(salt);
         dbFacade.saveAccount(systeemAccount);
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+
     }
 }
