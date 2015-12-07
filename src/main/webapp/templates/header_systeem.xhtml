@@ -10,10 +10,10 @@
 
             <div class="welkom ui-grid-col-2">
 
-                <p:outputLabel>
+                <p:link outcome="home">
                 <p:graphicImage id="logo" value="/images/java-logo.jpg"/>
                 OKLW
-                </p:outputLabel>
+                </p:link>
 
             </div>
 
@@ -42,10 +42,10 @@
                             <p:outputLabel value="Foto's" styleClass="menuLink"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:outputLabel rendered="#{gebruikerController.heeftRol('club')}" value="Inschrijven" styleClass="menuLink"/>
+                            <p:link outcome="club_inschrijven" rendered="#{gebruikerController.heeftRol('club')}" value="Inschrijven" styleClass="menuLink"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:outputLabel rendered="#{gebruikerController.heeftRol('club')}" value="Beheer" styleClass="menuLink"/>
+                            <p:link outcome="club_beheer" rendered="#{gebruikerController.heeftRol('club')}" value="Beheer" styleClass="menuLink"/>
                         </div>
 
 
