@@ -52,6 +52,19 @@ public class LoginBean {
         return "";
     }
 
+    public void preRenderListener() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(true);
+
+        String redirectMessage = null;
+        redirectMessage = (String)session.getAttribute("redirectMessage");
+
+        if (redirectMessage != null) {
+            facesContext.addMessage(null, new FacesMessage(redirectMessage));
+        }
+
+    }
+
     @PostConstruct
     public void init() {
         gebruikerService = new GebruikerService();

@@ -13,6 +13,8 @@
         <ui:define name="bodycontent">
             <h:form>
 
+                <f:event type="preRenderView" listener="#{loginBean.preRenderListener}" />
+
                 <div class="bodyWrapper">
 
                     <div class="titel">

@@ -1,7 +1,7 @@
 package be.oklw.model;
 
 public enum PermissieNiveau {
-    SYSTEEM, CLUB, LID;
+    SYSTEEM, CLUB, LID, BEZOEKER;
 
     @Override
     public String toString() {
@@ -9,7 +9,8 @@ public enum PermissieNiveau {
             case SYSTEEM: return "systeem";
             case CLUB: return "club";
             case LID: return "lid";
-            default: throw new IllegalArgumentException();
+            case BEZOEKER: return "bezoeker";
+            default: return "";
         }
     }
 
