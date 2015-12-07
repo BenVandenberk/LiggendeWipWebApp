@@ -7,34 +7,53 @@
     <ui:composition >
 
         <div class="ui-grid-row">
-        <div class="welkom ui-grid-col-2">
 
-            <p:outputLabel>
-            <p:graphicImage id="logo" value="/images/java-logo.jpg"/>
-            OKLW
-            </p:outputLabel>
+            <div class="welkom ui-grid-col-2">
 
-        </div>
+                <p:outputLabel>
+                <p:graphicImage id="logo" value="/images/java-logo.jpg"/>
+                OKLW
+                </p:outputLabel>
 
-        <div class="select ui-grid-col-8" id="select_systeem">
-            <h:form>
+            </div>
 
-                <p:outputLabel value="Kampioenschappen" styleClass="menuLink"/>
-                <p:outputLabel value="Foto's" styleClass="menuLink"/>
-                <p:outputLabel value="Kalenderbeheer" styleClass="menuLink"/>
-                <p:outputLabel value="Clubbeheer" styleClass="menuLink"/>
-                <p:outputLabel value="Sponsoring" styleClass="menuLink"/>
+            <div class="select ui-grid-col-8" id="select_systeem">
 
-            </h:form>
-        </div>
+                <h:form>
 
-        <div class="login ui-grid-col-2">
-            <h:form>
+                    <div class="ui-grid-row menuRow">
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel value="Clubbeheer" styleClass="menuLink"/>
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p:outputLabel value="Sponsoring" styleClass="menuLink"/>
+                        </div>
+                    </div>
 
-                <p:outputLabel>Ingelogd als: Systeembeheerder</p:outputLabel>
+                    <div class="ui-grid-row menuRow">
 
-            </h:form>
-        </div>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel value="Kampioenschappen" styleClass="menuLink"/>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel value="Foto's" styleClass="menuLink"/>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p:outputLabel value="Kalenderbeheer" styleClass="menuLink"/>
+                        </div>
+
+                    </div>
+
+                </h:form>
+            </div>
+
+            <div class="login ui-grid-col-2">
+                <h:form>
+
+                    <p:outputLabel>Ingelogd als: Systeembeheerder</p:outputLabel>
+
+                </h:form>
+            </div>
 
         </div>
 
