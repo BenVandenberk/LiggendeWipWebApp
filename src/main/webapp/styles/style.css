@@ -92,8 +92,8 @@
 .titel {
     font-size: xx-large;
     padding-top: 10px;
-    padding-bottom: 10px;
-    display: inline-block;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .subTitel {
@@ -130,6 +130,18 @@
 .pageButton {
     text-align: right;
     margin-right: 20px;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
 }
 
 html {

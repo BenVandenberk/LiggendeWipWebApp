@@ -12,4 +12,8 @@ public enum PermissieNiveau {
             default: throw new IllegalArgumentException();
         }
     }
+
+    public boolean heeftRol(String rol) {
+        return this.toString().toLowerCase().equals(rol.toLowerCase());
+    }
 }

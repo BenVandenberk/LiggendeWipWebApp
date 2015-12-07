@@ -58,6 +58,19 @@ public class HibernateUtil {
         return configuration;
     }
 
+    public void endSession() {
+        Session session = getCurrentSession();
+        if (session != null) {
+            session.flush();
+            if (session.isOpen()) {
+                System.out.print("closing session ... ");
+                session.close();
+                System.out.println("ok");
+            }
+        }
+        this.session = null;
+    }
+
     public void reset() {
         Session session = getCurrentSession();
         if (session != null) {

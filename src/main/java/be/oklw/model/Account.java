@@ -36,6 +36,14 @@ public class Account {
         return pwSalt;
     }
 
+    public void setPwHash(byte[] pwHash) {
+        this.pwHash = pwHash;
+    }
+
+    public void setPwSalt(byte[] pwSalt) {
+        this.pwSalt = pwSalt;
+    }
+
     public int getId() {
         return id;
     }
@@ -89,6 +97,14 @@ public class Account {
         this.club = club;
         this.userName = lid;
         this.permissieNiveau = PermissieNiveau.LID;
+    }
+
+    //endregion
+
+    //region PUBLIC METHODS
+
+    public boolean heeftRol(String rol) {
+        return permissieNiveau.heeftRol(rol);
     }
 
     //endregion

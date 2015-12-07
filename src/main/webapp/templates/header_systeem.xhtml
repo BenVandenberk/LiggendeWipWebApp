@@ -48,11 +48,33 @@
             </div>
 
             <div class="login ui-grid-col-2">
-                <h:form>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form>
 
-                    <p:outputLabel>Ingelogd als: Systeembeheerder</p:outputLabel>
+                            <p:outputLabel rendered="#{gebruikerController.loggedIn}" value="Ingelogd als: #{gebruikerController.user.userName}"></p:outputLabel>
 
-                </h:form>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form>
+
+                            <p:link rendered="#{!gebruikerController.loggedIn}" value="Login" outcome="login" />
+
+                        </h:form>
+                    </div>
+                </div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <h:form>
+
+                            <p:commandLink rendered="#{gebruikerController.loggedIn}" value="Logout" action="#{gebruikerController.logout}" update="@all" />
+
+                        </h:form>
+                    </div>
+                </div>
             </div>
 
         </div>
