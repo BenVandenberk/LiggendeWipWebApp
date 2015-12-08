@@ -49,6 +49,10 @@ public class AuthorizationFilter implements Filter {
         ArrayList<String> systeemUrls = new ArrayList<>();
         systeemUrls.add("/login.xhtml");
         systeemUrls.add("/systeem_clubbeheer.xhtml");
+        systeemUrls.add("/systeem_nieuwe_club.xhtml");
+        systeemUrls.add("/systeem_accountbeheer.xhtml");
+        systeemUrls.add("/systeem_nieuw_contact.xhtml");
+        systeemUrls.add("/systeem_nieuw_kampioenschap.xhtml");
 
 
         toegelatenUrlsPerRol.put("club", clubUrls);

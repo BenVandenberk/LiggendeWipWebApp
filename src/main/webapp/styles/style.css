@@ -176,3 +176,9 @@ body {
     background-color: #d2ffce;
     font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }
+
+.noBorder tr,
+.noBorder td { border: 0 !important; }
+
+.transparentBackground tr,
+.transparentBackground td { background: transparent !important; }
