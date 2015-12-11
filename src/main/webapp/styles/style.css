@@ -1,9 +1,8 @@
 .header {
-    position: absolute;
     top: 0px;
     left: 0px;
     right: 0px;
-    height: 14%;
+    height: auto;
     overflow: auto;
 
     background-color: #d2ffce;
@@ -36,7 +35,7 @@
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     left: 0px;
     right: 0px;
@@ -51,9 +50,6 @@
 }
 
 .body {
-    position: absolute;
-    top: 15%;
-    bottom: 10%;
     left: 0px;
     right: 0px;
     overflow: auto;
@@ -62,6 +58,10 @@
 
     border-top-style:solid;
     border-width:1px;
+}
+
+.headerbody{
+    margin-bottom: 5%;
 }
 
 #logo{
@@ -172,8 +172,10 @@ html {
 }
 
 body {
+    margin: 0;
     height: 100%;
-    background-color: #d2ffce;
+
+    background-color: red;
     font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 
