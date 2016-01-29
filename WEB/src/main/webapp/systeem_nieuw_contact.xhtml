@@ -1,0 +1,81 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+            <h:form>
+
+                <div class="bodyWrapper">
+
+                    <div class="titel">
+                        Clubbeheer
+                    </div>
+
+                    <div class="subTitel">
+                        Nieuw contact toevoegen
+                    </div>
+
+                    <div class="ui-grid ui-grid-responsive formGrid">
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Club:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Te binden"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Naam*:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText></p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Telefoon:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText></p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Email:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText></p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Accountbeheerder?"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:selectBooleanCheckbox /> <!--value te binden-->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pageButton">
+                        <p:commandButton value="Toevoegen aan contactlijst"></p:commandButton>
+                    </div>
+
+                </div>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>
