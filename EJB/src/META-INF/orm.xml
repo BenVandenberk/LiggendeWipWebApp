@@ -3,16 +3,7 @@
 
     <package>be.oklw.model</package>
 
-    <entity class="Account">
-        <!--<sql-result-set-mapping name="nicknames">-->
-            <!--<column-result name="nickname" />-->
-        <!--</sql-result-set-mapping>-->
-        <!--<table name="Account" />-->
-        <!--<named-native-query name="myQuery" result-set-mapping="nicknames">-->
-            <!--<query><![CDATA[select a.nickname from Account a]]>-->
-            <!--</query>-->
-        <!--</named-native-query>-->
-    </entity>
+    <entity class="Account"></entity>
     <entity class="Club"></entity>
     <entity class="Contact"></entity>
     <entity class="Deelnemer"></entity>

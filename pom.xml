@@ -51,6 +51,7 @@
           <version>5.0.7.Final</version>
       </dependency>
 
+
       <dependency>
           <groupId>org.hibernate.javax.persistence</groupId>
           <artifactId>hibernate-jpa-2.1-api</artifactId>
