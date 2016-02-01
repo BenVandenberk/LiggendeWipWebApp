@@ -1,20 +1,20 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.SysteemAccount;
 import be.oklw.util.Authentication;
+import org.hibernate.Transaction;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
 @Remote(IGebruikerService.class)
+@TransactionManagement(value = TransactionManagementType.CONTAINER)
 public class GebruikerService implements IGebruikerService {
 
     @PersistenceContext(unitName = "myunitname")
@@ -38,6 +38,18 @@ public class GebruikerService implements IGebruikerService {
         }
 
         return account;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException {
+        if (!Authentication.isJuistPaswoord(oud, account.getPwHash(), account.getPwSalt())) {
+            throw new BusinessException("Onjuist paswoord");
+        }
+
+        byte[] nieuweHash = Authentication.hashPw(nieuw, account.getPwSalt());
+        Account dbAccount = entityManager.find(Account.class, account.getId());
+        dbAccount.setPwHash(nieuweHash);
+        entityManager.persist(dbAccount);
     }
 
     public void createAdmin() {

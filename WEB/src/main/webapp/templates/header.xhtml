@@ -58,7 +58,7 @@
                     <div class="ui-grid-col-12">
                         <h:form>
 
-                            <p:outputLabel rendered="#{gebruikerController.loggedIn}" value="Ingelogd als: #{gebruikerController.user.userName}"></p:outputLabel>
+                            <p:link rendered="#{gebruikerController.loggedIn}" value="Ingelogd als: #{gebruikerController.user.userName}" outcome="club_accountbeheer"></p:link>
 
                         </h:form>
                     </div>

@@ -2,12 +2,13 @@
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:p="http://primefaces.org/ui"
+             xmlns:o="http://omnifaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="form">
 
                 <div class="bodyWrapper">
 
@@ -18,34 +19,44 @@
                     <div class="ui-grid ui-grid-responsive formGrid">
                 <div class="ui-grid-row formRow">
                     <div class="ui-grid-col-12">
-                        <p:fieldset legend="Gegevens: Inlognaam (te binden)">
+                        <p:fieldset legend="Gegevens: #{gebruikerController.user.userName}">
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Oud paswoord:"></p:outputLabel>
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
-                            </div>
-                        </div>
+                            <h:messages id="messages"></h:messages>
+                            <o:validateEqual components="paswoord herhaald_paswoord" message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Oud paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
+                                </div>
                             </div>
-                            <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
-                            </div>
-                        </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
+                                    </p:password>
+                                </div>
                             </div>
-                            <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password id="herhaald_paswoord" value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12  right">
+                                    <p:commandButton value="Verander paswoord" action="#{gebruikerController.veranderPaswoord}" update="@form"></p:commandButton>
+                                </div>
+                            </div>
 
                         </p:fieldset>
                         </div>
