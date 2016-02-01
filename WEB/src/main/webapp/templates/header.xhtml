@@ -21,13 +21,13 @@
 
                     <div class="ui-grid-row menuRow">
                         <div class="ui-grid-col-3">
-                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Clubbeheer" styleClass="menuLink"/>
+                            <p:link rendered="#{gebruikerController.heeftRol('systeem')}" value="Clubbeheer" styleClass="menuLink" outcome="systeem_clubbeheer"/>
                         </div>
                         <div class="ui-grid-col-3">
                             <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Sponsoring" styleClass="menuLink"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Kalenderbeheer" styleClass="menuLink"/>
+                            <p:link rendered="#{gebruikerController.heeftRol('systeem')}" value="Kalenderbeheer" styleClass="menuLink" outcome="systeem_nieuw_kampioenschap"/>
                         </div>
                         <div class="ui-grid-col-3"/>
                     </div>
