@@ -1,8 +1,10 @@
 package be.oklw;
 
 import be.oklw.model.Account;
+import be.oklw.model.Club;
 import be.oklw.model.SysteemAccount;
 import be.oklw.service.IGebruikerService;
+import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -18,6 +20,7 @@ import javax.validation.constraints.NotNull;
 public class GebruikerController {
     private Account user;
     private boolean loggedIn;
+    private Club club;
 
     @EJB
     IGebruikerService gebruikerService;
@@ -59,6 +62,14 @@ public class GebruikerController {
         return user;
     }
 
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
+
     public boolean isLoggedIn() {
         return loggedIn;
     }
@@ -81,17 +92,20 @@ public class GebruikerController {
 
     public void veranderPaswoord() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
 
         try {
             if (loggedIn) {
                 gebruikerService.veranderPaswoord(user, oudPaswoord, nieuwPaswoord);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paswoord succesvol gewijzigd", "Paswoord succesvol gewijzigd");
+                facesContext.addMessage(null, message);
             } else {
-                FacesMessage message = new FacesMessage("Om je paswoord te veranderen moet je ingelogd zijn");
-                facesContext.addMessage("", message);
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Om je paswoord te veranderen moet je ingelogd zijn", "Om je paswoord te veranderen moet je ingelogd zijn");
+                facesContext.addMessage(null, message);
             }
         } catch (Exception ex) {
-            FacesMessage message = new FacesMessage(ex.getMessage());
-            facesContext.addMessage("", message);
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
         }
     }
 
@@ -101,5 +115,9 @@ public class GebruikerController {
         HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);
         user = (Account)httpSession.getAttribute("user");
         loggedIn = user != null;
+
+        if (loggedIn) {
+            club = user.getClub();
+        }
     }
 }

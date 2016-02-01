@@ -5,12 +5,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <link type="text/css" rel="stylesheet"
           href="#{request.contextPath}/styles/style.css" />
 </h:head>
 <h:body>
+    <c:set var="upload" value="#{request.serverName}:8082/upload" />
     <f:view id="mainview">
     <div class="ui-grid ui-grid-responsive headerbody">
         <div class="ui-grid-row"  >

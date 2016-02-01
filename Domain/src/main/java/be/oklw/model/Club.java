@@ -2,13 +2,13 @@ package be.oklw.model;
 
 import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Club {
+public class Club implements Serializable {
 
     //region PRIVATE MEMBERS
 
@@ -20,7 +20,7 @@ public class Club {
     private Datum sinds;
 
     private String adres;
-    private String link;
+    private String logoPad;
     private String naam;
     private String locatie;
 
@@ -124,12 +124,12 @@ public class Club {
         this.adres = adres;
     }
 
-    public String getLink() {
-        return link;
+    public String getLogoPad() {
+        return logoPad;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLogoPad(String link) {
+        this.logoPad = link;
     }
 
     //endregion

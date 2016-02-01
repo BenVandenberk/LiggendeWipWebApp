@@ -8,7 +8,6 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form id="form">
 
                 <div class="bodyWrapper">
 
@@ -21,42 +20,46 @@
                     <div class="ui-grid-col-12">
                         <p:fieldset legend="Gegevens: #{gebruikerController.user.userName}">
 
-                            <h:messages id="messages"></h:messages>
-                            <o:validateEqual components="paswoord herhaald_paswoord" message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
+                            <h:form id="frm_paswoord" binding="#{frm_paswoord}">
 
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Oud paswoord:"></p:outputLabel>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
-                                </div>
-                            </div>
+                                <p:messages id="messages" rendered="#{frm_paswoord.submitted}" closable="true" autoUpdate="true"></p:messages>
+                                <o:validateEqual components="paswoord herhaald_paswoord" message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
 
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Oud paswoord:"></p:outputLabel>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
+                                    </div>
                                 </div>
-                                <div class="ui-grid-col-3">
-                                    <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
-                                    </p:password>
-                                </div>
-                            </div>
 
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
+                                        </p:password>
+                                    </div>
                                 </div>
-                                <div class="ui-grid-col-3">
-                                    <p:password id="herhaald_paswoord" value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
-                                </div>
-                            </div>
 
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-12  right">
-                                    <p:commandButton value="Verander paswoord" action="#{gebruikerController.veranderPaswoord}" update="@form"></p:commandButton>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:password id="herhaald_paswoord" value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-12  right">
+                                        <p:commandButton value="Verander paswoord" action="#{gebruikerController.veranderPaswoord}" update="@form"></p:commandButton>
+                                    </div>
+                                </div>
+
+                            </h:form>
 
                         </p:fieldset>
                         </div>
@@ -66,11 +69,22 @@
                             <div class="ui-grid-col-12">
                                 <p:fieldset legend="Clublogo">
 
-                                    <div class="ui-grid-row formRow">
-                                        <div class="ui-grid-col-2">
-                                            <p:fileUpload value="#{fileUploadView.file}" label="Bladeren" mode="simple" skinSimple="true"/>
+                                    <h:form id="frm_upload" binding="#{frm_upload}" enctype="multipart/form-data">
+
+                                        <p:messages id="messages_upload" rendered="#{frm_upload.submitted}" showDetail="true" closable="true"></p:messages>
+
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-2">
+                                                <p:fileUpload value="#{fileUploadBean.file}" label="Bladeren" mode="simple" skinSimple="true"/>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-2">
+                                                <p:commandButton ajax="false" action="#{fileUploadBean.uploadClubLogo}" value="OK"/>
+                                            </div>
+                                        </div>
+
+                                    </h:form>
 
                                     <p:spacer height="30" />
 
@@ -98,19 +112,24 @@
                                         </div>
 
                                         <div class="ui-grid-col-6 right">
-                                            <i class="fa fa-image" style="font-size: 200px" />
+                                            <p:panel rendered="#{gebruikerController.club.logoPad == ''}">
+                                                <i class="fa fa-image" style="font-size: 200px"/>
+                                            </p:panel>
+                                            <p:panel rendered="#{gebruikerController.club.logoPad != ''}">
+                                                <p:graphicImage url="#{upload}/clublogos/#{gebruikerController.club.logoPad}" />
+                                            </p:panel>
                                         </div>
                                     </div>
 
 
                                 </p:fieldset>
+                                <p:outputLabel value="#{upload}/clublogos/#{gebruikerController.club.logoPad}" />
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-            </h:form>
         </ui:define>
 
     </ui:composition>
