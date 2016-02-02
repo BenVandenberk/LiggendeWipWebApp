@@ -41,15 +41,16 @@ public class GebruikerService implements IGebruikerService {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException {
+    public Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException {
         if (!Authentication.isJuistPaswoord(oud, account.getPwHash(), account.getPwSalt())) {
             throw new BusinessException("Onjuist paswoord");
         }
 
         byte[] nieuweHash = Authentication.hashPw(nieuw, account.getPwSalt());
-        Account dbAccount = entityManager.find(Account.class, account.getId());
-        dbAccount.setPwHash(nieuweHash);
-        entityManager.persist(dbAccount);
+        account.setPwHash(nieuweHash);
+        entityManager.merge(account);
+        entityManager.flush();
+        return account;
     }
 
     public void createAdmin() {
@@ -63,5 +64,7 @@ public class GebruikerService implements IGebruikerService {
         systeemAccount.setPwHash(pwHash);
         systeemAccount.setPwSalt(salt);
         entityManager.persist(systeemAccount);
+
+        entityManager.flush();
     }
 }

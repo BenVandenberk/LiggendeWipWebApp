@@ -163,6 +163,10 @@
     text-align: center;
 }
 
+.top10 {
+    margin-top: 10px;
+}
+
 .big {
     font-size: x-large;
 }

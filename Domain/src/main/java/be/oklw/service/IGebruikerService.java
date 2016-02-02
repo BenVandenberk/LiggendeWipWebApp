@@ -10,5 +10,5 @@ public interface IGebruikerService {
 
     Account login(String userName, String password);
     void createAdmin();
-    void veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException;
+    Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException;
 }

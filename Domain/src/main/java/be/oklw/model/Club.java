@@ -24,6 +24,9 @@ public class Club implements Serializable {
     private String naam;
     private String locatie;
 
+    private int logoBreedte;
+    private int logoHoogte;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
 
@@ -130,6 +133,22 @@ public class Club implements Serializable {
 
     public void setLogoPad(String link) {
         this.logoPad = link;
+    }
+
+    public int getLogoBreedte() {
+        return logoBreedte;
+    }
+
+    public void setLogoBreedte(int logoBreedte) {
+        this.logoBreedte = logoBreedte;
+    }
+
+    public int getLogoHoogte() {
+        return logoHoogte;
+    }
+
+    public void setLogoHoogte(int logoHoogte) {
+        this.logoHoogte = logoHoogte;
     }
 
     //endregion
