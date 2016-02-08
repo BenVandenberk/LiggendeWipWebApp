@@ -71,18 +71,27 @@
 
                                     <h:form id="frm_upload" binding="#{frm_upload}" enctype="multipart/form-data">
 
-                                        <p:messages id="messages_upload" rendered="#{frm_upload.submitted}" showDetail="true" closable="true"></p:messages>
+                                        <p:messages id="messages_upload" showDetail="true" closable="true"></p:messages>
 
                                         <div class="ui-grid-row formRow">
-                                            <div class="ui-grid-col-2">
-                                                <p:fileUpload value="#{fileUploadBean.file}" label="Bladeren" mode="simple" skinSimple="true"/>
+                                            <div class="ui-grid-col-10">
+                                                <p:fileUpload fileUploadListener="#{fileUploadBean.uploadClubLogo}"
+                                                              uploadLabel="Uploaden"
+                                                              cancelLabel="Annuleren"
+                                                              label="Bladeren"
+                                                              mode="advanced"
+                                                              update=":frm_afmetingen:spin_hoogte :frm_afmetingen:spin_breedte @form :frm_logo :frm_logo:pnl_logo"
+                                                              oncomplete="uploadComplete()"
+                                                              fileLimit="1"
+                                                              fileLimitMessage="Je kan maar 1 clublogo uploaden"
+                                                              sizeLimit="5242880"
+                                                              allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
+                                                              invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
+                                                              invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
+                                                              />
                                             </div>
                                         </div>
-                                        <div class="ui-grid-row formRow">
-                                            <div class="ui-grid-col-2">
-                                                <p:commandButton ajax="false" action="#{fileUploadBean.uploadClubLogo}" value="OK"/>
-                                            </div>
-                                        </div>
+
 
                                     </h:form>
 
@@ -91,44 +100,60 @@
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-6">
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-2">
-                                                    <p:outputLabel value="Hoogte"></p:outputLabel>
-                                                </div>
-                                                <div class="ui-grid-col-1">
-                                                    <p:spinner size="5"></p:spinner>
-                                                </div>
-                                            </div>
+                                            <h:form id="frm_afmetingen">
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-2">
-                                                    <p:outputLabel value="Breedte"></p:outputLabel>
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-2">
+                                                        <p:outputLabel value="Hoogte"></p:outputLabel>
+                                                    </div>
+                                                    <div class="ui-grid-col-1">
+                                                        <p:spinner stepFactor="10" value="#{gebruikerController.club.logoHoogte}" id="spin_hoogte" size="5"></p:spinner>
+                                                    </div>
                                                 </div>
-                                                <div class="ui-grid-col-1">
-                                                    <p:spinner size="5"></p:spinner>
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-2">
+                                                        <p:outputLabel value="Breedte"></p:outputLabel>
+                                                    </div>
+                                                    <div class="ui-grid-col-1">
+                                                        <p:spinner stepFactor="10" value="#{gebruikerController.club.logoBreedte}" id="spin_breedte" size="5"></p:spinner>
+                                                    </div>
                                                 </div>
-                                            </div>
+
+                                                <p:spacer height="15" />
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-5">
+                                                        <p:commandButton id="btn_bewaar" value="Bewaar Afmetingen" actionListener="#{gebruikerController.bewaarAfmetingen}" update="@form"></p:commandButton>
+                                                        <p:spacer height="10" />
+                                                        <p:message id="mess_bewaar" for="btn_bewaar"/>
+                                                    </div>
+                                                </div>
+
+                                            </h:form>
 
                                         </div>
 
                                         <div class="ui-grid-col-6 right">
-                                            <p:panel rendered="#{gebruikerController.club.logoPad == ''}">
-                                                <i class="fa fa-image" style="font-size: 200px"/>
-                                            </p:panel>
-                                            <p:panel rendered="#{gebruikerController.club.logoPad != ''}">
-                                                <p:graphicImage url="#{upload}/clublogos/#{gebruikerController.club.logoPad}" />
-                                            </p:panel>
+                                            <h:form id="frm_logo">
+                                                <p:outputPanel rendered="#{!gebruikerController.heeftLogo}">
+                                                    <i class="fa fa-image" style="font-size: 200px"/>
+                                                </p:outputPanel>
+                                                <p:outputPanel id="pnl_logo" rendered="#{gebruikerController.heeftLogo}">
+                                                    <p:graphicImage cache="false" id="img_logo" value="#{gebruikerController.logoUrl}" alt="Logo"/>
+                                                </p:outputPanel>
+                                            </h:form>
                                         </div>
                                     </div>
 
-
                                 </p:fieldset>
-                                <p:outputLabel value="#{upload}/clublogos/#{gebruikerController.club.logoPad}" />
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+            <h:outputScript library="js" name="club_accountbeheer.js" />
 
         </ui:define>
 

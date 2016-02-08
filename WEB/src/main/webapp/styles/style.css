@@ -163,6 +163,10 @@
     text-align: center;
 }
 
+.top10 {
+    margin-top: 10px;
+}
+
 .big {
     font-size: x-large;
 }
@@ -177,6 +181,11 @@ body {
 
     background-color: aliceblue;
     font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+.kampioenschap {
+    border: 1px solid black;
+    padding: 10px;
 }
 
 .noBorder tr,

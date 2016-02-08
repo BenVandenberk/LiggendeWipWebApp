@@ -18,14 +18,32 @@
                     <div class="subTitel">
                         Komende Kampioenschappen
                     </div>
+                    
+                    <ui:repeat value="#{clubBeheerBean.kampioenschappenToekomst}" var="kamp">
+                        <div class="kampioenschap">
+                            <div>#{kamp.naam}</div>
+                            <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
+                            <div>
+                                <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                    #{toer.naam}
+                                </ui:repeat>
+                            </div>
+                        </div>
+                    </ui:repeat>
 
-                    <div class="subTitel">
+                    <div class="subTitel" id="div_verleden">
                         Geschoten Kampioenschappen
                     </div>
+
+                    <ui:repeat value="#{clubBeheerBean.kampioenschappenVerleden}" var="kamp">
+                        #{kamp.naam}<br/>
+                    </ui:repeat>
 
                 </div>
 
             </h:form>
+
+            <h:outputScript library="js" name="club_beheer.js" />
         </ui:define>
 
     </ui:composition>

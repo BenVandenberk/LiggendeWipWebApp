@@ -3,6 +3,7 @@ package be.oklw;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.service.IClubService;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import javax.ejb.EJB;
@@ -11,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 
 @ManagedBean
@@ -30,9 +32,11 @@ public class FileUploadBean {
         this.file = file;
     }
 
-    public void uploadClubLogo() {
+    public void uploadClubLogo(FileUploadEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage facesMessage;
+
+        file = event.getFile();
 
         if(file.getContents().length > 0) {
 

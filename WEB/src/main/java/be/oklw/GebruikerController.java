@@ -2,28 +2,36 @@ package be.oklw;
 
 import be.oklw.model.Account;
 import be.oklw.model.Club;
-import be.oklw.model.SysteemAccount;
+import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
-import org.omnifaces.util.Faces;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
-@ViewScoped
+@RequestScoped
 @ManagedBean
 public class GebruikerController {
+
     private Account user;
     private boolean loggedIn;
     private Club club;
+    private boolean heeftLogo;
+    private String logoUrl;
 
     @EJB
     IGebruikerService gebruikerService;
+
+    @EJB
+    IClubService clubService;
 
     @NotNull(message = "'Oud paswoord' is verplicht")
     private String oudPaswoord;
@@ -33,6 +41,26 @@ public class GebruikerController {
 
     @NotNull(message = "'Herhaal nieuw paswoord' is verplicht")
     private String nieuwPaswoordHerhaald;
+
+
+    public String getLogoUrl() {
+        return String.format("upload/clublogos/%s?time=%s", club.getLogoPad(), new Date().getTime());
+    }
+
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
+    }
+
+    public boolean isHeeftLogo() {
+        if (club == null) {
+            return false;
+        }
+        return StringUtils.isNotBlank(club.getLogoPad());
+    }
+
+    public void setHeeftLogo(boolean heeftLogo) {
+        this.heeftLogo = heeftLogo;
+    }
 
     public String getOudPaswoord() {
         return oudPaswoord;
@@ -96,7 +124,9 @@ public class GebruikerController {
 
         try {
             if (loggedIn) {
-                gebruikerService.veranderPaswoord(user, oudPaswoord, nieuwPaswoord);
+                user = gebruikerService.veranderPaswoord(user, oudPaswoord, nieuwPaswoord);
+                HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+                httpSession.setAttribute("user", user);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paswoord succesvol gewijzigd", "Paswoord succesvol gewijzigd");
                 facesContext.addMessage(null, message);
             } else {
@@ -109,6 +139,20 @@ public class GebruikerController {
         }
     }
 
+    public void bewaarAfmetingen(ActionEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            clubService.bewaarAfmetingen(club);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Opgeslagen", "Afmetingen succesvol opgeslagen");
+            facesContext.addMessage("frm_afmetingen:btn_bewaar", message);
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
+            facesContext.addMessage("frm_afmetingen:btn_bewaar", message);
+        }
+    }
+
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -117,7 +161,7 @@ public class GebruikerController {
         loggedIn = user != null;
 
         if (loggedIn) {
-            club = user.getClub();
+            club = clubService.getClub(user);
         }
     }
 }
