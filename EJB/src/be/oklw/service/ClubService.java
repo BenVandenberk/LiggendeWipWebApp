@@ -33,20 +33,19 @@ public class ClubService implements IClubService {
     public void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException {
         String logoPad = fileService.upload(fileContent, fileName, "clublogos");
 
-        Club dbClub = entityManager.find(Club.class, club.getId());
-        dbClub.setLogoPad(logoPad);
-        entityManager.persist(dbClub);
+        club.setLogoBreedte(120);
+        club.setLogoHoogte(120);
+        club.setLogoPad(logoPad);
+        entityManager.merge(club);
+        entityManager.flush();
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void maakNieuweClubAan(String naam, String locatie, String adres) throws BusinessException{
         Club club = new Club(naam, locatie);
         if (adres != ""){club.setAdres(adres);}
         entityManager.persist(club);
-        club.setLogoBreedte(120);
-        club.setLogoHoogte(120);
-        club.setLogoPad(logoPad);
-        entityManager.merge(club);
         entityManager.flush();
     }
 
