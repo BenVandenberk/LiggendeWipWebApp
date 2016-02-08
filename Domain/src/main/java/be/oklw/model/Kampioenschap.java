@@ -19,7 +19,7 @@ public class Kampioenschap extends Evenement {
     private List<Sponsor> sponsors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
-    private Set<Toernooi> toernooien;
+    private List<Toernooi> toernooien;
 
     //endregion
 
@@ -27,7 +27,7 @@ public class Kampioenschap extends Evenement {
 
     public Kampioenschap() {
         sponsors = new ArrayList<Sponsor>();
-        toernooien = new HashSet<Toernooi>();
+        toernooien = new ArrayList<Toernooi>();
     }
 
     //endregion
@@ -38,8 +38,8 @@ public class Kampioenschap extends Evenement {
         return Collections.unmodifiableList(sponsors);
     }
 
-    public Set<Toernooi> getToernooien() {
-        return Collections.unmodifiableSet(toernooien);
+    public List<Toernooi> getToernooien() {
+        return Collections.unmodifiableList(toernooien);
     }
 
     public String getRekeningnummer() {

@@ -183,6 +183,11 @@ body {
     font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 
+.kampioenschap {
+    border: 1px solid black;
+    padding: 10px;
+}
+
 .noBorder tr,
 .noBorder td { border: 0 !important; }
 

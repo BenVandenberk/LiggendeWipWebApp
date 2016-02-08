@@ -70,7 +70,7 @@ public class Toernooi {
         return kampioenschap;
     }
 
-    protected void setKampioenschap(Kampioenschap kampioenschap) {
+    public void setKampioenschap(Kampioenschap kampioenschap) {
         this.kampioenschap = kampioenschap;
     }
 

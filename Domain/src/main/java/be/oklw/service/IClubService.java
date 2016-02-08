@@ -2,9 +2,11 @@ package be.oklw.service;
 
 import be.oklw.model.Account;
 import be.oklw.model.Club;
+import be.oklw.model.Kampioenschap;
 
 import javax.ejb.Remote;
 import java.io.IOException;
+import java.util.List;
 
 @Remote
 public interface IClubService {
@@ -14,4 +16,8 @@ public interface IClubService {
     Club getClub(Account account);
 
     void bewaarAfmetingen(Club club);
+
+    void dummyKampioenschappen();
+
+    List<Kampioenschap> kampioenschappenVan(Club club, boolean uitVerleden);
 }
