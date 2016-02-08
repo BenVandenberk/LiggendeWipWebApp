@@ -31,44 +31,44 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Naam*:"></p:outputLabel>
+                                <p:outputLabel value="Naam*:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Telefoon:"></p:outputLabel>
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
+                                <p:inputText value="#{contactController.naam}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Email:"></p:outputLabel>
+                                <p:outputLabel value="Telefoon:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText></p:inputText>
+                                <p:inputText value="#{contactController.telefoonnummer}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Accountbeheerder?"></p:outputLabel>
+                                <p:outputLabel value="Email:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:selectBooleanCheckbox /> <!--value te binden-->
+                                <p:inputText value="#{contactController.email}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Accountbeheerder?"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:selectBooleanCheckbox value="#{contactController.isBeheerder}" />
                             </div>
                         </div>
 
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Toevoegen aan contactlijst"></p:commandButton>
+                        <p:commandButton value="Toevoegen aan contactlijst" actionListener="#{contactController.maakNieuwContactAan}"/>
                     </div>
 
                 </div>

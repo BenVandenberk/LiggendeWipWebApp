@@ -22,28 +22,28 @@
                 <div class="ui-grid ui-grid-responsive formGrid">
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-3">
-                            <p:outputLabel value="Naam*:"></p:outputLabel>
+                            <p:outputLabel value="Naam*:"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:inputText></p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="ui-grid-row formRow">
-                        <div class="ui-grid-col-3">
-                            <p:outputLabel value="Locatie*:"></p:outputLabel>
-                        </div>
-                        <div class="ui-grid-col-3">
-                            <p:inputText></p:inputText>
+                            <p:inputText value = "#{clubController.naam}"/>
                         </div>
                     </div>
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-3">
-                            <p:outputLabel value="Adres:"></p:outputLabel>
+                            <p:outputLabel value="Locatie*:"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:inputText></p:inputText>
+                            <p:inputText value = "#{clubController.locatie}"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-3">
+                            <p:outputLabel value="Adres:"/>
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <p:inputText value = "#{clubController.adres}"/>
                         </div>
                     </div>
 
@@ -51,21 +51,21 @@
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                            <p:dataTable var="contact" value="te binden">
+                            <p:dataTable var="contact" value="#{clubController.contactList}">
                                 <p:column headerText="Naam">
-                                    <h:outputText value="tb op naam" />
+                                    <h:outputText value="#{contact.naam}" />
                                 </p:column>
 
                                 <p:column headerText="Telefoon">
-                                    <h:outputText value="tb op telefoon" />
+                                    <h:outputText value="#{contact.telefoonnummer}" />
                                 </p:column>
 
                                 <p:column headerText="Email">
-                                    <h:outputText value="tb op email" />
+                                    <h:outputText value="#{contact.email}" />
                                 </p:column>
 
                                 <p:column headerText="accountbeheerder?">
-                                    <p:selectBooleanCheckbox /> <!--value te binden-->
+                                    <p:selectBooleanCheckbox value = "#{contact.isBeheerder}"/>
                                 </p:column>
                             </p:dataTable>
 
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Nieuwe club opslaan"></p:commandButton>
+                        <p:commandButton value="Nieuwe club opslaan"/>
                     </div>
 
                 </div>

@@ -1,5 +1,6 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Club;
 
 import javax.ejb.*;
@@ -26,5 +27,12 @@ public class ClubService implements IClubService {
         Club dbClub = entityManager.find(Club.class, club.getId());
         dbClub.setLogoPad(logoPad);
         entityManager.persist(dbClub);
+    }
+
+    @Override
+    public void maakNieuweClubAan(String naam, String locatie, String adres) throws BusinessException{
+        Club club = new Club(naam, locatie);
+        if (adres != ""){club.setAdres(adres);}
+        entityManager.persist(club);
     }
 }

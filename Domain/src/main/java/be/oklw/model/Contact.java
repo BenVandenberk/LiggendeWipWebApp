@@ -62,7 +62,12 @@ public class Contact {
     //endregion
 
     //region CONSTRUCTORS
-
+    public Contact(String naam, String telefoonnummer, String email, boolean isBeheerder){
+        this.naam = naam;
+        this.telefoonnummer = telefoonnummer;
+        this.email = email;
+        this.isBeheerder = isBeheerder;
+    }
     //endregion
 
     //region PUBLIC METHODS
