@@ -65,9 +65,8 @@ public class Contact implements Serializable {
     //endregion
 
     //region CONSTRUCTORS
-    public Contact() {
 
-    }
+    public Contact(){}
 
     public Contact(String naam, String telefoonnummer, String email, boolean isBeheerder){
         this.naam = naam;

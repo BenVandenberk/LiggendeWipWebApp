@@ -20,6 +20,7 @@ public class ContactService implements IContactService{
     @Override
     public void maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
+
         entityManager.persist(contact);
         entityManager.flush();
     }
