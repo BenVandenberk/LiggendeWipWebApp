@@ -23,7 +23,7 @@
                 <div class="ui-grid-col-12">
                     <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                                <p:dataTable var="club" value="#{clubBeheerController.clubLijst}">
+                                <p:dataTable var="club" value="#{clubBeheerController.getClubLijst}">
                                     <p:column headerText="Naam">
                                         <h:outputText value="#{club.naam}" />
                                     </p:column>

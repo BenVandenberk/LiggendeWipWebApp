@@ -58,6 +58,12 @@ public class ClubService implements IClubService {
         return club;
     }
 
+    @Override
+    public List<Club> getAllClubs(){
+        List<Club> allClubs = (List<Club>)entityManager.createQuery("select c from Club c");
+        return allClubs;
+    }
+
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void bewaarAfmetingen(Club club) {

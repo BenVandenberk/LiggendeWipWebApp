@@ -7,21 +7,17 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
+import java.util.List;
 
 @ViewScoped
 @ManagedBean
 public class ClubBeheerController {
-    private ArrayList<Club> clubLijst;
 
     @EJB
     IClubService clubService;
 
-    public ArrayList<Club> getClubLijst() {
-        return clubLijst;
-    }
-
-    public void setClubLijst(ArrayList<Club> clubLijst) {
-        this.clubLijst = clubLijst;
+    public List<Club> getClubLijst() {
+        return clubService.getAllClubs();
     }
 
     public void verwijderClub(Club club){
@@ -31,6 +27,5 @@ public class ClubBeheerController {
     public String naarNieuweClub(){
         return "to_nieuwe_club";
     }
-
 
 }
