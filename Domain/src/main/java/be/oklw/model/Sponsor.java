@@ -2,9 +2,12 @@ package be.oklw.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Sponsor {
+public class Sponsor implements Serializable {
+
+    private static final long serialVersionUID = -5733677035312717060L;
 
     //region PRIVATE MEMBERS
 

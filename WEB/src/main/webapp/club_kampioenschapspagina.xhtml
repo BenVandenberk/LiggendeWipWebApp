@@ -12,7 +12,7 @@
                 <div class="bodyWrapper">
 
                     <div class="titel">
-                        Naam Kampioenschap (te binden)
+                        #{clubBeheerBean.kampioenschap.naam}
                     </div>
                     <div class="subTitel">
                         Algemene Info
@@ -25,7 +25,7 @@
                                 <p:outputLabel value="Startdatum:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="te binden" />
+                                <p:outputLabel value="#{clubBeheerBean.kampioenschap.beginDatum.datumInEuropeesFormaat}" />
                             </div>
                         </div>
 
@@ -34,7 +34,7 @@
                                 <p:outputLabel value="Einddatum:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="te binden" />
+                                <p:outputLabel value="#{clubBeheerBean.kampioenschap.eindDatum.datumInEuropeesFormaat}" />
                             </div>
                         </div>
 
@@ -52,7 +52,7 @@
                                 <p:outputLabel value="Contact:" />
                             </div>
                             <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" />
+                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.contact}"/>
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
                                 <p:outputLabel value="Overnachtingen:" />
                             </div>
                             <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" />
+                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.overnachtingInfo}"/>
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@
                                 <p:outputLabel value="Omschrijving:" />
                             </div>
                             <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" />
+                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.omschrijving}"/>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                                 <p:outputLabel value="Rekeningnummer:" />
                             </div>
                             <div class="ui-grid-col-6">
-                                <p:inputText />
+                                <p:inputText value="#{clubBeheerBean.kampioenschap.rekeningnummer}"/>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Opslaan"></p:commandButton>
+                        <p:commandButton value="Opslaan" actionListener="#{clubBeheerBean.opslaan}"></p:commandButton>
                     </div>
 
                 </div>

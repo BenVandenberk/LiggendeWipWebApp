@@ -5,11 +5,14 @@ import be.oklw.util.Datum;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
 @Entity
-public class Ploeg {
+public class Ploeg implements Serializable {
+
+    private static final long serialVersionUID = 6543517911693869965L;
 
     //region PRIVATE MEMBERS
 

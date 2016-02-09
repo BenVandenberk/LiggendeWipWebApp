@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Contact {
+public class Contact implements Serializable {
+
+    private static final long serialVersionUID = 7451882443247506926L;
 
     //region PRIVATE MEMBERS
 
@@ -62,6 +65,10 @@ public class Contact {
     //endregion
 
     //region CONSTRUCTORS
+    public Contact() {
+
+    }
+
     public Contact(String naam, String telefoonnummer, String email, boolean isBeheerder){
         this.naam = naam;
         this.telefoonnummer = telefoonnummer;

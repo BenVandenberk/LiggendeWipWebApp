@@ -9,6 +9,8 @@ import java.util.*;
 @Entity
 public class Kampioenschap extends Evenement {
 
+    private static final long serialVersionUID = 4883897423279187027L;
+
     //region PRIVATE MEMBERS
 
     private String rekeningnummer;

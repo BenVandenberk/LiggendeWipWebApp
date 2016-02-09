@@ -95,6 +95,11 @@ public class ClubService implements IClubService {
         Kampioenschap kamp2 = club.maakKampioenschap("22e Grote prijs De Hoef", new Datum(1, 1, 2016), new Datum(2, 1, 2016));
         Kampioenschap kamp3 = club.maakKampioenschap("23e Grote prijs De Hoef", new Datum(1, 1, 2017), new Datum(2, 1, 2017));
 
+        kamp3.setContact("Contact HIER");
+        kamp3.setOmschrijving("Omschrijving HIER");
+        kamp3.setOvernachtingInfo("Hotel zusenzo");
+        kamp3.setRekeningnummer("BE8700157382214");
+
 
 
 

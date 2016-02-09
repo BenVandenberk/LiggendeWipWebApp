@@ -5,11 +5,14 @@ import be.oklw.util.Datum;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "evenementType", discriminatorType = DiscriminatorType.STRING)
-public class Evenement {
+public class Evenement implements Serializable {
+
+    private static final long serialVersionUID = 5833297426172981277L;
 
     //region PRIVATE MEMBERS
 

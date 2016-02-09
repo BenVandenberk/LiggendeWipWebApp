@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Deelnemer {
+public class Deelnemer implements Serializable {
+
+    private static final long serialVersionUID = 120194243711261552L;
 
     //region PRIVATE MEMBERS
 
