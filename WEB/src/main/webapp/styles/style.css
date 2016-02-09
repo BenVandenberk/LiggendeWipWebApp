@@ -194,6 +194,12 @@ body {
     margin-top: 10px;
 }
 
+.toernooi {
+    border: 1px solid black;
+    padding: 10px;
+    width: 80%;
+}
+
 .noBorder tr,
 .noBorder td { border: 0 !important; }
 

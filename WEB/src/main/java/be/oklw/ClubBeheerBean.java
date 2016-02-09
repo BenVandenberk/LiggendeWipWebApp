@@ -3,7 +3,6 @@ package be.oklw;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Kampioenschap;
-import be.oklw.model.Toernooi;
 import be.oklw.service.IClubService;
 import be.oklw.service.IKampioenschapService;
 
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
 
-@ManagedBean
+@ManagedBean(name = "clubBeheerBean")
 @SessionScoped
 public class ClubBeheerBean implements Serializable {
 
@@ -32,12 +31,16 @@ public class ClubBeheerBean implements Serializable {
     private Account user;
     private Club club;
     private Kampioenschap kampioenschap;
-    private Toernooi toernooi;
 
     private List<Kampioenschap> kampioenschappenVerleden;
     private List<Kampioenschap> kampioenschappenToekomst;
 
     private int kampId;
+    private int toerId;
+
+    public void setToerId(int toerId) {
+        this.toerId = toerId;
+    }
 
     public void setKampId(int kampId) {
         this.kampId = kampId;
@@ -59,21 +62,16 @@ public class ClubBeheerBean implements Serializable {
         this.kampioenschap = kampioenschap;
     }
 
-    public Toernooi getToernooi() {
-        return toernooi;
-    }
-
-    public void setToernooi(Toernooi toernooi) {
-        this.toernooi = toernooi;
-    }
-
     public String kampioenschapKlik() {
         kampioenschap = kampioenschapService.getKampioenschap(kampId);
         return "detail";
     }
 
+    public String toernooiKlik() {
+        return null;
+    }
+
     public String nieuwToernooi() {
-        toernooi = new Toernooi();
         return "nieuw";
     }
 

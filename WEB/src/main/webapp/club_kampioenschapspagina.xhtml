@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm_kamppagina">
 
                 <div class="bodyWrapper">
 
@@ -87,6 +87,20 @@
                     <div class="subTitel">
                         Toernooien
                     </div>
+
+                    <h:panelGroup id="pnl_toernooien">
+                        <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
+                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}">
+                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
+                                <div class="toernooi">
+                                    <div>#{toer.naam}</div>
+                                    <div>#{toer.datum.datumInEuropeesFormaat}</div>
+                                    <div>#{toer.maximumAantalPloegen} Ploegen</div>
+                                    <div>#{toer.personenPerPloeg} schutters per ploeg</div>
+                                </div>
+                            </h:commandLink>
+                        </ui:repeat>
+                    </h:panelGroup>
 
                     <div class="ui-grid ui-grid-responsive">
                         <div class="ui-grid-row formRow">

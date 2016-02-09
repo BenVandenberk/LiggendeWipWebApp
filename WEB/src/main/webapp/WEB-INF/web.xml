@@ -36,15 +36,15 @@
         <param-value>true</param-value>
     </context-param>
 
-    <filter>
-        <filter-name>myFilter</filter-name>
-        <filter-class>be.oklw.filter.AuthorizationFilter</filter-class>
-    </filter>
+    <!--<filter>-->
+        <!--<filter-name>myFilter</filter-name>-->
+        <!--<filter-class>be.oklw.filter.AuthorizationFilter</filter-class>-->
+    <!--</filter>-->
 
-    <filter-mapping>
-        <filter-name>myFilter</filter-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </filter-mapping>
+    <!--<filter-mapping>-->
+        <!--<filter-name>myFilter</filter-name>-->
+        <!--<url-pattern>*.xhtml</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>

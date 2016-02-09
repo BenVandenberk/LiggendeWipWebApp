@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <div class="bodyWrapper">
 
@@ -29,7 +29,7 @@
                                 <p:outputLabel value="Naam:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText value="#{clubBeheerBean.toernooi.naam}"></p:inputText>
+                                <p:inputText value="#{toernooiBean.toernooi.naam}"></p:inputText>
                             </div>
                         </div>
 
@@ -38,7 +38,9 @@
                                 <p:outputLabel value="Datum:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar value="#{clubBeheerBean.toernooi.datum}"></p:calendar>
+                                <p:calendar value="#{toernooiBean.toernooi.datum}" pattern="dd/MM/yyyy">
+                                    <f:converter converterId="DatumConverter"></f:converter>
+                                </p:calendar>
                             </div>
                         </div>
 
@@ -47,7 +49,9 @@
                                 <p:outputLabel value="Startuur:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar size="10" pattern="HH:mm" timeOnly="true" value="#{clubBeheerBean.toernooi.startTijdstip}"></p:calendar>
+                                <p:calendar size="10" pattern="HH:mm" timeOnly="true" value="#{toernooiBean.toernooi.startTijdstip}">
+                                    <f:converter converterId="TimeConverter"></f:converter>
+                                </p:calendar>
                             </div>
                         </div>
 
@@ -58,7 +62,7 @@
                                 <p:outputLabel value="Aantal wippen:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner size="5" value="#{clubBeheerBean.toernooi.aantalWippen}"></p:spinner>
+                                <p:spinner size="5" value="#{toernooiBean.toernooi.aantalWippen}"></p:spinner>
                             </div>
                         </div>
 
@@ -67,7 +71,7 @@
                                 <p:outputLabel value="Aantal ploegen:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner size="5" value="#{clubBeheerBean.toernooi.maximumAantalPloegen}"></p:spinner>
+                                <p:spinner size="5" value="#{toernooiBean.toernooi.maximumAantalPloegen}"></p:spinner>
                             </div>
                         </div>
 
@@ -76,7 +80,7 @@
                                 <p:outputLabel value="Aantal personen per ploeg:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner size="5" value="#{clubBeheerBean.toernooi.personenPerPloeg}"></p:spinner>
+                                <p:spinner size="5" value="#{toernooiBean.toernooi.personenPerPloeg}"></p:spinner>
                             </div>
                         </div>
 
@@ -85,7 +89,7 @@
                                 <p:outputLabel value="Inleg per ploeg:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner prefix="€" stepFactor="0.5" size="5" value="#{clubBeheerBean.toernooi.inlegPerPloeg}"></p:spinner>
+                                <p:spinner prefix="€" stepFactor="0.5" size="5" value="#{toernooiBean.toernooi.inlegPerPloeg}"></p:spinner>
                             </div>
                         </div>
 
@@ -96,7 +100,9 @@
                                 <p:outputLabel value="Inschrijvingsdeadline:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar value="#{clubBeheerBean.toernooi.inschrijfDeadline}"></p:calendar>
+                                <p:calendar value="#{toernooiBean.toernooi.inschrijfDeadline}" pattern="dd/MM/yyyy">
+                                    <f:converter converterId="DatumConverter"></f:converter>
+                                </p:calendar>
                             </div>
                         </div>
 
@@ -105,7 +111,7 @@
                                 <p:outputLabel value="Toernooi omschrijving:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-9">
-                                <p:inputTextarea cols="50" autoResize="true" value="#{clubBeheerBean.toernooi.omschrijving}"></p:inputTextarea>
+                                <p:inputTextarea cols="50" autoResize="true" value="#{toernooiBean.toernooi.omschrijving}"></p:inputTextarea>
                             </div>
                         </div>
 
@@ -116,7 +122,9 @@
                                 <p:outputLabel value="Met maaltijd"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:selectBooleanCheckbox value="#{clubBeheerBean.toernooi.heeftMaaltijd}"></p:selectBooleanCheckbox>
+                                <p:selectBooleanCheckbox value="#{toernooiBean.toernooi.heeftMaaltijd}">
+                                    <p:ajax event="change" update=":frm:in_catering" />
+                                </p:selectBooleanCheckbox>
                             </div>
                         </div>
 
@@ -125,7 +133,7 @@
                                 <p:outputLabel value="Catering:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-9">
-                                <p:inputTextarea cols="50" autoResize="true" value="#{clubBeheerBean.toernooi.cateringInfo}" disabled="#{!clubBeheerBean.toernooi.heeftMaaltijd}"></p:inputTextarea>
+                                <p:inputTextarea id="in_catering" cols="50" autoResize="true" value="#{toernooiBean.toernooi.cateringInfo}" disabled="#{!toernooiBean.toernooi.heeftMaaltijd}"></p:inputTextarea>
                             </div>
                         </div>
 
@@ -134,7 +142,7 @@
                     <div class="pageButton">
                         <p:commandButton value="Toernooi Verwijderen"></p:commandButton>
                         <p:spacer width="10" />
-                        <p:commandButton value="Toernooi Opslaan"></p:commandButton>
+                        <p:commandButton value="Toernooi Opslaan" action="#{toernooiBean.voegNieuwToernooiToe}" update=""></p:commandButton>
                     </div>
 
                     <div class="subTitel">

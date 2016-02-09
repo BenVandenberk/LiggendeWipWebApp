@@ -9,7 +9,10 @@ import javax.persistence.Converter;
 public class DatumConverter implements AttributeConverter<Datum, String> {
     @Override
     public String convertToDatabaseColumn(Datum attribute) {
-        return attribute.getDatumInMySQLFormaat();
+        if (attribute != null) {
+            return attribute.getDatumInMySQLFormaat();
+        }
+        return null;
     }
 
     @Override

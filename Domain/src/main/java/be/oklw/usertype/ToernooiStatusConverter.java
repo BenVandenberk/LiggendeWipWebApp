@@ -10,7 +10,10 @@ import javax.persistence.Converter;
 public class ToernooiStatusConverter implements AttributeConverter<ToernooiStatus, String>{
     @Override
     public String convertToDatabaseColumn(ToernooiStatus attribute) {
-        return attribute.toStringSimple();
+        if (attribute != null) {
+            return attribute.toStringSimple();
+        }
+        return null;
     }
 
     @Override
