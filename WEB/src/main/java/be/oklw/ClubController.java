@@ -76,10 +76,6 @@ public class ClubController {
         }
     }
 
-    public String gaNaarContact(){
-        return "to_contact";
-    }
-
     public void verwijderContact(Club club, Contact contact){
         clubService.verwijderContact(club, contact);
     }

@@ -23,8 +23,4 @@ public class SysteemClubBeheerController {
         clubService.verwijderClub(club);
     }
 
-    public String naarNieuweClub(){
-        return "to_nieuwe_club";
-    }
-
 }
