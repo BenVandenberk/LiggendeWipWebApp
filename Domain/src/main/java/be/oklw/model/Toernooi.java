@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Collections;
@@ -16,7 +17,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Toernooi {
+public class Toernooi implements Serializable {
+
+    private static final long serialVersionUID = -5743128667112131869L;
 
     //region PRIVATE MEMBERS
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 @ViewScoped
 @ManagedBean
-public class ClubBeheerController {
+public class SysteemClubBeheerController {
 
     @EJB
     IClubService clubService;

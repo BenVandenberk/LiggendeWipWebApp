@@ -14,6 +14,9 @@ public class DatumConverter implements AttributeConverter<Datum, String> {
 
     @Override
     public Datum convertToEntityAttribute(String dbData) {
-        return new Datum(dbData);
+        if(dbData != null) {
+            return new Datum(dbData);
+        }
+        return new Datum();
     }
 }

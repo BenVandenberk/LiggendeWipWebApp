@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Entity
 public class Contact implements Serializable {
 
+    private static final long serialVersionUID = 7451882443247506926L;
+
     //region PRIVATE MEMBERS
 
     @Id

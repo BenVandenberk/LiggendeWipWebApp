@@ -101,22 +101,27 @@ public class ClubService implements IClubService {
         Kampioenschap kamp2 = club.maakKampioenschap("22e Grote prijs De Hoef", new Datum(1, 1, 2016), new Datum(2, 1, 2016));
         Kampioenschap kamp3 = club.maakKampioenschap("23e Grote prijs De Hoef", new Datum(1, 1, 2017), new Datum(2, 1, 2017));
 
+        kamp3.setContact("Contact HIER");
+        kamp3.setOmschrijving("Omschrijving HIER");
+        kamp3.setOvernachtingInfo("Hotel zusenzo");
+        kamp3.setRekeningnummer("BE8700157382214");
 
 
 /*
 
-        Toernooi toer1 = new Toernooi();
-        toer1.setNaam("De Hoef Duo Toernooi");
-        toer1.setDatum(new Datum(1, 1, 2017));
-        toer1.setPersonenPerPloeg(2);
-        toer1.setInlegPerPloeg(BigDecimal.TEN);
-        toer1.setAantalWippen(24);
-        toer1.setHeeftMaaltijd(true);
-        toer1.setCateringInfo("MENU");
-        toer1.setOmschrijving("TOER 1");
-        toer1.setMaximumAantalPloegen(48);
-        toer1.setKampioenschap(kamp3);
-        entityManager.persist(toer1);
+
+//        Toernooi toer1 = new Toernooi();
+//        toer1.setNaam("De Hoef Duo Toernooi");
+//        toer1.setDatum(new Datum(1, 1, 2017));
+//        toer1.setPersonenPerPloeg(2);
+//        toer1.setInlegPerPloeg(BigDecimal.TEN);
+//        toer1.setAantalWippen(24);
+//        toer1.setHeeftMaaltijd(true);
+//        toer1.setCateringInfo("MENU");
+//        toer1.setOmschrijving("TOER 1");
+//        toer1.setMaximumAantalPloegen(48);
+//        toer1.setKampioenschap(kamp3);
+//        entityManager.persist(toer1);
 //        kamp3.addToernooi(toer1);
 
         entityManager.flush();

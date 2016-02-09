@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public class SysteemAccount extends Account {
 
+    private static final long serialVersionUID = -6589071286361659827L;
+
     //region PRIVATE MEMBERS
 
     private String naam;

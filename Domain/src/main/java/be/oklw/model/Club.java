@@ -10,6 +10,8 @@ import java.util.*;
 @Entity
 public class Club implements Serializable {
 
+    private static final long serialVersionUID = 659453794239094252L;
+
     //region PRIVATE MEMBERS
 
     @Id

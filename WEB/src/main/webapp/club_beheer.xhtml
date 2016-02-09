@@ -20,15 +20,18 @@
                     </div>
                     
                     <ui:repeat value="#{clubBeheerBean.kampioenschappenToekomst}" var="kamp">
-                        <div class="kampioenschap">
-                            <div>#{kamp.naam}</div>
-                            <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
-                            <div>
-                                <ui:repeat value="#{kamp.toernooien}" var="toer">
-                                    #{toer.naam}
-                                </ui:repeat>
+                        <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}">
+                            <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}" />
+                            <div class="kampioenschap">
+                                <div>#{kamp.naam}</div>
+                                <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
+                                <div>
+                                    <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                        <p:commandLink value="> #{toer.naam}" />
+                                    </ui:repeat>
+                                </div>
                             </div>
-                        </div>
+                        </h:commandLink>
                     </ui:repeat>
 
                     <div class="subTitel" id="div_verleden">
@@ -36,7 +39,15 @@
                     </div>
 
                     <ui:repeat value="#{clubBeheerBean.kampioenschappenVerleden}" var="kamp">
-                        #{kamp.naam}<br/>
+                        <div class="kampioenschap">
+                            <div>#{kamp.naam}</div>
+                            <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
+                            <div>
+                                <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                    <p:commandLink value="> #{toer.naam}" />
+                                </ui:repeat>
+                            </div>
+                        </div>
                     </ui:repeat>
 
                 </div>

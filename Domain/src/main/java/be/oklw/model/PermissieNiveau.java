@@ -1,6 +1,8 @@
 package be.oklw.model;
 
-public enum PermissieNiveau {
+import java.io.Serializable;
+
+public enum PermissieNiveau implements Serializable {
     SYSTEEM, CLUB, LID, BEZOEKER;
 
     @Override

@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "accountType", discriminatorType = DiscriminatorType.STRING)
 public class Account implements Serializable {
+
+    private static final long serialVersionUID = -5674423074060993828L;
     //region PRIVATE MEMBERS
 
     @Id
