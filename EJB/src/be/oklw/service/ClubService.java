@@ -60,7 +60,7 @@ public class ClubService implements IClubService {
 
     @Override
     public List<Club> getAllClubs(){
-        List<Club> allClubs = (List<Club>)entityManager.createQuery("select c from Club c");
+        List<Club> allClubs = (List<Club>)entityManager.createQuery("select c from Club c").getResultList();
         return allClubs;
     }
 

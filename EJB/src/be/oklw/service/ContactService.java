@@ -3,15 +3,14 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.Contact;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- * Created by java on 02.02.16.
- */
-public class ContactService implements IContactService{
+@Stateless
+@Remote
+@TransactionManagement(TransactionManagementType.CONTAINER)
+public class ContactService implements IContactService {
 
     @PersistenceContext
     EntityManager entityManager;

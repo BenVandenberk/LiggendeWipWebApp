@@ -70,8 +70,8 @@
                             </p:dataTable>
 
                             <p:outputPanel>
-                                <p:commandButton class="formRow" value="Nieuw contact toevoegen" actionListener="#{clubController.gaNaarContact}"/>
-                                <p:commandButton class="formRow" value="Geselecteerd contact aanpassen" actionListener="#{clubController.gaNaarContact}"/>
+                                <p:commandButton class="formRow" value="Nieuw contact toevoegen" ajax="false" action="to_contact"/>
+                                <p:commandButton class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="to_contact"/>
                                 <p:commandButton class="formRow" value="Geselecteerd contact verwijderen"/>
                             </p:outputPanel>
 
