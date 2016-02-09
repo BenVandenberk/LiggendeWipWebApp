@@ -6,7 +6,6 @@ import be.oklw.service.IClubService;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.util.ArrayList;
 import java.util.List;
 
 @ViewScoped

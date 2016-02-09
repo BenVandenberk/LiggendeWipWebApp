@@ -51,7 +51,7 @@
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                            <p:dataTable var="contact" value="#{clubController.contactList}">
+                            <p:dataTable var="contact" value="#{clubController.contactList}" selectionMode="single">
                                 <p:column headerText="Naam">
                                     <h:outputText value="#{contact.naam}" />
                                 </p:column>
