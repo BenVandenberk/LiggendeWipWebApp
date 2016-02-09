@@ -3,6 +3,7 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
+import be.oklw.model.Contact;
 import be.oklw.model.Kampioenschap;
 
 import javax.ejb.Remote;
@@ -23,4 +24,8 @@ public interface IClubService {
     void dummyKampioenschappen();
 
     List<Kampioenschap> kampioenschappenVan(Club club, boolean uitVerleden);
+
+    void verwijderContact(Club club, Contact contact);
+
+    void verwijderClub(Club club);
 }

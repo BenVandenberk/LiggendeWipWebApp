@@ -97,7 +97,7 @@ public class ClubService implements IClubService {
 
 
 
-
+/*
 
         Toernooi toer1 = new Toernooi();
         toer1.setNaam("De Hoef Duo Toernooi");
@@ -136,6 +136,33 @@ public class ClubService implements IClubService {
 
 //        kamp3.addToernooi(toer1);
 //        kamp3.addToernooi(toer2);
-//        entityManager.flush();
+//        entityManager.flush();*/
     }
+
+    @Override
+    public void verwijderContact(Club club, Contact contact){
+        Contact teVerwijderenContact = (Contact)entityManager.createQuery("select c from Contact c where c.id = :contactId")
+                .setParameter("contactId", contact.getId())
+                .getSingleResult();
+
+        for(Contact c : club.getContacten()){
+            if (c.getId() == teVerwijderenContact.getId()){
+                club.getContacten().remove(c);
+                break;
+            }
+        }
+
+        entityManager.remove(teVerwijderenContact);
+        entityManager.flush();
+    }
+
+    @Override
+    public void verwijderClub(Club club){
+        Club teVerwijderenClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
+                .setParameter("clubId", club.getId())
+                .getSingleResult();
+        entityManager.remove(teVerwijderenClub);
+        entityManager.flush();
+    }
+
 }

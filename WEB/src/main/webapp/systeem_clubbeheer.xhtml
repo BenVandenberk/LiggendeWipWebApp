@@ -23,22 +23,22 @@
                 <div class="ui-grid-col-12">
                     <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                                <p:dataTable var="club" value="te binden">
+                                <p:dataTable var="club" value="#{clubBeheerController.clubLijst}">
                                     <p:column headerText="Naam">
-                                        <h:outputText value="tb op naam" />
+                                        <h:outputText value="#{club.naam}" />
                                     </p:column>
 
                                     <p:column headerText="Locatie">
-                                        <h:outputText value="tb op locatie" />
+                                        <h:outputText value="#{club.locatie}" />
                                     </p:column>
 
                                     <p:column headerText="Geregistreerd op">
-                                        <h:outputText value="tb op sinds" />
+                                        <h:outputText value="#{club.sinds}" />
                                     </p:column>
                                 </p:dataTable>
 
                                 <p:outputPanel>
-                                <p:commandButton class="formRow" value="Nieuwe club aanmaken"/>
+                                <p:commandButton class="formRow" value="Nieuwe club aanmaken" actionListener="#{clubBeheerController.naarNieuweClub}"/>
                                 <p:commandButton class="formRow" value="Geselecteerde club aanpassen"/>
                                 <p:commandButton class="formRow" value="Geselecteerde club verwijderen"/>
                                 </p:outputPanel>

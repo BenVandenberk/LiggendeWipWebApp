@@ -1,16 +1,19 @@
 package be.oklw;
 
+import be.oklw.model.Club;
 import be.oklw.model.Contact;
 import be.oklw.service.IClubService;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@ViewScoped
 @ManagedBean
 public class ClubController {
 
@@ -71,5 +74,13 @@ public class ClubController {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
         }
+    }
+
+    public String gaNaarContact(){
+        return "to_contact";
+    }
+
+    public void verwijderContact(Club club, Contact contact){
+        clubService.verwijderContact(club, contact);
     }
 }
