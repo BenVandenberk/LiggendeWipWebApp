@@ -28,4 +28,12 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/club_kampioenschapspagina.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>nieuw</from-outcome>
+            <to-view-id>/club_nieuw_toernooi.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

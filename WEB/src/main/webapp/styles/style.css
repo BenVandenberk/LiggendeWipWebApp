@@ -98,6 +98,11 @@
     text-align: center;
 }
 
+.onderTitel {
+    font-size: x-large;
+    text-align: center;
+}
+
 .subTitel {
     font-size: x-large;
     text-decoration: underline;
