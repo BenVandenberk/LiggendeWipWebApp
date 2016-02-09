@@ -99,18 +99,18 @@ public class ClubService implements IClubService {
 
 
 
-        Toernooi toer1 = new Toernooi();
-        toer1.setNaam("De Hoef Duo Toernooi");
-        toer1.setDatum(new Datum(1, 1, 2017));
-        toer1.setPersonenPerPloeg(2);
-        toer1.setInlegPerPloeg(BigDecimal.TEN);
-        toer1.setAantalWippen(24);
-        toer1.setHeeftMaaltijd(true);
-        toer1.setCateringInfo("MENU");
-        toer1.setOmschrijving("TOER 1");
-        toer1.setMaximumAantalPloegen(48);
-        toer1.setKampioenschap(kamp3);
-        entityManager.persist(toer1);
+//        Toernooi toer1 = new Toernooi();
+//        toer1.setNaam("De Hoef Duo Toernooi");
+//        toer1.setDatum(new Datum(1, 1, 2017));
+//        toer1.setPersonenPerPloeg(2);
+//        toer1.setInlegPerPloeg(BigDecimal.TEN);
+//        toer1.setAantalWippen(24);
+//        toer1.setHeeftMaaltijd(true);
+//        toer1.setCateringInfo("MENU");
+//        toer1.setOmschrijving("TOER 1");
+//        toer1.setMaximumAantalPloegen(48);
+//        toer1.setKampioenschap(kamp3);
+//        entityManager.persist(toer1);
 //        kamp3.addToernooi(toer1);
 
         entityManager.flush();

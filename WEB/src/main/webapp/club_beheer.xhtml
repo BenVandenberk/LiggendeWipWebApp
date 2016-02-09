@@ -25,7 +25,7 @@
                             <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
                             <div>
                                 <ui:repeat value="#{kamp.toernooien}" var="toer">
-                                    #{toer.naam}
+                                    <p:commandLink value="> #{toer.naam}" />
                                 </ui:repeat>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 package be.oklw.usertype;
 
+import be.oklw.model.state.Aangemaakt;
 import be.oklw.model.state.ToernooiStatus;
 
 import javax.persistence.AttributeConverter;
@@ -14,6 +15,9 @@ public class ToernooiStatusConverter implements AttributeConverter<ToernooiStatu
 
     @Override
     public ToernooiStatus convertToEntityAttribute(String dbData) {
-        return ToernooiStatus.maak(dbData);
+        if (dbData != null) {
+            return ToernooiStatus.maak(dbData);
+        }
+        return new Aangemaakt();
     }
 }
