@@ -2,6 +2,7 @@ package be.oklw;
 
 import be.oklw.model.Account;
 import be.oklw.model.Club;
+import be.oklw.model.PermissieNiveau;
 import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
 import org.apache.commons.lang3.StringUtils;
@@ -160,7 +161,7 @@ public class GebruikerController {
         user = (Account)httpSession.getAttribute("user");
         loggedIn = user != null;
 
-        if (loggedIn) {
+        if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.CLUB) {
             club = clubService.getClub(user);
         }
     }
