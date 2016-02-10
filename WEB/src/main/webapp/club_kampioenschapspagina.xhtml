@@ -89,6 +89,7 @@
                     </div>
 
                     <h:panelGroup id="pnl_toernooien">
+                        <p:outputLabel value="Klik op '+' om een toernooi aan te maken" rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}" />
                         <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
                             <h:commandLink action="#{clubBeheerBean.toernooiKlik}">
                                 <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />

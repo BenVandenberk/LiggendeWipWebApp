@@ -17,6 +17,6 @@ public class FacesDatumConverter implements Converter{
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return value.toString();
+        return ((Datum)value).getDatumInEuropeesFormaat();
     }
 }

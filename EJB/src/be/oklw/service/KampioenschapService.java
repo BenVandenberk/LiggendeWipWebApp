@@ -33,4 +33,10 @@ public class KampioenschapService implements IKampioenschapService {
         kampioenschap.addToernooi(toernooi);
         entityManager.flush();
     }
+
+    @Override
+    public void opslaanToernooi(Toernooi toernooi) {
+        entityManager.merge(toernooi);
+        entityManager.flush();
+    }
 }

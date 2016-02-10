@@ -13,4 +13,6 @@ public interface IKampioenschapService {
     void opslaan(Kampioenschap kampioenschap);
 
     void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap);
+
+    void opslaanToernooi(Toernooi toernooi);
 }

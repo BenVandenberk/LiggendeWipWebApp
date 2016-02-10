@@ -3,11 +3,13 @@ package be.oklw;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Kampioenschap;
+import be.oklw.model.Toernooi;
 import be.oklw.service.IClubService;
 import be.oklw.service.IKampioenschapService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -15,6 +17,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @ManagedBean(name = "clubBeheerBean")
 @SessionScoped
@@ -31,6 +34,7 @@ public class ClubBeheerBean implements Serializable {
     private Account user;
     private Club club;
     private Kampioenschap kampioenschap;
+    private Toernooi toernooi;
 
     private List<Kampioenschap> kampioenschappenVerleden;
     private List<Kampioenschap> kampioenschappenToekomst;
@@ -62,13 +66,29 @@ public class ClubBeheerBean implements Serializable {
         this.kampioenschap = kampioenschap;
     }
 
+    public Toernooi getToernooi() {
+        return toernooi;
+    }
+
+    public void setToernooi(Toernooi toernooi) {
+        this.toernooi = toernooi;
+    }
+
     public String kampioenschapKlik() {
         kampioenschap = kampioenschapService.getKampioenschap(kampId);
         return "detail";
     }
 
     public String toernooiKlik() {
-        return null;
+        Optional<Toernooi> toernooiOptional = kampioenschap.getToernooien().stream().filter(t -> t.getId() == toerId).findFirst();
+        if (toernooiOptional.isPresent()) {
+            toernooi = toernooiOptional.get();
+            return "club_toernooi_aanpassen";
+        } else {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niet gevonden", "Toernooi niet gevonden"));
+        }
+        return "";
     }
 
     public String nieuwToernooi() {
@@ -77,6 +97,11 @@ public class ClubBeheerBean implements Serializable {
 
     public void opslaan(ActionEvent event) {
         kampioenschapService.opslaan(kampioenschap);
+    }
+
+    public String opslaanToernooi() {
+        kampioenschapService.opslaanToernooi(toernooi);
+        return "club_kampioenschapspagina";
     }
 
     public void refresh() {

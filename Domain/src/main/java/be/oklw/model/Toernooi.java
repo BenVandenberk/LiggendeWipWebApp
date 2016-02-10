@@ -35,6 +35,7 @@ public class Toernooi implements Serializable {
     private int aantalWippen;
     private String omschrijving;
     private boolean heeftMaaltijd;
+    private boolean metInleg;
     private String cateringInfo;
 
     @Convert(converter = DatumConverter.class)
@@ -176,6 +177,15 @@ public class Toernooi implements Serializable {
     public void setCateringInfo(String cateringInfo) {
         this.cateringInfo = cateringInfo;
     }
+
+    public boolean isMetInleg() {
+        return metInleg;
+    }
+
+    public void setMetInleg(boolean metInleg) {
+        this.metInleg = metInleg;
+    }
+
     //endregion
 
     //region PUBLIC METHODS
