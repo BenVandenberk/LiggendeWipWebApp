@@ -47,10 +47,10 @@ public class ClubService implements IClubService {
         if (adres != ""){club.setAdres(adres);}
         if (contactLijst.size()!=0){
             for (Contact c : contactLijst){
-            club.addContact(c);
+                club.addContact(c);
             }
         }
-        entityManager.persist(club);
+        entityManager.merge(club);
         entityManager.flush();
     }
 

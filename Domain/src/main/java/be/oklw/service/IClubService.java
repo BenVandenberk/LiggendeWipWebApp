@@ -8,6 +8,7 @@ import be.oklw.model.Kampioenschap;
 
 import javax.ejb.Remote;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Remote
