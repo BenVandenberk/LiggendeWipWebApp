@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SessionScoped
-@ManagedBean
+@ManagedBean(name = "clubController")
 public class ClubController implements Serializable{
 
     @NotNull(message= "Naam van de club is verplicht")
@@ -90,6 +90,10 @@ public class ClubController implements Serializable{
 
     public void addContact(Contact contact){
         contactLijst.add(contact);
+    }
+
+    public void refreshContacten() {
+        contactLijst = contactService.alleContacten();
     }
 
     public void reset(){

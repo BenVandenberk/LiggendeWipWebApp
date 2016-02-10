@@ -79,6 +79,10 @@ public class ClubBeheerBean implements Serializable {
         kampioenschapService.opslaan(kampioenschap);
     }
 
+    public void refresh() {
+        kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());
+    }
+
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
