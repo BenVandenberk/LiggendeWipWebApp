@@ -25,7 +25,7 @@
                                 <p:outputLabel value="Club:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden"/>
+                                <p:outputLabel value="#{contactController.club.naam}"/>
                             </div>
                         </div>
 
@@ -68,7 +68,9 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Toevoegen aan contactlijst" />
+                        <p:commandButton value="Opslaan" ajax="false" action="#{contactController.maakNieuwContactAan}">
+                            <f:actionListener binding="#{clubController.addContact(clubContactBean.getNieuwsteContact())}" />
+                        </p:commandButton>
                     </div>
 
                 </div>

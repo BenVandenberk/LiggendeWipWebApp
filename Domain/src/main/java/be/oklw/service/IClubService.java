@@ -15,7 +15,7 @@ public interface IClubService {
 
     void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException;
 
-    void maakNieuweClubAan(String naam, String locatie, String adres) throws BusinessException;
+    void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException;
 
     Club getClub(Account account);
 

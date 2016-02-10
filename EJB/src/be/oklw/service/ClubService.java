@@ -42,9 +42,14 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void maakNieuweClubAan(String naam, String locatie, String adres) throws BusinessException{
+    public void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException{
         Club club = new Club(naam, locatie);
         if (adres != ""){club.setAdres(adres);}
+        if (contactLijst.size()!=0){
+            for (Contact c : contactLijst){
+            club.addContact(c);
+            }
+        }
         entityManager.persist(club);
         entityManager.flush();
     }

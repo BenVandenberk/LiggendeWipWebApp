@@ -51,7 +51,7 @@
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                            <p:dataTable var="contact" value="#{clubController.contactList}" selectionMode="single">
+                            <p:dataTable var="contact" value="#{clubController.contactLijst}">
                                 <p:column headerText="Naam">
                                     <h:outputText value="#{contact.naam}" />
                                 </p:column>
@@ -65,7 +65,7 @@
                                 </p:column>
 
                                 <p:column headerText="accountbeheerder?">
-                                    <p:selectBooleanCheckbox value = "#{contact.isBeheerder}"/>
+                                    <p:selectBooleanCheckbox />
                                 </p:column>
                             </p:dataTable>
 
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Nieuwe club opslaan" actionListener="#{clubController.maakNieuweClubAan}"/>
+                        <p:commandButton value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
                     </div>
 
                 </div>

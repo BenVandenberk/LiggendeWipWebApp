@@ -23,4 +23,12 @@ public class ContactService implements IContactService {
         entityManager.persist(contact);
         entityManager.flush();
     }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
+    public Contact getNieuwsteContact() throws BusinessException {
+        //Contact contact = (Contact)entityManager.createQuery("SELECT c FROM Contact c WHERE c.id = (SELECT MAX(d.id) FROM Contact d)");
+        return new Contact("jos", "03", "@", true);
+    }
+
 }

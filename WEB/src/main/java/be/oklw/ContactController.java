@@ -1,5 +1,7 @@
 package be.oklw;
 
+import be.oklw.model.Club;
+import be.oklw.model.Contact;
 import be.oklw.service.IContactService;
 
 import javax.ejb.EJB;
@@ -11,9 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
-public class ContactController {
+public class ContactController implements Serializable{
 
     @NotNull(message= "Naam van contactpersoon is verplicht")
     private String naam;
@@ -21,6 +23,8 @@ public class ContactController {
     private String telefoonnummer;
     private String email;
     private boolean isBeheerder;
+
+    private Club club;
 
     @EJB
     IContactService contactService;
@@ -57,7 +61,15 @@ public class ContactController {
         this.isBeheerder = isBeheerder;
     }
 
-    public void maakNieuwContactAan(){
+    public Club getClub() {
+        return club;
+    }
+
+    public void setClub(Club club) {
+        this.club = club;
+    }
+
+    public String maakNieuwContactAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
@@ -65,9 +77,16 @@ public class ContactController {
             contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
+            return "to_nieuwe_club";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
         }
+        return "";
     }
+
+    /*public String naarContact(Club club){
+        this.club = club;
+        return "to_nieuw_contact";
+    }*/
 }

@@ -37,6 +37,22 @@
     </navigation-rule>
 
     <navigation-rule>
+        <from-view-id>/systeem_nieuwe_club.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>to_systeem_clubbeheer</from-outcome>
+            <to-view-id>/systeem_clubbeheer.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/systeem_nieuw_contact.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>to_nieuwe_club</from-outcome>
+            <to-view-id>/systeem_nieuwe_club.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
         <from-view-id>/club_beheer.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>detail</from-outcome>

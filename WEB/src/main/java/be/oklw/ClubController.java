@@ -3,19 +3,24 @@ package be.oklw;
 import be.oklw.model.Club;
 import be.oklw.model.Contact;
 import be.oklw.service.IClubService;
+import be.oklw.service.IContactService;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.swing.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean
-public class ClubController {
+public class ClubController implements Serializable{
 
     @NotNull(message= "Naam van de club is verplicht")
     private String naam;
@@ -25,10 +30,13 @@ public class ClubController {
 
     private String adres;
 
-    private ArrayList<Contact> contactList;
+    private List<Contact> contactLijst = new ArrayList<>();
 
     @EJB
     IClubService clubService;
+
+    @EJB
+    IContactService contactService;
 
     public String getNaam() {
         return naam;
@@ -54,29 +62,37 @@ public class ClubController {
         this.adres = adres;
     }
 
-    public ArrayList<Contact> getContactList() {
-        return contactList;
+    public List<Contact> getContactLijst() {
+        return contactLijst;
     }
 
-    public void setContactList(ArrayList<Contact> contactList) {
-        this.contactList = contactList;
+    public void setContactLijst(List<Contact> contactLijst) {
+        this.contactLijst = contactLijst;
     }
 
-    public void maakNieuweClubAan(){
+    public String maakNieuweClubAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
         try {
-                clubService.maakNieuweClubAan(naam, locatie, adres);
+                clubService.maakNieuweClubAan(naam, locatie, adres, contactLijst);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwe club werd aangemaakt", "Nieuwe club werd aangemaakt");
                 facesContext.addMessage(null, message);
+                return "to_systeem_clubbeheer";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
         }
+        return "";
     }
 
     public void verwijderContact(Club club, Contact contact){
         clubService.verwijderContact(club, contact);
     }
+
+    public void addContact(Contact contact){
+        contactLijst.add(contact);
+    }
+
+
 }
