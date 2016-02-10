@@ -32,11 +32,21 @@ public class ClubController implements Serializable{
 
     private List<Contact> contactLijst = new ArrayList<>();
 
+    private int aantalContacten = 0;
+
     @EJB
     IClubService clubService;
 
     @EJB
     IContactService contactService;
+
+    public int getAantalContacten(){
+        return aantalContacten;
+    }
+
+    public void setAantalContacten(int aantalContacten){
+        this.aantalContacten = aantalContacten;
+    }
 
     public String getNaam() {
         return naam;
@@ -78,6 +88,7 @@ public class ClubController implements Serializable{
                 clubService.maakNieuweClubAan(naam, locatie, adres, contactLijst);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwe club werd aangemaakt", "Nieuwe club werd aangemaakt");
                 facesContext.addMessage(null, message);
+                reset();
                 return "to_systeem_clubbeheer";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
@@ -90,12 +101,16 @@ public class ClubController implements Serializable{
         clubService.verwijderContact(club, contact);
     }
 
-    public void addContact(Contact contact){
-        contactLijst.add(contact);
+    public void refreshContacten() {
+        contactLijst = contactService.alleContacten(aantalContacten);
     }
 
-    public void refreshContacten() {
-        contactLijst = contactService.alleContacten();
+    public void reset(){
+        this.adres = "";
+        this.contactLijst = new ArrayList<>();
+        this.locatie = "";
+        this.naam = "";
+        this.aantalContacten = 0;
     }
 
 

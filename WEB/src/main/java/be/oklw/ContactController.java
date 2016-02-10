@@ -28,8 +28,6 @@ public class ContactController implements Serializable{
     private String email;
     private boolean isBeheerder;
 
-    private Club club;
-
     @EJB
     IContactService contactService;
 
@@ -69,23 +67,18 @@ public class ContactController implements Serializable{
         this.isBeheerder = isBeheerder;
     }
 
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
-
     public String maakNieuwContactAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
         try {
             contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
+            int aantalContacten = clubController.getAantalContacten();
+            clubController.setAantalContacten(aantalContacten + 1);
             clubController.refreshContacten();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
+            reset();
             return "to_nieuwe_club";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
@@ -94,8 +87,11 @@ public class ContactController implements Serializable{
         return "";
     }
 
-    /*public String naarContact(Club club){
-        this.club = club;
-        return "to_nieuw_contact";
-    }*/
+    public void reset(){
+        this.email="";
+        this.naam="";
+        this.telefoonnummer="";
+        this.isBeheerder = false;
+    }
+
 }

@@ -10,8 +10,8 @@ import java.util.List;
 public interface IContactService {
 
     void maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException;
-    Contact getNieuwsteContact() throws BusinessException;
-    List<Contact> alleContacten();
+
+    List<Contact> alleContacten(int aantalContacten);
 
 
 }
