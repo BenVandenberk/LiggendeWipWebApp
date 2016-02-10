@@ -7,13 +7,14 @@ import be.oklw.service.IContactService;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@SessionScoped
+@RequestScoped
 @ManagedBean
 public class ContactController implements Serializable{
 
@@ -25,6 +26,7 @@ public class ContactController implements Serializable{
     private boolean isBeheerder;
 
     private Club club;
+    private Contact contact;
 
     @EJB
     IContactService contactService;
@@ -74,7 +76,8 @@ public class ContactController implements Serializable{
         FacesMessage message;
 
         try {
-            contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
+            contactService.maakNieuwContactAan(naam, telefoonnummer, email, false);
+            setShow(true);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
             return "to_nieuwe_club";
@@ -84,6 +87,26 @@ public class ContactController implements Serializable{
         }
         return "";
     }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+
+    private boolean show;
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
 
     /*public String naarContact(Club club){
         this.club = club;

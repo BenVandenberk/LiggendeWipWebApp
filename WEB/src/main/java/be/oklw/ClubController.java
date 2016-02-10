@@ -35,9 +35,6 @@ public class ClubController implements Serializable{
     @EJB
     IClubService clubService;
 
-    @EJB
-    IContactService contactService;
-
     public String getNaam() {
         return naam;
     }
@@ -78,6 +75,7 @@ public class ClubController implements Serializable{
                 clubService.maakNieuweClubAan(naam, locatie, adres, contactLijst);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwe club werd aangemaakt", "Nieuwe club werd aangemaakt");
                 facesContext.addMessage(null, message);
+                this.reset();
                 return "to_systeem_clubbeheer";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
@@ -92,6 +90,13 @@ public class ClubController implements Serializable{
 
     public void addContact(Contact contact){
         contactLijst.add(contact);
+    }
+
+    public void reset(){
+        this.adres = "";
+        this.contactLijst = new ArrayList<>();
+        this.locatie = "";
+        this.naam = "";
     }
 
 
