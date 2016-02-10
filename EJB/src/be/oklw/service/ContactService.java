@@ -6,6 +6,7 @@ import be.oklw.model.Contact;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 @Remote
@@ -31,4 +32,9 @@ public class ContactService implements IContactService {
         return new Contact("jos", "03", "@", true);
     }
 
+    @Override
+    public List<Contact> alleContacten() {
+        List<Contact> contacten = entityManager.createQuery("SELECT c FROM Contact c").getResultList();
+        return contacten;
+    }
 }

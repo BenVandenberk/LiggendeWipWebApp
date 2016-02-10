@@ -7,6 +7,7 @@ import be.oklw.service.IContactService;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -20,6 +21,9 @@ public class ContactController implements Serializable{
     @NotNull(message= "Naam van contactpersoon is verplicht")
     private String naam;
 
+    @ManagedProperty(value = "#{clubController}")
+    ClubController clubController;
+
     private String telefoonnummer;
     private String email;
     private boolean isBeheerder;
@@ -28,6 +32,10 @@ public class ContactController implements Serializable{
 
     @EJB
     IContactService contactService;
+
+    public void setClubController(ClubController clubController) {
+        this.clubController = clubController;
+    }
 
     public String getNaam() {
         return naam;
@@ -75,6 +83,7 @@ public class ContactController implements Serializable{
 
         try {
             contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
+            clubController.refreshContacten();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
             return "to_nieuwe_club";
