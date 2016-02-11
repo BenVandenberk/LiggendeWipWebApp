@@ -5,6 +5,7 @@ import be.oklw.service.IClubService;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 
@@ -12,8 +13,17 @@ import java.util.List;
 @ManagedBean
 public class SysteemClubBeheerController {
 
+    private Club selectedClub;
+
+    @ManagedProperty(value = "#{clubController}")
+    ClubController clubController;
+
     @EJB
     IClubService clubService;
+
+    public void setClubController(ClubController clubController) {
+        this.clubController = clubController;
+    }
 
     public List<Club> getClubLijst() {
         return clubService.getAllClubs();
@@ -23,4 +33,16 @@ public class SysteemClubBeheerController {
         clubService.verwijderClub(club);
     }
 
+    public Club getSelectedClub() {
+        return selectedClub;
+    }
+
+    public void setSelectedClub(Club selectedClub) {
+        this.selectedClub = selectedClub;
+    }
+
+    public String naarNieuweClub(){
+        clubController.setSelectedClub(selectedClub);
+        return "to_nieuwe_club";
+    }
 }

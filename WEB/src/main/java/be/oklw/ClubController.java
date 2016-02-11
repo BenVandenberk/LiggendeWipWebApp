@@ -32,7 +32,11 @@ public class ClubController implements Serializable{
 
     private List<Contact> contactLijst = new ArrayList<>();
 
+    private Contact selectedContact;
+
     private int aantalContacten = 0;
+
+    private Club selectedClub;
 
     @EJB
     IClubService clubService;
@@ -80,6 +84,15 @@ public class ClubController implements Serializable{
         this.contactLijst = contactLijst;
     }
 
+    public Contact getSelectedContact() {
+        return selectedContact;
+    }
+
+    public void setSelectedContact(Contact selectedContact) {
+        this.selectedContact = selectedContact;
+    }
+
+
     public String maakNieuweClubAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
@@ -90,6 +103,23 @@ public class ClubController implements Serializable{
                 facesContext.addMessage(null, message);
                 reset();
                 return "to_systeem_clubbeheer";
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+        return "";
+    }
+
+    public String wijzigClub(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            clubService.wijzigClub(naam, locatie, adres, contactLijst, selectedClub.getId());
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Club werd aangepast", "Club werd aangepast");
+            facesContext.addMessage(null, message);
+            reset();
+            return "to_systeem_clubbeheer";
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
@@ -113,5 +143,17 @@ public class ClubController implements Serializable{
         this.aantalContacten = 0;
     }
 
+    public Club getSelectedClub() {
+        return selectedClub;
+    }
 
+    public void setSelectedClub(Club selectedClub) {
+        this.selectedClub = selectedClub;
+        naam = selectedClub.getNaam();
+        locatie = selectedClub.getLocatie();
+        adres = selectedClub.getAdres();
+        if(selectedClub.getContacten().size()>0){
+            contactLijst = selectedClub.getContacten();
+        }
+    }
 }

@@ -56,6 +56,16 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
+    public void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException{
+
+        //TODO
+
+       // entityManager.merge(club);
+        entityManager.flush();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
     public Club getClub(Account account) {
         Club club = (Club)entityManager.createQuery("select c from Club c where c.account.id = :accId")
                                         .setParameter("accId", account.getId())

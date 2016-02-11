@@ -51,7 +51,7 @@
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                            <p:dataTable var="contact" value="#{clubController.contactLijst}">
+                            <p:dataTable id="contactlijst" var="contact" value="#{clubController.contactLijst}" selectionMode="single" selection="#{clubController.selectedContact}" rowKey="#{contact.naam}">
                                 <p:column headerText="Naam">
                                     <h:outputText value="#{contact.naam}" />
                                 </p:column>
@@ -71,10 +71,9 @@
 
                             <p:outputPanel>
                                 <p:commandButton class="formRow" value="Nieuw contact toevoegen" ajax="false" action="to_contact"/>
-                                <p:commandButton class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="to_contact"/>
-                                <p:commandButton class="formRow" value="Geselecteerd contact verwijderen"/>
+                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="to_contact"/>
+                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact verwijderen"/>
                             </p:outputPanel>
-
                         </p:panelGrid>
 
                     </p:fieldset>

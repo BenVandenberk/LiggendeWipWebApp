@@ -23,11 +23,11 @@
                 <div class="ui-grid-col-12">
                     <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                                <p:dataTable var="club" value="#{systeemClubBeheerController.getClubLijst()}" >
+                                <p:dataTable id="clublijst" var="club" value="#{systeemClubBeheerController.getClubLijst()}" selectionMode="single"
+                                             selection="#{systeemClubBeheerController.selectedClub}" rowKey="#{club.naam}">
                                     <p:column headerText="Naam">
                                         <h:outputText value="#{club.naam}" />
                                     </p:column>
-
                                     <p:column headerText="Locatie">
                                         <h:outputText value="#{club.locatie}" />
                                     </p:column>
@@ -39,8 +39,8 @@
 
                                 <p:outputPanel>
                                 <p:commandButton class="formRow" value="Nieuwe club aanmaken" action="to_nieuwe_club"/>
-                                <p:commandButton class="formRow" value="Geselecteerde club aanpassen"/>
-                                <p:commandButton class="formRow" value="Geselecteerde club verwijderen"/>
+                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club aanpassen" ajax="false" action="#{systeemClubBeheerController.naarNieuweClub()}"/>
+                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club verwijderen"/>
                                 </p:outputPanel>
 
                     </p:panelGrid>

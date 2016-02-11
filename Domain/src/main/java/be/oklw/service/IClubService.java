@@ -18,6 +18,8 @@ public interface IClubService {
 
     void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException;
 
+    void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException;
+
     Club getClub(Account account);
 
     void bewaarAfmetingen(Club club);
