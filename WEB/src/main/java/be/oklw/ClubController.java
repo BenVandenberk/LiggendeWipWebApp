@@ -7,15 +7,13 @@ import be.oklw.service.IContactService;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.swing.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @SessionScoped
@@ -30,8 +28,6 @@ public class ClubController implements Serializable{
 
     private String adres;
 
-    private List<Contact> contactLijst = new ArrayList<>();
-
     private Contact selectedContact;
 
     private Club selectedClub;
@@ -43,6 +39,20 @@ public class ClubController implements Serializable{
 
     @EJB
     IContactService contactService;
+
+    @ManagedProperty(value = "#{contactController}")
+    private ContactController contactController;
+
+    @ManagedProperty(value="#{contactLijstBean}")
+    private ContactLijstBean contactLijstBean;
+
+    public void setContactController(ContactController contactController) {
+        this.contactController = contactController;
+    }
+
+    public void setContactLijstBean(ContactLijstBean contactLijstBean) {
+        this.contactLijstBean = contactLijstBean;
+    }
 
     public String getNaam() {
         return naam;
@@ -68,14 +78,6 @@ public class ClubController implements Serializable{
         this.adres = adres;
     }
 
-    public List<Contact> getContactLijst() {
-        return contactLijst;
-    }
-
-    public void setContactLijst(List<Contact> contactLijst) {
-        this.contactLijst = contactLijst;
-    }
-
     public Contact getSelectedContact() {
         return selectedContact;
     }
@@ -84,13 +86,12 @@ public class ClubController implements Serializable{
         this.selectedContact = selectedContact;
     }
 
-
     public String maakNieuweClubAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
         try {
-                clubService.maakNieuweClubAan(naam, locatie, adres, contactLijst);
+                clubService.maakNieuweClubAan(naam, locatie, adres, contactLijstBean.getContactLijst());
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwe club werd aangemaakt", "Nieuwe club werd aangemaakt");
                 facesContext.addMessage(null, message);
                 reset();
@@ -107,7 +108,7 @@ public class ClubController implements Serializable{
         FacesMessage message;
 
         try {
-            clubService.wijzigClub(naam, locatie, adres, contactLijst, selectedClub.getId());
+            clubService.wijzigClub(naam, locatie, adres, contactLijstBean.getContactLijst(), selectedClub.getId());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Club werd aangepast", "Club werd aangepast");
             facesContext.addMessage(null, message);
             reset();
@@ -119,19 +120,29 @@ public class ClubController implements Serializable{
         return "";
     }
 
-    public void verwijderContact(Club club, Contact contact){
-        clubService.verwijderContact(club, contact);
+    public void verwijderContact(){
+        clubService.verwijderContact(selectedClub, selectedContact);
+        if(selectedClub!=null){
+            contactLijstBean.setContactLijst(clubService.getNieuweContactLijst(selectedClub));
+        }
+        else{
+            List<Contact> contactList = contactLijstBean.getContactLijst();
+
+            if(contactList != null){
+                Iterator<Contact> i = contactList.iterator();
+                while(i.hasNext()){
+                    Contact c = i.next();
+                    if (c.getId() == selectedContact.getId()){
+                        i.remove();
+                    }
+                }
+            }
+        }
     }
-
-    /*public void refreshContacten() {
-        contactLijst = contactService.alleContacten();
-    }*/
-
-    public void addContact() { contactLijst.add(contactService.getNieuwsteContact());}
 
     public void reset(){
         this.adres = "";
-        this.contactLijst = new ArrayList<>();
+        this.contactLijstBean.setContactLijst(new ArrayList<>());
         this.locatie = "";
         this.naam = "";
     }
@@ -142,12 +153,28 @@ public class ClubController implements Serializable{
 
     public void setSelectedClub(Club selectedClub) {
         this.selectedClub = selectedClub;
+
+        if (selectedClub!=null){
         naam = selectedClub.getNaam();
         locatie = selectedClub.getLocatie();
         adres = selectedClub.getAdres();
         if(selectedClub.getContacten().size()>0){
-            contactLijst = selectedClub.getContacten();
+            contactLijstBean.setContactLijst(selectedClub.getContacten());
         }
+        }
+    }
+
+    public String naarNieuwContact(){
+        contactController.reset();
+        contactController.setShowWijzig(false);
+        return "to_contact";
+    }
+
+    public String naarGeselecteerdContact(){
+        contactController.reset();
+        contactController.setSelectedContact(selectedContact);
+        contactController.setShowWijzig(true);
+        return "to_contact";
     }
 
     public boolean isShowWijzig() {
@@ -157,4 +184,5 @@ public class ClubController implements Serializable{
     public void setShowWijzig(boolean showWijzig) {
         this.showWijzig = showWijzig;
     }
+
 }

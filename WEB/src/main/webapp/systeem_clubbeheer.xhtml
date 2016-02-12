@@ -40,7 +40,7 @@
                                 <p:outputPanel>
                                 <p:commandButton class="formRow" value="Nieuwe club aanmaken" ajax = "false" action="#{systeemClubBeheerController.naarNieuweClub}"/>
                                 <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club aanpassen" ajax="false" action="#{systeemClubBeheerController.naarGeselecteerdeClub()}"/>
-                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club verwijderen"/>
+                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club verwijderen" ajax="false" action="#{systeemClubBeheerController.verwijderClub()}"/>
                                 </p:outputPanel>
 
                     </p:panelGrid>

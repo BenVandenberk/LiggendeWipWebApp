@@ -15,24 +15,27 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @SessionScoped
-@ManagedBean
+@ManagedBean(name="contactController")
 public class ContactController implements Serializable{
 
     @NotNull(message= "Naam van contactpersoon is verplicht")
     private String naam;
 
-    @ManagedProperty(value = "#{clubController}")
-    ClubController clubController;
+    @ManagedProperty(value = "#{contactLijstBean}")
+    private ContactLijstBean contactLijstBean;
 
     private String telefoonnummer;
     private String email;
-    private boolean isBeheerder;
+    private boolean beheerder;
+
+    private boolean showWijzig;
+    private Contact selectedContact;
 
     @EJB
     IContactService contactService;
 
-    public void setClubController(ClubController clubController) {
-        this.clubController = clubController;
+    public void setContactLijstBean(ContactLijstBean contactLijstBean) {
+        this.contactLijstBean = contactLijstBean;
     }
 
     public String getNaam() {
@@ -60,11 +63,31 @@ public class ContactController implements Serializable{
     }
 
     public boolean isBeheerder() {
-        return isBeheerder;
+        return beheerder;
     }
 
-    public void setIsBeheerder(boolean isBeheerder) {
-        this.isBeheerder = isBeheerder;
+    public void setBeheerder(boolean beheerder) {
+        this.beheerder = beheerder;
+    }
+
+    public boolean isShowWijzig() {
+        return showWijzig;
+    }
+
+    public void setShowWijzig(boolean showWijzig) {
+        this.showWijzig = showWijzig;
+    }
+
+    public Contact getSelectedContact() {
+        return selectedContact;
+    }
+
+    public void setSelectedContact(Contact selectedContact) {
+        this.selectedContact = selectedContact;
+        naam = selectedContact.getNaam();
+        email = selectedContact.getEmail();
+        telefoonnummer = selectedContact.getTelefoonnummer();
+        beheerder = selectedContact.isBeheerder();
     }
 
     public String maakNieuwContactAan(){
@@ -72,10 +95,27 @@ public class ContactController implements Serializable{
         FacesMessage message;
 
         try {
-            contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
-            clubController.addContact();
-            //clubController.refreshContacten();
+            contactService.maakNieuwContactAan(naam, telefoonnummer, email, beheerder);
+            contactLijstBean.addNieuwsteContact();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
+            facesContext.addMessage(null, message);
+            reset();
+            return "to_nieuwe_club";
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+        return "";
+    }
+
+    public String wijzigContact(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            contactService.wijzigContact(naam, telefoonnummer, email, beheerder, selectedContact.getId());
+            contactLijstBean.wijzigContact(selectedContact.getId());
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contact werd gewijzigd", "Contact werd gewijzigd");
             facesContext.addMessage(null, message);
             reset();
             return "to_nieuwe_club";
@@ -90,7 +130,7 @@ public class ContactController implements Serializable{
         this.email="";
         this.naam="";
         this.telefoonnummer="";
-        this.isBeheerder = false;
+        this.beheerder = false;
     }
 
 }

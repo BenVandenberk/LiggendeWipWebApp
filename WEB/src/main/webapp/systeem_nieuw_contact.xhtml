@@ -61,14 +61,15 @@
                                 <p:outputLabel value="Accountbeheerder?"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:selectBooleanCheckbox value="te binden" />
+                                <p:selectBooleanCheckbox value="#{contactController.beheerder}" />
                             </div>
                         </div>
 
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Opslaan" ajax="false" action="#{contactController.maakNieuwContactAan}"/>
+                        <p:commandButton rendered="#{!contactController.showWijzig}" value="Nieuw contact opslaan" ajax="false" action="#{contactController.maakNieuwContactAan}"/>
+                        <p:commandButton rendered="#{contactController.showWijzig}" value="Wijzigingen opslaan" ajax="false" action="#{contactController.wijzigContact}"/>
                     </div>
 
                 </div>

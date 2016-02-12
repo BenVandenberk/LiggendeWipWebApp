@@ -15,11 +15,11 @@ public class SysteemClubBeheerController {
 
     private Club selectedClub;
 
-    @ManagedProperty(value = "#{clubController}")
-    ClubController clubController;
-
     @EJB
     IClubService clubService;
+
+    @ManagedProperty(value = "#{clubController}")
+    private ClubController clubController;
 
     public void setClubController(ClubController clubController) {
         this.clubController = clubController;
@@ -29,8 +29,8 @@ public class SysteemClubBeheerController {
         return clubService.getAllClubs();
     }
 
-    public void verwijderClub(Club club){
-        clubService.verwijderClub(club);
+    public void verwijderClub(){
+        clubService.verwijderClub(selectedClub);
     }
 
     public Club getSelectedClub() {
@@ -50,7 +50,9 @@ public class SysteemClubBeheerController {
 
     public String naarNieuweClub(){
         clubController.reset();
+        clubController.setSelectedClub(null);
         clubController.setShowWijzig(false);
         return "to_nieuwe_club";
     }
+
 }

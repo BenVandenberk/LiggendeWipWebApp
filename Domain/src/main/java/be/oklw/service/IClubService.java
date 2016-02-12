@@ -33,4 +33,6 @@ public interface IClubService {
     void verwijderClub(Club club);
 
     List<Club> getAllClubs();
+
+    List<Contact> getNieuweContactLijst(Club club);
 }

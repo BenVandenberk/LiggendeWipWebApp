@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -176,16 +177,36 @@ public class ClubService implements IClubService {
         Contact teVerwijderenContact = (Contact)entityManager.createQuery("select c from Contact c where c.id = :contactId")
                 .setParameter("contactId", contact.getId())
                 .getSingleResult();
-
-        for(Contact c : club.getContacten()){
-            if (c.getId() == teVerwijderenContact.getId()){
-                club.getContacten().remove(c);
-                break;
+        if(club!=null){
+        Club selectedClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
+                .setParameter("clubId", club.getId())
+                .getSingleResult();
+        if(selectedClub!=null){
+            List<Contact> contactList = selectedClub.getContacten();
+            if(contactList != null){
+                Iterator<Contact> i = contactList.iterator();
+                while(i.hasNext()){
+                    Contact c = i.next();
+                    if (c.getId() == teVerwijderenContact.getId()){
+                        i.remove();
+                    }
+                }
+                entityManager.merge(selectedClub);
+                entityManager.flush();
             }
         }
-
+        }
         entityManager.remove(teVerwijderenContact);
         entityManager.flush();
+    }
+
+    @Override
+    public List<Contact> getNieuweContactLijst(Club club){
+        Club nieuweContactLijstClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
+                .setParameter("clubId", club.getId())
+                .getSingleResult();
+        List<Contact> contactList = nieuweContactLijstClub.getContacten();
+        return contactList;
     }
 
     @Override
@@ -193,6 +214,16 @@ public class ClubService implements IClubService {
         Club teVerwijderenClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
                 .setParameter("clubId", club.getId())
                 .getSingleResult();
+
+        List<Contact> contactList = teVerwijderenClub.getContacten();
+        Iterator<Contact> i = contactList.iterator();
+        while(i.hasNext()){
+            Contact c = i.next();
+            i.remove();
+            entityManager.remove(c);
+            entityManager.flush();
+        }
+
         entityManager.remove(teVerwijderenClub);
         entityManager.flush();
     }

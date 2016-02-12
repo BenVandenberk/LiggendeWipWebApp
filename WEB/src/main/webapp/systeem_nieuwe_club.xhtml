@@ -51,7 +51,7 @@
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
 
-                            <p:dataTable id="contactlijst" var="contact" value="#{clubController.contactLijst}" selectionMode="single" selection="#{clubController.selectedContact}" rowKey="#{contact.naam}">
+                            <p:dataTable id="contactlijst" var="contact" value="#{contactLijstBean.contactLijst}" selectionMode="single" selection="#{clubController.selectedContact}" rowKey="#{contact.naam}">
                                 <p:column headerText="Naam">
                                     <h:outputText value="#{contact.naam}" />
                                 </p:column>
@@ -65,14 +65,14 @@
                                 </p:column>
 
                                 <p:column headerText="accountbeheerder?">
-                                    <p:selectBooleanCheckbox />
+                                    <p:selectBooleanCheckbox value="#{contact.beheerder}" disabled="true"/>
                                 </p:column>
                             </p:dataTable>
 
                             <p:outputPanel>
-                                <p:commandButton class="formRow" value="Nieuw contact toevoegen" ajax="false" action="to_contact"/>
-                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="to_contact"/>
-                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact verwijderen"/>
+                                <p:commandButton class="formRow" value="Nieuw contact toevoegen" ajax="false" action="#{clubController.naarNieuwContact()}"/>
+                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="#{clubController.naarGeselecteerdContact}"/>
+                                <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact verwijderen" ajax="false" action="#{clubController.verwijderContact}"/>
                             </p:outputPanel>
                         </p:panelGrid>
 

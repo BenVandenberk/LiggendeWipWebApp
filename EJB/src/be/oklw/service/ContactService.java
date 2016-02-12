@@ -26,14 +26,18 @@ public class ContactService implements IContactService {
         entityManager.flush();
     }
 
-   /* @Override
-    public List<Contact> alleContacten(int aantalContacten) {
-        List<Contact> contacten = entityManager.createQuery("SELECT c FROM Contact c ORDER BY c.id desc")
-                .setMaxResults(aantalContacten)
-                .getResultList();
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
+    public void wijzigContact (String naam, String telefoonnummer, String email, boolean isBeheerder, int id) throws BusinessException {
+        Contact contact = getContact(id);
+        contact.setNaam(naam);
+        contact.setEmail(email);
+        contact.setTelefoonnummer(telefoonnummer);
+        contact.setIsBeheerder(isBeheerder);
 
-        return contacten;
-    }*/
+        entityManager.merge(contact);
+        entityManager.flush();
+    }
 
     @Override
     public Contact getNieuwsteContact (){
@@ -41,5 +45,13 @@ public class ContactService implements IContactService {
                 .setMaxResults(1).getResultList();
         Contact nieuwsteContact = nieuwsteContactList.get(0);
         return nieuwsteContact;
+    }
+
+    @Override
+    public Contact getContact(int id){
+        Contact contact = (Contact)entityManager.createQuery("select c from Contact c Where c.id = :selId")
+                .setParameter("selId", id)
+                .getSingleResult();
+        return contact;
     }
 }
