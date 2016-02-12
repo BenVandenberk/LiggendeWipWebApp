@@ -73,9 +73,8 @@ public class ContactController implements Serializable{
 
         try {
             contactService.maakNieuwContactAan(naam, telefoonnummer, email, isBeheerder);
-            int aantalContacten = clubController.getAantalContacten();
-            clubController.setAantalContacten(aantalContacten + 1);
-            clubController.refreshContacten();
+            clubController.addContact();
+            //clubController.refreshContacten();
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();

@@ -82,8 +82,10 @@ public class Club implements Serializable {
     }
 
     public List<Contact> getContacten() {
-        return Collections.unmodifiableList(contacten);
+        return contacten;
     }
+
+    public void setContacten(List<Contact> contactList){ contacten = contactList; }
 
     public Set<Evenement> getEvenementen() {
         return Collections.unmodifiableSet(evenementen);

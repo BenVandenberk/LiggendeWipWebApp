@@ -81,7 +81,8 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
+                        <p:commandButton rendered="#{!clubController.showWijzig}" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
+                        <p:commandButton rendered="#{clubController.showWijzig}" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
                     </div>
 
                 </div>

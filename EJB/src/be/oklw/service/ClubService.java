@@ -58,9 +58,15 @@ public class ClubService implements IClubService {
     @Override
     public void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException{
 
-        //TODO
+        Club club = (Club)entityManager.createQuery("SELECT c FROM Club c WHERE c.id = :selId")
+                .setParameter("selId", id)
+                .getSingleResult();
+        club.setAdres(adres);
+        club.setLocatie(locatie);
+        club.setNaam(naam);
+        club.setContacten(contactLijst);
 
-       // entityManager.merge(club);
+        entityManager.merge(club);
         entityManager.flush();
     }
 

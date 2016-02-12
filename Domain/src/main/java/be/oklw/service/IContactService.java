@@ -11,7 +11,7 @@ public interface IContactService {
 
     void maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException;
 
-    List<Contact> alleContacten(int aantalContacten);
+    //List<Contact> alleContacten(int aantalContacten);
 
-
+    Contact getNieuwsteContact ();
 }

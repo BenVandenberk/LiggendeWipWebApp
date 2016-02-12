@@ -34,23 +34,15 @@ public class ClubController implements Serializable{
 
     private Contact selectedContact;
 
-    private int aantalContacten = 0;
-
     private Club selectedClub;
+
+    private boolean showWijzig;
 
     @EJB
     IClubService clubService;
 
     @EJB
     IContactService contactService;
-
-    public int getAantalContacten(){
-        return aantalContacten;
-    }
-
-    public void setAantalContacten(int aantalContacten){
-        this.aantalContacten = aantalContacten;
-    }
 
     public String getNaam() {
         return naam;
@@ -131,16 +123,17 @@ public class ClubController implements Serializable{
         clubService.verwijderContact(club, contact);
     }
 
-    public void refreshContacten() {
-        contactLijst = contactService.alleContacten(aantalContacten);
-    }
+    /*public void refreshContacten() {
+        contactLijst = contactService.alleContacten();
+    }*/
+
+    public void addContact() { contactLijst.add(contactService.getNieuwsteContact());}
 
     public void reset(){
         this.adres = "";
         this.contactLijst = new ArrayList<>();
         this.locatie = "";
         this.naam = "";
-        this.aantalContacten = 0;
     }
 
     public Club getSelectedClub() {
@@ -155,5 +148,13 @@ public class ClubController implements Serializable{
         if(selectedClub.getContacten().size()>0){
             contactLijst = selectedClub.getContacten();
         }
+    }
+
+    public boolean isShowWijzig() {
+        return showWijzig;
+    }
+
+    public void setShowWijzig(boolean showWijzig) {
+        this.showWijzig = showWijzig;
     }
 }

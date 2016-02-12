@@ -26,12 +26,20 @@ public class ContactService implements IContactService {
         entityManager.flush();
     }
 
-    @Override
+   /* @Override
     public List<Contact> alleContacten(int aantalContacten) {
         List<Contact> contacten = entityManager.createQuery("SELECT c FROM Contact c ORDER BY c.id desc")
                 .setMaxResults(aantalContacten)
                 .getResultList();
 
         return contacten;
+    }*/
+
+    @Override
+    public Contact getNieuwsteContact (){
+        List<Contact> nieuwsteContactList = entityManager.createQuery("SELECT c FROM Contact c ORDER BY c.id desc")
+                .setMaxResults(1).getResultList();
+        Contact nieuwsteContact = nieuwsteContactList.get(0);
+        return nieuwsteContact;
     }
 }

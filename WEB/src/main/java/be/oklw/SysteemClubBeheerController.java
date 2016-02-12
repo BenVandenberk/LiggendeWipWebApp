@@ -41,8 +41,16 @@ public class SysteemClubBeheerController {
         this.selectedClub = selectedClub;
     }
 
-    public String naarNieuweClub(){
+    public String naarGeselecteerdeClub(){
+        clubController.reset();
         clubController.setSelectedClub(selectedClub);
+        clubController.setShowWijzig(true);
+        return "to_nieuwe_club";
+    }
+
+    public String naarNieuweClub(){
+        clubController.reset();
+        clubController.setShowWijzig(false);
         return "to_nieuwe_club";
     }
 }
