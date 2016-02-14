@@ -20,6 +20,6 @@ public class DatumConverter implements AttributeConverter<Datum, String> {
         if(dbData != null) {
             return new Datum(dbData);
         }
-        return new Datum();
+        return new Datum(1, 1, 2100);
     }
 }
