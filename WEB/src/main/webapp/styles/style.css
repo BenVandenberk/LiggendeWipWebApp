@@ -199,6 +199,11 @@ body {
     padding: 10px;
 }
 
+.sponsor {
+    border: 1px solid black;
+    padding: 10px;
+}
+
 .noBorder tr,
 .noBorder td { border: 0 !important; }
 

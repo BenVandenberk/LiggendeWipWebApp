@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Stateless
 @Remote
 @TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class ClubService implements IClubService {
 
     @EJB
@@ -127,49 +128,6 @@ public class ClubService implements IClubService {
         kamp3.setOmschrijving("Omschrijving HIER");
         kamp3.setOvernachtingInfo("Hotel zusenzo");
         kamp3.setRekeningnummer("BE8700157382214");
-
-
-/*
-
-
-//        Toernooi toer1 = new Toernooi();
-//        toer1.setNaam("De Hoef Duo Toernooi");
-//        toer1.setDatum(new Datum(1, 1, 2017));
-//        toer1.setPersonenPerPloeg(2);
-//        toer1.setInlegPerPloeg(BigDecimal.TEN);
-//        toer1.setAantalWippen(24);
-//        toer1.setHeeftMaaltijd(true);
-//        toer1.setCateringInfo("MENU");
-//        toer1.setOmschrijving("TOER 1");
-//        toer1.setMaximumAantalPloegen(48);
-//        toer1.setKampioenschap(kamp3);
-//        entityManager.persist(toer1);
-//        kamp3.addToernooi(toer1);
-
-        entityManager.flush();
-
-
-
-
-
-
-//        Toernooi toer2 = new Toernooi();
-//        toer2.setNaam("De Hoef Ploegen Toernooi");
-//        toer2.setDatum(new Datum(1, 1, 2017));
-//        toer2.setPersonenPerPloeg(4);
-//        toer2.setInlegPerPloeg(BigDecimal.TEN);
-//        toer2.setAantalWippen(24);
-//        toer2.setHeeftMaaltijd(true);
-//        toer2.setCateringInfo("MENU");
-//        toer2.setOmschrijving("TOER 1");
-//        toer2.setMaximumAantalPloegen(20);
-
-//        entityManager.persist(toer1);
-//        entityManager.persist(toer2);
-
-//        kamp3.addToernooi(toer1);
-//        kamp3.addToernooi(toer2);
-//        entityManager.flush();*/
     }
 
     @Override
@@ -228,4 +186,11 @@ public class ClubService implements IClubService {
         entityManager.flush();
     }
 
+    @Override
+    public Club addSponsor(Sponsor sponsor, Club club) {
+        club.addSponsor(sponsor);
+        entityManager.merge(club);
+        entityManager.flush();
+        return club;
+    }
 }

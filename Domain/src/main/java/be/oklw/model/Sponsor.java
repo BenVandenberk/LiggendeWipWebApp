@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Sponsor implements Serializable {
 
     private static final long serialVersionUID = -5733677035312717060L;
+    private static final String PAD = "upload/clubsponsors/";
 
     //region PRIVATE MEMBERS
 
@@ -21,6 +22,10 @@ public class Sponsor implements Serializable {
     private int logoBreedte;
     private boolean logoOnline;
     private String logoUrl;
+
+    @Lob
+    @Column(length = 1000)
+    private String logoUrlOnline;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
@@ -45,6 +50,10 @@ public class Sponsor implements Serializable {
 
     public Club getClub() {
         return club;
+    }
+
+    protected void setClub(Club club) {
+        this.club = club;
     }
 
     public int getId() {
@@ -97,6 +106,22 @@ public class Sponsor implements Serializable {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public String getLogoUrlOnline() {
+        return logoUrlOnline;
+    }
+
+    public void setLogoUrlOnline(String logoUrlOnline) {
+        this.logoUrlOnline = logoUrlOnline;
+    }
+
+    public String getFullPath() {
+        if (isLogoOnline()) {
+            return logoUrlOnline;
+        } else {
+            return PAD + logoUrl;
+        }
     }
 
     //endregion

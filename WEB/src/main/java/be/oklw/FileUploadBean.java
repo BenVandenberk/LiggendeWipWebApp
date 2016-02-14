@@ -3,6 +3,7 @@ package be.oklw;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.service.IClubService;
+import be.oklw.service.IFileService;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -21,6 +22,9 @@ public class FileUploadBean {
 
     @EJB
     IClubService clubService;
+
+    @EJB
+    IFileService fileService;
 
     private UploadedFile file;
 

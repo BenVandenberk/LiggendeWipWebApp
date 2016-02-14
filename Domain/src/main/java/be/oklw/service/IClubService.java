@@ -1,10 +1,7 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
-import be.oklw.model.Account;
-import be.oklw.model.Club;
-import be.oklw.model.Contact;
-import be.oklw.model.Kampioenschap;
+import be.oklw.model.*;
 
 import javax.ejb.Remote;
 import java.io.IOException;
@@ -35,4 +32,6 @@ public interface IClubService {
     List<Club> getAllClubs();
 
     List<Contact> getNieuweContactLijst(Club club);
+
+    Club addSponsor(Sponsor sponsor, Club club);
 }

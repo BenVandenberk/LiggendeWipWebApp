@@ -161,6 +161,7 @@ public class Club implements Serializable {
 
     public void addSponsor(Sponsor sponsor) {
         sponsors.add(sponsor);
+        sponsor.setClub(this);
     }
 
     public void removeSponsor(Sponsor sponsor){
