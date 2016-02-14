@@ -6,6 +6,8 @@ import be.oklw.model.Toernooi;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Remote
 @Stateless
@@ -39,4 +41,5 @@ public class KampioenschapService implements IKampioenschapService {
         entityManager.merge(toernooi);
         entityManager.flush();
     }
+
 }

@@ -4,6 +4,7 @@ import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
 
 import javax.ejb.Remote;
+import java.util.List;
 
 @Remote
 public interface IKampioenschapService {
@@ -15,4 +16,5 @@ public interface IKampioenschapService {
     void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap);
 
     void opslaanToernooi(Toernooi toernooi);
+
 }
