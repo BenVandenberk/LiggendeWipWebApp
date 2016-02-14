@@ -217,6 +217,19 @@ public class Club implements Serializable {
         return kampioenschap;
     }
 
+    public Evenement maakEvenement(String naam, Datum start, Datum eind, String locatie, String omschrijving){
+        Evenement evenement = new Evenement();
+        evenement.setClub(this);
+        evenement.setBeginDatum(start);
+        evenement.setEindDatum(eind);
+        evenement.setNaam(naam);
+        evenement.setOmschrijving(omschrijving);
+        evenement.setLocatie(locatie);
+
+        evenementen.add(evenement);
+        return evenement;
+    }
+
     public void removeKampioenschap(Kampioenschap kampioenschap){
         evenementen.remove(kampioenschap);
     }

@@ -19,27 +19,27 @@
                         <div class="ui-grid-col-12">
                             <p:tabView>
                                 <p:tab title="Lijst">
-                                    <p:dataList value="te binden op kampioenschapslijst" var="kampioenschap" type="definition">
+                                    <p:dataList value="#{evenementController.alleEvenementen}" var="evenement" type="definition">
                                         <div class="ui-grid-row">
                                             <div class="ui-grid-col-4">
-                                                <p:outputLabel value="Naam (te binden)"></p:outputLabel>
+                                                <p:outputLabel value="#{evenement.naam}"/>
                                             </div>
                                             <div class="ui-grid-col-1">
 
                                             </div>
                                             <div class="ui-grid-col-6">
-                                                <p:outputLabel value="van start- tot einddatum (te binden)"></p:outputLabel>
+                                                <p:outputLabel value="van #{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}"/>
                                             </div>
                                             <div class="ui-grid-col-1">
                                                 <p:commandLink style="text-align: right">
-                                                    <i class="fa fa-minus-square-o plus"></i>
+                                                    <i class="fa fa-minus-square-o plus"/>
                                                 </p:commandLink>
                                             </div>
                                         </div>
 
                                         <div class="ui-grid-row">
                                             <div class="ui-grid-col-4">
-                                                <p:outputLabel value="Club: Te binden"></p:outputLabel>
+                                                <p:outputLabel value="Club: #{evenement.club.naam}"/>
                                             </div>
                                             <div class="ui-grid-col-1">
 
@@ -65,17 +65,17 @@
                                             <p:dataList value="te binden op kampioenschapslijst" var="kampioenschap" type="definition">
                                             <div class="ui-grid-row formRow" style="font-size: medium">
                                                 <div class="ui-grid-col-5">
-                                                    <p:outputLabel value="Naam (te binden)"></p:outputLabel>
+                                                    <p:outputLabel value="Naam (te binden)"/>
                                                 </div>
                                                 <div class="ui-grid-col-7">
-                                                    <p:outputLabel value="van start- tot einddatum (te binden)"></p:outputLabel>
+                                                    <p:outputLabel value="van start- tot einddatum (te binden)"/>
                                                 </div>
 
                                             </div>
 
                                             <div class="ui-grid-row formRow" style="font-size: medium">
                                                 <div class="ui-grid-col-5">
-                                                    <p:outputLabel value="Club: Te binden"></p:outputLabel>
+                                                    <p:outputLabel value="Club: Te binden"/>
                                                 </div>
                                                 <div class="ui-grid-col-3"/>
                                                 <div class="ui-grid-col-4">
@@ -96,36 +96,43 @@
                             <p:fieldset legend="Kampioenschap aanmaken">
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Naam:"></p:outputLabel>
+                                        <p:outputLabel value="Naam:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:inputText></p:inputText>
+                                        <p:inputText value="#{evenementController.naamKampioenschap}"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="StartDatum:"></p:outputLabel>
+                                        <p:outputLabel value="Startdatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar></p:calendar>
+                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumKampioenschap}" >
+                                            <f:converter converterId="DatumConverter"/>
+                                        </p:calendar>
                                     </div>
                                 </div>
 
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Club:"></p:outputLabel>
+                                        <p:outputLabel value="Club:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:selectOneMenu/>
+                                        <p:selectOneMenu value="#{evenementController.clubKampioenschap}">
+                                            <f:selectItem itemLabel="Selecteer Club" itemValue="" noSelectionOption="false" />
+                                            <f:selectItems value="#{evenementController.alleClubs}" />
+                                        </p:selectOneMenu>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Einddatum:"></p:outputLabel>
+                                        <p:outputLabel value="Einddatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar></p:calendar>
+                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" >
+                                            <f:converter converterId="DatumConverter"/>
+                                        </p:calendar>
                                     </div>
                                 </div>
 
                                 <div class="pageButton">
-                                    <p:commandButton value="Kampioenschap toevoegen"></p:commandButton>
+                                    <p:commandButton value="Kampioenschap toevoegen" ajax="false" action="#{evenementController.maakNieuwKampioenschapAan}"/>
                                 </div>
                             </p:fieldset>
                         </div>
@@ -138,46 +145,51 @@
                             <p:fieldset legend="Ander evenement aanmaken">
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Naam:"></p:outputLabel>
+                                        <p:outputLabel value="Naam:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:inputText></p:inputText>
+                                        <p:inputText value="#{evenementController.naamEvenement}"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Datum:"></p:outputLabel>
+                                        <p:outputLabel value="Datum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar/>
-                                    </div>
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Club:"></p:outputLabel>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:selectOneMenu/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Locatie:"></p:outputLabel>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:inputText></p:inputText>
+                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.datumEvenement}" >
+                                            <f:converter converterId="DatumConverter"/>
+                                        </p:calendar>
                                     </div>
                                 </div>
 
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Omschrijving:"></p:outputLabel>
+                                        <p:outputLabel value="Club:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:inputTextarea style="width: 300%"/>
+                                        <p:selectOneMenu value="#{evenementController.clubEvenement}">
+                                            <f:selectItem itemLabel="Selecteer Club" itemValue="" noSelectionOption="false" />
+                                            <f:selectItems value="#{evenementController.alleClubs}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Locatie:"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:inputText value="#{evenementController.locatieEvenement}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Omschrijving:"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:inputTextarea style="width: 300%" value="#{evenementController.omschrijvingEvenement}"/>
                                     </div>
 
                                 </div>
 
                                 <div class="pageButton">
-                                    <p:commandButton value="Evenement toevoegen"></p:commandButton>
+                                    <p:commandButton value="Evenement toevoegen" ajax="false" action="#{evenementController.maakNieuwEvenementAan}"/>
                                 </div>
                             </p:fieldset>
                         </div>
