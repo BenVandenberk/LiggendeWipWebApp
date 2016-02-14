@@ -2,7 +2,8 @@
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:ui="http://java.sun.com/jsf/facelets">
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:pe="http://primefaces.org/ui/extensions">
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -44,9 +45,9 @@
                                 <p:outputLabel value="Datum*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar id="datum" value="#{toernooiBean.toernooi.datum}" pattern="dd/MM/yyyy" validatorMessage="Datum is verplicht" required="true" requiredMessage="Datum is verplicht">
+                                <p:calendar id="datum" value="#{toernooiBean.toernooi.datum}" pattern="dd/MM/yyyy" validatorMessage="Datum is verplicht" readonlyInput="true" required="true" requiredMessage="Datum is verplicht" navigator="true" locale="nl">
                                     <f:converter converterId="DatumConverter"></f:converter>
-                                    <p:ajax event="change" update=":frm:msg_datum :frm:datum" />
+                                    <p:ajax event="dateSelect" update=":frm:msg_datum :frm:datum" />
                                 </p:calendar>
                             </div>
                             <div class="ui-grid-col-3">
@@ -59,11 +60,10 @@
                                 <p:outputLabel value="Startuur*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar id="uur" size="10" pattern="HH:mm" timeOnly="true" value="#{toernooiBean.toernooi.startTijdstip}" validatorMessage="Startuur is verplicht">
-                                    <f:converter converterId="TimeConverter"></f:converter>
-                                    <f:validateRequired />
-                                    <f:ajax render="msg_uur" />
-                                </p:calendar>
+                                <pe:timePicker locale="nl" value="#{toernooiBean.toernooi.startTijdstip}" id="uur" required="true" requiredMessage="Startuur is verplicht">
+                                    <f:converter converterId="TimeConverter" />
+                                    <p:ajax event="close" update=":frm:uur :frm:msg_uur" />
+                                </pe:timePicker>
                             </div>
                             <div class="ui-grid-col-3">
                                 <p:message id="msg_uur" for="uur"></p:message>
@@ -86,10 +86,10 @@
                                 <p:outputLabel value="Aantal ploegen*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner id="ploegen" size="5" value="#{toernooiBean.toernooi.maximumAantalPloegen}" validatorMessage="Aantal Ploegen is verplicht" min="2" max="1000" >
+                                <p:spinner id="ploegen" size="5" value="#{toernooiBean.toernooi.maximumAantalPloegen}" validatorMessage="Aantal ploegen moet tussen 2 en 1000 liggen" requiredMessage="Aantal Ploegen is verplicht" min="2" max="1000" >
                                     <f:validateRequired />
                                     <f:validateLongRange minimum="2" maximum="1000" />
-                                    <f:ajax render="msg_ploegen" />
+                                    <p:ajax event="change" update=":frm:ploegen :frm:msg_ploegen" />
                                 </p:spinner>
                             </div>
                             <div class="ui-grid-col-3">
@@ -102,10 +102,10 @@
                                 <p:outputLabel value="Aantal personen per ploeg*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner id="ppp" size="5" value="#{toernooiBean.toernooi.personenPerPloeg}" min="1" max="20" validatorMessage="Personen per Ploeg is verplicht">
+                                <p:spinner id="ppp" size="5" value="#{toernooiBean.toernooi.personenPerPloeg}" min="1" max="20" validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen" requiredMessage="Personen per Ploeg is verplicht">
                                     <f:validateRequired />
                                     <f:validateLongRange minimum="1" maximum="20" />
-                                    <f:ajax render="msg_ppp" />
+                                    <p:ajax event="change" update=":frm:ppp :frm:msg_ppp" />
                                 </p:spinner>
                             </div>
                             <div class="ui-grid-col-3">
@@ -142,7 +142,7 @@
                                 <p:outputLabel value="Inschrijvingsdeadline:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:calendar value="#{toernooiBean.toernooi.inschrijfDeadline}" pattern="dd/MM/yyyy">
+                                <p:calendar value="#{toernooiBean.toernooi.inschrijfDeadline}" pattern="dd/MM/yyyy" navigator="true" locale="nl" readonlyInput="true">
                                     <f:converter converterId="DatumConverter"></f:converter>
                                 </p:calendar>
                             </div>

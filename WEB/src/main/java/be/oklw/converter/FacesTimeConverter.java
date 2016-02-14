@@ -18,6 +18,6 @@ public class FacesTimeConverter implements Converter{
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         LocalTime localTime = (LocalTime)value;
-        return String.format("%d:%d", localTime.getHour(), localTime.getMinute());
+        return String.format("%02d:%02d", localTime.getHour(), localTime.getMinute());
     }
 }

@@ -2,12 +2,14 @@ package be.oklw;
 
 import be.oklw.model.Toernooi;
 import be.oklw.service.IKampioenschapService;
+import sun.util.resources.cldr.nl.LocaleNames_nl_BE;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.util.Locale;
 
 @ManagedBean
 @ViewScoped
