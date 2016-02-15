@@ -32,7 +32,7 @@ public class Club implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "club")
     private List<Sponsor> sponsors;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "club")
@@ -49,7 +49,7 @@ public class Club implements Serializable {
     //region CONSTRUCTORS
 
     public Club() {
-        sponsors = new ArrayList<Sponsor>();
+        sponsors = new ArrayList<>();
         contacten = new ArrayList<Contact>();
         evenementen = new HashSet<Evenement>();
         this.sinds = new Datum();

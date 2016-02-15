@@ -1,11 +1,9 @@
 package be.oklw;
 
-import be.oklw.model.Account;
-import be.oklw.model.Club;
-import be.oklw.model.Kampioenschap;
-import be.oklw.model.Toernooi;
+import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IKampioenschapService;
+import be.oklw.service.ISponsorService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
@@ -31,6 +30,9 @@ public class ClubBeheerBean implements Serializable {
     @EJB
     IKampioenschapService kampioenschapService;
 
+    @EJB
+    ISponsorService sponsorService;
+
     private Account user;
     private Club club;
     private Kampioenschap kampioenschap;
@@ -41,6 +43,7 @@ public class ClubBeheerBean implements Serializable {
 
     private int kampId;
     private int toerId;
+    private int sponsId;
 
     public void setToerId(int toerId) {
         this.toerId = toerId;
@@ -48,6 +51,14 @@ public class ClubBeheerBean implements Serializable {
 
     public void setKampId(int kampId) {
         this.kampId = kampId;
+    }
+
+    public int getSponsId() {
+        return sponsId;
+    }
+
+    public void setSponsId(int sponsId) {
+        this.sponsId = sponsId;
     }
 
     public List<Kampioenschap> getKampioenschappenVerleden() {
@@ -79,6 +90,10 @@ public class ClubBeheerBean implements Serializable {
         return "detail";
     }
 
+    public Club getClub() {
+        return club;
+    }
+
     public String toernooiKlik() {
         Optional<Toernooi> toernooiOptional = kampioenschap.getToernooien().stream().filter(t -> t.getId() == toerId).findFirst();
         if (toernooiOptional.isPresent()) {
@@ -103,6 +118,12 @@ public class ClubBeheerBean implements Serializable {
         kampioenschapService.opslaanToernooi(toernooi);
         return "club_kampioenschapspagina";
     }
+
+    public void verwijderSponsor() {
+        sponsorService.verwijderSponsorVan(sponsId, kampioenschap);
+        refresh();
+    }
+
 
     public void refresh() {
         kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());

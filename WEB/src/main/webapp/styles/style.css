@@ -156,6 +156,10 @@
     font-size: 40px;
 }
 
+.plus:hover {
+    font-size: 45px;
+}
+
 .left {
     text-align: left;
 }
@@ -202,6 +206,32 @@ body {
 .sponsor {
     border: 1px solid black;
     padding: 10px;
+    text-decoration: none;
+    color: black;
+    margin-top: 10px;
+}
+
+.sponsor:hover {
+    border: 2px solid black;
+    font-weight: bold;
+}
+
+.sponsorKampioenschap {
+    border: 1px solid black;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    margin-top: 10px;
+}
+
+.bottomLeft {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+}
+
+.relative {
+    position: relative;
 }
 
 .noBorder tr,

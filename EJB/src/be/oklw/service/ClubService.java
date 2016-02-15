@@ -78,6 +78,7 @@ public class ClubService implements IClubService {
         Club club = (Club)entityManager.createQuery("select c from Club c where c.account.id = :accId")
                                         .setParameter("accId", account.getId())
                                         .getSingleResult();
+        club.getSponsors().size();
         return club;
     }
 
@@ -188,9 +189,20 @@ public class ClubService implements IClubService {
 
     @Override
     public Club addSponsor(Sponsor sponsor, Club club) {
+        entityManager.merge(club);
+        club.getSponsors().size();
         club.addSponsor(sponsor);
         entityManager.merge(club);
         entityManager.flush();
-        return club;
+        Club metNieuweSponsor = entityManager.find(Club.class, club.getId());
+        metNieuweSponsor.getSponsors().size();
+        return metNieuweSponsor;
+    }
+
+    @Override
+    public Club loadSponsors(Club club) {
+        Club dbClub = entityManager.find(Club.class, club.getId());
+        dbClub.getSponsors().size();
+        return dbClub;
     }
 }

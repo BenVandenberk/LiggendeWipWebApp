@@ -2,6 +2,7 @@ package be.oklw;
 
 import be.oklw.model.Sponsor;
 import be.oklw.service.IFileService;
+import be.oklw.service.ISponsorService;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -24,6 +25,9 @@ public class SponsorBean {
 
     @EJB
     IFileService fileService;
+
+    @EJB
+    ISponsorService sponsorService;
 
     private UploadedFile file;
     private Sponsor sponsor;
@@ -90,15 +94,31 @@ public class SponsorBean {
         }
     }
 
-    public String opslaan() {
+    public String opslaanNieuw() {
         clubSponsorBean.addSponsor(sponsor);
         return "success";
     }
 
+    public String opslaanBestaand() {
+        try {
+            sponsorService.saveSponsor(sponsor);
+            return "success";
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage()));
+            return "";
+        }
+    }
+
     @PostConstruct
     public void init() {
-        sponsor = new Sponsor();
-        sponsor.setLogoBreedte(120);
-        sponsor.setLogoHoogte(120);
+        // Nieuwe Sponsor
+        if (clubSponsorBean.getSponsId() < 0) {
+            sponsor = new Sponsor();
+            sponsor.setLogoBreedte(120);
+            sponsor.setLogoHoogte(120);
+        } else { // Bestaande Sponsor
+            sponsor = clubSponsorBean.getSponsor();
+        }
     }
 }
