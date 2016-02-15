@@ -91,13 +91,13 @@
                     <h:panelGroup id="pnl_toernooien">
                         <p:outputLabel value="Klik op '+' om een toernooi aan te maken" rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}" />
                         <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
-                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}">
+                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
                                 <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
                                 <div class="toernooi">
                                     <div>#{toer.naam}</div>
                                     <div>#{toer.datum.datumInEuropeesFormaat}</div>
-                                    <div>#{toer.maximumAantalPloegen} Ploegen</div>
-                                    <div>#{toer.personenPerPloeg} schutters per ploeg</div>
+                                    <div class="right">#{toer.maximumAantalPloegen} Ploegen</div>
+                                    <div class="right">#{toer.personenPerPloeg} schutters per ploeg</div>
                                 </div>
                             </h:commandLink>
                         </ui:repeat>
@@ -108,7 +108,7 @@
                             <div class="ui-grid-col-9">
 
                             </div>
-                            <div class="ui-grid-col-3">
+                            <div class="ui-grid-col-3 right">
                                 <p:commandLink action="#{clubBeheerBean.nieuwToernooi}">
                                     <i class="fa fa-plus-square-o plus"></i>
                                 </p:commandLink>
@@ -146,7 +146,7 @@
 
                                     </div>
                                     <div class="ui-grid-col-1 relative">
-                                        <p:commandLink action="#{clubBeheerBean.verwijderSponsor}" update=":frm_kamppagina:pnl_sponsors">
+                                        <p:commandLink action="#{clubBeheerBean.verwijderSponsor}" update=":frm_kamppagina:pnl_sponsors :frm_dial:selectSponsor">
                                             <f:setPropertyActionListener value="#{spons.id}" target="#{clubBeheerBean.sponsId}" />
                                             <p:confirm header="Bevestiging" message="Ben je zeker dat je de sponsor wil verwijderen?" icon="ui-icon-alert" />
                                             <i class="fa fa-minus-square-o plus bottomLeft"></i>
@@ -165,10 +165,8 @@
 
                     <div class="ui-grid ui-grid-responsive">
                         <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-9">
 
-                            </div>
-                            <div class="ui-grid-col-3">
+                            <div class="ui-grid-col-11 right">
                                 <p:commandLink onclick="PF('dial_sponsor').show();">
                                     <i class="fa fa-plus-square-o plus"></i>
                                 </p:commandLink>
@@ -177,12 +175,8 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Opslaan" actionListener="#{clubBeheerBean.opslaan}"></p:commandButton>
+                        <p:commandButton value="Opslaan" action="#{clubBeheerBean.opslaan}" form="frm_kamppagina"></p:commandButton>
                     </div>
-
-                    <p:commandButton value="HIDDEN" id="refreshbutton" update="@form" style="display:none"></p:commandButton>
-
-
 
                 </div>
 
@@ -193,7 +187,7 @@
                     <div class="ui-grid-responsive formGrid">
 
                         <div class="ui-grid-row formRow">
-                            <p:selectOneMenu value="#{sponsorDialogBean.selectedSponsorId}">
+                            <p:selectOneMenu id="selectSponsor" value="#{sponsorDialogBean.selectedSponsorId}">
                                 <f:selectItems value="#{sponsorDialogBean.clubSponsors}" />
                             </p:selectOneMenu>
                         </div>

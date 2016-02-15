@@ -18,37 +18,72 @@
                     <div class="subTitel">
                         Komende Kampioenschappen
                     </div>
-                    
-                    <ui:repeat value="#{clubBeheerBean.kampioenschappenToekomst}" var="kamp">
-                        <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}">
+
+
+                    <h:panelGroup id="pnl_toekomst">
+                        <ui:repeat value="#{clubBeheerBean.kampioenschappenToekomst}" var="kamp">
+                            <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}" styleClass="wrappedCommandLink">
                             <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}" />
-                            <div class="kampioenschap">
-                                <div>#{kamp.naam}</div>
-                                <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
-                                <div>
-                                    <ui:repeat value="#{kamp.toernooien}" var="toer">
-                                        <p:commandLink value="> #{toer.naam}" />
-                                    </ui:repeat>
+
+                                <div class="ui-grid-responsive formGrid kampioenschap">
+
+                                        <div class="ui-grid-row">
+                                            <p:outputLabel value="#{kamp.naam}" styleClass="centerPlus pointer"></p:outputLabel>
+                                        </div>
+
+                                        <div class="ui-grid-row">
+                                            <p:outputLabel styleClass="centerPlus pointer" value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                            </p:outputLabel>
+                                        </div>
+
                                 </div>
-                            </div>
-                        </h:commandLink>
-                    </ui:repeat>
+                            </h:commandLink>
+
+                            <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
+                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
+                                    <div class="subToernooi centerPlus">
+                                        <p:outputLabel styleClass="centerPlus pointer" value="> #{toer.naam}"></p:outputLabel>
+                                    </div>
+                                </p:commandLink>
+                            </ui:repeat>
+                        </ui:repeat>
+                    </h:panelGroup>
+
 
                     <div class="subTitel" id="div_verleden">
                         Geschoten Kampioenschappen
                     </div>
 
-                    <ui:repeat value="#{clubBeheerBean.kampioenschappenVerleden}" var="kamp">
-                        <div class="kampioenschap">
-                            <div>#{kamp.naam}</div>
-                            <div>#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}</div>
-                            <div>
-                                <ui:repeat value="#{kamp.toernooien}" var="toer">
-                                    <p:commandLink value="> #{toer.naam}" />
-                                </ui:repeat>
-                            </div>
-                        </div>
-                    </ui:repeat>
+                    <h:panelGroup id="pnl_verleden">
+                        <ui:repeat value="#{clubBeheerBean.kampioenschappenVerleden}" var="kamp">
+                            <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}" styleClass="wrappedCommandLink">
+                                <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}" />
+
+                                <div class="ui-grid-responsive formGrid kampioenschap">
+
+                                    <div class="ui-grid-row">
+                                        <p:outputLabel value="#{kamp.naam}" styleClass="centerPlus pointer"></p:outputLabel>
+                                    </div>
+
+                                    <div class="ui-grid-row">
+                                        <p:outputLabel styleClass="centerPlus pointer" value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                        </p:outputLabel>
+                                    </div>
+
+                                </div>
+                            </h:commandLink>
+
+                            <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
+                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
+                                    <div class="subToernooi centerPlus">
+                                        <p:outputLabel styleClass="centerPlus pointer" value="> #{toer.naam}"></p:outputLabel>
+                                    </div>
+                                </p:commandLink>
+                            </ui:repeat>
+                        </ui:repeat>
+                    </h:panelGroup>
 
                 </div>
 

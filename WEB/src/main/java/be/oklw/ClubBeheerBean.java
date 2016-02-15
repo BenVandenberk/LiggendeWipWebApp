@@ -87,7 +87,7 @@ public class ClubBeheerBean implements Serializable {
 
     public String kampioenschapKlik() {
         kampioenschap = kampioenschapService.getKampioenschap(kampId);
-        return "detail";
+        return "club_kampioenschapspagina?faces-redirect=true";
     }
 
     public Club getClub() {
@@ -98,7 +98,7 @@ public class ClubBeheerBean implements Serializable {
         Optional<Toernooi> toernooiOptional = kampioenschap.getToernooien().stream().filter(t -> t.getId() == toerId).findFirst();
         if (toernooiOptional.isPresent()) {
             toernooi = toernooiOptional.get();
-            return "club_toernooi_aanpassen";
+            return "club_toernooi_aanpassen?faces-redirect=true";
         } else {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niet gevonden", "Toernooi niet gevonden"));
@@ -107,16 +107,17 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String nieuwToernooi() {
-        return "nieuw";
+        return "club_nieuw_toernooi?faces-redirect=true";
     }
 
-    public void opslaan(ActionEvent event) {
+    public String opslaan() {
         kampioenschapService.opslaan(kampioenschap);
+        return "club_beheer?faces-redirect=true";
     }
 
     public String opslaanToernooi() {
         kampioenschapService.opslaanToernooi(toernooi);
-        return "club_kampioenschapspagina";
+        return "club_kampioenschapspagina?faces-redirect=true";
     }
 
     public void verwijderSponsor() {
@@ -127,6 +128,7 @@ public class ClubBeheerBean implements Serializable {
 
     public void refresh() {
         kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());
+        club = clubService.getClub(user);
     }
 
     @PostConstruct

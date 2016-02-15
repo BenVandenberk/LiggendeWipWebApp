@@ -56,7 +56,7 @@
         <from-view-id>/club_beheer.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>detail</from-outcome>
-            <to-view-id>/club_kampioenschapspagina.xhtml</to-view-id>
+            <to-view-id>/club_kampioenschapspagina.xhtml?faces-redirect=true</to-view-id>
         </navigation-case>
     </navigation-rule>
 

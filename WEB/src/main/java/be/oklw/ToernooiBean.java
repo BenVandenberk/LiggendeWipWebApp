@@ -37,7 +37,7 @@ public class ToernooiBean {
     public String voegNieuwToernooiToe() {
         kampioenschapService.nieuwToernooi(toernooi, clubBeheerBean.getKampioenschap());
         clubBeheerBean.refresh();
-        return "club_kampioenschapspagina";
+        return "club_kampioenschapspagina?faces-redirect=true";
     }
 
     @PostConstruct
