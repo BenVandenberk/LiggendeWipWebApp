@@ -36,6 +36,8 @@ public class EvenementController implements Serializable{
     private String locatieEvenement;
     private String omschrijvingEvenement;
 
+    private Evenement selectedEvenement;
+
     @EJB
     IEvenementService evenementService;
 
@@ -127,6 +129,14 @@ public class EvenementController implements Serializable{
         this.datumEvenement = datumEvenement;
     }
 
+    public Evenement getSelectedEvenement(){
+        return selectedEvenement;
+    }
+
+    public void setSelectedEvenement(Evenement selectedEvenement) {
+        this.selectedEvenement = selectedEvenement;
+    }
+
     public void maakNieuwKampioenschapAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
@@ -157,6 +167,20 @@ public class EvenementController implements Serializable{
         }
     }
 
+    public void verwijderEvenement(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try{
+            evenementService.verwijderEvenement(selectedEvenement);
+            reset();
+        }
+        catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+    }
+
     public void reset(){
         this.clubEvenement=null;
         this.clubKampioenschap = null;
@@ -167,5 +191,8 @@ public class EvenementController implements Serializable{
         this.startDatumKampioenschap = null;
         this.locatieEvenement = "";
         this.omschrijvingEvenement = "";
+        this.selectedEvenement = null;
     }
+
+
 }

@@ -230,9 +230,7 @@ public class Club implements Serializable {
         return evenement;
     }
 
-    public void removeKampioenschap(Kampioenschap kampioenschap){
-        evenementen.remove(kampioenschap);
-    }
+    public void removeEvenement(Evenement evenement){evenementen.remove(evenement);}
 
     //endregion
 

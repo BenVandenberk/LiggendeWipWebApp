@@ -19,6 +19,7 @@
                         <div class="ui-grid-col-12">
                             <p:tabView>
                                 <p:tab title="Lijst">
+
                                     <p:dataList value="#{evenementController.alleEvenementen}" var="evenement" type="definition">
                                         <div class="ui-grid-row">
                                             <div class="ui-grid-col-4">
@@ -31,7 +32,8 @@
                                                 <p:outputLabel value="van #{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}"/>
                                             </div>
                                             <div class="ui-grid-col-1">
-                                                <p:commandLink style="text-align: right">
+                                                <p:commandLink ajax="false" action="#{evenementController.verwijderEvenement}" style="text-align: right">
+                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}" />
                                                     <i class="fa fa-minus-square-o plus"/>
                                                 </p:commandLink>
                                             </div>
@@ -53,6 +55,7 @@
                                         </div>
 
                                     </p:dataList>
+
                                 </p:tab>
                                 <p:tab title="Kalender">
                                     <div class="ui-grid-row formRow">

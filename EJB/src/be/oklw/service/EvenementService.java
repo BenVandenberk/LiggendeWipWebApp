@@ -49,4 +49,33 @@ public class EvenementService implements IEvenementService{
         entityManager.persist(evenement);
         entityManager.flush();
     }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
+    public void verwijderEvenement(Evenement evenement) throws BusinessException{
+
+        Evenement teVerwijderenEvenement = entityManager.find(Evenement.class, evenement.getId());
+
+        if (teVerwijderenEvenement instanceof Kampioenschap){
+            Kampioenschap teVerwijderenKampioenschap = (Kampioenschap) teVerwijderenEvenement;
+            if(teVerwijderenKampioenschap.isVerwijderbaar()){
+                Club club = entityManager.find(Club.class, teVerwijderenKampioenschap.getClub().getId());
+                club.removeEvenement(teVerwijderenKampioenschap);
+                entityManager.remove(teVerwijderenKampioenschap);
+                entityManager.merge(club);
+                entityManager.flush();
+            }
+            else{
+                throw new BusinessException("Kampioenschap is niet verwijderbaar!");
+            }
+        }
+        else{
+            Club club = entityManager.find(Club.class, evenement.getClub().getId());
+            club.removeEvenement(teVerwijderenEvenement);
+            entityManager.remove(teVerwijderenEvenement);
+            entityManager.merge(club);
+            entityManager.flush();
+        }
+    }
+
 }
