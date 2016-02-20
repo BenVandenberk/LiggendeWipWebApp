@@ -36,7 +36,7 @@ public class EvenementService implements IEvenementService{
         Kampioenschap kampioenschap = club.maakKampioenschap(naam, start, eind);
 
         entityManager.persist(kampioenschap);
-        entityManager.merge(club);
+        //entityManager.merge(club);
         entityManager.flush();
     }
 
@@ -48,7 +48,7 @@ public class EvenementService implements IEvenementService{
         Evenement evenement = club.maakEvenement(naam, start, eind, locatie, omschrijving);
 
         entityManager.persist(evenement);
-        entityManager.merge(club);
+        //entityManager.merge(club);
         entityManager.flush();
     }
 

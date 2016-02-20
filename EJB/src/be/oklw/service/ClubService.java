@@ -47,22 +47,24 @@ public class ClubService implements IClubService {
     public void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException{
         Club club = new Club(naam, locatie);
         if (adres != ""){club.setAdres(adres);}
+
+        entityManager.persist(club);
+        entityManager.flush();
+
         if (contactLijst.size()!=0){
             for (Contact c : contactLijst){
                 club.addContact(c);
             }
+            entityManager.merge(club);
+            entityManager.flush();
         }
-        entityManager.merge(club);
-        entityManager.flush();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException{
 
-        Club club = (Club)entityManager.createQuery("SELECT c FROM Club c WHERE c.id = :selId")
-                .setParameter("selId", id)
-                .getSingleResult();
+        Club club = entityManager.find(Club.class, id);
         club.setAdres(adres);
         club.setLocatie(locatie);
         club.setNaam(naam);
@@ -133,13 +135,9 @@ public class ClubService implements IClubService {
 
     @Override
     public void verwijderContact(Club club, Contact contact){
-        Contact teVerwijderenContact = (Contact)entityManager.createQuery("select c from Contact c where c.id = :contactId")
-                .setParameter("contactId", contact.getId())
-                .getSingleResult();
+        Contact teVerwijderenContact = entityManager.find(Contact.class, contact.getId());
         if(club!=null){
-        Club selectedClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
-                .setParameter("clubId", club.getId())
-                .getSingleResult();
+        Club selectedClub = entityManager.find(Club.class, club.getId());
         if(selectedClub!=null){
             List<Contact> contactList = selectedClub.getContacten();
             if(contactList != null){
@@ -160,19 +158,8 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public List<Contact> getNieuweContactLijst(Club club){
-        Club nieuweContactLijstClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
-                .setParameter("clubId", club.getId())
-                .getSingleResult();
-        List<Contact> contactList = nieuweContactLijstClub.getContacten();
-        return contactList;
-    }
-
-    @Override
     public void verwijderClub(Club club) throws BusinessException{
-        Club teVerwijderenClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
-                .setParameter("clubId", club.getId())
-                .getSingleResult();
+        Club teVerwijderenClub = entityManager.find(Club.class, club.getId());
         if (teVerwijderenClub.getEvenementen().isEmpty()){
         List<Contact> contactList = teVerwijderenClub.getContacten();
         Iterator<Contact> i = contactList.iterator();

@@ -49,9 +49,7 @@ public class ContactService implements IContactService {
 
     @Override
     public Contact getContact(int id){
-        Contact contact = (Contact)entityManager.createQuery("select c from Contact c Where c.id = :selId")
-                .setParameter("selId", id)
-                .getSingleResult();
+        Contact contact = entityManager.find(Contact.class, id);
         return contact;
     }
 }

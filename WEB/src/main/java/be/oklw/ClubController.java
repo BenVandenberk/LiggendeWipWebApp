@@ -20,10 +20,8 @@ import java.util.List;
 @ManagedBean(name = "clubController")
 public class ClubController implements Serializable{
 
-    @NotNull(message= "Naam van de club is verplicht")
     private String naam;
 
-    @NotNull(message = "Locatie van de club is verplicht")
     private String locatie;
 
     private String adres;
@@ -121,11 +119,11 @@ public class ClubController implements Serializable{
     }
 
     public void verwijderContact(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+        try{
+        if(selectedContact!=null){
         clubService.verwijderContact(selectedClub, selectedContact);
-        if(selectedClub!=null){
-            contactLijstBean.setContactLijst(clubService.getNieuweContactLijst(selectedClub));
-        }
-        else{
             List<Contact> contactList = contactLijstBean.getContactLijst();
 
             if(contactList != null){
@@ -137,6 +135,12 @@ public class ClubController implements Serializable{
                     }
                 }
             }
+
+        }
+        else{throw new Exception("geen contact geselecteerd");}}
+        catch (Exception ex){
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
         }
     }
 
@@ -158,7 +162,7 @@ public class ClubController implements Serializable{
         naam = selectedClub.getNaam();
         locatie = selectedClub.getLocatie();
         adres = selectedClub.getAdres();
-        if(selectedClub.getContacten().size()>0){
+        if(selectedClub.getContacten()!=null){
             contactLijstBean.setContactLijst(selectedClub.getContacten());
         }
         }
@@ -172,9 +176,11 @@ public class ClubController implements Serializable{
 
     public String naarGeselecteerdContact(){
         contactController.reset();
+        if(selectedContact!=null){
         contactController.setSelectedContact(selectedContact);
         contactController.setShowWijzig(true);
-        return "to_contact";
+        return "to_contact";}
+        else{return "";}
     }
 
     public boolean isShowWijzig() {

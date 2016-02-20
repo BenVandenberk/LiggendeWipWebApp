@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @SessionScoped
@@ -33,10 +34,11 @@ public class ContactLijstBean implements Serializable{
 
     public void wijzigContact(int contactId){
         Contact aangepastContact = contactService.getContact(contactId);
+        int i;
         for (Contact c : contactLijst){
             if (c.getId() == contactId){
-                contactLijst.remove(c);
-                contactLijst.add(aangepastContact);
+                i = contactLijst.indexOf(c);
+                contactLijst.set(i, aangepastContact);
             }
         }
     }

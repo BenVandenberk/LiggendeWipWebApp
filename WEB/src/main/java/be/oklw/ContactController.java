@@ -18,7 +18,6 @@ import java.io.Serializable;
 @ManagedBean(name="contactController")
 public class ContactController implements Serializable{
 
-    @NotNull(message= "Naam van contactpersoon is verplicht")
     private String naam;
 
     @ManagedProperty(value = "#{contactLijstBean}")

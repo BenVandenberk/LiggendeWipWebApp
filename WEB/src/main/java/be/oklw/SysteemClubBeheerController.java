@@ -36,9 +36,11 @@ public class SysteemClubBeheerController {
         FacesMessage message;
 
         try {
+            if(selectedClub!=null){
             clubService.verwijderClub(selectedClub);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Club werd verwijderd", "Club werd verwijderd");
-            facesContext.addMessage(null, message);
+            facesContext.addMessage(null, message);}
+            else{throw new Exception("geen club geselecteerd");}
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
@@ -55,9 +57,11 @@ public class SysteemClubBeheerController {
 
     public String naarGeselecteerdeClub(){
         clubController.reset();
+        if(selectedClub!=null){
         clubController.setSelectedClub(selectedClub);
         clubController.setShowWijzig(true);
-        return "to_nieuwe_club";
+        return "to_nieuwe_club";}
+        else{return "";}
     }
 
     public String naarNieuweClub(){

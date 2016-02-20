@@ -92,6 +92,9 @@
         </navigation-case>
     </navigation-rule>
 
-
+    <validator>
+        <validator-id>emailValidator</validator-id>
+        <validator-class>be.oklw.validator.EmailValidator</validator-class>
+    </validator>
 
 </faces-config>

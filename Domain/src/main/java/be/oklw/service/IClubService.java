@@ -31,7 +31,7 @@ public interface IClubService {
 
     List<Club> getAllClubs();
 
-    List<Contact> getNieuweContactLijst(Club club);
+    //List<Contact> getNieuweContactLijst(Club club);
 
     Club addSponsor(Sponsor sponsor, Club club);
 

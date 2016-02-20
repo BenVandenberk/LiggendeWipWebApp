@@ -25,7 +25,13 @@
                             <p:outputLabel value="Naam*:"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:inputText value = "#{clubController.naam}"/>
+                            <p:inputText validatorMessage="Naam is verplicht" value = "#{clubController.naam}" id="naam">
+                                <f:validateRequired />
+                                <f:ajax render="msg_naam naam" />
+                            </p:inputText>
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <p:message id="msg_naam" for="naam"/>
                         </div>
                     </div>
 
@@ -34,7 +40,13 @@
                             <p:outputLabel value="Locatie*:"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:inputText value = "#{clubController.locatie}"/>
+                            <p:inputText validatorMessage="Locatie is verplicht" value = "#{clubController.locatie}" id="locatie">
+                                <f:validateRequired />
+                                <f:ajax render="msg_locatie locatie" />
+                            </p:inputText>
+                        </div>
+                        <div class="ui-grid-col-3">
+                            <p:message id="msg_locatie" for="locatie"/>
                         </div>
                     </div>
 
@@ -81,8 +93,8 @@
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton rendered="#{!clubController.showWijzig}" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
-                        <p:commandButton rendered="#{clubController.showWijzig}" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
+                        <p:commandButton rendered="#{!clubController.showWijzig}" ajax="false" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
+                        <p:commandButton rendered="#{clubController.showWijzig}" ajax="false" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
                     </div>
 
                 </div>

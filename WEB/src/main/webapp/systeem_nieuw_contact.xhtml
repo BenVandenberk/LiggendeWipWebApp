@@ -25,7 +25,7 @@
                                 <p:outputLabel value="Club:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="te binden"/>
+                                <p:outputLabel value="#{clubController.naam}"/>
                             </div>
                         </div>
 
@@ -34,7 +34,13 @@
                                 <p:outputLabel value="Naam*:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText value="#{contactController.naam}"/>
+                                <p:inputText validatorMessage="Naam is verplicht" value="#{contactController.naam}" id="naam">
+                                    <f:validateRequired />
+                                    <f:ajax render="msg_naam naam" />
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_naam" for="naam"/>
                             </div>
                         </div>
 
@@ -52,7 +58,13 @@
                                 <p:outputLabel value="Email:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText value="#{contactController.email}"/>
+                                <p:inputText id="emailAdres" value="#{contactController.email}" validatorMessage="Geldig emailadres vereist">
+                                    <f:validator validatorId="emailValidator"/>
+                                    <f:ajax render="msg_email emailAdres"/>
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_email" for="emailAdres"/>
                             </div>
                         </div>
 
