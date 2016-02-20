@@ -32,7 +32,8 @@ public class EvenementController implements Serializable{
 
     private String naamEvenement;
     private String clubEvenement;
-    private Datum datumEvenement;
+    private Datum startDatumEvenement;
+    private Datum eindDatumEvenement;
     private String locatieEvenement;
     private String omschrijvingEvenement;
 
@@ -121,12 +122,20 @@ public class EvenementController implements Serializable{
         this.locatieEvenement = locatieEvenement;
     }
 
-    public Datum getDatumEvenement() {
-        return datumEvenement;
+    public Datum getStartDatumEvenement() {
+        return startDatumEvenement;
     }
 
-    public void setDatumEvenement(Datum datumEvenement) {
-        this.datumEvenement = datumEvenement;
+    public void setStartDatumEvenement(Datum startDatumEvenement) {
+        this.startDatumEvenement = startDatumEvenement;
+    }
+
+    public Datum getEindDatumEvenement() {
+        return eindDatumEvenement;
+    }
+
+    public void setEindDatumEvenement(Datum eindDatumEvenement) {
+        this.eindDatumEvenement = eindDatumEvenement;
     }
 
     public Evenement getSelectedEvenement(){
@@ -157,7 +166,7 @@ public class EvenementController implements Serializable{
         FacesMessage message;
 
         try {
-            evenementService.maakNieuwEvenementAan(naamEvenement, clubEvenement, datumEvenement, datumEvenement, locatieEvenement, omschrijvingEvenement);
+            evenementService.maakNieuwEvenementAan(naamEvenement, clubEvenement, startDatumEvenement, eindDatumEvenement, locatieEvenement, omschrijvingEvenement);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw evenement werd aangemaakt", "Nieuw evenement werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();
@@ -186,12 +195,20 @@ public class EvenementController implements Serializable{
         this.clubKampioenschap = null;
         this.naamEvenement = "";
         this.naamKampioenschap = "";
-        this.datumEvenement=null;
+        this.startDatumEvenement=null;
+        this.eindDatumEvenement = null;
         this.eindDatumKampioenschap= null;
         this.startDatumKampioenschap = null;
         this.locatieEvenement = "";
         this.omschrijvingEvenement = "";
         this.selectedEvenement = null;
+    }
+
+    public boolean isEvenement(Evenement evenement){
+        if (evenement instanceof Kampioenschap){
+            return false;
+        }
+        else return true;
     }
 
 

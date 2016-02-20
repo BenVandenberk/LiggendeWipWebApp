@@ -20,41 +20,40 @@
                             <p:tabView>
                                 <p:tab title="Lijst">
 
-                                    <p:dataList value="#{evenementController.alleEvenementen}" var="evenement" type="definition">
-                                        <div class="ui-grid-row">
-                                            <div class="ui-grid-col-4">
-                                                <p:outputLabel value="#{evenement.naam}"/>
-                                            </div>
-                                            <div class="ui-grid-col-1">
+                                    <h:panelGroup id="pnl_alle_evenementen">
+                                        <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
 
-                                            </div>
-                                            <div class="ui-grid-col-6">
-                                                <p:outputLabel value="van #{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}"/>
-                                            </div>
-                                            <div class="ui-grid-col-1">
-                                                <p:commandLink ajax="false" action="#{evenementController.verwijderEvenement}" style="text-align: right">
-                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}" />
-                                                    <i class="fa fa-minus-square-o plus"/>
-                                                </p:commandLink>
-                                            </div>
-                                        </div>
+                                                <div class="ui-grid-responsive formGrid evenement">
 
-                                        <div class="ui-grid-row">
-                                            <div class="ui-grid-col-4">
-                                                <p:outputLabel value="Club: #{evenement.club.naam}"/>
-                                            </div>
-                                            <div class="ui-grid-col-1">
+                                                            <div class="ui-grid-row">
+                                                                <p:outputLabel value="#{evenement.naam}" styleClass="centerPlus pointer"/>
+                                                            </div>
 
-                                            </div>
-                                            <div class="ui-grid-col-6">
+                                                            <div class="ui-grid-row">
+                                                                <p:outputLabel value="georganiseerd door club: #{evenement.club.naam}" styleClass="centerPlus pointer"/>
+                                                            </div>
 
-                                            </div>
-                                            <div class="ui-grid-col-1">
+                                                            <div class="ui-grid-row">
+                                                                <p:outputLabel styleClass="centerPlus pointer" value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
+                                                                </p:outputLabel>
+                                                            </div>
 
-                                            </div>
-                                        </div>
+                                                            <div class="ui-grid-row">
+                                                                <p:outputLabel rendered="#{evenementController.isEvenement(evenement)}" styleClass="centerPlus pointer" value="DIT IS GEEN KAMPIOENSCHAP"/>
+                                                            </div>
 
-                                    </p:dataList>
+                                                            <div style="text-align: right">
+                                                                <p:commandLink ajax="false" action="#{evenementController.verwijderEvenement}">
+                                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}" />
+                                                                    <i class="fa fa-minus-square-o plus"/>
+                                                                </p:commandLink>
+                                                            </div>
+
+                                                </div>
+
+
+                                        </ui:repeat>
+                                    </h:panelGroup>
 
                                 </p:tab>
                                 <p:tab title="Kalender">
@@ -154,10 +153,10 @@
                                         <p:inputText value="#{evenementController.naamEvenement}"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Datum:"/>
+                                        <p:outputLabel value="Startdatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.datumEvenement}" >
+                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumEvenement}" >
                                             <f:converter converterId="DatumConverter"/>
                                         </p:calendar>
                                     </div>
@@ -174,13 +173,22 @@
                                         </p:selectOneMenu>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Locatie:"/>
+                                        <p:outputLabel value="Einddatum:"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumEvenement}" >
+                                            <f:converter converterId="DatumConverter"/>
+                                        </p:calendar>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Locatie: "/>
                                     </div>
                                     <div class="ui-grid-col-3">
                                         <p:inputText value="#{evenementController.locatieEvenement}"/>
                                     </div>
                                 </div>
-
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Omschrijving:"/>

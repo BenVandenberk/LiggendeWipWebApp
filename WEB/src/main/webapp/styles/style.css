@@ -213,6 +213,17 @@ body {
     background-color: cornflowerblue;
 }
 
+.evenement {
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: black;
+    text-underline: none;
+    text-align: center;
+    border-radius: 10px;
+}
+
 .subToernooi {
     border: 1px solid black;
     padding: 10px;
