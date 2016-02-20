@@ -169,11 +169,11 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public void verwijderClub(Club club){
+    public void verwijderClub(Club club) throws BusinessException{
         Club teVerwijderenClub = (Club)entityManager.createQuery("select c from Club c where c.id = :clubId")
                 .setParameter("clubId", club.getId())
                 .getSingleResult();
-
+        if (teVerwijderenClub.getEvenementen().isEmpty()){
         List<Contact> contactList = teVerwijderenClub.getContacten();
         Iterator<Contact> i = contactList.iterator();
         while(i.hasNext()){
@@ -185,6 +185,10 @@ public class ClubService implements IClubService {
 
         entityManager.remove(teVerwijderenClub);
         entityManager.flush();
+        }
+        else{
+            throw new BusinessException("Deze club kan niet verwijderd worden");
+        }
     }
 
     @Override

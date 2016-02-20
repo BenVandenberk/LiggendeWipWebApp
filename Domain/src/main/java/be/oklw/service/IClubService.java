@@ -27,7 +27,7 @@ public interface IClubService {
 
     void verwijderContact(Club club, Contact contact);
 
-    void verwijderClub(Club club);
+    void verwijderClub(Club club) throws BusinessException;
 
     List<Club> getAllClubs();
 

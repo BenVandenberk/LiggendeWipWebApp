@@ -62,10 +62,12 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public List<Kampioenschap> getKampioenschappenVerleden() {
+        init();
         return clubService.kampioenschappenVan(club, true);
     }
 
     public List<Kampioenschap> getKampioenschappenToekomst() {
+        init();
         return clubService.kampioenschappenVan(club, false);
     }
 
