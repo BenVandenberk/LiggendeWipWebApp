@@ -3,9 +3,9 @@
     left: 0px;
     right: 0px;
     height: auto;
-    overflow: auto;
+    overflow: visible;
 
-    background-color: #d2ffce;
+    /*background-color: #d2ffce;*/
 }
 
 .welkom{
@@ -44,9 +44,8 @@
     padding-top: 10px;
     padding-bottom: 10px;
 
-    background-color: #d2ffce;
-    border-top-style:solid;
-    border-width:1px;
+    background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
+    border: 1px solid lightgray;
     font-size:x-small;
     text-align: center;
 }
@@ -58,10 +57,7 @@
     height: auto;
     /*min-height: 70%;*/
     margin-bottom: 120px;
-    background-color: aliceblue;
-
-    border-top-style:solid;
-    border-width:1px;
+    background-color: #fafffb;
 }
 
 .headerbody{
@@ -185,6 +181,10 @@
     margin-top: 10px;
 }
 
+.right10 {
+    margin-right: 10px;
+}
+
 .big {
     font-size: x-large;
 }
@@ -197,7 +197,7 @@ body {
     margin: 0;
     height: 100%;
 
-    background-color: aliceblue;
+    background-color: #fafffb;
     font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 

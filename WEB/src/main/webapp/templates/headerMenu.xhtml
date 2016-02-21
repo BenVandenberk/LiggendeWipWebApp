@@ -1,0 +1,57 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition >
+
+        <h:form id="frm_header">
+
+        <div class="ui-grid-col-12">
+
+            <p:menubar>
+
+                <p:menuitem outcome="home" styleClass="right10">
+                    <p:graphicImage value="/images/Logo.png" height="40%" width="40%"/>
+                </p:menuitem>
+                <p:menuitem value="Kampioenschappen" styleClass="right10"></p:menuitem>
+                <p:menuitem value="Foto's" styleClass="right10"></p:menuitem>
+
+                <p:submenu rendered="#{gebruikerController.heeftRol('club')}" label="Club" styleClass="right10">
+                    <p:menuitem value="Beheer" outcome="club_beheer"></p:menuitem>
+                    <p:menuitem value="Inschrijven" outcome="club_inschrijven"></p:menuitem>
+                    <p:menuitem value="Clubsponsors" outcome="club_sponsors"></p:menuitem>
+                </p:submenu>
+
+                <p:submenu rendered="#{gebruikerController.heeftRol('systeem')}" label="Administrator" styleClass="right10">
+                    <p:menuitem value="Kalenderbeheer" outcome="systeem_nieuw_kampioenschap"></p:menuitem>
+                    <p:menuitem value="Clubbeheer" outcome="systeem_clubbeheer"></p:menuitem>
+                    <p:menuitem value="Sitesponsoring" outcome="systeem_site_sponsoring"></p:menuitem>
+                </p:submenu>
+
+
+                <f:facet name="options">
+
+                    <p:link rendered="#{gebruikerController.loggedIn}" value="Ingelogd als: #{gebruikerController.user.userName}" outcome="club_accountbeheer" styleClass="menuLink">
+                    </p:link>
+
+                    <p:link rendered="#{!gebruikerController.loggedIn}" value="Login" outcome="login" styleClass="menuLink">
+                    </p:link>
+
+                    <p:commandLink rendered="#{gebruikerController.loggedIn}" value="Logout" action="#{gebruikerController.logout}" update=":frm_header" styleClass="menuLink">
+                    </p:commandLink>
+
+                </f:facet>
+
+
+            </p:menubar>
+
+        </div>
+
+
+        </h:form>
+
+    </ui:composition>
+
+</ui:fragment>
