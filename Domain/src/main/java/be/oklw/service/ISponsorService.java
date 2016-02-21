@@ -1,9 +1,7 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
-import be.oklw.model.Club;
-import be.oklw.model.Kampioenschap;
-import be.oklw.model.Sponsor;
+import be.oklw.model.*;
 
 import javax.ejb.Remote;
 import java.util.List;
@@ -20,4 +18,12 @@ public interface ISponsorService {
     void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap);
 
     void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap);
+
+    void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount);
+
+    void saveSiteSponsor(SiteSponsor siteSponsor);
+
+    void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId);
+
+    List<SiteSponsor> getSiteSponsors();
 }

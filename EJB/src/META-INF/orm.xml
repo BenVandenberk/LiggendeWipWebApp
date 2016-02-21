@@ -13,6 +13,7 @@
     <entity class="Sponsor"></entity>
     <entity class="Toernooi"></entity>
     <entity class="SysteemAccount"></entity>
+    <entity class="SiteSponsor"></entity>
 
 
 

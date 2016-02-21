@@ -46,6 +46,8 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/systeem_accountbeheer.xhtml");
         systeemUrls.add("/systeem_nieuw_contact.xhtml");
         systeemUrls.add("/systeem_nieuw_kampioenschap.xhtml");
+        systeemUrls.add("/systeem_site_sponsoring.xhtml");
+        systeemUrls.add("/systeem_sponsor.xhtml");
 
 
         toegelatenUrlsPerRol.put("club", clubUrls);

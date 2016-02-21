@@ -6,8 +6,25 @@
 
     <ui:composition >
 
-            <p:graphicImage class="sponsorbanner" value="/images/bannerdesign2.jpg"/>
-            <p:graphicImage class="sponsorbanner" value="/images/dock.jpg"/>
+            <p:imageSwitch effect="fade" styleClass="centerPlus" slideshowSpeed="10000">
+                <ui:repeat value="#{toonSiteSponsorBean.siteSponsors}" var="siteSponsor">
+                    <div class="ui-grid-responsive">
+                        <p:link target="_blank" href="http://#{siteSponsor.linksTo}">
+                            <div class="ui-grid-row">
+
+                                <div class="ui-grid-col-6 siteSponsorCaption">
+                                    #{siteSponsor.naam}
+                                </div>
+
+                                <div class="ui-grid-col-6">
+                                        <p:graphicImage value="#{siteSponsor.fullPath}" width="#{siteSponsor.logoBreedte}" height="#{siteSponsor.logoHoogte}"></p:graphicImage>
+                                </div>
+
+                            </div>
+                        </p:link>
+                    </div>
+                </ui:repeat>
+            </p:imageSwitch>
 
     </ui:composition>
 

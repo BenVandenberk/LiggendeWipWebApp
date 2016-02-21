@@ -1,0 +1,164 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+
+
+            <div class="bodyWrapper">
+                <div class="ui-grid ui-grid-responsive formGrid">
+
+                    <div class="titel">
+                        <p:outputLabel value="Nieuwe Sitesponsor" rendered="#{siteSponsorBean.sponsorNieuw}"></p:outputLabel>
+                        <p:outputLabel value="Sitesponsor Aanpassen" rendered="#{!siteSponsorBean.sponsorNieuw}"></p:outputLabel>
+                    </div>
+
+
+                    <h:form id="frm" enctype="multipart/form-data">
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-1">
+                                <p:outputLabel value="Naam:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText value="#{siteSponsorBean.siteSponsor.naam}"></p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-1">
+                                <p:outputLabel value="Link:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText value="#{siteSponsorBean.siteSponsor.linksTo}"></p:inputText>
+                            </div>
+                        </div>
+
+                        <p:spacer height="30" />
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Logo online?"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:selectBooleanCheckbox value="#{siteSponsorBean.siteSponsor.logoOnline}">
+                                    <p:ajax event="change" update="frm:file_logo frm:link_logo" />
+                                </p:selectBooleanCheckbox>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-2">
+                                <p:outputLabel value="Link naar logo:"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-5">
+                                <p:inputText id="link_logo" size="30" disabled="#{!siteSponsorBean.siteSponsor.logoOnline}" value="#{siteSponsorBean.siteSponsor.logoUrlOnline}">
+                                    <p:ajax event="change" update="frm:grp_logo" oncomplete="uploadComplete()" />
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-1">
+                                <p:outputLabel value="OF"></p:outputLabel>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-12">
+
+
+
+                                    <p:messages id="messages_upload" showDetail="true" closable="true"></p:messages>
+
+                                    <p:fileUpload fileUploadListener="#{siteSponsorBean.uploadSponsorLogo}"
+                                                  uploadLabel="Uploaden"
+                                                  cancelLabel="Annuleren"
+                                                  label="Bladeren"
+                                                  mode="advanced"
+                                                  update=":frm:spin_hoogte :frm:spin_breedte @form :frm:pnl_logo :frm:grp_logo"
+                                                  oncomplete="uploadComplete()"
+                                                  fileLimit="1"
+                                                  fileLimitMessage="Je kan maar 1 sponsorlogo uploaden"
+                                                  sizeLimit="5242880"
+                                                  allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
+                                                  invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
+                                                  invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
+                                                  disabled="#{siteSponsorBean.siteSponsor.logoOnline}"
+                                                  id="file_logo"
+                                                  process="@form"
+                                            />
+
+
+                            </div>
+                        </div>
+
+                    <p:spacer height="30" />
+
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-6">
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-2">
+                                    <p:outputLabel value="Hoogte"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-1">
+                                    <p:spinner id="spin_hoogte" size="5" value="#{siteSponsorBean.siteSponsor.logoHoogte}" stepFactor="10"></p:spinner>
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-2">
+                                    <p:outputLabel value="Breedte"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-1">
+                                    <p:spinner id="spin_breedte" size="5" value="#{siteSponsorBean.siteSponsor.logoBreedte}" stepFactor="10"></p:spinner>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="ui-grid-col-6 right">
+
+                            <h:panelGroup id="grp_logo">
+                                <p:outputPanel rendered="#{!siteSponsorBean.heeftLogo}">
+                                    <i class="fa fa-image" style="font-size: 200px"/>
+                                </p:outputPanel>
+                                <p:outputPanel id="pnl_logo" rendered="#{siteSponsorBean.heeftLogo}">
+                                    <p:graphicImage cache="false" id="img_logo" value="#{siteSponsorBean.logoUrl}" alt="Logo"/>
+                                </p:outputPanel>
+                            </h:panelGroup>
+
+                        </div>
+                    </div>
+
+
+
+
+                        <div class="pageButton">
+                            <p:commandButton value="Annuleren" action="#{siteSponsorBean.annuleren}"></p:commandButton>
+                            <p:spacer width="10" />
+                            <p:commandButton value="Opslaan" action="#{siteSponsorBean.opslaan}" form=":frm"></p:commandButton>
+                        </div>
+
+                    </h:form>
+
+
+
+                </div>
+            </div>
+
+            <h:outputScript library="js" name="uploadimageSponsor.js" />
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>

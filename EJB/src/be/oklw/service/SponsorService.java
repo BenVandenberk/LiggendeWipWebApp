@@ -1,9 +1,7 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
-import be.oklw.model.Club;
-import be.oklw.model.Kampioenschap;
-import be.oklw.model.Sponsor;
+import be.oklw.model.*;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
@@ -64,5 +62,31 @@ public class SponsorService implements ISponsorService {
         kampioenschap.removeSponsor(sponsorId);
         entityManager.merge(kampioenschap);
         entityManager.flush();
+    }
+
+    @Override
+    public void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount) {
+        systeemAccount.addSiteSponsor(siteSponsor);
+        entityManager.merge(systeemAccount);
+        entityManager.flush();
+    }
+
+    @Override
+    public void saveSiteSponsor(SiteSponsor siteSponsor) {
+        entityManager.merge(siteSponsor);
+        entityManager.flush();
+    }
+
+    @Override
+    public void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) {
+        SiteSponsor teVerwijderen = entityManager.find(SiteSponsor.class, siteSponsorId);
+        systeemAccount.removeSiteSponsor(siteSponsorId);
+        entityManager.merge(systeemAccount);
+        entityManager.flush();
+    }
+
+    @Override
+    public List<SiteSponsor> getSiteSponsors() {
+        return (List<SiteSponsor>)entityManager.createQuery("SELECT s FROM SiteSponsor s").getResultList();
     }
 }

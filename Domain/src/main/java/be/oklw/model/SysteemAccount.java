@@ -1,6 +1,11 @@
 package be.oklw.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class SysteemAccount extends Account {
@@ -12,6 +17,9 @@ public class SysteemAccount extends Account {
     private String naam;
     private String email;
     private String telefoonnummer;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<SiteSponsor> siteSponsors;
 
     //endregion
 
@@ -41,6 +49,14 @@ public class SysteemAccount extends Account {
         this.telefoonnummer = telefoonnummer;
     }
 
+    public List<SiteSponsor> getSiteSponsors() {
+        return Collections.unmodifiableList(siteSponsors);
+    }
+
+    public void setSiteSponsors(List<SiteSponsor> siteSponsors) {
+        this.siteSponsors = siteSponsors;
+    }
+
     //endregion
 
     //region CONSTRUCTORS
@@ -58,6 +74,18 @@ public class SysteemAccount extends Account {
     //endregion
 
     //region PUBLIC METHODS
+
+    public void addSiteSponsor(SiteSponsor siteSponsor) {
+        siteSponsors.add(siteSponsor);
+    }
+
+    public void removeSiteSponsor(int siteSponsorId) {
+        for (int i = siteSponsors.size() - 1; i >= 0; i--) {
+            if (siteSponsors.get(i).getId() == siteSponsorId) {
+                siteSponsors.remove(i);
+            }
+        }
+    }
 
     //endregion
 

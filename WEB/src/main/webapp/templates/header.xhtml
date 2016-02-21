@@ -9,8 +9,7 @@
             <div class="welkom ui-grid-col-2">
 
                 <p:link outcome="home">
-                <p:graphicImage id="logo" value="/images/java-logo.jpg"/>
-                OKLW
+                    <p:graphicImage id="logo" value="/images/Logo.png" width="710" height="462"/>
                 </p:link>
 
             </div>
@@ -24,7 +23,7 @@
                             <p:link rendered="#{gebruikerController.heeftRol('systeem')}" value="Clubbeheer" styleClass="menuLink" outcome="systeem_clubbeheer"/>
                         </div>
                         <div class="ui-grid-col-3">
-                            <p:outputLabel rendered="#{gebruikerController.heeftRol('systeem')}" value="Sponsoring" styleClass="menuLink"/>
+                            <p:link rendered="#{gebruikerController.heeftRol('systeem')}" value="Sitesponsoring" styleClass="menuLink" outcome="systeem_site_sponsoring"/>
                         </div>
                         <div class="ui-grid-col-3">
                             <p:link rendered="#{gebruikerController.heeftRol('systeem')}" value="Kalenderbeheer" styleClass="menuLink" outcome="systeem_nieuw_kampioenschap"/>

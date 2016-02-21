@@ -14,20 +14,22 @@
 </h:head>
 <h:body>
     <pe:blockUI></pe:blockUI>
-    <f:view id="mainview">
-    <div class="ui-grid ui-grid-responsive headerbody">
-        <div class="ui-grid-row"  >
-            <div class="ui-grid-col-12 header">
-                <ui:include src="header.xhtml"/>
-            </div>
-        </div>
 
-        <div class="ui-grid-row ">
-            <div class="ui-grid-col-12 body">
-                <ui:insert name="bodycontent"/>
+    <f:view id="mainview">
+
+        <div class="ui-grid ui-grid-responsive headerbody">
+            <div class="ui-grid-row"  >
+                <div class="ui-grid-col-12 header">
+                    <ui:include src="header.xhtml"/>
+                </div>
+            </div>
+
+            <div class="ui-grid-row ">
+                <div class="ui-grid-col-12 body">
+                    <ui:insert name="bodycontent"/>
+                </div>
             </div>
         </div>
-    </div>
 
         <div class="footer">
                 <ui:include src="footer.xhtml"/>

@@ -39,8 +39,10 @@
     bottom: 0px;
     left: 0px;
     right: 0px;
-    height: 10%;
+    height: 120px;
     overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
 
     background-color: #d2ffce;
     border-top-style:solid;
@@ -53,7 +55,9 @@
     left: 0px;
     right: 0px;
     overflow: auto;
-    min-height: 75%;
+    height: auto;
+    /*min-height: 70%;*/
+    margin-bottom: 120px;
     background-color: aliceblue;
 
     border-top-style:solid;
@@ -299,6 +303,14 @@ body {
 
 .relative {
     position: relative;
+}
+
+.siteSponsorCaption {
+    font-size: x-large;
+    margin-top: 20px;
+    text-align: center;
+    padding-right: 100px;
+    width: 50%;
 }
 
 .noBorder tr,

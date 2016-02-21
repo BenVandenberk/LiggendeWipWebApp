@@ -15,6 +15,7 @@ import java.util.List;
 @Stateless
 @Remote(IGebruikerService.class)
 @TransactionManagement(value = TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GebruikerService implements IGebruikerService {
 
     @PersistenceContext(unitName = "myunitname")
@@ -66,5 +67,10 @@ public class GebruikerService implements IGebruikerService {
         entityManager.persist(systeemAccount);
 
         entityManager.flush();
+    }
+
+    @Override
+    public SysteemAccount getSysteemAccount(int id) {
+        return entityManager.find(SysteemAccount.class, id);
     }
 }
