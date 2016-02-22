@@ -23,6 +23,9 @@ public class Kampioenschap extends Evenement {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
     private List<Toernooi> toernooien;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
+    private List<Foto> fotos;
+
     //endregion
 
     //region CONSTRUCTORS
@@ -42,6 +45,10 @@ public class Kampioenschap extends Evenement {
 
     public List<Toernooi> getToernooien() {
         return Collections.unmodifiableList(toernooien);
+    }
+
+    public List<Foto> getFotos() {
+        return Collections.unmodifiableList(fotos);
     }
 
     public String getRekeningnummer() {
@@ -110,6 +117,22 @@ public class Kampioenschap extends Evenement {
         if (toernooi.isPresent()) {
             toernooien.remove(toernooi.get());
         }
+    }
+
+    public void addFoto(Foto foto) {
+        fotos.add(foto);
+        foto.setKampioenschap(this);
+    }
+
+    public void removeFoto(int fotoId) {
+        Optional<Foto> foto = fotos.stream().filter(f -> f.getId() == fotoId).findFirst();
+        if (foto.isPresent()) {
+            fotos.remove(foto.get());
+        }
+    }
+
+    public void removeFoto(Foto foto) {
+        fotos.remove(foto);
     }
 
     /**

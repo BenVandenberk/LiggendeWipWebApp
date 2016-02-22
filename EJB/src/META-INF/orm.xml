@@ -14,6 +14,7 @@
     <entity class="Toernooi"></entity>
     <entity class="SysteemAccount"></entity>
     <entity class="SiteSponsor"></entity>
+    <entity class="Foto"></entity>
 
 
 

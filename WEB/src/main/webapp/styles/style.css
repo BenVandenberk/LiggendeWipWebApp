@@ -313,6 +313,10 @@ body {
     width: 50%;
 }
 
+.ui-galleria {
+    width: 100%;
+}
+
 .noBorder tr,
 .noBorder td { border: 0 !important; }
 
