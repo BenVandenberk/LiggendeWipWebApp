@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Remote
 @Stateless
@@ -77,6 +78,13 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
+    public List<Foto> getFotos(int kampioenschapId) {
+        return (List<Foto>)entityManager.createQuery("SELECT f FROM Foto f WHERE f.kampioenschap.id=:kampId")
+                .setParameter("kampId", kampioenschapId)
+                .getResultList();
+    }
+
+    @Override
     public void verwijderFoto(int fotoId, Kampioenschap kampioenschap) {
         Foto teVerwijderen = entityManager.find(Foto.class, fotoId);
         entityManager.remove(teVerwijderen);
@@ -87,5 +95,15 @@ public class KampioenschapService implements IKampioenschapService {
     public void saveFoto(Foto foto) {
         entityManager.merge(foto);
         entityManager.flush();
+    }
+
+    @Override
+    public List<Kampioenschap> getKampioenschappenMetFotos() {
+        List<Kampioenschap> alleKampioenschappen = (List<Kampioenschap>)entityManager.createQuery("SELECT k from Kampioenschap k").getResultList();
+        List<Kampioenschap> alleKampioenschappenMetFotos = alleKampioenschappen.stream().filter(
+                k -> k.getFotos().size() > 0
+        ).collect(Collectors.toList());
+
+        return alleKampioenschappenMetFotos;
     }
 }

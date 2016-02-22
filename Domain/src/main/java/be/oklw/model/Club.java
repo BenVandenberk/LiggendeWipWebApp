@@ -11,6 +11,7 @@ import java.util.*;
 public class Club implements Serializable {
 
     private static final long serialVersionUID = 659453794239094252L;
+    private static final String PAD = "upload/clublogos/";
 
     //region PRIVATE MEMBERS
 
@@ -231,6 +232,10 @@ public class Club implements Serializable {
     }
 
     public void removeEvenement(Evenement evenement){evenementen.remove(evenement);}
+
+    public String getLogoFullPath() {
+        return String.format("%s%s", PAD, logoPad);
+    }
 
     //endregion
 

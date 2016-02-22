@@ -24,6 +24,8 @@ public class AuthorizationFilter implements Filter {
 
         ArrayList<String> bezoekerUrls = new ArrayList<>();
         bezoekerUrls.add("/login.xhtml");
+        bezoekerUrls.add("/bezoeker_fotos.xhtml");
+        bezoekerUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
 
         ArrayList<String> clubUrls = new ArrayList<>();
         clubUrls.add("/login.xhtml");
@@ -39,6 +41,8 @@ public class AuthorizationFilter implements Filter {
         clubUrls.add("/club_nieuwe_sponsor.xhtml");
         clubUrls.add("/club_sponsor_aanpassen.xhtml");
         clubUrls.add("/club_fotos_uploaden.xhtml");
+        clubUrls.add("/bezoeker_fotos.xhtml");
+        clubUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
 
         ArrayList<String> systeemUrls = new ArrayList<>();
         systeemUrls.add("/login.xhtml");
@@ -49,7 +53,8 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/systeem_nieuw_kampioenschap.xhtml");
         systeemUrls.add("/systeem_site_sponsoring.xhtml");
         systeemUrls.add("/systeem_sponsor.xhtml");
-
+        systeemUrls.add("/bezoeker_fotos.xhtml");
+        systeemUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
 
         toegelatenUrlsPerRol.put("club", clubUrls);
         toegelatenUrlsPerRol.put("bezoeker", bezoekerUrls);

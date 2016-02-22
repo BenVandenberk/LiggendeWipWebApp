@@ -23,8 +23,13 @@ public interface IKampioenschapService {
 
     List<Foto> getFotos(Kampioenschap kampioenschap);
 
+    List<Foto> getFotos(int kampioenschapId);
+
     void verwijderFoto(int fotoId, Kampioenschap kampioenschap);
 
     void saveFoto(Foto foto);
+
+    List<Kampioenschap> getKampioenschappenMetFotos();
+
 
 }
