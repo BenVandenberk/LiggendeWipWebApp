@@ -1,34 +1,48 @@
 package be.oklw.validator;
 
-import be.oklw.util.Datum;
-import org.apache.commons.lang3.StringUtils;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
-import javax.faces.application.FacesMessage;
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Named;
 
+import be.oklw.util.Datum;
+import org.omnifaces.validator.MultiFieldValidator;
+
+@Named
+@ApplicationScoped
 @FacesValidator("datumValidator")
-public class DatumValidator implements Validator {
+public class DatumValidator implements MultiFieldValidator, Validator{
 
     @Override
-    public void validate(FacesContext facesContext, UIComponent uiComponent, Object value) throws ValidatorException {
-        if (value == null) {
-            return;
+    public boolean validateValues(FacesContext context, List<UIInput> components, List<Object> values) {
+        String start = values.get(0).toString();
+        String eind = values.get(1).toString();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date startDate = null;
+        Date endDate = null;
+        try {
+            startDate = df.parse(start);
+            endDate = df.parse(eind);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
-        //Leave the null handling of startDate to required="true"
-        Object startDateValue = uiComponent.getAttributes().get("startdatum");
-        if (startDateValue==null) {
-            return;
-        }
+        return (startDate.before(endDate));
+    }
 
-        Datum startDatum = (Datum)startDateValue;
-        Datum eindDatum = (Datum)value;
-        if (eindDatum.kleinerDan(startDatum)) {
-            throw new ValidatorException(new FacesMessage(""));
-        }
+    @Override
+    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+
     }
 }
