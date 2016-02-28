@@ -4,11 +4,11 @@ import be.oklw.exception.BusinessException;
 import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
+import be.oklw.util.Datum;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,7 +49,7 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
-    public Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException{
+    public Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException {
         Foto foto = new Foto();
         foto.setOriginalFilename(fileName);
 
@@ -72,14 +72,14 @@ public class KampioenschapService implements IKampioenschapService {
 
     @Override
     public List<Foto> getFotos(Kampioenschap kampioenschap) {
-        return (List<Foto>)entityManager.createQuery("SELECT f FROM Foto f WHERE f.kampioenschap.id=:kampId")
-                                        .setParameter("kampId", kampioenschap.getId())
-                                        .getResultList();
+        return (List<Foto>) entityManager.createQuery("SELECT f FROM Foto f WHERE f.kampioenschap.id=:kampId")
+                .setParameter("kampId", kampioenschap.getId())
+                .getResultList();
     }
 
     @Override
     public List<Foto> getFotos(int kampioenschapId) {
-        return (List<Foto>)entityManager.createQuery("SELECT f FROM Foto f WHERE f.kampioenschap.id=:kampId")
+        return (List<Foto>) entityManager.createQuery("SELECT f FROM Foto f WHERE f.kampioenschap.id=:kampId")
                 .setParameter("kampId", kampioenschapId)
                 .getResultList();
     }
@@ -99,11 +99,26 @@ public class KampioenschapService implements IKampioenschapService {
 
     @Override
     public List<Kampioenschap> getKampioenschappenMetFotos() {
-        List<Kampioenschap> alleKampioenschappen = (List<Kampioenschap>)entityManager.createQuery("SELECT k from Kampioenschap k").getResultList();
+        List<Kampioenschap> alleKampioenschappen = (List<Kampioenschap>) entityManager.createQuery("SELECT k from Kampioenschap k").getResultList();
         List<Kampioenschap> alleKampioenschappenMetFotos = alleKampioenschappen.stream().filter(
                 k -> k.getFotos().size() > 0
         ).collect(Collectors.toList());
 
         return alleKampioenschappenMetFotos;
+    }
+
+    @Override
+    public List<Kampioenschap> getKampioenschappen(boolean uitVerleden) {
+        List<Kampioenschap> alleKampioenschappen = entityManager.createQuery("SELECT k FROM Kampioenschap k", Kampioenschap.class).getResultList();
+
+        Datum vandaag = new Datum();
+        List<Kampioenschap> result;
+        if (uitVerleden) {
+            result = alleKampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) <= 0).collect(Collectors.toList());
+        } else {
+            result = alleKampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
+        }
+
+        return result;
     }
 }

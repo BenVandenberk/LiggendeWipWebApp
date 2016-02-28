@@ -31,5 +31,7 @@ public interface IKampioenschapService {
 
     List<Kampioenschap> getKampioenschappenMetFotos();
 
+    List<Kampioenschap> getKampioenschappen(boolean uitVerleden);
+
 
 }
