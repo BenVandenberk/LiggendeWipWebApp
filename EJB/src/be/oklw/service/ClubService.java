@@ -81,6 +81,14 @@ public class ClubService implements IClubService {
         return club;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @Override
+    public Club getClub(int id) {
+        Club club = (Club)entityManager.find(Club.class, id);
+        return club;
+    }
+
+
     @Override
     public List<Club> getAllClubs(){
         List<Club> allClubs = (List<Club>)entityManager.createQuery("select c from Club c").getResultList();
@@ -145,9 +153,10 @@ public class ClubService implements IClubService {
                         i.remove();
                     }
                 }
-                entityManager.merge(selectedClub);
-                entityManager.flush();
             }
+            selectedClub.setContacten(contactList);
+            entityManager.merge(selectedClub);
+            entityManager.flush();
         }
         }
         entityManager.remove(teVerwijderenContact);

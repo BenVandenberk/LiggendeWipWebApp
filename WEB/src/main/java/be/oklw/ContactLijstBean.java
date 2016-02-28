@@ -46,4 +46,16 @@ public class ContactLijstBean implements Serializable{
         contactLijst = newContactSet;
     }
 
+    public void verwijderContact(int contactId){
+
+        Set<Contact> newContactSet = new HashSet<>();
+        for (Iterator<Contact> i = contactLijst.iterator(); i.hasNext();) {
+            Contact c = i.next();
+            if (c.getId() != contactId) {
+                newContactSet.add(c);
+            }
+        }
+        contactLijst = newContactSet;
+    }
+
 }

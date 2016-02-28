@@ -97,4 +97,9 @@
         <validator-class>be.oklw.validator.EmailValidator</validator-class>
     </validator>
 
+    <validator>
+        <validator-id>datumValidator</validator-id>
+        <validator-class>be.oklw.validator.DatumValidator</validator-class>
+    </validator>
+
 </faces-config>

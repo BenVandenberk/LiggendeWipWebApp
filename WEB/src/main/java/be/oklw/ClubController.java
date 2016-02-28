@@ -121,19 +121,8 @@ public class ClubController implements Serializable{
         FacesMessage message;
         try{
         if(selectedContact!=null){
-        clubService.verwijderContact(selectedClub, selectedContact);
-            Set<Contact> contactList = contactLijstBean.getContactLijst();
-
-            if(contactList != null){
-                Iterator<Contact> i = contactList.iterator();
-                while(i.hasNext()){
-                    Contact c = i.next();
-                    if (c.getId() == selectedContact.getId()){
-                        i.remove();
-                    }
-                }
-            }
-
+            contactLijstBean.verwijderContact(selectedContact.getId());
+            clubService.verwijderContact(selectedClub, selectedContact);
         }
         else{throw new Exception("geen contact geselecteerd");}}
         catch (Exception ex){

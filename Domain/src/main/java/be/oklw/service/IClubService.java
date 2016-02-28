@@ -20,6 +20,8 @@ public interface IClubService {
 
     Club getClub(Account account);
 
+    Club getClub(int id);
+
     void bewaarAfmetingen(Club club);
 
     void dummyKampioenschappen();

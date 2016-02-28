@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <div class="bodyWrapper">
 
@@ -17,8 +17,8 @@
                 <div class="ui-grid ui-grid-responsive formGrid">
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
-                            <p:tabView>
-                                <p:tab title="Lijst">
+                            <p:tabView id="tbView">
+                                <p:tab title="Lijst" id="tb">
 
                                     <h:panelGroup id="pnl_alle_evenementen">
                                         <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
@@ -43,8 +43,8 @@
                                                             </div>
 
                                                             <div style="text-align: right">
-                                                                <p:commandLink ajax="false" action="#{evenementController.verwijderEvenement}">
-                                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}" />
+                                                                <p:commandLink update=":frm:tbView:pnl_alle_evenementen" action="#{evenementController.verwijderEvenement}">
+                                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}"/>
                                                                     <i class="fa fa-minus-square-o plus"/>
                                                                 </p:commandLink>
                                                             </div>
@@ -85,7 +85,7 @@
                                                 </div>
                                             </div>
 
-</p:dataList>
+                                        </p:dataList>
                                         </div>
                                     </div>
                                 </p:tab>
@@ -95,22 +95,44 @@
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
-                            <p:fieldset legend="Kampioenschap aanmaken">
+                            <p:fieldset legend="Kampioenschap aanmaken" id="fsKamp">
+                            <h:form id="kampFrm">
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Naam:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:inputText value="#{evenementController.naamKampioenschap}"/>
+                                        <p:inputText validatorMessage="Naam verplicht" value="#{evenementController.naamKampioenschap}" id="naam">
+                                            <f:validateRequired />
+                                            <f:ajax render="msg_naam naam" />
+                                        </p:inputText>
                                     </div>
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Startdatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumKampioenschap}" >
+                                        <p:calendar validatorMessage="Startdatum verplicht" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumKampioenschap}" id="startdatum" >
                                             <f:converter converterId="DatumConverter"/>
+                                            <f:validateRequired />
+                                            <f:ajax render="msg_startdatum startdatum" />
                                         </p:calendar>
                                     </div>
+                                </div>
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:message id="msg_naam" for="naam"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:message id="msg_startdatum" for="startdatum"/>
+                                    </div>
+
                                 </div>
 
                                 <div class="ui-grid-row formRow">
@@ -118,23 +140,48 @@
                                         <p:outputLabel value="Club:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:selectOneMenu value="#{evenementController.clubKampioenschap}">
+                                        <p:selectOneMenu validatorMessage="Selecteer een club!" value="#{evenementController.clubKampioenschap}" id="club">
                                             <f:selectItem itemLabel="Selecteer Club" itemValue="" noSelectionOption="false" />
                                             <f:selectItems value="#{evenementController.alleClubs}" />
+                                            <f:validateRequired />
+                                            <f:ajax render="msg_club club" />
                                         </p:selectOneMenu>
                                     </div>
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Einddatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" >
+                                        <p:calendar validatorMessage="Einddatum verplicht en later dan startdatum!" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" id="einddatum">
                                             <f:converter converterId="DatumConverter"/>
+                                            <f:validateRequired />
+                                            <f:validator validatorId="datumValidator"/>
+                                            <f:ajax render="msg_einddatum einddatum" />
                                         </p:calendar>
                                     </div>
                                 </div>
 
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:message id="msg_club" for="club"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:message id="msg_einddatum" for="einddatum"/>
+                                    </div>
+
+                                </div>
+                                </h:form>
                                 <div class="pageButton">
-                                    <p:commandButton value="Kampioenschap toevoegen" ajax="false" action="#{evenementController.maakNieuwKampioenschapAan}"/>
+                                    <p:commandButton value="Kampioenschap toevoegen"
+                                                     update=":frm:tbView:pnl_alle_evenementen :frm:fsKamp"
+                                                     actionListener="#{evenementController.maakNieuwKampioenschapAan}">
+                                    </p:commandButton>
                                 </div>
                             </p:fieldset>
                         </div>
