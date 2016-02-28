@@ -1,0 +1,288 @@
+/* -------------
+     VARIABLES
+--------------- */
+/* -------------
+     HTML TAGS
+--------------- */
+html {
+  height: 100%; }
+
+body {
+  margin: 0;
+  height: 100%;
+  background-color: #fafffb;
+  font-family: "Lucida Grande", Lucida, Verdana, sans-serif; }
+
+/* -------------
+     TEMPLATE
+--------------- */
+.header {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: auto;
+  overflow: visible; }
+
+.body {
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+  height: auto;
+  /*min-height: 70%;*/
+  margin-bottom: 120px;
+  background-color: #fafffb; }
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 120px;
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
+  border: 1px solid lightgray;
+  font-size: x-small;
+  text-align: center; }
+
+.select {
+  float: left;
+  margin-top: 10px;
+  text-align: center;
+  width: 65%;
+  height: 100%;
+  font-size: small; }
+
+.welkom {
+  height: 90%;
+  width: 20%;
+  float: left;
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: x-large;
+  vertical-align: middle; }
+
+.login {
+  float: right;
+  width: 10%;
+  margin-top: 10px;
+  font-size: small; }
+
+.headerbody {
+  margin-bottom: 5%; }
+
+.bodyWrapper {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  padding-bottom: 20px; }
+
+/* -------------------------
+     GENERIEKE REUSABLES
+---------------------------- */
+.titel {
+  font-size: xx-large;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  text-align: center; }
+
+.onderTitel {
+  font-size: x-large;
+  text-align: center; }
+
+.subTitel {
+  font-size: x-large;
+  text-decoration: underline;
+  text-align: left;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.menuLink {
+  margin: 0px 10px 0px 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black; }
+
+.menuLink:hover {
+  border: solid black 1px;
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
+  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.formGrid {
+  text-align: left;
+  padding-left: 10px; }
+
+.formRow {
+  margin-top: 10px;
+  margin-left: 5px; }
+
+.menuRow {
+  margin-top: 20px;
+  margin-left: 5px; }
+
+.pageButton {
+  text-align: right;
+  margin-right: 20px;
+  margin-top: 20px; }
+
+.wrappedCommandLink {
+  text-decoration: none;
+  color: black; }
+
+.wrappedCommandLink:hover {
+  cursor: pointer; }
+
+.pointer:hover {
+  cursor: pointer; }
+
+.indent {
+  padding-left: 10px; }
+
+.plus {
+  color: black;
+  font-size: 40px; }
+
+.plus:hover {
+  font-size: 45px; }
+
+.left {
+  text-align: left; }
+
+.right {
+  text-align: right; }
+
+.center {
+  text-align: center; }
+
+.centerPlus {
+  text-align: center;
+  margin: 0 auto; }
+
+.top10 {
+  margin-top: 10px; }
+
+.right10 {
+  margin-right: 10px; }
+
+.big {
+  font-size: x-large; }
+
+.bottomLeft {
+  position: absolute;
+  bottom: 0px;
+  left: 10px; }
+
+.relative {
+  position: relative; }
+
+/* -------------------------
+     SPECIFIEK
+-------------------------- */
+#logo {
+  width: 90px;
+  height: 90px;
+  vertical-align: middle; }
+
+.sponsorbanner {
+  width: auto;
+  height: 60px;
+  padding: 5px; }
+
+.labelNaastSubTitel {
+  font-size: x-large;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
+.kampioenschap {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  text-underline: none;
+  text-align: center;
+  border-radius: 10px;
+  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.kampioenschap:hover {
+  border: 2px solid black;
+  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.evenement {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  text-underline: none;
+  text-align: center;
+  border-radius: 10px; }
+
+.subToernooi {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 3px;
+  text-decoration: none;
+  color: black;
+  text-underline: none;
+  text-align: center;
+  border-radius: 10px;
+  width: 90%;
+  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.subToernooi:hover {
+  border: 2px solid black;
+  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.toernooi {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.toernooi:hover {
+  border: 2px solid black;
+  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.sponsor {
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.sponsor:hover {
+  border: 2px solid black;
+  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+
+.sponsorKampioenschap {
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+  border-radius: 10px; }
+
+.siteSponsorCaption {
+  font-size: x-large;
+  margin-top: 20px;
+  text-align: center;
+  padding-right: 100px;
+  width: 50%; }
+
+/* -------------------------
+     PRIMEFACES CLASSES
+-------------------------- */
+.ui-galleria {
+  width: 100%; }
+
+/*# sourceMappingURL=style.css.map */
