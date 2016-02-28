@@ -38,7 +38,7 @@ public class DatumValidator implements MultiFieldValidator, Validator{
             e.printStackTrace();
         }
 
-        return (startDate.before(endDate));
+        return (startDate.before(endDate) || startDate.equals(endDate));
     }
 
     @Override

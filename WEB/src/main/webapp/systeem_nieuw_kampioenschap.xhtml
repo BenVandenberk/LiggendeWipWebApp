@@ -154,7 +154,7 @@
                                         <p:outputLabel value="Einddatum:"/>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar validatorMessage="Einddatum verplicht en later dan startdatum!" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" id="einddatum">
+                                        <p:calendar validatorMessage="Einddatum verplicht" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" id="einddatum">
                                             <f:converter converterId="DatumConverter"/>
                                             <f:validateRequired />
                                             <f:validator validatorId="datumValidator"/>
@@ -196,6 +196,8 @@
                         <div class="ui-grid-col-12">
                             <p:fieldset legend="Ander evenement aanmaken">
                                 <h:form id="evenForm">
+                                    <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum" validator="#{datumValidator}"
+                                                        message="Einddatum mag niet vroeger zijn dan startdatum" />
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Naam:"/>
@@ -272,6 +274,7 @@
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:message id="msg_Eveinddatum" for="Eveinddatum"/>
+                                            <p:message for="EvvalidateMultiple" />
                                         </div>
 
                                     </div>
