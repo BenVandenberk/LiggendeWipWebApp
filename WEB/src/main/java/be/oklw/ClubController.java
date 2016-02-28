@@ -12,9 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.swing.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @SessionScoped
 @ManagedBean(name = "clubController")
@@ -124,7 +122,7 @@ public class ClubController implements Serializable{
         try{
         if(selectedContact!=null){
         clubService.verwijderContact(selectedClub, selectedContact);
-            List<Contact> contactList = contactLijstBean.getContactLijst();
+            Set<Contact> contactList = contactLijstBean.getContactLijst();
 
             if(contactList != null){
                 Iterator<Contact> i = contactList.iterator();
@@ -146,7 +144,7 @@ public class ClubController implements Serializable{
 
     public void reset(){
         this.adres = "";
-        this.contactLijstBean.setContactLijst(new ArrayList<>());
+        this.contactLijstBean.setContactLijst(new HashSet<>());
         this.locatie = "";
         this.naam = "";
     }

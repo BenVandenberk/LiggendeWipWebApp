@@ -7,15 +7,16 @@ import javax.ejb.Remote;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Remote
 public interface IClubService {
 
     void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException;
 
-    void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException;
+    void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException;
 
-    void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException;
+    void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException;
 
     Club getClub(Account account);
 

@@ -40,7 +40,7 @@ public class Club implements Serializable {
     private Set<Ploeg> ploegen;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Contact> contacten;
+    private Set<Contact> contacten;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")
     private Set<Evenement> evenementen;
@@ -51,7 +51,7 @@ public class Club implements Serializable {
 
     public Club() {
         sponsors = new ArrayList<>();
-        contacten = new ArrayList<Contact>();
+        contacten = new HashSet<Contact>();
         evenementen = new HashSet<Evenement>();
         this.sinds = new Datum();
     }
@@ -82,11 +82,11 @@ public class Club implements Serializable {
         return Collections.unmodifiableSet(ploegen);
     }
 
-    public List<Contact> getContacten() {
+    public Set<Contact> getContacten() {
         return contacten;
     }
 
-    public void setContacten(List<Contact> contactList){ contacten = contactList; }
+    public void setContacten(Set<Contact> contactList){ contacten = contactList; }
 
     public Set<Evenement> getEvenementen() {
         return Collections.unmodifiableSet(evenementen);

@@ -12,10 +12,7 @@ import javax.persistence.criteria.*;
 import javax.persistence.metamodel.EntityType;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -44,7 +41,7 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void maakNieuweClubAan(String naam, String locatie, String adres, List<Contact> contactLijst) throws BusinessException{
+    public void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException{
         Club club = new Club(naam, locatie);
         if (adres != ""){club.setAdres(adres);}
 
@@ -62,7 +59,7 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void wijzigClub(String naam, String locatie, String adres, List<Contact> contactLijst, int id) throws BusinessException{
+    public void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException{
 
         Club club = entityManager.find(Club.class, id);
         club.setAdres(adres);
@@ -139,7 +136,7 @@ public class ClubService implements IClubService {
         if(club!=null){
         Club selectedClub = entityManager.find(Club.class, club.getId());
         if(selectedClub!=null){
-            List<Contact> contactList = selectedClub.getContacten();
+            Set<Contact> contactList = selectedClub.getContacten();
             if(contactList != null){
                 Iterator<Contact> i = contactList.iterator();
                 while(i.hasNext()){
@@ -161,7 +158,7 @@ public class ClubService implements IClubService {
     public void verwijderClub(Club club) throws BusinessException{
         Club teVerwijderenClub = entityManager.find(Club.class, club.getId());
         if (teVerwijderenClub.getEvenementen().isEmpty()){
-        List<Contact> contactList = teVerwijderenClub.getContacten();
+        Set<Contact> contactList = teVerwijderenClub.getContacten();
         Iterator<Contact> i = contactList.iterator();
         while(i.hasNext()){
             Contact c = i.next();
