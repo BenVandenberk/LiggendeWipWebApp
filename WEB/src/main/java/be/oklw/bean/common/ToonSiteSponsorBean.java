@@ -1,4 +1,4 @@
-package be.oklw.common;
+package be.oklw.bean.common;
 
 import be.oklw.model.SiteSponsor;
 import be.oklw.service.ISponsorService;

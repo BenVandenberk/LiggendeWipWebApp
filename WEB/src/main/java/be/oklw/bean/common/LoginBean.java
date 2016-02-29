@@ -1,4 +1,4 @@
-package be.oklw.common;
+package be.oklw.bean.common;
 
 import be.oklw.model.Account;
 import be.oklw.service.IGebruikerService;
