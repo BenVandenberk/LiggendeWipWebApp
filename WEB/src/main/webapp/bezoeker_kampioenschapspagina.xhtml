@@ -43,8 +43,160 @@
 
                     </div>
 
-                    <div class="subTitelCenter">
-                        Wanneer?
+
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-3 center">
+                                <h:panelGroup rendered="#{toonKampioenschapBean.kampioenschap.sponsors.size() > 0}">
+                                    <p:link target="_blank"
+                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(0).linksTo}">
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-12">
+                                                #{toonKampioenschapBean.kampioenschap.sponsors.get(0).naam}
+                                            </div>
+                                        </div>
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12">
+                                                <p:graphicImage
+                                                        value="#{toonKampioenschapBean.kampioenschap.sponsors.get(0).fullPath}"
+                                                        alt=""
+                                                        height="#{toonKampioenschapBean.kampioenschap.sponsors.get(0).logoHoogte}"
+                                                        width="#{toonKampioenschapBean.kampioenschap.sponsors.get(0).logoBreedte}"
+                                                        title="#{toonKampioenschapBean.kampioenschap.sponsors.get(0).naam}"
+                                                        />
+                                            </div>
+                                        </div>
+                                    </p:link>
+                                </h:panelGroup>
+                            </div>
+
+                            <div class="ui-grid-col-6">
+                                <div class="subTitelCenter">
+                                    Wanneer?
+                                </div>
+
+                                <div class="center">
+                                    #{toonKampioenschapBean.kampioenschap.beginDatum.datumInEuropeesFormaat} tot #{toonKampioenschapBean.kampioenschap.eindDatum.datumInEuropeesFormaat}
+                                </div>
+
+                                <div class="subTitelCenter">
+                                    Waar?
+                                </div>
+                                <div class="center">
+                                    <h:outputText value="#{toonKampioenschapBean.kampioenschap.locatie}" escape="false">
+                                        <f:converter converterId="NewLineConverter"/>
+                                    </h:outputText>
+                                </div>
+
+                                <div class="subTitelCenter">
+                                    Wat?
+                                </div>
+
+                                <div class="center">
+                                    #{toonKampioenschapBean.kampioenschap.omschrijving}
+                                </div>
+
+                                <div class="center top10">
+                                    <p:outputLabel
+                                            rendered="#{toonKampioenschapBean.kampioenschap.heeftRekeningnummer()}"
+                                            value="Rekeningnummer: #{toonKampioenschapBean.kampioenschap.rekeningnummer}"/>
+                                </div>
+
+                                <p:outputPanel
+                                        rendered="#{toonKampioenschapBean.kampioenschap.heeftOvernachtingInfo()}">
+                                    <div class="subTitelCenter">
+                                        Overnachtingen
+                                    </div>
+
+                                    <div class="center">
+                                        <p:outputLabel value="#{toonKampioenschapBean.kampioenschap.overnachtingInfo}"
+                                                       escape="false">
+                                            <f:converter converterId="NewLineConverter"/>
+                                        </p:outputLabel>
+                                    </div>
+                                </p:outputPanel>
+
+                                <div class="subTitelCenter">
+                                    Toernooien
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-col-3 center">
+                                <h:panelGroup rendered="#{toonKampioenschapBean.kampioenschap.sponsors.size() > 1}">
+                                    <p:link target="_blank"
+                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(1).linksTo}">
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-12">
+                                                #{toonKampioenschapBean.kampioenschap.sponsors.get(1).naam}
+                                            </div>
+                                        </div>
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12">
+                                                <p:graphicImage
+                                                        value="#{toonKampioenschapBean.kampioenschap.sponsors.get(1).fullPath}"
+                                                        alt=""
+                                                        height="#{toonKampioenschapBean.kampioenschap.sponsors.get(1).logoHoogte}"
+                                                        width="#{toonKampioenschapBean.kampioenschap.sponsors.get(1).logoBreedte}"
+                                                        title="#{toonKampioenschapBean.kampioenschap.sponsors.get(1).naam}"
+                                                        />
+                                            </div>
+                                        </div>
+                                    </p:link>
+                                </h:panelGroup>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <h:panelGroup id="pnl_toernooien">
+                        <p:outputLabel value="Aan dit Kampioenschap zijn nog geen Toernooien toegevoegd"
+                                       rendered="#{toonKampioenschapBean.kampioenschap.toernooien.size() == 0}"/>
+                        <ui:repeat value="#{toonKampioenschapBean.kampioenschap.toernooien}" var="toer">
+                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
+                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+
+                                <div class="toernooi">
+                                    <div>#{toer.naam}</div>
+                                    <div>#{toer.datum.datumInEuropeesFormaat}</div>
+                                    <div class="right">#{toer.maximumAantalPloegen} Ploegen</div>
+                                    <div class="right">#{toer.personenPerPloeg} schutters per ploeg</div>
+                                </div>
+                            </h:commandLink>
+                        </ui:repeat>
+                    </h:panelGroup>
+
+
+                    <div class="ui-grid-responsive formGrid">
+                        <ui:repeat value="#{toonKampioenschapBean.nevenSponsorsPerDrie}" var="sponsList">
+                            <div class="ui-grid-row formRow">
+
+                                <ui:repeat value="#{sponsList}" var="spons">
+                                    <div class="ui-grid-col-4 right10 center">
+                                        <p:link target="_blank"
+                                                href="http://#{spons.linksTo}">
+
+                                            <div>
+                                                #{spons.naam}
+                                            </div>
+
+                                            <p:graphicImage
+                                                    value="#{spons.fullPath}"
+                                                    alt=""
+                                                    height="#{spons.logoHoogte}"
+                                                    width="#{spons.logoBreedte}"
+                                                    title="#{spons.naam}"
+                                                    />
+
+                                        </p:link>
+                                    </div>
+                                </ui:repeat>
+
+                            </div>
+                        </ui:repeat>
                     </div>
 
 

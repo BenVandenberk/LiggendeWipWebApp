@@ -19,8 +19,8 @@ public class WebAppSeed implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        gebruikerService.createAdmin();
-        clubService.dummyKampioenschappen();
+        //gebruikerService.createAdmin();
+        //clubService.dummyKampioenschappen();
     }
 
     @Override

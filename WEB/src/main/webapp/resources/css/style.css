@@ -162,6 +162,9 @@ body {
 .right {
   text-align: right; }
 
+.floatLeft {
+  float: left; }
+
 .center {
   text-align: center; }
 
@@ -174,6 +177,9 @@ body {
 
 .right10 {
   margin-right: 10px; }
+
+.bottom10 {
+  margin-bottom: 10px; }
 
 .big {
   font-size: x-large; }
@@ -291,5 +297,9 @@ body {
 -------------------------- */
 .ui-galleria {
   width: 100%; }
+
+.ui-widget, .ui-widget .ui-widget {
+  font-family: "Lucida Grande", Lucida, Verdana, sans-serif !important;
+  font-size: 1em; }
 
 /*# sourceMappingURL=style.css.map */

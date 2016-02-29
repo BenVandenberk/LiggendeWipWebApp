@@ -22,34 +22,36 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Startdatum:" />
+                                <p:outputLabel value="Startdatum:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{clubBeheerBean.kampioenschap.beginDatum.datumInEuropeesFormaat}" />
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Einddatum:" />
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{clubBeheerBean.kampioenschap.eindDatum.datumInEuropeesFormaat}" />
+                                <p:outputLabel
+                                        value="#{clubBeheerBean.kampioenschap.beginDatum.datumInEuropeesFormaat}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Locatie:" />
+                                <p:outputLabel value="Einddatum:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel
+                                        value="#{clubBeheerBean.kampioenschap.eindDatum.datumInEuropeesFormaat}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Locatie:"/>
                             </div>
                             <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" />
+                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.locatie}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Contact:" />
+                                <p:outputLabel value="Contact:"/>
                             </div>
                             <div class="ui-grid-col-6">
                                 <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.contact}"/>
@@ -58,7 +60,7 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Overnachtingen:" />
+                                <p:outputLabel value="Overnachtingen:"/>
                             </div>
                             <div class="ui-grid-col-6">
                                 <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.overnachtingInfo}"/>
@@ -67,7 +69,7 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Omschrijving:" />
+                                <p:outputLabel value="Omschrijving:"/>
                             </div>
                             <div class="ui-grid-col-6">
                                 <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.omschrijving}"/>
@@ -76,7 +78,7 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Rekeningnummer:" />
+                                <p:outputLabel value="Rekeningnummer:"/>
                             </div>
                             <div class="ui-grid-col-6">
                                 <p:inputText value="#{clubBeheerBean.kampioenschap.rekeningnummer}"/>
@@ -89,10 +91,12 @@
                     </div>
 
                     <h:panelGroup id="pnl_toernooien">
-                        <p:outputLabel value="Klik op '+' om een toernooi aan te maken" rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}" />
+                        <p:outputLabel value="Klik op '+' om een toernooi aan te maken"
+                                       rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}"/>
                         <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
                             <h:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
-                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
+                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+
                                 <div class="toernooi">
                                     <div>#{toer.naam}</div>
                                     <div>#{toer.datum.datumInEuropeesFormaat}</div>
@@ -123,7 +127,8 @@
                     <p:messages id="msg_spons" showDetail="true" closable="true"></p:messages>
 
                     <h:panelGroup id="pnl_sponsors">
-                        <p:outputLabel value="Klik op '+' om een clubsponsor toe te voegen" rendered="#{clubBeheerBean.kampioenschap.sponsors.size() == 0}" />
+                        <p:outputLabel value="Klik op '+' om een clubsponsor toe te voegen"
+                                       rendered="#{clubBeheerBean.kampioenschap.sponsors.size() == 0}"/>
                         <ui:repeat value="#{clubBeheerBean.kampioenschap.sponsors}" var="spons">
 
 
@@ -131,30 +136,38 @@
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-11">
 
-                                            <div class="ui-grid-row sponsorKampioenschap">
-                                                <div class="ui-grid-col-4">
-                                                    <p:graphicImage cache="false" alt="logo" value="#{spons.fullPath}" height="#{spons.logoHoogte}" width="#{spons.logoBreedte}"/>
-                                                </div>
-                                                <div class="ui-grid-col-4">
-                                                    #{spons.naam} <br />
-                                                    Link: #{spons.linksTo}
-                                                </div>
-                                                <div class="ui-grid-col-4">
-                                                    #{spons.logoBreedte} x #{spons.logoHoogte}
-                                                </div>
+                                        <div class="ui-grid-row sponsorKampioenschap">
+                                            <div class="ui-grid-col-4">
+                                                <p:graphicImage cache="false" alt="logo" value="#{spons.fullPath}"
+                                                                height="#{spons.logoHoogte}"
+                                                                width="#{spons.logoBreedte}"/>
                                             </div>
+                                            <div class="ui-grid-col-4">
+                                                #{spons.naam} <br/>
+                                                Link: #{spons.linksTo}
+                                            </div>
+                                            <div class="ui-grid-col-4">
+                                                #{spons.logoBreedte} x #{spons.logoHoogte}
+                                            </div>
+                                        </div>
 
                                     </div>
                                     <div class="ui-grid-col-1 relative">
-                                        <p:commandLink action="#{clubBeheerBean.verwijderSponsor}" update=":frm_kamppagina:pnl_sponsors :frm_dial:selectSponsor">
-                                            <f:setPropertyActionListener value="#{spons.id}" target="#{clubBeheerBean.sponsId}" />
-                                            <p:confirm header="Bevestiging" message="Ben je zeker dat je de sponsor wil verwijderen?" icon="ui-icon-alert" />
+                                        <p:commandLink action="#{clubBeheerBean.verwijderSponsor}"
+                                                       update=":frm_kamppagina:pnl_sponsors :frm_dial:selectSponsor">
+                                            <f:setPropertyActionListener value="#{spons.id}"
+                                                                         target="#{clubBeheerBean.sponsId}"/>
+                                            <p:confirm header="Bevestiging"
+                                                       message="Ben je zeker dat je de sponsor wil verwijderen?"
+                                                       icon="ui-icon-alert"/>
                                             <i class="fa fa-minus-square-o plus bottomLeft"></i>
                                         </p:commandLink>
 
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                            <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                            <p:commandButton value="Nee" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                            <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes"
+                                                             icon="ui-icon-check"/>
+                                            <p:commandButton value="Nee" type="button" styleClass="ui-confirmdialog-no"
+                                                             icon="ui-icon-close"/>
                                         </p:confirmDialog>
                                     </div>
                                 </div>
@@ -179,11 +192,13 @@
                     </div>
 
                     <div class="left">
-                        <p:commandButton value="Foto's Uploaden" action="club_fotos_uploaden?faces-redirect=true"></p:commandButton>
+                        <p:commandButton value="Foto's Uploaden"
+                                         action="club_fotos_uploaden?faces-redirect=true"></p:commandButton>
                     </div>
 
                     <div class="pageButton">
-                        <p:commandButton value="Opslaan" action="#{clubBeheerBean.opslaan}" form="frm_kamppagina"></p:commandButton>
+                        <p:commandButton value="Opslaan" action="#{clubBeheerBean.opslaan}"
+                                         form="frm_kamppagina"></p:commandButton>
                     </div>
 
                 </div>
@@ -196,12 +211,14 @@
 
                         <div class="ui-grid-row formRow">
                             <p:selectOneMenu id="selectSponsor" value="#{sponsorDialogBean.selectedSponsorId}">
-                                <f:selectItems value="#{sponsorDialogBean.clubSponsors}" />
+                                <f:selectItems value="#{sponsorDialogBean.clubSponsors}"/>
                             </p:selectOneMenu>
                         </div>
 
                         <div class="ui-grid-row formRow">
-                            <p:commandButton value="Voeg Toe" actionListener="#{sponsorDialogBean.voegSelectedSponsorToe}" process="@form" onclick="PF('dial_sponsor').close();"/>
+                            <p:commandButton value="Voeg Toe"
+                                             actionListener="#{sponsorDialogBean.voegSelectedSponsorToe}"
+                                             process="@form" onclick="PF('dial_sponsor').close();"/>
                         </div>
 
                     </div>

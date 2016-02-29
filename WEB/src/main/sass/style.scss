@@ -5,6 +5,7 @@
 $button-hover: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
 $background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
 $button-background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
+$font-stack: "Lucida Grande", Lucida, Verdana, sans-serif;
 
 /* -------------
      HTML TAGS
@@ -19,7 +20,7 @@ body {
   height: 100%;
 
   background-color: #fafffb;
-  font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
+  font-family: $font-stack;
 }
 
 /* -------------
@@ -200,6 +201,10 @@ body {
   text-align: right;
 }
 
+.floatLeft {
+  float: left;
+}
+
 .center {
   text-align: center;
 }
@@ -215,6 +220,10 @@ body {
 
 .right10 {
   margin-right: 10px;
+}
+
+.bottom10 {
+  margin-bottom: 10px;
 }
 
 .big {
@@ -352,4 +361,9 @@ body {
 
 .ui-galleria {
   width: 100%;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+  font-family: $font-stack !important;
+  font-size: 1em;
 }

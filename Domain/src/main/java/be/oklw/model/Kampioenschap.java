@@ -1,5 +1,9 @@
 package be.oklw.model;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +25,7 @@ public class Kampioenschap extends Evenement {
     private List<Sponsor> sponsors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
+    @Fetch(FetchMode.SELECT)
     private List<Toernooi> toernooien;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
@@ -82,6 +87,7 @@ public class Kampioenschap extends Evenement {
     /**
      * Een Sponsor is gelinkt aan een club. Om een Sponsor te maken moet je de constructor Sponsor(club : Club) gebruiken. Deze method voegt een sponsor
      * toe aan een Kampioenschap enkel en alleen als de Sponsor gelinkt is aan de Club waaraan ook dit Kampioenschap gelinkt is.
+     *
      * @param sponsor de toe te voegen Sponsor
      * @throws IllegalArgumentException als de Sponsor niet gelinkt is aan de Club waaraan dit Kampioenschap gelinkt is.
      */
@@ -135,8 +141,17 @@ public class Kampioenschap extends Evenement {
         fotos.remove(foto);
     }
 
+    public boolean heeftRekeningnummer() {
+        return StringUtils.isNotBlank(rekeningnummer);
+    }
+
+    public boolean heeftOvernachtingInfo() {
+        return StringUtils.isNotBlank(overnachtingInfo);
+    }
+
     /**
      * Een Kampioenschap is verwijderbaar als al de Toernooien in het Kampioenschap verwijderbaar zijn
+     *
      * @return true als dit Kampioenschap verwijderbaar is
      */
     public boolean isVerwijderbaar() {
@@ -147,7 +162,7 @@ public class Kampioenschap extends Evenement {
             verwijderbaar = it.next().isVerwijderbaar();
         }
 
-        return  verwijderbaar;
+        return verwijderbaar;
     }
 
     //endregion
