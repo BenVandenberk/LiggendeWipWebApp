@@ -42,15 +42,6 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Locatie:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.locatie}"/>
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
                                 <p:outputLabel value="Contact:"/>
                             </div>
                             <div class="ui-grid-col-6">
@@ -84,6 +75,29 @@
                                 <p:inputText value="#{clubBeheerBean.kampioenschap.rekeningnummer}"/>
                             </div>
                         </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Adres:"/>
+                            </div>
+                            <div class="ui-grid-col-6">
+                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.locatie}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Duid aan op de kaart:"/>
+                            </div>
+                            <div class="ui-grid-col-6">
+                                <input id="pac-input" class="controls" type="text" placeholder="Typ adres"></input>
+
+                                <div id="googleMap" style="width:500px;height:380px;"
+                                     class="centerPlus top10 bottom10"></div>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="subTitel">
@@ -203,6 +217,9 @@
 
                 </div>
 
+                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLat}" id="input_lat"/>
+                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLng}" id="input_lng"/>
+
             </h:form>
 
             <p:dialog id="dial" header="Sponsor Toevoegen" modal="true" widgetVar="dial_sponsor">
@@ -224,6 +241,11 @@
                     </div>
                 </h:form>
             </p:dialog>
+
+
+            <h:outputScript library="js" name="maps_club.js" target="head"/>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHvCE905NfeUcBWn-sb2P0tHeP3r0l-B0&amp;libraries=places"
+                    />
         </ui:define>
 
     </ui:composition>

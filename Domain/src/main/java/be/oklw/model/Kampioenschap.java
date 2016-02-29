@@ -21,6 +21,9 @@ public class Kampioenschap extends Evenement {
     private String contact;
     private String overnachtingInfo;
 
+    private double locatieLat;
+    private double locatieLng;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Sponsor> sponsors;
 
@@ -78,6 +81,22 @@ public class Kampioenschap extends Evenement {
 
     public void setOvernachtingInfo(String overnachtingInfo) {
         this.overnachtingInfo = overnachtingInfo;
+    }
+
+    public double getLocatieLat() {
+        return locatieLat;
+    }
+
+    public void setLocatieLat(double locatieLat) {
+        this.locatieLat = locatieLat;
+    }
+
+    public double getLocatieLng() {
+        return locatieLng;
+    }
+
+    public void setLocatieLng(double locatieLng) {
+        this.locatieLng = locatieLng;
     }
 
     //endregion
