@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.systeem;
 
 import be.oklw.model.Club;
 import be.oklw.model.Contact;
@@ -9,8 +9,6 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.swing.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.*;
 

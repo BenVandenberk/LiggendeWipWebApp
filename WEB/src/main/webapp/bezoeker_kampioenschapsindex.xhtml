@@ -81,14 +81,14 @@
                             </h:link>
 
                             <ui:repeat value="#{kamp.toernooien}" var="toer">
-                                <p:commandLink outcome="bezoeker_toernooipagina" styleClass="wrappedCommandLink">
-                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+                                <h:link outcome="bezoeker_toernooipagina" styleClass="wrappedCommandLink">
+                                    <f:param name="toerId" value="#{toer.id}"/>
 
                                     <div class="subToernooi centerPlus">
                                         <p:outputLabel styleClass="centerPlus pointer"
                                                        value="> #{toer.naam}"></p:outputLabel>
                                     </div>
-                                </p:commandLink>
+                                </h:link>
                             </ui:repeat>
                         </ui:repeat>
                     </h:panelGroup>

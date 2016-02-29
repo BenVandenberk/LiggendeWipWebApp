@@ -1,7 +1,6 @@
-package be.oklw;
+package be.oklw.bean.systeem;
 
 import be.oklw.model.SiteSponsor;
-import be.oklw.model.Sponsor;
 import be.oklw.model.SysteemAccount;
 import be.oklw.service.IFileService;
 import be.oklw.service.IGebruikerService;
@@ -23,7 +22,7 @@ import java.util.Optional;
 
 @ManagedBean
 @SessionScoped
-public class SiteSponsorBean implements Serializable{
+public class SiteSponsorBean implements Serializable {
 
     private static final long serialVersionUID = -668703136227523415L;
 
@@ -129,7 +128,7 @@ public class SiteSponsorBean implements Serializable{
 
         file = event.getFile();
 
-        if(file.getContents().length > 0) {
+        if (file.getContents().length > 0) {
 
             try {
                 String logoNaam = fileService.upload(file.getContents(), file.getFileName(), "sitesponsors");
@@ -173,7 +172,7 @@ public class SiteSponsorBean implements Serializable{
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);
-        sysAccount = (SysteemAccount)httpSession.getAttribute("user");
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+        sysAccount = (SysteemAccount) httpSession.getAttribute("user");
     }
 }

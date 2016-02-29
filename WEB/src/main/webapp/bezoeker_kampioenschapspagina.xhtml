@@ -156,8 +156,8 @@
                         <p:outputLabel value="Aan dit Kampioenschap zijn nog geen Toernooien toegevoegd"
                                        rendered="#{toonKampioenschapBean.kampioenschap.toernooien.size() == 0}"/>
                         <ui:repeat value="#{toonKampioenschapBean.kampioenschap.toernooien}" var="toer">
-                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
-                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+                            <h:link outcome="bezoeker_toernooipagina" styleClass="wrappedCommandLink">
+                                <f:param name="toerId" value="#{toer.id}"/>
 
                                 <div class="toernooi">
                                     <div>#{toer.naam}</div>
@@ -165,7 +165,8 @@
                                     <div class="right">#{toer.maximumAantalPloegen} Ploegen</div>
                                     <div class="right">#{toer.personenPerPloeg} schutters per ploeg</div>
                                 </div>
-                            </h:commandLink>
+
+                            </h:link>
                         </ui:repeat>
                     </h:panelGroup>
 
@@ -201,7 +202,7 @@
 
 
                     <div class="pageButton">
-                        <p:commandButton value="Terug"
+                        <p:commandButton value="Alle Kampioenschappen"
                                          action="bezoeker_kampioenschapsindex?faces-redirect=true"></p:commandButton>
                     </div>
 

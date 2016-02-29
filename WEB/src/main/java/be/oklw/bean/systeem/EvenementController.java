@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.systeem;
 
 import be.oklw.model.Club;
 import be.oklw.model.Evenement;

@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.bezoeker;
 
 import be.oklw.model.Kampioenschap;
 import be.oklw.service.IKampioenschapService;

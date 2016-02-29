@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.bezoeker;
 
 import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;

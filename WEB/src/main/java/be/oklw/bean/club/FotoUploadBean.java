@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.club;
 
 import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
@@ -75,7 +75,7 @@ public class FotoUploadBean {
 
         file = fileUploadEvent.getFile();
 
-        if(file.getContents().length > 0) {
+        if (file.getContents().length > 0) {
 
             try {
                 kampioenschap = kampioenschapService.addFoto(file.getContents(), file.getFileName(), kampioenschap);
@@ -98,7 +98,7 @@ public class FotoUploadBean {
             kampioenschapService.verwijderFoto(geselecteerdeFotoId, kampioenschap);
             geselecteerdeFotoId = -1;
             fotos = kampioenschapService.getFotos(kampioenschap);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,

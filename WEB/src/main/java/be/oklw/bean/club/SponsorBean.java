@@ -1,5 +1,6 @@
-package be.oklw;
+package be.oklw.bean.club;
 
+import be.oklw.bean.club.ClubSponsorBean;
 import be.oklw.model.Sponsor;
 import be.oklw.service.IFileService;
 import be.oklw.service.ISponsorService;

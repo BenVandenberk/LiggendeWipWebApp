@@ -1,5 +1,6 @@
-package be.oklw;
+package be.oklw.bean.club;
 
+import be.oklw.bean.club.ClubBeheerBean;
 import be.oklw.model.Club;
 import be.oklw.model.Sponsor;
 import be.oklw.service.IClubService;

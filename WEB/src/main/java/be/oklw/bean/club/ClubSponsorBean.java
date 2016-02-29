@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.club;
 
 import be.oklw.model.Account;
 import be.oklw.model.Club;

@@ -1,8 +1,8 @@
-package be.oklw;
+package be.oklw.bean.club;
 
+import be.oklw.bean.club.ClubBeheerBean;
 import be.oklw.model.Toernooi;
 import be.oklw.service.IKampioenschapService;
-import sun.util.resources.cldr.nl.LocaleNames_nl_BE;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

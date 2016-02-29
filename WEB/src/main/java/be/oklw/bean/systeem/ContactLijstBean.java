@@ -1,4 +1,4 @@
-package be.oklw;
+package be.oklw.bean.systeem;
 
 import be.oklw.model.Contact;
 import be.oklw.service.IContactService;
