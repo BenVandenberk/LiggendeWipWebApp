@@ -22,12 +22,11 @@ body {
   font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 
-
 /* -------------
      TEMPLATE
 --------------- */
 
-.header{
+.header {
   top: 0px;
   left: 0px;
   right: 0px;
@@ -119,6 +118,14 @@ body {
   font-size: x-large;
   text-decoration: underline;
   text-align: left;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.subTitelCenter {
+  font-size: x-large;
+  text-decoration: underline;
+  text-align: center;
   padding-top: 15px;
   padding-bottom: 15px;
 }

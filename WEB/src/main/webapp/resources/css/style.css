@@ -99,6 +99,13 @@ body {
   padding-top: 15px;
   padding-bottom: 15px; }
 
+.subTitelCenter {
+  font-size: x-large;
+  text-decoration: underline;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px; }
+
 .menuLink {
   margin: 0px 10px 0px 10px;
   font-weight: bold;

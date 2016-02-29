@@ -9,9 +9,9 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
 
-
         <properties>
-            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
 
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/oklwDB"/>
@@ -19,23 +19,23 @@
             <property name="javax.persistence.jdbc.password" value="java"/>
 
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="hibernate.connection.CharSet" value="utf8" />
-            <property name="hibernate.connection.characterEncoding" value="utf8" />
-            <property name="hibernate.connection.useUnicode" value="true" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.connection.CharSet" value="utf8"/>
+            <property name="hibernate.connection.characterEncoding" value="utf8"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
 
 
             <!-- Database Scheme Auto Update -->
-            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
 
             <!-- properties -->
 
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.use_outer_join" value="false" />
-            <property name="hibernate.cache.use_query_cache" value="false" />
-            <property name="hibernate.cache.use_second_level_cache" value="false" />
-            <property name="hibernate.generate_statistics" value="false" />
-            <property name="hibernate.cache.use_structured_entries" value="false" />
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.use_outer_join" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.generate_statistics" value="false"/>
+            <property name="hibernate.cache.use_structured_entries" value="false"/>
 
         </properties>
     </persistence-unit>

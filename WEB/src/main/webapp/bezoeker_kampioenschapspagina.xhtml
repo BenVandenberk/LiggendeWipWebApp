@@ -10,17 +10,47 @@
             <h:form>
 
                 <f:metadata>
-                    <f:viewParam name="id" value="#{toonKampioenschapBean.kampioenschapsId}" />
+                    <f:viewParam name="id" value="#{toonKampioenschapBean.kampioenschapsId}"/>
                 </f:metadata>
 
                 <div class="bodyWrapper">
 
-                    <div class="titel">
-                        #{toonKampioenschapBean.kampioenschap.naam}
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-3 center">
+                                <p:graphicImage value="#{toonKampioenschapBean.club.logoFullPath}"
+                                                alt=""
+                                                height="#{toonKampioenschapBean.club.logoHoogte}"
+                                                width="#{toonKampioenschapBean.club.logoBreedte}"/>
+                            </div>
+
+                            <div class="ui-grid-col-6">
+                                <div class="titel">
+                                    #{toonKampioenschapBean.kampioenschap.naam}
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-col-3 center">
+                                <p:graphicImage value="#{toonKampioenschapBean.club.logoFullPath}"
+                                                alt=""
+                                                height="#{toonKampioenschapBean.club.logoHoogte}"
+                                                width="#{toonKampioenschapBean.club.logoBreedte}"/>
+                            </div>
+
+                        </div>
+
                     </div>
 
+                    <div class="subTitelCenter">
+                        Wanneer?
+                    </div>
+
+
                     <div class="pageButton">
-                        <p:commandButton value="Terug" action="bezoeker_kampioenschapsindex?faces-redirect=true"></p:commandButton>
+                        <p:commandButton value="Terug"
+                                         action="bezoeker_kampioenschapsindex?faces-redirect=true"></p:commandButton>
                     </div>
 
                 </div>
