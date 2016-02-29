@@ -45,6 +45,103 @@
 
                         </div>
 
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                                <div class="big">
+                                    #{toonToernooiBean.toernooi.datum.datumInEuropeesFormaat}, om #{toonToernooiBean.toernooi.startTijdstip}
+                                </div>
+                                <div class="top10">
+                                    Inschijfdeadline: #{toonToernooiBean.toernooi.inschrijfDeadline.datumInEuropeesFormaat}
+                                </div>
+                                <div class="top10">
+                                    <h:outputText value="#{toonToernooiBean.toernooi.omschrijving}" escape="false">
+                                        <f:converter converterId="NewLineConverter"/>
+                                    </h:outputText>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-7 toernooiPaginaTegel center">
+                                <div class="big">
+                                    #{toonToernooiBean.toernooi.maximumAantalPloegen} Ploegen
+                                </div>
+                                <div class="big">
+                                    #{toonToernooiBean.toernooi.personenPerPloeg} Personen per Ploeg
+                                </div>
+                                <h:panelGroup rendered="#{toonToernooiBean.toernooi.aantalWippen > 0}">
+                                    <div class="big">
+                                        #{toonToernooiBean.toernooi.aantalWippen} Wippen
+                                    </div>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{toonToernooiBean.toernooi.metInleg}">
+                                    <div class="big top10">
+                                        € #{toonToernooiBean.toernooi.inlegPerPloeg} Inleg per Ploeg
+                                    </div>
+                                    <div class="big">
+                                        Rekeningnummer: #{toonToernooiBean.kampioenschap.rekeningnummer}
+                                    </div>
+                                </h:panelGroup>
+                            </div>
+
+                            <div class="ui-grid-col-5">
+
+                                <h:panelGroup rendered="#{toonToernooiBean.toernooi.heeftMaaltijd}">
+                                    <div class="ui-grid-row">
+                                        <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                                            <h:outputText value="#{toonToernooiBean.toernooi.cateringInfo}"
+                                                          escape="false">
+                                                <f:converter converterId="NewLineConverter"/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                </h:panelGroup>
+
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                                        <h:outputText value="#{toonToernooiBean.kampioenschap.contact}"
+                                                      escape="false">
+                                            <f:converter converterId="NewLineConverter"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <ui:repeat value="#{toonToernooiBean.sponsorsPerDrie}" var="sponsList">
+                            <div class="ui-grid-row formRow">
+
+                                <ui:repeat value="#{sponsList}" var="spons">
+                                    <div class="ui-grid-col-4 right10 center">
+                                        <p:link target="_blank"
+                                                href="http://#{spons.linksTo}">
+
+                                            <div>
+                                                #{spons.naam}
+                                            </div>
+
+                                            <p:graphicImage
+                                                    value="#{spons.fullPath}"
+                                                    alt=""
+                                                    height="#{spons.logoHoogte}"
+                                                    width="#{spons.logoBreedte}"
+                                                    title="#{spons.naam}"
+                                                    />
+
+                                        </p:link>
+                                    </div>
+                                </ui:repeat>
+
+                            </div>
+                        </ui:repeat>
+
                     </div>
 
 
