@@ -310,6 +310,10 @@ body {
   font-family: "Lucida Grande", Lucida, Verdana, sans-serif !important;
   font-size: 1em; }
 
+.fc-time{
+  display: none;
+}
+
 /* -------------------------
      GOOGLE MAPS
 -------------------------- */

@@ -75,7 +75,14 @@
                                 </div>
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 ">
-                                       <p:scrollPanel/>
+                                        <p:carousel value="#{newsFeedBean.newsList}" headerText="Responsive" var="news" itemStyle="text-align:center" responsive="true">
+
+                                        </p:carousel>
+
+                                        <p:inputText rendered="#{newsFeedBean.clubAccount}" value="#{newsFeedBean.nieuwtje}"/>
+                                        <p:commandButton value="Voeg toe aan feed"
+                                                         rendered="#{newsFeedBean.clubAccount}"
+                                                         actionListener="#{newsFeedBean.voegToe}"/>
                                     </div>
                                 </div>
                             </div>
