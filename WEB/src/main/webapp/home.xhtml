@@ -38,7 +38,6 @@
                                                     widgetVar="myschedule"
                                                     locale="nl"
                                                     draggable="false"
-                                                    allDaySlot="false"
                                                     timeFormat=""
                                                     leftHeaderTemplate="prev, next"
                                                     rightHeaderTemplate="today">
@@ -50,6 +49,12 @@
                                                 <p:outputLabel id="title" value="#{scheduleBean.selectedEvenement.naam}" />
                                                 <p:outputLabel id="club" value="organisator: #{scheduleBean.selectedEvenement.club.naam}" />
                                                 <p:outputLabel id="locatie" value="#{scheduleBean.selectedEvenement.locatie}" />
+                                                <p:outputLabel rendered="#{!scheduleBean.isKampioenschap()}" id="omschrijving" value="#{scheduleBean.selectedEvenement.omschrijving}" />
+                                                <h:link outcome="bezoeker_kampioenschapspagina"
+                                                        value="Ga naar"
+                                                        rendered="#{scheduleBean.isKampioenschap()}">
+                                                    <f:param name="id" value="#{scheduleBean.selectedEvenement.id}"/>
+                                                </h:link>
                                             </h:panelGrid>
                                         </p:dialog>
                                     </div>

@@ -108,6 +108,13 @@ public class ScheduleBean implements Serializable {
         }
     }
 
+    public boolean isKampioenschap(){
+        if (selectedEvenement instanceof Kampioenschap){
+            return true;
+        }
+        return false;
+    }
+
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
