@@ -240,6 +240,10 @@ body {
   position: relative;
 }
 
+.hidden {
+  display: none;
+}
+
 /* -------------------------
      SPECIFIEK
 -------------------------- */
@@ -419,6 +423,7 @@ body {
   font-size: 13px;
   font-weight: 300;
 }
+
 #target {
   width: 345px;
 }

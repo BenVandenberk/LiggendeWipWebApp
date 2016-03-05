@@ -192,6 +192,9 @@ body {
 .relative {
   position: relative; }
 
+.hidden {
+  display: none; }
+
 /* -------------------------
      SPECIFIEK
 -------------------------- */

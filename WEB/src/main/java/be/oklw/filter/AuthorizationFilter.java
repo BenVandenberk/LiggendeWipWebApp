@@ -40,7 +40,7 @@ public class AuthorizationFilter implements Filter {
         clubUrls.add("/club_nieuw_toernooi.xhtml");
         clubUrls.add("/club_toernooi_aanpassen.xhtml");
         clubUrls.add("/club_sponsors.xhtml");
-        clubUrls.add("/club_nieuwe_inschrijving.xhtml");
+        clubUrls.add("/club_inschrijving.xhtml");
         clubUrls.add("/club_nieuwe_sponsor.xhtml");
         clubUrls.add("/club_sponsor_aanpassen.xhtml");
         clubUrls.add("/club_fotos_uploaden.xhtml");

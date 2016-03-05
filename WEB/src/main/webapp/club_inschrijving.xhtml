@@ -7,12 +7,17 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
+
+            <f:metadata>
+                <f:viewParam name="toerID" value="#{toonInschrijvingBean.toernooiId}"/>
+            </f:metadata>
+
             <h:form>
 
                 <div class="bodyWrapper">
 
                     <div class="titel">
-                        Nieuwe Inschrijving
+                        Inschrijving
                     </div>
 
                     <div class="subTitel">
@@ -25,7 +30,7 @@
                                 <p:outputLabel value="Kampioenschap:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden" />
+                                <p:outputLabel value="#{toonInschrijvingBean.kampioenschap.naam}" />
                             </div>
                         </div>
 
@@ -34,7 +39,7 @@
                                 <p:outputLabel value="Club:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden" />
+                                <p:outputLabel value="#{toonInschrijvingBean.club.naam}" />
                             </div>
                         </div>
 
@@ -43,7 +48,7 @@
                                 <p:outputLabel value="Toernooi:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden" />
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.naam}" />
                             </div>
                         </div>
 
@@ -52,7 +57,7 @@
                                 <p:outputLabel value="Schutters per ploeg:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden" />
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.personenPerPloeg}" />
                             </div>
                         </div>
 
@@ -61,7 +66,7 @@
                                 <p:outputLabel value="Datum:" />
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Te binden" />
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.datum.datumInEuropeesFormaat}" />
                             </div>
                         </div>
                     </div>
