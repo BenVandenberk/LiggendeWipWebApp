@@ -8,9 +8,80 @@
 
         <ui:define name="bodycontent">
             <h:form>
+
+                <div class="titel">
+                    WELKOM BOOGSCHUTTER!
+                </div>
+
+                <br/>
+                <div class="ui-grid-responsive formGrid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p>
+                                Dit is de gloednieuwe website voor het beheer van al jullie open kampioenschappen liggende wip!
+                                <br/>
+                                Voor vragen en opmerkingen kan u altijd terecht bij de webmaster, webmaster@mail.be
+                            </p>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <div class="ui-grid-responsive formGrid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 subTitelCenter">
+                                        Kalenderoverzicht
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 ">
+                                        <p:schedule id="schedule" value="#{scheduleBean.lazyModel}"
+                                                    widgetVar="myschedule"
+                                                    locale="nl"
+                                                    draggable="false"
+                                                    allDaySlot="false"
+                                                    timeFormat=""
+                                                    leftHeaderTemplate="prev, next"
+                                                    rightHeaderTemplate="today">
+                                            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                        </p:schedule>
+
+                                        <p:dialog widgetVar="eventDialog" header="Detail" showEffect="clip" hideEffect="clip">
+                                            <h:panelGrid id="eventDetails">
+                                                <p:outputLabel id="title" value="#{scheduleBean.selectedEvenement.naam}" />
+                                                <p:outputLabel id="club" value="organisator: #{scheduleBean.selectedEvenement.club.naam}" />
+                                                <p:outputLabel id="locatie" value="#{scheduleBean.selectedEvenement.locatie}" />
+                                            </h:panelGrid>
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-col-1">
+                            <br/>
+                        </div>
+
+                        <div class="ui-grid-col-3">
+                            <div class="ui-grid-responsive formGrid">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 subTitelCenter">
+                                        Nieuwtjes
+                                    </div>
+                                </div>
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-12 ">
+                                       <p:scrollPanel/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
 </ui:fragment>
+
+
 
 

@@ -2,7 +2,10 @@ package be.oklw.util;
 
 import java.io.Serializable;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -315,5 +318,16 @@ public class Datum implements Comparable<Datum>, Serializable {
         Datum resultaatDatum = new Datum(this);
         resultaatDatum.veranderDatum(aantalDagen);
         return resultaatDatum;
+    }
+
+    public Date getDatuminDateFormat() throws ParseException {
+
+        int dag = this.getDag();
+        int jaar = this.getJaar();
+        int maand = this.getMaand();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = sdf.parse(dag + "/" + maand + "/" + jaar);
+        return date;
     }
 }
