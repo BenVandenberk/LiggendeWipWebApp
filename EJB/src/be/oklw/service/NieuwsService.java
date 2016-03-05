@@ -8,6 +8,8 @@ import be.oklw.util.Datum;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 @Remote
@@ -19,10 +21,20 @@ public class NieuwsService implements INieuwsService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void maakNieuwtjeAan(String tekst, Datum datum, Account account) {
-        Nieuws nieuws = new Nieuws(tekst, datum, account);
+    public void maakNieuwtjeAan(String tekst, Datum datum, Datum tonenTot, Account account) {
+        Nieuws nieuws = new Nieuws(tekst, datum, tonenTot, account);
 
         entityManager.persist(nieuws);
         entityManager.flush();
+    }
+
+    @Override
+    public List<Nieuws> getLaatsteNieuwtjes(){
+        List<Nieuws> laatsteNieuws = (List<Nieuws>) entityManager.createQuery("Select n " +
+                "from Nieuws n where n.tonenTot > :today")
+                .setParameter("today", new Datum())
+                .getResultList();
+
+        return laatsteNieuws;
     }
 }

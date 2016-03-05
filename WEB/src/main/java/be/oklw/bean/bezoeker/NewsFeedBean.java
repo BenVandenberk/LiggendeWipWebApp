@@ -1,29 +1,81 @@
 package be.oklw.bean.bezoeker;
 
+import be.oklw.bean.common.GebruikerController;
+import be.oklw.model.Account;
+import be.oklw.model.Club;
+import be.oklw.model.Nieuws;
+import be.oklw.model.PermissieNiveau;
+import be.oklw.service.INieuwsService;
+import be.oklw.util.Datum;
+
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class NewsFeedBean implements Serializable {
 
-    private List<String> newsList = new ArrayList<>();
+    @EJB
+    INieuwsService nieuwsService;
+
+    @ManagedProperty(value = "#{gebruikerController}")
+    private GebruikerController gebruikerController;
 
     private String nieuwtje;
+    private Datum tonenTot;
+    private Account account;
 
-    public boolean isClubAccount(){
-        return true;
+    public void maakNieuwtjeAan(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            account = gebruikerController.getUser();
+            nieuwsService.maakNieuwtjeAan(nieuwtje, new Datum(), tonenTot, account);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd aangemaakt", "Nieuwtje werd aangemaakt");
+            facesContext.addMessage(null, message);
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
     }
 
-    public List<String> getNewsList() {
-        return newsList;
+    public List<Nieuws> getLaatsteNieuwtjes(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            return nieuwsService.getLaatsteNieuwtjes();
+
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+        return null;
     }
 
-    public void setNewsList(List<String> newsList) {
-        this.newsList = newsList;
+    public void setTonenTot(Datum tonenTot) {
+        this.tonenTot = tonenTot;
+    }
+
+    public Datum getTonenTot(){
+        return tonenTot;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getNieuwtje() {
@@ -34,7 +86,11 @@ public class NewsFeedBean implements Serializable {
         this.nieuwtje = nieuwtje;
     }
 
-    public void voegToe(){
-        newsList.add(nieuwtje);
+    public void setGebruikerController(GebruikerController gebruikerController) {
+        this.gebruikerController = gebruikerController;
+    }
+
+    public GebruikerController getGebruikerController(){
+        return gebruikerController;
     }
 }

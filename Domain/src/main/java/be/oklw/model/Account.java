@@ -4,6 +4,7 @@ import be.oklw.util.Authentication;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -17,6 +18,10 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String userName;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "account")
+    private List<Nieuws> nieuwsList;
+
     @Enumerated(EnumType.STRING)
     private PermissieNiveau permissieNiveau;
 
@@ -72,6 +77,14 @@ public class Account implements Serializable {
 
     public void setPermissieNiveau(PermissieNiveau permissieNiveau) {
         this.permissieNiveau = permissieNiveau;
+    }
+
+    public List<Nieuws> getNieuwsList() {
+        return nieuwsList;
+    }
+
+    public void setNieuwsList(List<Nieuws> nieuwsList) {
+        this.nieuwsList = nieuwsList;
     }
 
     //endregion

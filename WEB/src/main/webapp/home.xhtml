@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <div class="titel">
                     WELKOM BOOGSCHUTTER!
@@ -75,16 +75,37 @@
                                 </div>
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-12 ">
-                                        <p:carousel value="#{newsFeedBean.newsList}" headerText="Responsive" var="news" itemStyle="text-align:center" responsive="true">
-                                            <f:facet name="header">
-                                                <p:graphicImage />
-                                            </f:facet>
+                                        <p:carousel value="#{newsFeedBean.getLaatsteNieuwtjes()}"
+                                                    headerText="Laatste nieuwtjes"
+                                                    var="news"
+                                                    vertical="true"
+                                                    circular="true"
+                                                    autoPlayInterval="5000"
+                                                    rows="1">
+                                            <p:tab>
+                                                <h:panelGrid>
+                                                    <p:graphicImage value="#{news.account.getClub().logoFullPath}"
+                                                            height="40px"/>
+                                                    <h:outputText value="#{news.datum}"/>
+                                                    <h:outputText value="#{news.nieuws}"/>
+                                                </h:panelGrid>
+                                            </p:tab>
                                         </p:carousel>
 
-                                        <p:inputText rendered="#{newsFeedBean.clubAccount}" value="#{newsFeedBean.nieuwtje}"/>
+                                        <p:outputLabel rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}" value="Nieuws: "/> <br/>
+                                        <p:inputTextarea rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}" value="#{newsFeedBean.nieuwtje}"/><br/>
+                                        <p:outputLabel rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}" value="Te tonen tot: "/><br/>
+                                        <p:calendar id="tonenTot" rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}"
+                                                    validatorMessage="Verplicht veld" mode="popup"
+                                                    pattern="dd/MM/yyyy" value="#{newsFeedBean.tonenTot}" >
+                                            <f:converter converterId="DatumConverter"/>
+                                        </p:calendar><br/>
+                                        <p:message id="msg_tonenTot" for ="tonenTot"/>
                                         <p:commandButton value="Voeg toe aan feed"
-                                                         rendered="#{newsFeedBean.clubAccount}"
-                                                         actionListener="#{newsFeedBean.voegToe}"/>
+                                                         rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}"
+                                                         actionListener="#{newsFeedBean.maakNieuwtjeAan}"
+                                                         update=":frm">
+                                        </p:commandButton>
                                     </div>
                                 </div>
                             </div>

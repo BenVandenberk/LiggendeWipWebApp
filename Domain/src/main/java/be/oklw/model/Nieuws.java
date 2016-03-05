@@ -1,5 +1,6 @@
 package be.oklw.model;
 
+import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
 
 import javax.persistence.*;
@@ -13,17 +14,23 @@ public class Nieuws implements Serializable {
     private int id;
 
     private String nieuws;
+
+    @Convert(converter = DatumConverter.class)
     private Datum datum;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Convert(converter = DatumConverter.class)
+    private Datum tonenTot;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Account account;
 
     public Nieuws(){}
 
-    public Nieuws(String nieuws, Datum datum, Account account){
+    public Nieuws(String nieuws, Datum datum, Datum tonenTot, Account account){
         this.nieuws = nieuws;
         this.datum = datum;
         this.account = account;
+        this.tonenTot = tonenTot;
     }
 
     public String getNieuws() {
@@ -56,5 +63,13 @@ public class Nieuws implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Datum getTonenTot() {
+        return tonenTot;
+    }
+
+    public void setTonenTot(Datum tonenTot) {
+        this.tonenTot = tonenTot;
     }
 }
