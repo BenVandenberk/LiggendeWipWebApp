@@ -103,7 +103,7 @@
 
                                                 <div class="ui-grid-col-3 right">
                                                     <p:commandLink action="#{toonInschrijvingBean.verwijderPloeg}"
-                                                                   update="frm:pnl_ploegen"
+                                                                   update="frm:pnl_ploegen frm:msg"
                                                                    styleClass="wrappedCommandLink">
                                                         <f:setPropertyActionListener value="#{ploeg.id}"
                                                                                      target="#{toonInschrijvingBean.teVerwijderenPloegId}"/>

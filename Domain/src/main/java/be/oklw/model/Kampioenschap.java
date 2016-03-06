@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Kampioenschap extends Evenement {
@@ -166,6 +167,10 @@ public class Kampioenschap extends Evenement {
 
     public boolean heeftOvernachtingInfo() {
         return StringUtils.isNotBlank(overnachtingInfo);
+    }
+
+    public List<Toernooi> getToernooienInschrijvenMogelijk() {
+        return toernooien.stream().filter(t -> t.getStatus().isInschrijvingenOpen()).collect(Collectors.toList());
     }
 
     /**

@@ -4,13 +4,13 @@ import be.oklw.exception.BusinessException;
 import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
-import be.oklw.model.state.Aangemaakt;
-import be.oklw.model.state.Ingesteld;
 import be.oklw.util.Datum;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,6 +119,37 @@ public class KampioenschapService implements IKampioenschapService {
             result = alleKampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) <= 0).collect(Collectors.toList());
         } else {
             result = alleKampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Kampioenschap> getKampioenschapenInschrijvenMogelijk() {
+        List<Kampioenschap> alleKampioenschappen = entityManager.createQuery("SELECT k FROM Kampioenschap k", Kampioenschap.class).getResultList();
+
+        Datum vandaag = new Datum();
+        List<Kampioenschap> toekomstigeKampioenschappen;
+
+        // TOEKOMSTIGE KAMPIOENSCHAPPEN
+        toekomstigeKampioenschappen = alleKampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
+
+        boolean toernooiMetInschrijving = false;
+        Iterator<Toernooi> iterator;
+        Toernooi toernooi;
+        List<Kampioenschap> result = new ArrayList<>();
+        for (Kampioenschap k : toekomstigeKampioenschappen) {
+            toernooiMetInschrijving = false;
+
+            iterator = k.getToernooien().iterator();
+            while (!toernooiMetInschrijving && iterator.hasNext()) {
+                toernooi = iterator.next();
+                toernooiMetInschrijving = toernooi.getStatus().isInschrijvingenOpen();
+            }
+
+            if (toernooiMetInschrijving) {
+                result.add(k);
+            }
         }
 
         return result;

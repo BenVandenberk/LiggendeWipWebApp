@@ -2,6 +2,7 @@ package be.oklw.model;
 
 import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.*;
 public class Ploeg implements Serializable {
 
     private static final long serialVersionUID = 6543517911693869965L;
+    private static final String DEFAULT_DEELNEMER_PREFIX = "Ploeglid";
 
     //region PRIVATE MEMBERS
 
@@ -151,7 +153,7 @@ public class Ploeg implements Serializable {
             Deelnemer deelnemer;
             for (int i = 0; i < ploeg.aantalLeden; i++) {
                 deelnemer = new Deelnemer();
-                deelnemer.setNaam(String.format("Ploeglid %d", i+1));
+                deelnemer.setNaam(String.format("Ploeglid %d", i + 1));
                 ploeg.addDeelnemer(deelnemer);
             }
 
@@ -159,7 +161,7 @@ public class Ploeg implements Serializable {
             toernooi.addPloeg(ploeg);
 
         } else {
-            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toString()));
+            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toStringSimple()));
         }
 
         return ploeg;
@@ -186,6 +188,26 @@ public class Ploeg implements Serializable {
         if (deelnemers.size() == aantalLeden) {
             return true;
         } else return false;
+    }
+
+    public boolean namenZijnIngevuld() {
+        boolean namenZijnIngevuld = true;
+
+        Iterator<Deelnemer> deelnemerIterator = deelnemers.iterator();
+        Deelnemer deelnemer;
+
+        while(namenZijnIngevuld && deelnemerIterator.hasNext()) {
+            deelnemer = deelnemerIterator.next();
+
+            if (StringUtils.isBlank(deelnemer.getNaam())) {
+                namenZijnIngevuld = false;
+            }
+            if (namenZijnIngevuld && deelnemer.getNaam().startsWith(DEFAULT_DEELNEMER_PREFIX)) {
+                namenZijnIngevuld = false;
+            }
+        }
+
+        return namenZijnIngevuld;
     }
 
     //endregion
