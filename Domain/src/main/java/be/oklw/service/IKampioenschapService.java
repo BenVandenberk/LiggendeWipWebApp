@@ -33,5 +33,5 @@ public interface IKampioenschapService {
 
     List<Kampioenschap> getKampioenschappen(boolean uitVerleden);
 
-
+    List<Kampioenschap> getKampioenschapenInschrijvenMogelijk();
 }

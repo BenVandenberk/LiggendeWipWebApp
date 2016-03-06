@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="ui-grid-responsive">
-                        <ui:repeat value="#{clubInschrijvenBean.kampioenschappenToekomst}" var="kamp">
+                        <ui:repeat value="#{clubInschrijvenBean.kampioenschappenInschrijvenMogelijk}" var="kamp">
 
                             <div class="ui-grid-row kampioenschap pointer" data-id="#{kamp.id}">
 
@@ -54,10 +54,10 @@
                             </div>
 
                             <div id="toer-#{kamp.id}" class="hidden">
-                                <ui:repeat value="#{kamp.toernooien}" var="toer">
+                                <ui:repeat value="#{kamp.toernooienInschrijvenMogelijk}" var="toer">
 
                                     <h:link outcome="club_inschrijving">
-                                        <f:param name="toerID" value="#{toer.id}" />
+                                        <f:param name="toerID" value="#{toer.id}"/>
 
                                         <div class="ui-grid-row subToernooi centerPlus">
 
@@ -70,7 +70,7 @@
                                             </div>
 
                                             <div class="ui-grid-col-3">
-                                                [/]
+                                                [#{toer.aantalIngeschrevenPloegen()}/#{toer.maximumAantalPloegen}]
                                             </div>
 
                                             <div class="ui-grid-col-3">
@@ -88,6 +88,70 @@
 
                     <div class="subTitel">
                         Reeds Ingeschreven
+                    </div>
+
+                    <div class="ui-grid-responsive">
+
+                        <ui:repeat value="#{clubInschrijvenBean.inschrijvingenVanClub}" var="inschrijving">
+
+                            <div class="ui-grid-row inschrijving">
+
+                                <div class="ui-grid-col-12">
+
+                                    <div class="ui-grid-row">
+
+                                        <div class="ui-grid-col-6 left">
+                                            #{inschrijving.kampioenschapsnaam} > #{inschrijving.toernooinaam}
+                                        </div>
+
+                                        <div class="ui-grid-col-6 right">
+                                            #{inschrijving.aantalPloegenIngeschreven} Ploegen van #{inschrijving.deelnemersPerPloeg} Schutters
+                                        </div>
+
+                                    </div>
+
+                                    <ui:repeat value="#{inschrijving.ploegen}" var="ploeg">
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-4">
+                                                #{ploeg.naam}
+                                            </div>
+
+                                            <div class="ui-grid-col-8 left">
+
+                                                <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
+                                                    #{deeln.naam} <p:outputLabel value="- " rendered="#{!status.last}"/>
+                                                </ui:repeat>
+
+                                            </div>
+
+                                        </div>
+
+                                    </ui:repeat>
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-12 right">
+
+                                            <h:panelGroup rendered="#{inschrijving.namenIngevuld()}">
+                                                <i class="fa fa-check big green"/>
+                                            </h:panelGroup>
+
+                                            <h:panelGroup rendered="#{!inschrijving.namenIngevuld()}">
+                                                <i class="fa fa-close big red"/>
+                                            </h:panelGroup>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </ui:repeat>
+
                     </div>
 
                 </div>

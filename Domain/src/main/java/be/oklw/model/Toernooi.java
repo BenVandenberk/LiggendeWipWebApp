@@ -1,9 +1,6 @@
 package be.oklw.model;
 
-import be.oklw.model.state.Aangemaakt;
-import be.oklw.model.state.Ingesteld;
-import be.oklw.model.state.InschrijvingenOpen;
-import be.oklw.model.state.ToernooiStatus;
+import be.oklw.model.state.*;
 import be.oklw.usertype.DatumConverter;
 import be.oklw.usertype.ToernooiStatusConverter;
 import be.oklw.util.Datum;
@@ -199,10 +196,16 @@ public class Toernooi implements Serializable {
 
     protected void addPloeg(Ploeg ploeg) {
         ploegen.add(ploeg);
+        if (aantalIngeschrevenPloegen() >= maximumAantalPloegen) {
+            status = new Vol();
+        }
     }
 
     protected void removePloeg(Ploeg ploeg) {
         ploegen.remove(ploeg);
+        if (status instanceof Vol) {
+            status = new InschrijvingenOpen();
+        }
     }
 
     public void removePloeg(int ploegId) {
@@ -215,6 +218,10 @@ public class Toernooi implements Serializable {
         }
 
         ploegen.remove(ploeg);
+
+        if (status instanceof Vol) {
+            status = new InschrijvingenOpen();
+        }
     }
 
     public List<Ploeg> getPloegenVan(Club club) {
@@ -227,6 +234,10 @@ public class Toernooi implements Serializable {
         }
 
         return result;
+    }
+
+    public boolean inschrijvenMogelijk() {
+        return status.isInschrijvenMogelijk();
     }
 
     /**
