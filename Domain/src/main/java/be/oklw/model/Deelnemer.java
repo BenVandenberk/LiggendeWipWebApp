@@ -52,4 +52,22 @@ public class Deelnemer implements Serializable {
     //endregion
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Deelnemer deelnemer = (Deelnemer) o;
+
+        if (id != deelnemer.id) return false;
+        return !(naam != null ? !naam.equals(deelnemer.naam) : deelnemer.naam != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (naam != null ? naam.hashCode() : 0);
+        return result;
+    }
 }

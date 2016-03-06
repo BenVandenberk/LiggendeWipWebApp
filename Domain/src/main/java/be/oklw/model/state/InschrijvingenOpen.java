@@ -12,11 +12,12 @@ public class InschrijvingenOpen extends ToernooiStatus {
         verwijderbaar = false;
         aanpasbaar = false;
         inschrijvenMogelijk = true;
+        inschrijvingenOpen = true;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        throw new IllegalStateException("Inschrijvingen zijn al open");
     }
 
     @Override

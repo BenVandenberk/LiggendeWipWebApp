@@ -41,6 +41,7 @@ body {
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
+  z-index: 10;
   background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
   border: 1px solid lightgray;
   font-size: x-small;
@@ -288,6 +289,14 @@ body {
   margin-top: 10px;
   border-radius: 10px; }
 
+.inschrijving {
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+  border-radius: 10px; }
+
 .siteSponsorCaption {
   font-size: x-large;
   margin-top: 20px;
@@ -310,9 +319,8 @@ body {
   font-family: "Lucida Grande", Lucida, Verdana, sans-serif !important;
   font-size: 1em; }
 
-.fc-time{
-  display: none;
-}
+.fc-time {
+  display: none; }
 
 /* -------------------------
      GOOGLE MAPS

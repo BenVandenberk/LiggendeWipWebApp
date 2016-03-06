@@ -237,6 +237,18 @@ public class Club implements Serializable {
         return String.format("%s%s", PAD, logoPad);
     }
 
+    public void removePloeg(int ploegId) {
+        Ploeg ploeg = null;
+
+        for (Ploeg p : ploegen) {
+            if (p.getId() == ploegId) {
+                ploeg = p;
+            }
+        }
+
+        ploegen.remove(ploeg);
+    }
+
     //endregion
 
     //region OBJECT METHODS

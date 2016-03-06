@@ -4,6 +4,8 @@ import be.oklw.exception.BusinessException;
 import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
+import be.oklw.model.state.Aangemaakt;
+import be.oklw.model.state.Ingesteld;
 import be.oklw.util.Datum;
 
 import javax.ejb.*;

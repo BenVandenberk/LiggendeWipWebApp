@@ -12,11 +12,12 @@ public class Ingesteld extends ToernooiStatus {
         verwijderbaar = true;
         aanpasbaar = true;
         inschrijvenMogelijk = false;
+        inschrijvingenOpen = false;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        // OKE
     }
 
     @Override

@@ -2,12 +2,10 @@ package be.oklw.model;
 
 import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Ploeg implements Serializable {
@@ -29,7 +27,7 @@ public class Ploeg implements Serializable {
     private Datum inschrijfDatum;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Deelnemer> deelnemers;
+    private Set<Deelnemer> deelnemers;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
@@ -45,9 +43,10 @@ public class Ploeg implements Serializable {
 
     }
 
-    private Ploeg(String naam){
+    private Ploeg(String naam) {
         this.naam = naam;
         inschrijfDatum = new Datum();
+        deelnemers = new HashSet<>();
     }
 
     //endregion
@@ -72,7 +71,7 @@ public class Ploeg implements Serializable {
     }
 
     public List<Deelnemer> getDeelnemers() {
-        return Collections.unmodifiableList(deelnemers);
+        return Collections.unmodifiableList(new ArrayList<>(deelnemers));
     }
 
     public int getId() {
@@ -126,12 +125,13 @@ public class Ploeg implements Serializable {
 
     /**
      * Gebruik deze method om een ploeg in te schrijven voor een toernooi
+     *
      * @param club
      * @param toernooi
      * @param naam
      * @return de ingeschreven Ploeg
      * @throws IllegalArgumentException als club of toernooi null zijn
-     * @throws IllegalStateException als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
+     * @throws IllegalStateException    als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
      */
     public static Ploeg schrijfPloegInVoorToernooi(Club club, Toernooi toernooi, String naam)
             throws IllegalArgumentException, IllegalStateException {
@@ -148,6 +148,13 @@ public class Ploeg implements Serializable {
             ploeg.setToernooi(toernooi);
             ploeg.setAantalLeden(toernooi.getPersonenPerPloeg());
 
+            Deelnemer deelnemer;
+            for (int i = 0; i < ploeg.aantalLeden; i++) {
+                deelnemer = new Deelnemer();
+                deelnemer.setNaam(String.format("Ploeglid %d", i+1));
+                ploeg.addDeelnemer(deelnemer);
+            }
+
             club.addPloeg(ploeg);
             toernooi.addPloeg(ploeg);
 
@@ -158,29 +165,27 @@ public class Ploeg implements Serializable {
         return ploeg;
     }
 
-    public void addDeelnemer (Deelnemer deelnemer)
+    public void addDeelnemer(Deelnemer deelnemer)
             throws IllegalStateException {
-        if (!isVolzet()){
-        deelnemers.add(deelnemer);
-        }
-        else {
+        if (!isVolzet()) {
+            deelnemers.add(deelnemer);
+        } else {
             throw new IllegalStateException(String.format("Ploeg '%s' is volzet", naam));
         }
     }
 
-    public void removeDeelnemer (Deelnemer deelnemer){
+    public void removeDeelnemer(Deelnemer deelnemer) {
         deelnemers.remove(deelnemer);
     }
 
-    public void removeDeelnemer (int id){
+    public void removeDeelnemer(int id) {
         deelnemers.remove(id);
     }
 
-    public boolean isVolzet(){
-        if (deelnemers.size()==aantalLeden){
+    public boolean isVolzet() {
+        if (deelnemers.size() == aantalLeden) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     //endregion
@@ -213,8 +218,8 @@ public class Ploeg implements Serializable {
 
         result += String.format("Ploeg '%s', ID=%d%n", naam, id);
         result += String.format("met deelnemers %n");
-        for (Deelnemer d : deelnemers){
-        result += String.format("%s%n", d.getNaam());
+        for (Deelnemer d : deelnemers) {
+            result += String.format("%s%n", d.getNaam());
         }
 
         return result;

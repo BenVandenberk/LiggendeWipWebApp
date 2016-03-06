@@ -12,11 +12,12 @@ public class Vol extends ToernooiStatus {
         verwijderbaar = false;
         aanpasbaar = false;
         inschrijvenMogelijk = false;
+        inschrijvingenOpen = true;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        throw new IllegalStateException("Inschrijvingen zijn al open");
     }
 
     @Override

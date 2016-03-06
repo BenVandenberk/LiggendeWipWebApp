@@ -12,11 +12,12 @@ public class InschrijvingenAfgesloten extends ToernooiStatus {
         verwijderbaar = false;
         aanpasbaar = false;
         inschrijvenMogelijk = false;
+        inschrijvingenOpen = false;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        // OKE
     }
 
     @Override

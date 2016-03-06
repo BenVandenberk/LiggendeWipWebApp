@@ -4,6 +4,7 @@ import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IKampioenschapService;
 import be.oklw.service.ISponsorService;
+import be.oklw.service.IToernooiService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -32,6 +33,9 @@ public class ClubBeheerBean implements Serializable {
 
     @EJB
     ISponsorService sponsorService;
+
+    @EJB
+    IToernooiService toernooiService;
 
     private Account user;
     private Club club;
@@ -97,9 +101,8 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String toernooiKlik() {
-        Optional<Toernooi> toernooiOptional = kampioenschap.getToernooien().stream().filter(t -> t.getId() == toerId).findFirst();
-        if (toernooiOptional.isPresent()) {
-            toernooi = toernooiOptional.get();
+        toernooi = toernooiService.getToernooi(toerId);
+        if (toernooi != null) {
             return "club_toernooi_aanpassen?faces-redirect=true";
         } else {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -125,6 +128,19 @@ public class ClubBeheerBean implements Serializable {
     public void verwijderSponsor() {
         sponsorService.verwijderSponsorVan(sponsId, kampioenschap);
         refresh();
+    }
+
+    public void openInschrijvingen() {
+        try {
+            toernooi.openInschrijvingen();
+            toernooiService.save(toernooi);
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()));
+        }
     }
 
 

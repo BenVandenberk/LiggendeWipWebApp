@@ -54,6 +54,7 @@ body {
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
+  z-index: 10;
 
   background: $background;
   border: 1px solid lightgray;
@@ -351,6 +352,15 @@ body {
   border-radius: 10px;
 }
 
+.inschrijving {
+  border: 1px solid black;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
 .siteSponsorCaption {
   font-size: x-large;
   margin-top: 20px;
@@ -376,6 +386,10 @@ body {
 .ui-widget, .ui-widget .ui-widget {
   font-family: $font-stack !important;
   font-size: 1em;
+}
+
+.fc-time {
+  display: none;
 }
 
 /* -------------------------

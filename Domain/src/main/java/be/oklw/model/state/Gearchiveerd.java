@@ -12,11 +12,12 @@ public class Gearchiveerd extends ToernooiStatus {
         verwijderbaar = false;
         aanpasbaar = false;
         inschrijvenMogelijk = false;
+        inschrijvingenOpen = false;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        throw new IllegalStateException("Inschrijvingen openen is niet mogelijk");
     }
 
     @Override

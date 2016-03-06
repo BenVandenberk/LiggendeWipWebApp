@@ -11,11 +11,12 @@ public class Aangemaakt extends ToernooiStatus {
         verwijderbaar = true;
         aanpasbaar = true;
         inschrijvenMogelijk = false;
+        inschrijvingenOpen = false;
     }
 
     @Override
     public void openInschrijvingen() {
-
+        throw new IllegalStateException("De inschrijvingen van dit toernooi kunnen nog niet geopend worden omdat het toernooi nog niet ingesteld is");
     }
 
     @Override

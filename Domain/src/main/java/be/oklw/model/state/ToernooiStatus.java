@@ -9,6 +9,7 @@ public abstract class ToernooiStatus implements Serializable {
     protected boolean verwijderbaar;
     protected boolean aanpasbaar;
     protected boolean inschrijvenMogelijk;
+    protected boolean inschrijvingenOpen;
 
     public abstract void openInschrijvingen();
     public abstract void annuleerInschrijving(Ploeg ploeg);
@@ -30,6 +31,8 @@ public abstract class ToernooiStatus implements Serializable {
     public boolean isInschrijvenMogelijk() {
         return inschrijvenMogelijk;
     }
+
+    public boolean isInschrijvingenOpen() {return inschrijvingenOpen;}
 
     @Override
     public String toString() {

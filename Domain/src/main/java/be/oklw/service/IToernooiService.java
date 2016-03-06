@@ -8,4 +8,6 @@ import javax.ejb.Remote;
 public interface IToernooiService {
 
     Toernooi getToernooi(int id);
+
+    Toernooi save(Toernooi toernooi);
 }

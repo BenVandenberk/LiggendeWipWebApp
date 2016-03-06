@@ -1,20 +1,19 @@
 package be.oklw.model;
 
 import be.oklw.model.state.Aangemaakt;
+import be.oklw.model.state.Ingesteld;
+import be.oklw.model.state.InschrijvingenOpen;
 import be.oklw.model.state.ToernooiStatus;
 import be.oklw.usertype.DatumConverter;
 import be.oklw.usertype.ToernooiStatusConverter;
 import be.oklw.util.Datum;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Toernooi implements Serializable {
@@ -50,7 +49,7 @@ public class Toernooi implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Kampioenschap kampioenschap;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toernooi")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toernooi", orphanRemoval = true)
     private Set<Ploeg> ploegen;
 
     //endregion
@@ -88,6 +87,7 @@ public class Toernooi implements Serializable {
 
     public void setNaam(String naam) {
         this.naam = naam;
+        updateIngesteldStatus();
     }
 
     public Datum getDatum() {
@@ -96,6 +96,7 @@ public class Toernooi implements Serializable {
 
     public void setDatum(Datum datum) {
         this.datum = datum;
+        updateIngesteldStatus();
     }
 
     public LocalTime getStartTijdstip() {
@@ -104,6 +105,7 @@ public class Toernooi implements Serializable {
 
     public void setStartTijdstip(LocalTime startTijdstip) {
         this.startTijdstip = startTijdstip;
+        updateIngesteldStatus();
     }
 
     public int getPersonenPerPloeg() {
@@ -112,6 +114,7 @@ public class Toernooi implements Serializable {
 
     public void setPersonenPerPloeg(int personenPerPloeg) {
         this.personenPerPloeg = personenPerPloeg;
+        updateIngesteldStatus();
     }
 
     public BigDecimal getInlegPerPloeg() {
@@ -120,6 +123,7 @@ public class Toernooi implements Serializable {
 
     public void setInlegPerPloeg(BigDecimal inlegPerPloeg) {
         this.inlegPerPloeg = inlegPerPloeg;
+        updateIngesteldStatus();
     }
 
     public int getMaximumAantalPloegen() {
@@ -128,6 +132,7 @@ public class Toernooi implements Serializable {
 
     public void setMaximumAantalPloegen(int maximumAantalPloegen) {
         this.maximumAantalPloegen = maximumAantalPloegen;
+        updateIngesteldStatus();
     }
 
     public int getAantalWippen() {
@@ -160,6 +165,7 @@ public class Toernooi implements Serializable {
 
     public void setInschrijfDeadline(Datum inschrijfDeadline) {
         this.inschrijfDeadline = inschrijfDeadline;
+        updateIngesteldStatus();
     }
 
     public boolean isHeeftMaaltijd() {
@@ -184,6 +190,7 @@ public class Toernooi implements Serializable {
 
     public void setMetInleg(boolean metInleg) {
         this.metInleg = metInleg;
+        updateIngesteldStatus();
     }
 
     //endregion
@@ -198,16 +205,41 @@ public class Toernooi implements Serializable {
         ploegen.remove(ploeg);
     }
 
+    public void removePloeg(int ploegId) {
+        Ploeg ploeg = null;
+
+        for (Ploeg p : ploegen) {
+            if (p.getId() == ploegId) {
+                ploeg = p;
+            }
+        }
+
+        ploegen.remove(ploeg);
+    }
+
+    public List<Ploeg> getPloegenVan(Club club) {
+        List<Ploeg> result = new ArrayList<>();
+
+        for (Ploeg ploeg : ploegen) {
+            if (ploeg.getClub().equals(club)) {
+                result.add(ploeg);
+            }
+        }
+
+        return result;
+    }
+
     /**
      * Geeft true als volgende properties geset zijn:
      * <ul>
-     *     <li>Naam (niet null, niet empty)</li>
-     *     <li>Datum</li>
-     *     <li>StartTijdstip</li>
-     *     <li>PersonenPerPloeg (groter of gelijk aan 1)</li>
-     *     <li>MaximumAantalPloegen (groter of gelijk aan 1)</li>
-     *     <li>InlegPerPloeg (niet null, minimum 0)</li>
+     * <li>Naam (niet null, niet empty)</li>
+     * <li>Datum</li>
+     * <li>StartTijdstip</li>
+     * <li>PersonenPerPloeg (groter of gelijk aan 1)</li>
+     * <li>MaximumAantalPloegen (groter of gelijk aan 1)</li>
+     * <li>InlegPerPloeg (niet null, minimum 0)</li>
      * </ul>
+     *
      * @return
      */
     public boolean isInstellingenVolledig() {
@@ -226,7 +258,7 @@ public class Toernooi implements Serializable {
         if (maximumAantalPloegen < 1) {
             return false;
         }
-        if (inlegPerPloeg == null || inlegPerPloeg.floatValue() < 0f) {
+        if (metInleg && (inlegPerPloeg == null || inlegPerPloeg.floatValue() < 0f)) {
             return false;
         }
         return true;
@@ -234,6 +266,7 @@ public class Toernooi implements Serializable {
 
     public void openInschrijvingen() {
         status.openInschrijvingen();
+        status = new InschrijvingenOpen();
     }
 
     public void annuleerInschrijving(Ploeg ploeg) {
@@ -277,6 +310,18 @@ public class Toernooi implements Serializable {
     }
 
     //endregion
+
+    private void updateIngesteldStatus() {
+        if (!(status instanceof Aangemaakt || status instanceof Ingesteld)) {
+            return;
+        }
+
+        if (isInstellingenVolledig()) {
+            status = new Ingesteld();
+        } else {
+            status = new Aangemaakt();
+        }
+    }
 
     //region OBJECT METHODS
 

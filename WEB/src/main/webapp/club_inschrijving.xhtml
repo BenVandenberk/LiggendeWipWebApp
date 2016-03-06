@@ -12,7 +12,7 @@
                 <f:viewParam name="toerID" value="#{toonInschrijvingBean.toernooiId}"/>
             </f:metadata>
 
-            <h:form>
+            <h:form id="frm">
 
                 <div class="bodyWrapper">
 
@@ -27,46 +27,46 @@
                     <div class="ui-grid ui-grid-responsive formGrid">
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Kampioenschap:" />
+                                <p:outputLabel value="Kampioenschap:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{toonInschrijvingBean.kampioenschap.naam}" />
+                                <p:outputLabel value="#{toonInschrijvingBean.kampioenschap.naam}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Club:" />
+                                <p:outputLabel value="Club:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{toonInschrijvingBean.club.naam}" />
+                                <p:outputLabel value="#{toonInschrijvingBean.club.naam}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="Toernooi:" />
+                                <p:outputLabel value="Toernooi:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.naam}" />
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3 indent">
-                                <p:outputLabel value="Schutters per ploeg:" />
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.personenPerPloeg}" />
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.naam}"/>
                             </div>
                         </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3 indent">
-                                <p:outputLabel value="Datum:" />
+                                <p:outputLabel value="Schutters per ploeg:"/>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.datum.datumInEuropeesFormaat}" />
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.personenPerPloeg}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3 indent">
+                                <p:outputLabel value="Datum:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="#{toonInschrijvingBean.toernooi.datum.datumInEuropeesFormaat}"/>
                             </div>
                         </div>
                     </div>
@@ -75,21 +75,113 @@
                         Ingeschreven Ploegen
                     </div>
 
-                    <div class="ui-grid ui-grid-responsive formGrid">
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-9">
-                                <p:outputLabel value="Voor dit toernooi heb je nog geen enkele ploeg ingeschreven" ></p:outputLabel>
+                    <p:messages id="msg" showDetail="true"></p:messages>
+
+                    <h:panelGroup id="pnl_ploegen">
+
+                        <div class="ui-grid ui-grid-responsive formGrid">
+                            <div class="ui-grid-row">
+
+                                <div class="ui-grid-col-12">
+
+                                    <p:outputLabel value="Voor dit toernooi heb je nog geen enkele ploeg ingeschreven"
+                                                   rendered="#{toonInschrijvingBean.ingeschrevenPloegen.size() == 0}"/>
+
+                                    <ui:repeat value="#{toonInschrijvingBean.ingeschrevenPloegen}" var="ploeg">
+
+                                        <div class="inschrijving">
+
+                                            <div class="ui-grid-row">
+
+                                                <div class="ui-grid-col-3">
+                                                    Ploegnaam:
+                                                </div>
+
+                                                <div class="ui-grid-col-6">
+                                                    <p:inputText value="#{ploeg.naam}"/>
+                                                </div>
+
+                                                <div class="ui-grid-col-3 right">
+                                                    <p:commandLink action="#{toonInschrijvingBean.verwijderPloeg}"
+                                                                   update="frm:pnl_ploegen"
+                                                                   styleClass="wrappedCommandLink">
+                                                        <f:setPropertyActionListener value="#{ploeg.id}"
+                                                                                     target="#{toonInschrijvingBean.teVerwijderenPloegId}"/>
+                                                        <i class="fa fa-minus-square-o plus"></i>
+                                                    </p:commandLink>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui-grid-row">
+
+                                                <div class="ui-grid-col-3">
+                                                    Ploegleden:
+                                                </div>
+
+                                                <div class="ui-grid-col-6">
+
+                                                    <ui:repeat value="#{ploeg.deelnemers}" var="deeln"
+                                                               varStatus="status">
+
+                                                        <div class="ui-grid-row formRow">
+
+                                                            <div class="ui-grid-col-9">
+                                                                #{status.index + 1}) <p:inputText
+                                                                    value="#{deeln.naam}"/>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </ui:repeat>
+
+                                                </div>
+
+                                            </div>
+
+                                            <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.heeftMaaltijd}">
+
+                                                <div class="ui-grid-row formRow">
+
+                                                    <div class="ui-grid-col-3">
+                                                        Aantal maaltijden:
+                                                    </div>
+
+                                                    <div class="ui-grid-col-3">
+                                                        <p:spinner value="#{ploeg.aantalMaaltijden}"
+                                                                   stepFactor="1"
+                                                                   size="3"
+                                                                />
+                                                    </div>
+
+                                                </div>
+
+                                            </h:panelGroup>
+
+                                        </div>
+
+                                    </ui:repeat>
+
+                                </div>
+
                             </div>
-                            <div class="ui-grid-col-3">
-                                <p:commandLink>
-                                    <i class="fa fa-plus-square-o plus"></i>
-                                </p:commandLink>
+
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-12 right">
+                                    <p:commandLink actionListener="#{toonInschrijvingBean.addPloeg}"
+                                                   update="frm:pnl_ploegen frm:msg">
+                                        <i class="fa fa-plus-square-o plus"></i>
+                                    </p:commandLink>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    </h:panelGroup>
 
                     <div class="pageButton">
-                        <p:commandButton value="Opslaan" />
+                        <p:commandButton value="Opslaan"
+                                         action="#{toonInschrijvingBean.opslaan}"
+                                         update="frm:pnl_ploegen frm:msg"/>
                     </div>
 
                 </div>
