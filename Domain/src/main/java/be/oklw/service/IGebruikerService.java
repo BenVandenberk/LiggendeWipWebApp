@@ -5,6 +5,7 @@ import be.oklw.model.Account;
 import be.oklw.model.SysteemAccount;
 
 import javax.ejb.Remote;
+import java.util.List;
 
 @Remote
 public interface IGebruikerService {
@@ -16,4 +17,8 @@ public interface IGebruikerService {
     Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException;
 
     SysteemAccount getSysteemAccount(int id);
+
+    List<SysteemAccount> getAllSysteemAccount();
+
+    Account wijzigAdminContactGegevens(SysteemAccount systeemAccount, String newEmail, String newTelefoonNummer) throws BusinessException;
 }

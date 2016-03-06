@@ -35,8 +35,13 @@
 
                     <f:facet name="options">
 
-                        <p:link rendered="#{gebruikerController.loggedIn}"
+                        <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('club')}"
                                 value="Ingelogd als: #{gebruikerController.user.userName}" outcome="club_accountbeheer"
+                                styleClass="menuLink">
+                        </p:link>
+
+                        <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('systeem')}"
+                                value="Ingelogd als: #{gebruikerController.user.userName}" outcome="systeem_accountbeheer"
                                 styleClass="menuLink">
                         </p:link>
 

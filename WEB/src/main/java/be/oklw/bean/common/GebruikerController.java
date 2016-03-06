@@ -3,6 +3,7 @@ package be.oklw.bean.common;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.PermissieNiveau;
+import be.oklw.model.SysteemAccount;
 import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +17,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RequestScoped
 @ManagedBean
@@ -27,6 +33,8 @@ public class GebruikerController {
     private Club club;
     private boolean heeftLogo;
     private String logoUrl;
+    private String newEmail;
+    private String newTelefoonNummer;
 
     @EJB
     IGebruikerService gebruikerService;
@@ -56,7 +64,7 @@ public class GebruikerController {
         if (club == null) {
             return false;
         }
-        return StringUtils.isNotBlank(club.getLogoPad());
+        return isNotBlank(club.getLogoPad());
     }
 
     public void setHeeftLogo(boolean heeftLogo) {
@@ -97,6 +105,22 @@ public class GebruikerController {
 
     public void setClub(Club club) {
         this.club = club;
+    }
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
+    }
+
+    public String getNewTelefoonNummer() {
+        return newTelefoonNummer;
+    }
+
+    public void setNewTelefoonNummer(String newTelefoonNummer) {
+        this.newTelefoonNummer = newTelefoonNummer;
     }
 
     public boolean isLoggedIn() {
@@ -140,6 +164,33 @@ public class GebruikerController {
         }
     }
 
+    public void wijzigAdminContactGegevens(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            if (loggedIn && user instanceof SysteemAccount) {
+                user = gebruikerService.wijzigAdminContactGegevens((SysteemAccount) user, newEmail, newTelefoonNummer);
+                HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+                httpSession.setAttribute("user", user);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contactgegevens succesvol gewijzigd", "Contactgegevens succesvol gewijzigd");
+                facesContext.addMessage(null, message);
+                reset();
+            } else {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Om je contactgegevens te veranderen moet je ingelogd zijn", "Om je contactgegevens te veranderen moet je ingelogd zijn");
+                facesContext.addMessage(null, message);
+            }
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+    }
+
+    public void reset(){
+        newEmail="";
+        newTelefoonNummer="";
+    }
+
     public void bewaarAfmetingen(ActionEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
@@ -154,6 +205,24 @@ public class GebruikerController {
         }
     }
 
+    public List<String> getAdminContactGegevens(){
+        List<SysteemAccount> systeemAccountList = gebruikerService.getAllSysteemAccount();
+        SysteemAccount sysAcc = systeemAccountList.get(0);
+        String email = sysAcc.getEmail();
+        String telefoonNummer = sysAcc.getTelefoonnummer();
+        List<String> lijst = Arrays.asList(new String[2]);;
+
+        if(isNotBlank(email) && email!=null){
+            lijst.set(0, email);
+        }
+        if(isNotBlank(telefoonNummer) && telefoonNummer != null){
+            lijst.set(1, telefoonNummer);
+        }
+        if (lijst.get(0)==null){lijst.set(0, "");}
+        if (lijst.get(1)==null){lijst.set(1, "");}
+        return lijst;
+    }
+
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -165,4 +234,6 @@ public class GebruikerController {
             club = clubService.getClub(user);
         }
     }
+
+
 }

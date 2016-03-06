@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 @Stateless
 @Remote(IGebruikerService.class)
 @TransactionManagement(value = TransactionManagementType.CONTAINER)
@@ -72,5 +74,17 @@ public class GebruikerService implements IGebruikerService {
     @Override
     public SysteemAccount getSysteemAccount(int id) {
         return entityManager.find(SysteemAccount.class, id);
+    }
+
+    @Override
+    public List<SysteemAccount> getAllSysteemAccount(){return (List<SysteemAccount>) entityManager.createQuery("Select s from SysteemAccount s").getResultList();}
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Account wijzigAdminContactGegevens(SysteemAccount systeemAccount, String newEmail, String newTelefoonNummer) throws BusinessException{
+        if(isNotBlank(newEmail)){systeemAccount.setEmail(newEmail);}
+        if(isNotBlank(newTelefoonNummer)){systeemAccount.setTelefoonnummer(newTelefoonNummer);}
+        entityManager.merge(systeemAccount);
+        return systeemAccount;
     }
 }
