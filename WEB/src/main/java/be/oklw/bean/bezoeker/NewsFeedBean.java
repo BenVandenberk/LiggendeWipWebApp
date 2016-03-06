@@ -32,6 +32,7 @@ public class NewsFeedBean implements Serializable {
     private String nieuwtje;
     private Datum tonenTot;
     private Account account;
+    private Nieuws selectedNieuwtje;
 
     public void maakNieuwtjeAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -42,6 +43,22 @@ public class NewsFeedBean implements Serializable {
             nieuwsService.maakNieuwtjeAan(nieuwtje, new Datum(), tonenTot, account);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd aangemaakt", "Nieuwtje werd aangemaakt");
             facesContext.addMessage(null, message);
+            reset();
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            facesContext.addMessage(null, message);
+        }
+    }
+
+    public void verwijderNieuwtje(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage message;
+
+        try {
+            nieuwsService.verwijderNieuwtje(selectedNieuwtje);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd verwijderd", "Nieuwtje werd verwijderd");
+            facesContext.addMessage(null, message);
+            reset();
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
             facesContext.addMessage(null, message);
@@ -60,6 +77,14 @@ public class NewsFeedBean implements Serializable {
             facesContext.addMessage(null, message);
         }
         return null;
+    }
+
+
+
+    public void reset(){
+        this.nieuwtje="";
+        this.selectedNieuwtje=null;
+        this.tonenTot=null;
     }
 
     public void setTonenTot(Datum tonenTot) {
@@ -92,5 +117,13 @@ public class NewsFeedBean implements Serializable {
 
     public GebruikerController getGebruikerController(){
         return gebruikerController;
+    }
+
+    public Nieuws getSelectedNieuwtje() {
+        return selectedNieuwtje;
+    }
+
+    public void setSelectedNieuwtje(Nieuws selectedNieuwtje) {
+        this.selectedNieuwtje = selectedNieuwtje;
     }
 }

@@ -23,8 +23,11 @@ public class NieuwsService implements INieuwsService {
     @Override
     public void maakNieuwtjeAan(String tekst, Datum datum, Datum tonenTot, Account account) {
         Nieuws nieuws = new Nieuws(tekst, datum, tonenTot, account);
-
+        List<Nieuws> nieuweNieuwsLijst = account.getNieuwsList();
+        nieuweNieuwsLijst.add(nieuws);
+        account.setNieuwsList(nieuweNieuwsLijst);
         entityManager.persist(nieuws);
+        entityManager.merge(account);
         entityManager.flush();
     }
 
@@ -36,5 +39,14 @@ public class NieuwsService implements INieuwsService {
                 .getResultList();
 
         return laatsteNieuws;
+    }
+
+    @Override
+    public void verwijderNieuwtje(Nieuws nieuws){
+        Nieuws teVerwijderenNieuws = entityManager.find(Nieuws.class, nieuws.getId());
+        nieuws.getAccount().removeNieuwtje(teVerwijderenNieuws);
+        entityManager.remove(teVerwijderenNieuws);
+        entityManager.merge(nieuws.getAccount());
+        entityManager.flush();
     }
 }

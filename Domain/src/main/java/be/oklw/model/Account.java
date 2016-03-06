@@ -4,6 +4,7 @@ import be.oklw.util.Authentication;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
@@ -125,6 +126,15 @@ public class Account implements Serializable {
 
     public boolean heeftRol(String rol) {
         return permissieNiveau.heeftRol(rol);
+    }
+
+    public void removeNieuwtje(Nieuws nieuws){
+        Iterator<Nieuws> it = nieuwsList.iterator();
+        while (it.hasNext()) {
+            if (it.next().getId() == nieuws.getId()) {
+                it.remove();
+            }
+        }
     }
 
     //endregion
