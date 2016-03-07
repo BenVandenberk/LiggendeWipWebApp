@@ -39,7 +39,7 @@ public class Club implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "club")
     private Set<Ploeg> ploegen;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Contact> contacten;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")

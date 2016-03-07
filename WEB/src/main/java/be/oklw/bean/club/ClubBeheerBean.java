@@ -4,10 +4,7 @@ import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
-import be.oklw.service.IClubService;
-import be.oklw.service.IKampioenschapService;
-import be.oklw.service.ISponsorService;
-import be.oklw.service.IToernooiService;
+import be.oklw.service.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -36,6 +33,9 @@ public class ClubBeheerBean implements Serializable {
 
     @EJB
     IToernooiService toernooiService;
+
+    @EJB
+    IInschrijfService inschrijfService;
 
     private Account user;
     private Club club;
@@ -133,8 +133,8 @@ public class ClubBeheerBean implements Serializable {
 
     public void openInschrijvingen() {
         try {
-            toernooi.openInschrijvingen();
-            toernooiService.save(toernooi);
+            System.out.print(inschrijfService.openInschrijvingen(toernooi));
+            toernooi = toernooiService.getToernooi(toernooi.getId());
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(

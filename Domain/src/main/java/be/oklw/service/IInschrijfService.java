@@ -13,4 +13,11 @@ public interface IInschrijfService {
     void verwijderPloeg(int ploegId);
 
     List<Inschrijving> getInschrijvingenVoor(Club club);
+
+    /**
+     * Opent inschrijvingen van het toernooi en stuurt een mail naar alle clubcontacten
+     * @param toernooi het Toernooi waarvan de inschrijvingen geopend worden
+     * @return een message met info over de verstuurde mails
+     */
+    String openInschrijvingen(Toernooi toernooi);
 }
