@@ -23,6 +23,14 @@ body {
   font-family: $font-stack;
 }
 
+a:active {
+  outline: none;
+}
+
+a {
+  outline: none;
+}
+
 /* -------------
      TEMPLATE
 --------------- */
@@ -54,7 +62,7 @@ body {
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
-  z-index: 10;
+  z-index: 1000;
 
   background: $background;
   border: 1px solid lightgray;

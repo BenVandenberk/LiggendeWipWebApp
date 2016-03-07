@@ -106,7 +106,7 @@
                             <div class="ui-grid-col-3">
                                 <p:spinner id="ploegen" size="5" value="#{clubBeheerBean.toernooi.maximumAantalPloegen}"
                                            validatorMessage="Aantal ploegen moet tussen 2 en 1000 liggen"
-                                           requiredMessage="Aantal Ploegen is verplicht" min="2" max="1000">
+                                           requiredMessage="Aantal Ploegen is verplicht" min="0">
                                     <f:validateRequired/>
                                     <f:validateLongRange minimum="2" maximum="1000"/>
                                     <p:ajax event="change" update=":frm:ploegen :frm:msg_ploegen"/>
@@ -122,8 +122,8 @@
                                 <p:outputLabel value="Aantal personen per ploeg*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner id="ppp" size="5" value="#{clubBeheerBean.toernooi.personenPerPloeg}" min="1"
-                                           max="20" validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen"
+                                <p:spinner id="ppp" size="5" value="#{clubBeheerBean.toernooi.personenPerPloeg}" min="0"
+                                           validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen"
                                            requiredMessage="Personen per Ploeg is verplicht">
                                     <f:validateRequired/>
                                     <f:validateLongRange minimum="1" maximum="20"/>
@@ -242,8 +242,14 @@
                                     <p:commandButton
                                             value="Inschrijvingen Openen"
                                             actionListener="#{clubBeheerBean.openInschrijvingen}"
-                                            update="frm:inschrijvingen frm:msg @form"
-                                            rendered="#{!clubBeheerBean.toernooi.status.inschrijvingenOpen}"/>
+                                            update="frm:inschrijvingen frm:msg @form frm_dial"
+                                            rendered="#{!clubBeheerBean.toernooi.status.inschrijvingenOpen}"
+                                            oncomplete="PF('dial_ins').show();">
+
+                                        <p:ajaxStatus onstart="PF('statusDialog').show()"
+                                                      onsuccess="PF('statusDialog').hide()"/>
+
+                                    </p:commandButton>
 
                                     <p:commandButton
                                             value="Inschrijvingen Afsluiten"
@@ -269,6 +275,27 @@
                 </div>
 
             </h:form>
+
+            <p:dialog id="dial" header="Inschrijvingen Geopend" modal="true" widgetVar="dial_ins">
+                <h:form id="frm_dial">
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+                            <h:outputText value="#{clubBeheerBean.inschrijvingenGeopendMessage}" escape="false">
+                                <f:converter converterId="NewLineConverter"/>
+                            </h:outputText>
+
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <p:commandButton value="OK"
+                                             onclick="PF('dial_ins').close();"/>
+                        </div>
+
+                    </div>
+                </h:form>
+            </p:dialog>
+
         </ui:define>
 
     </ui:composition>

@@ -106,7 +106,7 @@
                             <div class="ui-grid-col-3">
                                 <p:spinner id="ploegen" size="5" value="#{toernooiBean.toernooi.maximumAantalPloegen}"
                                            validatorMessage="Aantal ploegen moet tussen 2 en 1000 liggen"
-                                           requiredMessage="Aantal Ploegen is verplicht" min="2" max="1000">
+                                           requiredMessage="Aantal Ploegen is verplicht" min="0">
                                     <f:validateRequired/>
                                     <f:validateLongRange minimum="2" maximum="1000"/>
                                     <p:ajax event="change" update=":frm:ploegen :frm:msg_ploegen"/>
@@ -122,8 +122,8 @@
                                 <p:outputLabel value="Aantal personen per ploeg*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:spinner id="ppp" size="5" value="#{toernooiBean.toernooi.personenPerPloeg}" min="1"
-                                           max="20" validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen"
+                                <p:spinner id="ppp" size="5" value="#{toernooiBean.toernooi.personenPerPloeg}" min="0"
+                                           validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen"
                                            requiredMessage="Personen per Ploeg is verplicht">
                                     <f:validateRequired/>
                                     <f:validateLongRange minimum="1" maximum="20"/>

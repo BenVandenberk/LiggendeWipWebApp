@@ -13,6 +13,12 @@ body {
   background-color: #fafffb;
   font-family: "Lucida Grande", Lucida, Verdana, sans-serif; }
 
+a:active {
+  outline: none; }
+
+a {
+  outline: none; }
+
 /* -------------
      TEMPLATE
 --------------- */
@@ -41,7 +47,7 @@ body {
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
-  z-index: 10;
+  z-index: 1000;
   background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
   border: 1px solid lightgray;
   font-size: x-small;

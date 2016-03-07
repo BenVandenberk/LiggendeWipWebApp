@@ -49,6 +49,8 @@ public class ClubBeheerBean implements Serializable {
     private int toerId;
     private int sponsId;
 
+    private String inschrijvingenGeopendMessage;
+
     public void setToerId(int toerId) {
         this.toerId = toerId;
     }
@@ -63,6 +65,10 @@ public class ClubBeheerBean implements Serializable {
 
     public void setSponsId(int sponsId) {
         this.sponsId = sponsId;
+    }
+
+    public String getInschrijvingenGeopendMessage() {
+        return inschrijvingenGeopendMessage;
     }
 
     public List<Kampioenschap> getKampioenschappenVerleden() {
@@ -133,7 +139,7 @@ public class ClubBeheerBean implements Serializable {
 
     public void openInschrijvingen() {
         try {
-            System.out.print(inschrijfService.openInschrijvingen(toernooi));
+            inschrijvingenGeopendMessage = inschrijfService.openInschrijvingen(toernooi);
             toernooi = toernooiService.getToernooi(toernooi.getId());
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
