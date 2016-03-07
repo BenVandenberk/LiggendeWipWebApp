@@ -251,6 +251,17 @@
                                             rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"/>
                                 </div>
                             </div>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-12 right">
+                                    <p:commandButton
+                                            value="Inschrijvingen Beheren"
+                                            action="#{clubBeheerBean.inschrijvingenBeheren}"
+                                            rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"/>
+                                </div>
+
+                            </div>
                         </div>
 
                     </h:panelGroup>

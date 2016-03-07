@@ -1,6 +1,9 @@
 package be.oklw.bean.club;
 
-import be.oklw.model.*;
+import be.oklw.model.Account;
+import be.oklw.model.Club;
+import be.oklw.model.Kampioenschap;
+import be.oklw.model.Toernooi;
 import be.oklw.service.IClubService;
 import be.oklw.service.IKampioenschapService;
 import be.oklw.service.ISponsorService;
@@ -12,12 +15,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 @ManagedBean(name = "clubBeheerBean")
 @SessionScoped
@@ -102,6 +102,7 @@ public class ClubBeheerBean implements Serializable {
 
     public String toernooiKlik() {
         toernooi = toernooiService.getToernooi(toerId);
+        kampioenschap = toernooi.getKampioenschap();
         if (toernooi != null) {
             return "club_toernooi_aanpassen?faces-redirect=true";
         } else {
@@ -143,6 +144,10 @@ public class ClubBeheerBean implements Serializable {
         }
     }
 
+    public String inschrijvingenBeheren() {
+        return "club_inschrijvingen_beheren?faces-redirect=true&toerID=" + toernooi.getId();
+    }
+
 
     public void refresh() {
         kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());
@@ -152,10 +157,10 @@ public class ClubBeheerBean implements Serializable {
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 
         if (session != null) {
-            user = (Account)session.getAttribute("user");
+            user = (Account) session.getAttribute("user");
             club = clubService.getClub(user);
         }
     }

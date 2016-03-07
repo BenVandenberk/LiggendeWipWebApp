@@ -43,7 +43,7 @@
                                 <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
                                     <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
                                     <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer" value="> #{toer.naam}"></p:outputLabel>
+                                        <p:outputLabel styleClass="centerPlus pointer" value="#{toer.naam}"></p:outputLabel>
                                     </div>
                                 </p:commandLink>
                             </ui:repeat>
@@ -78,7 +78,7 @@
                                 <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
                                     <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
                                     <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer" value="> #{toer.naam}"></p:outputLabel>
+                                        <p:outputLabel styleClass="centerPlus pointer" value="#{toer.naam}"></p:outputLabel>
                                     </div>
                                 </p:commandLink>
                             </ui:repeat>

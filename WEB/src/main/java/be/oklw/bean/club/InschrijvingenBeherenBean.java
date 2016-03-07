@@ -12,12 +12,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class ToonInschrijvingBean {
+public class InschrijvingenBeherenBean {
 
     @EJB
     IClubService clubService;
@@ -33,7 +35,12 @@ public class ToonInschrijvingBean {
     private Kampioenschap kampioenschap;
     private Club club;
 
-    private int teVerwijderenPloegId;
+    private List<Club> alleClubs;
+    private List<SelectItem> clubs;
+    private int selectedClubId = -1;
+
+    private int teVerwijderenPloegId = -1;
+    private int clubIdTeVerwijderenPloeg = -1;
 
     public int getToernooiId() {
         return toernooiId;
@@ -54,7 +61,11 @@ public class ToonInschrijvingBean {
                 if (!toernooi.getStatus().isInschrijvingenOpen()) {
                     redirect();
                 }
+                if (!toernooi.getKampioenschap().getClub().equals(club)) {
+                    redirect();
+                }
                 kampioenschap = toernooi.getKampioenschap();
+
             }
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -66,6 +77,38 @@ public class ToonInschrijvingBean {
         }
     }
 
+    public Toernooi getToernooi() {
+        return toernooi;
+    }
+
+    public Kampioenschap getKampioenschap() {
+        return kampioenschap;
+    }
+
+    public Club getClub() {
+        return club;
+    }
+
+    public List<Ploeg> getIngeschrevenPloegen() {
+        if (toernooi == null) {
+            redirect();
+            return null;
+        }
+        return new ArrayList<Ploeg>(toernooi.getPloegen());
+    }
+
+    public List<SelectItem> getClubs() {
+        return clubs;
+    }
+
+    public int getSelectedClubId() {
+        return selectedClubId;
+    }
+
+    public void setSelectedClubId(int selectedClubId) {
+        this.selectedClubId = selectedClubId;
+    }
+
     public int getTeVerwijderenPloegId() {
         return teVerwijderenPloegId;
     }
@@ -74,36 +117,25 @@ public class ToonInschrijvingBean {
         this.teVerwijderenPloegId = teVerwijderenPloegId;
     }
 
-    public Toernooi getToernooi() {
-        return toernooi;
+    public int getClubIdTeVerwijderenPloeg() {
+        return clubIdTeVerwijderenPloeg;
     }
 
-    public Club getClub() {
-        return club;
+    public void setClubIdTeVerwijderenPloeg(int clubIdTeVerwijderenPloeg) {
+        this.clubIdTeVerwijderenPloeg = clubIdTeVerwijderenPloeg;
     }
 
-    public Kampioenschap getKampioenschap() {
-        return kampioenschap;
-    }
-
-    public List<Ploeg> getIngeschrevenPloegen() {
-        if (toernooi != null) {
-            return toernooi.getPloegenVan(club);
-        } else {
-            redirect();
-        }
-        return null;
-    }
-
-    public void addPloeg() {
+    public void maakInschrijvingVoorSelected() {
         if (toernooi == null) {
             redirect();
         }
 
-        int volgendePloegIndex = toernooi.getPloegenVan(club).size() + 1;
+        Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
+
+        int volgendePloegIndex = toernooi.getPloegenVan(selectedClub).size() + 1;
 
         try {
-            Ploeg.schrijfPloegInVoorToernooi(club, toernooi, club.getNaam() + " " + volgendePloegIndex);
+            Ploeg.schrijfPloegInVoorToernooi(selectedClub, toernooi, selectedClub.getNaam() + " " + volgendePloegIndex);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -119,10 +151,15 @@ public class ToonInschrijvingBean {
         if (toernooi == null) {
             redirect();
         }
+        if (teVerwijderenPloegId < 0 || clubIdTeVerwijderenPloeg < 0) {
+            return;
+        }
+
+        Club geassocieerdeClub = alleClubs.stream().filter(c -> c.getId() == clubIdTeVerwijderenPloeg).findFirst().get();
 
         try {
             toernooi.removePloeg(teVerwijderenPloegId);
-            club.removePloeg(teVerwijderenPloegId);
+            geassocieerdeClub.removePloeg(teVerwijderenPloegId);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -141,7 +178,7 @@ public class ToonInschrijvingBean {
 
         try {
             toernooi = toernooiService.save(toernooi);
-            return "club_inschrijven?faces-redirect=true";
+            return "club_toernooi_aanpassen?faces-redirect=true";
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -156,7 +193,7 @@ public class ToonInschrijvingBean {
     private void redirect() {
         try {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.redirect(externalContext.getRequestContextPath() + "club_inschrijven.xhtml");
+            externalContext.redirect(externalContext.getRequestContextPath() + "club_toernooi_aanpassen.xhtml");
         } catch (Exception ex) {
             System.err.println(String.format("Fout bij redirection: %s", ex.getMessage()));
         }
@@ -170,6 +207,16 @@ public class ToonInschrijvingBean {
         if (session != null) {
             Account user = (Account) session.getAttribute("user");
             club = clubService.getClub(user);
+        }
+
+        // CLUBLIJST VULLEN
+        clubs = new ArrayList<>();
+        alleClubs = clubService.getAllClubs();
+        for (Club c : alleClubs) {
+            clubs.add(new SelectItem(
+                    c.getId(),
+                    c.getNaam()
+            ));
         }
     }
 }

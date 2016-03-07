@@ -6,7 +6,6 @@ import be.oklw.model.PermissieNiveau;
 import be.oklw.model.SysteemAccount;
 import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,7 +16,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -136,11 +134,11 @@ public class GebruikerController {
 
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);
         httpSession.setAttribute("user", null);
         user = null;
         loggedIn = false;
-        return "home";
+        return "home?faces-redirect=true";
     }
 
     public void veranderPaswoord() {
@@ -150,7 +148,7 @@ public class GebruikerController {
         try {
             if (loggedIn) {
                 user = gebruikerService.veranderPaswoord(user, oudPaswoord, nieuwPaswoord);
-                HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+                HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
                 httpSession.setAttribute("user", user);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paswoord succesvol gewijzigd", "Paswoord succesvol gewijzigd");
                 facesContext.addMessage(null, message);
@@ -164,14 +162,14 @@ public class GebruikerController {
         }
     }
 
-    public void wijzigAdminContactGegevens(){
+    public void wijzigAdminContactGegevens() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
         try {
             if (loggedIn && user instanceof SysteemAccount) {
                 user = gebruikerService.wijzigAdminContactGegevens((SysteemAccount) user, newEmail, newTelefoonNummer);
-                HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+                HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
                 httpSession.setAttribute("user", user);
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contactgegevens succesvol gewijzigd", "Contactgegevens succesvol gewijzigd");
                 facesContext.addMessage(null, message);
@@ -186,9 +184,9 @@ public class GebruikerController {
         }
     }
 
-    public void reset(){
-        newEmail="";
-        newTelefoonNummer="";
+    public void reset() {
+        newEmail = "";
+        newTelefoonNummer = "";
     }
 
     public void bewaarAfmetingen(ActionEvent event) {
@@ -205,29 +203,34 @@ public class GebruikerController {
         }
     }
 
-    public List<String> getAdminContactGegevens(){
+    public List<String> getAdminContactGegevens() {
         List<SysteemAccount> systeemAccountList = gebruikerService.getAllSysteemAccount();
         SysteemAccount sysAcc = systeemAccountList.get(0);
         String email = sysAcc.getEmail();
         String telefoonNummer = sysAcc.getTelefoonnummer();
-        List<String> lijst = Arrays.asList(new String[2]);;
+        List<String> lijst = Arrays.asList(new String[2]);
+        ;
 
-        if(isNotBlank(email) && email!=null){
+        if (isNotBlank(email) && email != null) {
             lijst.set(0, email);
         }
-        if(isNotBlank(telefoonNummer) && telefoonNummer != null){
+        if (isNotBlank(telefoonNummer) && telefoonNummer != null) {
             lijst.set(1, telefoonNummer);
         }
-        if (lijst.get(0)==null){lijst.set(0, "");}
-        if (lijst.get(1)==null){lijst.set(1, "");}
+        if (lijst.get(0) == null) {
+            lijst.set(0, "");
+        }
+        if (lijst.get(1) == null) {
+            lijst.set(1, "");
+        }
         return lijst;
     }
 
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);
-        user = (Account)httpSession.getAttribute("user");
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+        user = (Account) httpSession.getAttribute("user");
         loggedIn = user != null;
 
         if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.CLUB) {

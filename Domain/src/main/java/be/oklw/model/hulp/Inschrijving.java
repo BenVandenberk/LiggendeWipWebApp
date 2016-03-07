@@ -16,6 +16,7 @@ public class Inschrijving {
     private int aantalPloegenIngeschreven;
     private int deelnemersPerPloeg;
     private List<Ploeg> ploegen;
+    private boolean toernooiHeeftMaaltijd;
 
     public Inschrijving() {
         ploegen = new ArrayList<>();
@@ -59,6 +60,14 @@ public class Inschrijving {
 
     public void setPloegen(List<Ploeg> ploegen) {
         this.ploegen = ploegen;
+    }
+
+    public boolean isToernooiHeeftMaaltijd() {
+        return toernooiHeeftMaaltijd;
+    }
+
+    public void setToernooiHeeftMaaltijd(boolean toernooiHeeftMaaltijd) {
+        this.toernooiHeeftMaaltijd = toernooiHeeftMaaltijd;
     }
 
     public boolean namenIngevuld() {

@@ -51,6 +51,7 @@ public class InschrijfService implements IInschrijfService {
                 inschrijving.setKampioenschapsnaam(toernooi.getKampioenschap().getNaam());
                 inschrijving.setToernooinaam(toernooi.getNaam());
                 inschrijving.setPloegen(ploegenVanClub);
+                inschrijving.setToernooiHeeftMaaltijd(toernooi.isHeeftMaaltijd());
 
                 inschrijvingenVanClub.add(inschrijving);
 

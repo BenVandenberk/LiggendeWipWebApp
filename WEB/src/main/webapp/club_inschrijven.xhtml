@@ -135,17 +135,23 @@
 
                                         <div class="ui-grid-row formRow">
 
-                                            <div class="ui-grid-col-4">
+                                            <div class="ui-grid-col-3">
                                                 #{ploeg.naam}
                                             </div>
 
-                                            <div class="ui-grid-col-8 left">
+                                            <div class="ui-grid-col-5 left">
 
                                                 <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
                                                     #{deeln.naam} <p:outputLabel value="- " rendered="#{!status.last}"/>
                                                 </ui:repeat>
 
                                             </div>
+
+                                            <h:panelGroup rendered="#{inschrijving.toernooiHeeftMaaltijd}">
+                                                <div class="ui-grid-col-4 left">
+                                                    (#{ploeg.aantalMaaltijden} Maaltijden)
+                                                </div>
+                                            </h:panelGroup>
 
                                         </div>
 
