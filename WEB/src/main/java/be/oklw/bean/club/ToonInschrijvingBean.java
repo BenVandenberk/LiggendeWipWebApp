@@ -87,7 +87,7 @@ public class ToonInschrijvingBean {
         int volgendePloegIndex = toernooi.getPloegenVan(club).size() + 1;
 
         try {
-            Ploeg.schrijfPloegInVoorToernooi(club, toernooi, club.getNaam() + volgendePloegIndex);
+            Ploeg.schrijfPloegInVoorToernooi(club, toernooi, club.getNaam() + " " + volgendePloegIndex);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();

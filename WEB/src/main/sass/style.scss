@@ -253,6 +253,19 @@ body {
   color: red;
 }
 
+#img_help:hover {
+  cursor: pointer;
+}
+
+#img_help {
+  margin-bottom: 10px;
+}
+
+#div_help {
+  display: none;
+  margin-bottom: 10px;
+}
+
 /* -------------------------
      SPECIFIEK
 -------------------------- */
@@ -381,6 +394,18 @@ body {
   border: 1px solid black;
   padding: 20px;
   margin: 10px;
+}
+
+.postForm {
+  display: none;
+}
+
+.post:hover {
+  cursor: pointer;
+}
+
+.upExpand {
+  display: none;
 }
 
 /* -------------------------
