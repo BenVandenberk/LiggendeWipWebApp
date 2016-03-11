@@ -361,6 +361,9 @@ a {
 .fc-time {
   display: none; }
 
+.fc-title:hover {
+  cursor: pointer; }
+
 .ui-chkbox-label {
   margin: 0 0 5px 5px !important; }
 

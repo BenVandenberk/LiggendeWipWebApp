@@ -38,7 +38,6 @@ $text-color: #0073ea;
 $hover-text-color: #ffffff;
 $hover-color: #0073ea;
 
-
 //$font-stack: "Lucida Grande", Lucida, Verdana, sans-serif;
 $font-stack: Quicksand;
 
@@ -475,6 +474,10 @@ a {
 
 .fc-time {
   display: none;
+}
+
+.fc-title:hover {
+  cursor: pointer;
 }
 
 .ui-chkbox-label {

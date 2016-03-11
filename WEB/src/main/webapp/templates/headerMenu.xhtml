@@ -10,14 +10,18 @@
 
             <div class="ui-grid-col-12">
 
-                <p:menubar>
+                <p:menubar styleClass="center">
 
                     <p:menuitem outcome="home" styleClass="right10">
                         <p:graphicImage value="/images/black.png" height="40%" width="40%"/>
                     </p:menuitem>
+
                     <p:menuitem value="Kampioenschappen" styleClass="right10"
-                                outcome="bezoeker_kampioenschapsindex"></p:menuitem>
-                    <p:menuitem value="Foto's" styleClass="right10" outcome="bezoeker_fotos"></p:menuitem>
+                                outcome="bezoeker_kampioenschapsindex"/>
+
+                    <p:menuitem value="Foto's"
+                                styleClass="right10"
+                                outcome="bezoeker_fotos"/>
 
                     <p:submenu rendered="#{gebruikerController.heeftRol('club')}" label="Club" styleClass="right10">
                         <p:menuitem value="Beheer" outcome="club_beheer"></p:menuitem>
@@ -31,7 +35,6 @@
                         <p:menuitem value="Clubbeheer" outcome="systeem_clubbeheer"></p:menuitem>
                         <p:menuitem value="Sitesponsoring" outcome="systeem_site_sponsoring"></p:menuitem>
                     </p:submenu>
-
 
                     <f:facet name="options">
 
