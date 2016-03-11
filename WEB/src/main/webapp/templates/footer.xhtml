@@ -1,30 +1,25 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-             xmlns:h="http://xmlns.jcp.org/jsf/html"
-             xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <ui:composition >
+    <ui:composition>
 
-            <p:imageSwitch effect="fade" styleClass="centerPlus" slideshowSpeed="10000">
-                <ui:repeat value="#{toonSiteSponsorBean.siteSponsors}" var="siteSponsor">
-                    <div class="ui-grid-responsive">
-                        <p:link target="_blank" href="http://#{siteSponsor.linksTo}">
-                            <div class="ui-grid-row">
+        <p:imageSwitch effect="fade" styleClass="centerPlus" slideshowSpeed="10000">
+            <ui:repeat value="#{toonSiteSponsorBean.siteSponsors}" var="siteSponsor">
+                <div class="ui-grid-responsive">
+                    <p:link target="_blank" href="http://#{siteSponsor.linksTo}">
+                        <div class="ui-grid-row">
 
-                                <div class="ui-grid-col-6 siteSponsorCaption">
-                                    #{siteSponsor.naam}
-                                </div>
-
-                                <div class="ui-grid-col-6">
-                                        <p:graphicImage value="#{siteSponsor.fullPath}" width="#{siteSponsor.logoBreedte}" height="#{siteSponsor.logoHoogte}"></p:graphicImage>
-                                </div>
-
+                            <div class="ui-grid-col-12">
+                                <p:graphicImage value="#{siteSponsor.fullPath}" width="#{siteSponsor.logoBreedte}"
+                                                height="#{siteSponsor.logoHoogte}"></p:graphicImage>
                             </div>
-                        </p:link>
-                    </div>
-                </ui:repeat>
-            </p:imageSwitch>
+
+                        </div>
+                    </p:link>
+                </div>
+            </ui:repeat>
+        </p:imageSwitch>
 
     </ui:composition>
 

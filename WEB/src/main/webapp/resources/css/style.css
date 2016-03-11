@@ -10,8 +10,8 @@ html {
 body {
   margin: 0;
   height: 100%;
-  background-color: #fafffb;
-  font-family: "Lucida Grande", Lucida, Verdana, sans-serif; }
+  background-color: white;
+  font-family: Quicksand; }
 
 a:active {
   outline: none; }
@@ -36,7 +36,7 @@ a {
   height: auto;
   /*min-height: 70%;*/
   margin-bottom: 120px;
-  background-color: #fafffb; }
+  background-color: white; }
 
 .footer {
   position: fixed;
@@ -48,7 +48,7 @@ a {
   padding-top: 10px;
   padding-bottom: 10px;
   z-index: 1000;
-  background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
+  background: transparent radial-gradient(circle at 50% 75%, #676767, #343434) repeat scroll 0 0;
   border: 1px solid lightgray;
   font-size: x-small;
   text-align: center; }
@@ -124,7 +124,7 @@ a {
   border-radius: 5px;
   padding: 2px;
   cursor: pointer;
-  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
 
 .formGrid {
   text-align: left;
@@ -244,41 +244,41 @@ a {
   padding: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
   border-radius: 10px;
-  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
+  color: #eeffee; }
 
 .kampioenschap:hover {
   border: 2px solid black;
-  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
 
 .evenement {
   border: 1px solid black;
   padding: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
-  border-radius: 10px; }
+  border-radius: 10px;
+  color: #eeffee; }
 
 .subToernooi {
   border: 1px solid black;
   padding: 10px;
   margin-top: 3px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
   border-radius: 10px;
   width: 90%;
-  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
+  color: #eeffee; }
 
 .subToernooi:hover {
   border: 2px solid black;
-  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
 
 .toernooi {
   border: 1px solid black;
@@ -286,31 +286,31 @@ a {
   border-radius: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
-  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
+  color: #eeffee; }
 
 .toernooi:hover {
   border: 2px solid black;
-  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
 
 .sponsor {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
   margin-top: 10px;
   border-radius: 10px;
-  background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
+  color: #eeffee; }
 
 .sponsor:hover {
   border: 2px solid black;
-  background: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%; }
+  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
 
 .sponsorKampioenschap {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
+  color: #eeffee;
   margin-top: 10px;
   border-radius: 10px; }
 
@@ -318,7 +318,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
+  color: #eeffee;
   margin-top: 10px;
   border-radius: 10px; }
 
@@ -350,7 +350,7 @@ a {
   width: 100%; }
 
 .ui-widget, .ui-widget .ui-widget {
-  font-family: "Lucida Grande", Lucida, Verdana, sans-serif !important;
+  font-family: Quicksand !important;
   font-size: 1em; }
 
 .fc-time {

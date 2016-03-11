@@ -4,10 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +23,7 @@ public class Kampioenschap extends Evenement {
     private double locatieLng;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @Fetch(FetchMode.SELECT)
     private List<Sponsor> sponsors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")

@@ -2,10 +2,24 @@
      VARIABLES
 --------------- */
 
-$button-hover: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
-$background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
-$button-background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
-$font-stack: "Lucida Grande", Lucida, Verdana, sans-serif;
+//HOT-SNEAKS
+//$button-hover: #ccd232 url("/javax.faces.resource/images/ui-bg_diagonals-small_75_ccd232_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
+//$background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-hot-sneaks") repeat-x scroll 50% 50%;
+//$button-background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
+//$body-background-color: white;
+//$text-color: black;
+
+//AFTERDARK
+$background: rgba(0, 0, 0, 0) radial-gradient(circle at 50% 75% , #676767, #343434) repeat scroll 0 0;
+$button-hover: rgba(0, 0, 0, 0) linear-gradient(#99a699, #778877) repeat scroll 0 0;
+$button-background: rgba(0, 0, 0, 0) linear-gradient(#868686, #666666) repeat scroll 0 0;
+$body-background-color: white;
+$text-color: #eeffee;
+
+
+//$font-stack: "Lucida Grande", Lucida, Verdana, sans-serif;
+$font-stack: Quicksand;
+
 
 /* -------------
      HTML TAGS
@@ -19,7 +33,7 @@ body {
   margin: 0;
   height: 100%;
 
-  background-color: #fafffb;
+  background-color: $body-background-color;
   font-family: $font-stack;
 }
 
@@ -50,7 +64,7 @@ a {
   height: auto;
   /*min-height: 70%;*/
   margin-bottom: 120px;
-  background-color: #fafffb;
+  background-color: $body-background-color;
 }
 
 .footer {
@@ -305,11 +319,11 @@ a {
   padding: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
   border-radius: 10px;
   background: $button-background;
+  color: $text-color;
 }
 
 .kampioenschap:hover {
@@ -322,10 +336,10 @@ a {
   padding: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
   border-radius: 10px;
+  color: $text-color;
 }
 
 .subToernooi {
@@ -333,12 +347,12 @@ a {
   padding: 10px;
   margin-top: 3px;
   text-decoration: none;
-  color: black;
   text-underline: none;
   text-align: center;
   border-radius: 10px;
   width: 90%;
   background: $button-background;
+  color: $text-color;
 }
 
 .subToernooi:hover {
@@ -352,8 +366,8 @@ a {
   border-radius: 10px;
   margin-top: 10px;
   text-decoration: none;
-  color: black;
   background: $button-background;
+  color: $text-color;
 }
 
 .toernooi:hover {
@@ -365,10 +379,10 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
   margin-top: 10px;
   border-radius: 10px;
   background: $button-background;
+  color: $text-color;
 }
 
 .sponsor:hover {
@@ -380,7 +394,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
+  color: $text-color;
   margin-top: 10px;
   border-radius: 10px;
 }
@@ -389,7 +403,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: black;
+  color: $text-color;
   margin-top: 10px;
   border-radius: 10px;
 }

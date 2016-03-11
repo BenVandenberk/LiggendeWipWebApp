@@ -13,7 +13,7 @@
                 <p:menubar>
 
                     <p:menuitem outcome="home" styleClass="right10">
-                        <p:graphicImage value="/images/Logo.png" height="40%" width="40%"/>
+                        <p:graphicImage value="/images/white.png" height="40%" width="40%"/>
                     </p:menuitem>
                     <p:menuitem value="Kampioenschappen" styleClass="right10"
                                 outcome="bezoeker_kampioenschapsindex"></p:menuitem>
@@ -41,7 +41,8 @@
                         </p:link>
 
                         <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('systeem')}"
-                                value="Ingelogd als: #{gebruikerController.user.userName}" outcome="systeem_accountbeheer"
+                                value="Ingelogd als: #{gebruikerController.user.userName}"
+                                outcome="systeem_accountbeheer"
                                 styleClass="menuLink">
                         </p:link>
 

@@ -40,6 +40,7 @@ public class Club implements Serializable {
     private Set<Ploeg> ploegen;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "Club_id")
     private Set<Contact> contacten;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club")
@@ -62,7 +63,7 @@ public class Club implements Serializable {
      * en een club-account aangemaakt
      */
 
-    public Club(String naam, String locatie){
+    public Club(String naam, String locatie) {
         this();
         this.naam = naam;
         this.locatie = locatie;
@@ -86,7 +87,9 @@ public class Club implements Serializable {
         return contacten;
     }
 
-    public void setContacten(Set<Contact> contactList){ contacten = contactList; }
+    public void setContacten(Set<Contact> contactList) {
+        contacten = contactList;
+    }
 
     public Set<Evenement> getEvenementen() {
         return Collections.unmodifiableSet(evenementen);
@@ -165,37 +168,37 @@ public class Club implements Serializable {
         sponsor.setClub(this);
     }
 
-    public void removeSponsor(Sponsor sponsor){
+    public void removeSponsor(Sponsor sponsor) {
         sponsors.remove(sponsor);
     }
 
-    public void removeSponsor(int id){
-        for (Sponsor s : sponsors){
-            if (s.getId()==id){
+    public void removeSponsor(int id) {
+        for (Sponsor s : sponsors) {
+            if (s.getId() == id) {
                 sponsors.remove(s);
             }
         }
     }
 
-    protected void addPloeg(Ploeg ploeg){
+    protected void addPloeg(Ploeg ploeg) {
         ploegen.add(ploeg);
     }
 
-    public void removePloeg(Ploeg ploeg){
+    public void removePloeg(Ploeg ploeg) {
         ploegen.remove(ploeg);
     }
 
-    public void addContact(Contact contact){
+    public void addContact(Contact contact) {
         contacten.add(contact);
     }
 
-    public void removeContact(Contact contact){
+    public void removeContact(Contact contact) {
         contacten.remove(contact);
     }
 
-    public void removeContact(int id){
-        for (Contact c : contacten){
-            if (c.getId()==id){
+    public void removeContact(int id) {
+        for (Contact c : contacten) {
+            if (c.getId() == id) {
                 contacten.remove(c);
             }
         }
@@ -206,7 +209,7 @@ public class Club implements Serializable {
      * en voegt deze toe aan de kampioenschappen lijst van de club
      */
 
-    public Kampioenschap maakKampioenschap(String naam, Datum start, Datum eind){
+    public Kampioenschap maakKampioenschap(String naam, Datum start, Datum eind) {
 
         Kampioenschap kampioenschap = new Kampioenschap();
         kampioenschap.setNaam(naam);
@@ -218,7 +221,7 @@ public class Club implements Serializable {
         return kampioenschap;
     }
 
-    public Evenement maakEvenement(String naam, Datum start, Datum eind, String locatie, String omschrijving){
+    public Evenement maakEvenement(String naam, Datum start, Datum eind, String locatie, String omschrijving) {
         Evenement evenement = new Evenement();
         evenement.setClub(this);
         evenement.setBeginDatum(start);
@@ -231,7 +234,9 @@ public class Club implements Serializable {
         return evenement;
     }
 
-    public void removeEvenement(Evenement evenement){evenementen.remove(evenement);}
+    public void removeEvenement(Evenement evenement) {
+        evenementen.remove(evenement);
+    }
 
     public String getLogoFullPath() {
         return String.format("%s%s", PAD, logoPad);

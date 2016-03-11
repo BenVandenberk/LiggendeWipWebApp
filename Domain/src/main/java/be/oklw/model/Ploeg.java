@@ -29,6 +29,7 @@ public class Ploeg implements Serializable {
     private Datum inschrijfDatum;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Ploeg_id")
     private Set<Deelnemer> deelnemers;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -196,7 +197,7 @@ public class Ploeg implements Serializable {
         Iterator<Deelnemer> deelnemerIterator = deelnemers.iterator();
         Deelnemer deelnemer;
 
-        while(namenZijnIngevuld && deelnemerIterator.hasNext()) {
+        while (namenZijnIngevuld && deelnemerIterator.hasNext()) {
             deelnemer = deelnemerIterator.next();
 
             if (StringUtils.isBlank(deelnemer.getNaam())) {

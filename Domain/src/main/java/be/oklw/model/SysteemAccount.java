@@ -1,9 +1,9 @@
 package be.oklw.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +18,9 @@ public class SysteemAccount extends Account {
     private String email;
     private String telefoonnummer;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "Account_id")
     private List<SiteSponsor> siteSponsors;
 
     //endregion

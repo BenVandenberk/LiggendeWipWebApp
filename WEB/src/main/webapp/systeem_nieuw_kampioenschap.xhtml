@@ -4,189 +4,130 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:o="http://omnifaces.org/ui"
-             xmlns:of="http://omnifaces.org/functions">
+        >
 
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
 
 
-                <div class="bodyWrapper">
+            <div class="bodyWrapper">
 
-                    <div class="titel">
-                        Kalenderbeheer
-                    </div>
+                <div class="titel">
+                    Kalenderbeheer
+                </div>
+
+
                 <div class="ui-grid ui-grid-responsive formGrid">
-                    <div class="ui-grid-row formRow">
-                        <div class="ui-grid-col-12">
-
-                            <p:tabView id="tbView">
-                                <p:tab title="Lijst" id="tb">
-                                    <h:form id="lijstForm">
-                                    <h:panelGroup id="pnl_alle_evenementen">
-                                        <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
-
-                                                <div class="ui-grid-responsive formGrid evenement">
-
-                                                            <div class="ui-grid-row">
-                                                                <p:outputLabel value="#{evenement.naam}" styleClass="centerPlus pointer"/>
-                                                            </div>
-
-                                                            <div class="ui-grid-row">
-                                                                <p:outputLabel value="georganiseerd door club: #{evenement.club.naam}" styleClass="centerPlus pointer"/>
-                                                            </div>
-
-                                                            <div class="ui-grid-row">
-                                                                <p:outputLabel styleClass="centerPlus pointer" value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
-                                                                </p:outputLabel>
-                                                            </div>
-
-                                                            <div class="ui-grid-row">
-                                                                <p:outputLabel rendered="#{evenementController.isEvenement(evenement)}" styleClass="centerPlus pointer" value="DIT IS GEEN KAMPIOENSCHAP"/>
-                                                            </div>
-
-                                                            <div style="text-align: right">
-                                                                <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen" action="#{evenementController.verwijderEvenement}">
-                                                                    <f:setPropertyActionListener value="#{evenement}" target="#{evenementController.selectedEvenement}"/>
-                                                                    <i class="fa fa-minus-square-o plus"/>
-                                                                </p:commandLink>
-                                                            </div>
-                                                </div>
-                                        </ui:repeat>
-                                    </h:panelGroup>
-                                    </h:form>
-                                </p:tab>
-                                <p:tab title="Kalender">
-                                    <div class="ui-grid-row formRow">
-                                        <div class="ui-grid-col-5">
-
-                                            <p:calendar mode="inline"/>
-
-                                        </div>
-                                        <div class="ui-grid-col-7">
-                                            <p:dataList value="te binden op kampioenschapslijst" var="kampioenschap" type="definition">
-                                            <div class="ui-grid-row formRow" style="font-size: medium">
-                                                <div class="ui-grid-col-5">
-                                                    <p:outputLabel value="Naam (te binden)"/>
-                                                </div>
-                                                <div class="ui-grid-col-7">
-                                                    <p:outputLabel value="van start- tot einddatum (te binden)"/>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="ui-grid-row formRow" style="font-size: medium">
-                                                <div class="ui-grid-col-5">
-                                                    <p:outputLabel value="Club: Te binden"/>
-                                                </div>
-                                                <div class="ui-grid-col-3"/>
-                                                <div class="ui-grid-col-4">
-
-                                                </div>
-                                            </div>
-
-                                        </p:dataList>
-                                        </div>
-                                    </div>
-                                </p:tab>
-                            </p:tabView>
-
-                        </div>
-                    </div>
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
                             <p:fieldset legend="Kampioenschap aanmaken" id="fsKamp">
                                 <h:form id="kampForm">
-                                    <o:validateMultiple id="validateMultiple" components="startdatum einddatum" validator="#{datumValidator}"
-                                                        message="Einddatum mag niet vroeger zijn dan startdatum" />
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Naam:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:inputText validatorMessage="Naam verplicht" value="#{evenementController.naamKampioenschap}" id="naam">
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_naam naam" />
-                                        </p:inputText>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Startdatum:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:calendar validatorMessage="Startdatum verplicht" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumKampioenschap}" id="startdatum" >
-                                            <f:converter converterId="DatumConverter"/>
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_startdatum startdatum" />
-                                        </p:calendar>
-                                    </div>
-                                </div>
-                                <div class="ui-grid-row formRow">
+                                    <o:validateMultiple id="validateMultiple" components="startdatum einddatum"
+                                                        validator="#{datumValidator}"
+                                                        message="Einddatum mag niet vroeger zijn dan startdatum"/>
 
-                                    <div class="ui-grid-col-3">
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Naam:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputText validatorMessage="Naam verplicht"
+                                                         value="#{evenementController.naamKampioenschap}" id="naam">
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_naam naam"/>
+                                            </p:inputText>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Startdatum:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:calendar validatorMessage="Startdatum verplicht" mode="popup"
+                                                        pattern="dd/MM/yyyy"
+                                                        value="#{evenementController.startDatumKampioenschap}"
+                                                        id="startdatum"
+                                                        navigator="true"
+                                                        locale="nl">
+                                                <f:converter converterId="DatumConverter"/>
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_startdatum startdatum"/>
+                                            </p:calendar>
+                                        </div>
+                                    </div>
+                                    <div class="ui-grid-row formRow">
 
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:message id="msg_naam" for="naam"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
+                                        <div class="ui-grid-col-3">
 
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:message id="msg_startdatum" for="startdatum"/>
-                                    </div>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:message id="msg_naam" for="naam"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
 
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Club:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:selectOneMenu validatorMessage="Selecteer een club!" value="#{evenementController.clubKampioenschap}" id="club">
-                                            <f:selectItem itemLabel="Selecteer Club" itemValue="" noSelectionOption="false" />
-                                            <f:selectItems value="#{evenementController.alleClubs}" />
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_club club" />
-                                        </p:selectOneMenu>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Einddatum:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:calendar validatorMessage="Einddatum verplicht" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumKampioenschap}" id="einddatum">
-                                            <f:converter converterId="DatumConverter"/>
-                                            <f:validateRequired />
-                                            <f:validator validatorId="datumValidator"/>
-                                            <f:ajax render="msg_einddatum einddatum" />
-                                        </p:calendar>
-                                    </div>
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-
-                                    <div class="ui-grid-col-3">
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:message id="msg_startdatum" for="startdatum"/>
+                                        </div>
 
                                     </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:message id="msg_club" for="club"/>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Club:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:selectOneMenu validatorMessage="Selecteer een club!"
+                                                             value="#{evenementController.clubKampioenschap}" id="club">
+                                                <f:selectItem itemLabel="Selecteer Club" itemValue=""
+                                                              noSelectionOption="false"/>
+                                                <f:selectItems value="#{evenementController.alleClubs}"/>
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_club club"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Einddatum:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:calendar validatorMessage="Einddatum verplicht" mode="popup"
+                                                        pattern="dd/MM/yyyy"
+                                                        value="#{evenementController.eindDatumKampioenschap}"
+                                                        id="einddatum"
+                                                        navigator="true"
+                                                        locale="nl">
+                                                <f:converter converterId="DatumConverter"/>
+                                                <f:validateRequired/>
+                                                <f:validator validatorId="datumValidator"/>
+                                                <f:ajax render="msg_einddatum einddatum"/>
+                                            </p:calendar>
+                                        </div>
                                     </div>
-                                    <div class="ui-grid-col-3">
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-3">
+
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:message id="msg_club" for="club"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:message id="msg_einddatum" for="einddatum"/>
+                                            <p:message for="validateMultiple"/>
+                                        </div>
 
                                     </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:message id="msg_einddatum" for="einddatum"/>
-                                        <p:message for="validateMultiple" />
+
+                                    <div class="pageButton">
+                                        <p:commandButton value="Kampioenschap toevoegen"
+                                                         update=":tbView:lijstForm:pnl_alle_evenementen @form"
+                                                         actionListener="#{evenementController.maakNieuwKampioenschapAan}">
+                                        </p:commandButton>
                                     </div>
-
-                                </div>
-
-                                <div class="pageButton">
-                                    <p:commandButton value="Kampioenschap toevoegen"
-                                                     update=":tbView:lijstForm:pnl_alle_evenementen @form"
-                                                     actionListener="#{evenementController.maakNieuwKampioenschapAan}">
-                                    </p:commandButton>
-                                </div>
                                 </h:form>
                             </p:fieldset>
                         </div>
@@ -196,29 +137,36 @@
                         <div class="ui-grid-col-12">
                             <p:fieldset legend="Ander evenement aanmaken">
                                 <h:form id="evenForm">
-                                    <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum" validator="#{datumValidator}"
-                                                        message="Einddatum mag niet vroeger zijn dan startdatum" />
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Naam:"/>
+                                    <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum"
+                                                        validator="#{datumValidator}"
+                                                        message="Einddatum mag niet vroeger zijn dan startdatum"/>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Naam:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputText validatorMessage="Naam verplicht"
+                                                         value="#{evenementController.naamEvenement}" id="Evnaam">
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_Evnaam Evnaam"/>
+                                            </p:inputText>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Startdatum:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:calendar validatorMessage="Startdatum verplicht" id="Evstartdatum"
+                                                        mode="popup" pattern="dd/MM/yyyy"
+                                                        value="#{evenementController.startDatumEvenement}"
+                                                        navigator="true"
+                                                        locale="nl">
+                                                <f:converter converterId="DatumConverter"/>
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_Evstartdatum Evstartdatum"/>
+                                            </p:calendar>
+                                        </div>
                                     </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:inputText validatorMessage="Naam verplicht" value="#{evenementController.naamEvenement}" id="Evnaam">
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_Evnaam Evnaam" />
-                                        </p:inputText>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Startdatum:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:calendar validatorMessage="Startdatum verplicht" id="Evstartdatum" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.startDatumEvenement}" >
-                                            <f:converter converterId="DatumConverter"/>
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_Evstartdatum Evstartdatum" />
-                                        </p:calendar>
-                                    </div>
-                                </div>
 
                                     <div class="ui-grid-row formRow">
 
@@ -237,29 +185,35 @@
 
                                     </div>
 
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Club:"/>
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Club:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:selectOneMenu id="Evclub" validatorMessage="Selecteer een club!"
+                                                             value="#{evenementController.clubEvenement}">
+                                                <f:selectItem itemLabel="Selecteer Club" itemValue=""
+                                                              noSelectionOption="false"/>
+                                                <f:selectItems value="#{evenementController.alleClubs}"/>
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_Evclub Evclub"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Einddatum:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:calendar id="Eveinddatum" validatorMessage="Einddatum verplicht"
+                                                        mode="popup" pattern="dd/MM/yyyy"
+                                                        value="#{evenementController.eindDatumEvenement}"
+                                                        navigator="true"
+                                                        locale="nl">
+                                                <f:converter converterId="DatumConverter"/>
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_Eveinddatum Eveinddatum"/>
+                                            </p:calendar>
+                                        </div>
                                     </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:selectOneMenu id="Evclub" validatorMessage="Selecteer een club!" value="#{evenementController.clubEvenement}">
-                                            <f:selectItem itemLabel="Selecteer Club" itemValue="" noSelectionOption="false" />
-                                            <f:selectItems value="#{evenementController.alleClubs}" />
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_Evclub Evclub" />
-                                        </p:selectOneMenu>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Einddatum:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:calendar id="Eveinddatum" validatorMessage="Einddatum verplicht" mode="popup" pattern="dd/MM/yyyy" value="#{evenementController.eindDatumEvenement}" >
-                                            <f:converter converterId="DatumConverter"/>
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_Eveinddatum Eveinddatum" />
-                                        </p:calendar>
-                                    </div>
-                                </div>
 
                                     <div class="ui-grid-row formRow">
 
@@ -274,22 +228,23 @@
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:message id="msg_Eveinddatum" for="Eveinddatum"/>
-                                            <p:message for="EvvalidateMultiple" />
+                                            <p:message for="EvvalidateMultiple"/>
                                         </div>
 
                                     </div>
 
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Locatie: "/>
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Locatie: "/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputText id="Evlocatie" validatorMessage="Locatie verplicht"
+                                                         value="#{evenementController.locatieEvenement}">
+                                                <f:validateRequired/>
+                                                <f:ajax render="msg_Evlocatie Evlocatie"/>
+                                            </p:inputText>
+                                        </div>
                                     </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:inputText id="Evlocatie" validatorMessage="Locatie verplicht" value="#{evenementController.locatieEvenement}">
-                                            <f:validateRequired />
-                                            <f:ajax render="msg_Evlocatie Evlocatie" />
-                                        </p:inputText>
-                                    </div>
-                                </div>
 
                                     <div class="ui-grid-row formRow">
 
@@ -302,23 +257,112 @@
 
                                     </div>
 
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Omschrijving:"/>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:inputTextarea style="width: 300%" value="#{evenementController.omschrijvingEvenement}"/>
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Omschrijving:"/>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputTextarea style="width: 300%"
+                                                             value="#{evenementController.omschrijvingEvenement}"/>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <div class="pageButton">
-                                    <p:commandButton value="Evenement toevoegen"
-                                                     actionListener="#{evenementController.maakNieuwEvenementAan}"
-                                                     update=":tbView:lijstForm:pnl_alle_evenementen @form"/>
-                                </div>
+                                    <div class="pageButton">
+                                        <p:commandButton value="Evenement toevoegen"
+                                                         actionListener="#{evenementController.maakNieuwEvenementAan}"
+                                                         update=":tbView:lijstForm:pnl_alle_evenementen @form"/>
+                                    </div>
                                 </h:form>
                             </p:fieldset>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-12">
+
+                            <p:tabView id="tbView">
+                                <p:tab title="Lijst" id="tb">
+                                    <h:form id="lijstForm">
+                                        <h:panelGroup id="pnl_alle_evenementen">
+                                            <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
+
+                                                <div class="ui-grid-responsive formGrid evenement">
+
+                                                    <div class="ui-grid-row">
+                                                        <p:outputLabel value="#{evenement.naam}"
+                                                                       styleClass="centerPlus pointer"/>
+                                                    </div>
+
+                                                    <div class="ui-grid-row">
+                                                        <p:outputLabel
+                                                                value="georganiseerd door club: #{evenement.club.naam}"
+                                                                styleClass="centerPlus pointer"/>
+                                                    </div>
+
+                                                    <div class="ui-grid-row">
+                                                        <p:outputLabel styleClass="centerPlus pointer"
+                                                                       value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
+                                                        </p:outputLabel>
+                                                    </div>
+
+                                                    <div class="ui-grid-row">
+                                                        <p:outputLabel
+                                                                rendered="#{evenementController.isEvenement(evenement)}"
+                                                                styleClass="centerPlus pointer"
+                                                                value="Evenement"/>
+                                                    </div>
+
+                                                    <div style="text-align: right">
+                                                        <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen"
+                                                                       action="#{evenementController.verwijderEvenement}">
+                                                            <f:setPropertyActionListener value="#{evenement}"
+                                                                                         target="#{evenementController.selectedEvenement}"/>
+                                                            <i class="fa fa-minus-square-o plus"/>
+                                                        </p:commandLink>
+                                                    </div>
+                                                </div>
+                                            </ui:repeat>
+                                        </h:panelGroup>
+                                    </h:form>
+                                </p:tab>
+                                <p:tab title="Kalender">
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-5">
+
+                                            <p:calendar mode="inline"/>
+
+                                        </div>
+                                        <div class="ui-grid-col-7">
+                                            <p:dataList value="te binden op kampioenschapslijst" var="kampioenschap"
+                                                        type="definition">
+                                                <div class="ui-grid-row formRow" style="font-size: medium">
+                                                    <div class="ui-grid-col-5">
+                                                        <p:outputLabel value="Naam (te binden)"/>
+                                                    </div>
+                                                    <div class="ui-grid-col-7">
+                                                        <p:outputLabel value="van start- tot einddatum (te binden)"/>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="ui-grid-row formRow" style="font-size: medium">
+                                                    <div class="ui-grid-col-5">
+                                                        <p:outputLabel value="Club: Te binden"/>
+                                                    </div>
+                                                    <div class="ui-grid-col-3"/>
+                                                    <div class="ui-grid-col-4">
+
+                                                    </div>
+                                                </div>
+
+                                            </p:dataList>
+                                        </div>
+                                    </div>
+                                </p:tab>
+                            </p:tabView>
+
                         </div>
                     </div>
 
@@ -326,8 +370,7 @@
                 </div>
 
 
-
-                </div>
+            </div>
 
 
         </ui:define>

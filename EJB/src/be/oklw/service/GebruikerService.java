@@ -57,8 +57,8 @@ public class GebruikerService implements IGebruikerService {
     }
 
     public void createAdmin() {
-        Club club = new Club("club", "Leuven");
-        entityManager.persist(club);
+//        Club club = new Club("club", "Leuven");
+//        entityManager.persist(club);
 
         SysteemAccount systeemAccount = new SysteemAccount("admin");
         systeemAccount.setUserName("admin");

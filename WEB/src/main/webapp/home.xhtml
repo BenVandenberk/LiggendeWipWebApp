@@ -8,118 +8,97 @@
 
         <ui:define name="bodycontent">
 
+            <div class="titel">
+                Welkom!
+            </div>
+
+            <p:spacer height="30"/>
+
             <div class="ui-grid-responsive formGrid">
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-6">
-                        <div class="ui-grid-responsive formGrid">
-                            <div class="titel">
-                                WELKOM BOOGSCHUTTER!
-                            </div>
-                            <p style="text-align: center">
-                                Dit is de gloednieuwe website voor het beheer van al jullie open kampioenschappen liggende wip!
-                                <br/><br/>
-                                Voor vragen en opmerkingen kan u altijd terecht bij de webmaster:
+
+
+                <div class="ui-grid-row formRow center">
+                    <div class="ui-grid-col-6 centerPlus">
+                        <h:form id="carouselForm">
+                            <p:carousel value="#{newsFeedBean.getLaatsteNieuwtjes()}"
+                                        headerText="Laatste nieuwtjes"
+                                        var="news"
+                                        vertical="true"
+                                        circular="true"
+                                        autoPlayInterval="10000"
+                                        rows="1"
+                                        responsive="true">
+
+                                <p:graphicImage value="#{news.account.getClub().logoFullPath}"
+                                                height="40px"/>
+
+                                <h:outputText
+                                        value="op #{news.datum.datumInEuropeesFormaat} zei #{news.account.getClub().naam}"
+                                        style="font-size: small"/>
+                                <h:outputText value="admin "
+                                              rendered="#{news.account.getPermissieNiveau().toString() == 'systeem'}"
+                                              style="font-size: small"/>
                                 <br/>
-                                email: #{gebruikerController.getAdminContactGegevens().get(0)}
+                                <h:outputText value="#{news.nieuws}"/><br/>
+                                <!--<p:inputTextarea readonly="true" value="#{news.nieuws}"-->
+                                <!--style="width:98.5%"/><br/>-->
+                                <p:commandButton action="#{newsFeedBean.verwijderNieuwtje}"
+                                                 rendered="#{gebruikerController.heeftRol('systeem')}"
+                                                 process="@form"
+                                                 update=":carouselForm"
+                                                 value="Verwijder">
+                                    <f:setPropertyActionListener value="#{news}"
+                                                                 target="#{newsFeedBean.selectedNieuwtje}"/>
+                                </p:commandButton>
+
+                            </p:carousel>
+                        </h:form>
+                        <h:form id="newsForm">
+                            <p:tab rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}">
+
+                                <div class="post top10 center big">
+                                    Post een bericht
+                                    <i class="fa fa-angle-double-down downExpand"/>
+                                    <i class="fa fa-angle-double-up upExpand"/>
+                                </div>
+
                                 <br/>
-                                telefoonnummer: #{gebruikerController.getAdminContactGegevens().get(1)}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="ui-grid-col-6 right10">
 
-                        <div class="ui-grid-responsive formGrid">
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-12 subTitelCenter">
-
+                                <div class="postForm">
+                                    <p:outputLabel value="Nieuws: "/> <br/>
+                                    <p:inputTextarea id="nieuwtje"
+                                                     value="#{newsFeedBean.nieuwtje}"
+                                                     validatorMessage="Verplicht veld"
+                                                     maxlength="250"
+                                                     style="width:98.5%">
+                                        <f:validateRequired/>
+                                        <f:ajax render="msg_nieuwtje nieuwtje"/>
+                                    </p:inputTextarea><br/>
+                                    <p:message id="msg_nieuwtje" for="nieuwtje"/>
+                                    <p:outputLabel value="Te tonen tot: "/><br/>
+                                    <p:calendar id="tonenTot"
+                                                validatorMessage="Verplicht veld" mode="popup"
+                                                pattern="dd/MM/yyyy" value="#{newsFeedBean.tonenTot}"
+                                                navigator="true"
+                                                locale="nl">
+                                        <f:converter converterId="DatumConverter"/>
+                                        <f:validateRequired/>
+                                        <f:ajax render="msg_tonenTot tonenTot"/>
+                                    </p:calendar><br/>
+                                    <p:message id="msg_tonenTot" for="tonenTot"/>
+                                    <p:commandButton value="Voeg toe aan feed"
+                                                     actionListener="#{newsFeedBean.maakNieuwtjeAan}"
+                                                     update=":carouselForm :newsForm"
+                                                     styleClass="top10">
+                                    </p:commandButton>
                                 </div>
-                            </div>
-                            <div class="ui-grid-row">
-                                <div class="ui-grid-col-12 ">
-                                    <h:form id="carouselForm">
-                                        <p:carousel value="#{newsFeedBean.getLaatsteNieuwtjes()}"
-                                                    headerText="Laatste nieuwtjes"
-                                                    var="news"
-                                                    vertical="true"
-                                                    circular="true"
-                                                    autoPlayInterval="10000"
-                                                    rows="1"
-                                                    responsive="true">
-
-                                            <p:graphicImage value="#{news.account.getClub().logoFullPath}"
-                                                            height="40px"/>
-
-                                            <h:outputText
-                                                    value="op #{news.datum.datumInEuropeesFormaat} zei #{news.account.getClub().naam}"
-                                                    style="font-size: small"/>
-                                            <h:outputText value="admin "
-                                                          rendered="#{news.account.getPermissieNiveau().toString() == 'systeem'}"
-                                                          style="font-size: small"/>
-                                            <br/>
-                                            <h:outputText value="#{news.nieuws}"/><br/>
-                                            <!--<p:inputTextarea readonly="true" value="#{news.nieuws}"-->
-                                            <!--style="width:98.5%"/><br/>-->
-                                            <p:commandButton action="#{newsFeedBean.verwijderNieuwtje}"
-                                                             rendered="#{gebruikerController.heeftRol('systeem')}"
-                                                             process="@form"
-                                                             update=":carouselForm"
-                                                             value="Verwijder">
-                                                <f:setPropertyActionListener value="#{news}"
-                                                                             target="#{newsFeedBean.selectedNieuwtje}"/>
-                                            </p:commandButton>
-
-                                        </p:carousel>
-                                    </h:form>
-                                    <h:form id="newsForm">
-                                        <p:tab rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}">
-
-                                            <div class="post top10 center big">
-                                                Post een bericht
-                                                <i class="fa fa-angle-double-down downExpand"/>
-                                                <i class="fa fa-angle-double-up upExpand"/>
-                                            </div>
-
-                                            <br/>
-
-                                            <div class="postForm">
-                                                <p:outputLabel value="Nieuws: "/> <br/>
-                                                <p:inputTextarea id="nieuwtje"
-                                                                 value="#{newsFeedBean.nieuwtje}"
-                                                                 validatorMessage="Verplicht veld"
-                                                                 maxlength="250"
-                                                                 style="width:98.5%">
-                                                    <f:validateRequired/>
-                                                    <f:ajax render="msg_nieuwtje nieuwtje"/>
-                                                </p:inputTextarea><br/>
-                                                <p:message id="msg_nieuwtje" for="nieuwtje"/>
-                                                <p:outputLabel value="Te tonen tot: "/><br/>
-                                                <p:calendar id="tonenTot"
-                                                            validatorMessage="Verplicht veld" mode="popup"
-                                                            pattern="dd/MM/yyyy" value="#{newsFeedBean.tonenTot}">
-                                                    <f:converter converterId="DatumConverter"/>
-                                                    <f:validateRequired/>
-                                                    <f:ajax render="msg_tonenTot tonenTot"/>
-                                                </p:calendar><br/>
-                                                <p:message id="msg_tonenTot" for="tonenTot"/>
-                                                <p:commandButton value="Voeg toe aan feed"
-                                                                 actionListener="#{newsFeedBean.maakNieuwtjeAan}"
-                                                                 update=":carouselForm :newsForm"
-                                                                 styleClass="top10">
-                                                </p:commandButton>
-                                            </div>
-                                        </p:tab>
-                                    </h:form>
-                                </div>
-                            </div>
-                        </div>
-
+                            </p:tab>
+                        </h:form>
                     </div>
                 </div>
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-12 subTitelCenter">
-                        <br/>Kalenderoverzicht
-                    </div>
-                </div>
+
+                <p:spacer height="30"/>
+
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2"></div>
                     <div class="ui-grid-col-8">
@@ -154,7 +133,22 @@
                     </div>
                     <div class="ui-grid-col-2">
                     </div>
+
+
                 </div>
+
+                <div class="ui-grid-row formRow top10">
+                    <div class="ui-grid-col-12 center">
+
+                        Voor vragen en opmerkingen kan u altijd terecht bij de webmaster:
+                        <br/>
+                        email: #{gebruikerController.getAdminContactGegevens().get(0)}
+                        <br/>
+                        telefoonnummer: #{gebruikerController.getAdminContactGegevens().get(1)}
+
+                    </div>
+                </div>
+
             </div>
 
             <h:outputScript library="js" name="home.js"/>

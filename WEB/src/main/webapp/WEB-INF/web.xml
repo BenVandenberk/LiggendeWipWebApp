@@ -37,7 +37,7 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>hot-sneaks</param-value>
+        <param-value>afterdark</param-value>
     </context-param>
 
     <filter>
