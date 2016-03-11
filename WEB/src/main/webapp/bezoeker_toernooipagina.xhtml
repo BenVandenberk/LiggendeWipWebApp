@@ -93,7 +93,7 @@
 
                                 <h:panelGroup rendered="#{toonToernooiBean.toernooi.heeftMaaltijd}">
                                     <div class="ui-grid-row">
-                                        <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                                        <div class="ui-grid-col-12 center toernooiPaginaTegel big">
                                             <h:outputText value="#{toonToernooiBean.toernooi.cateringInfo}"
                                                           escape="false">
                                                 <f:converter converterId="NewLineConverter"/>
@@ -103,7 +103,7 @@
                                 </h:panelGroup>
 
                                 <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                                    <div class="ui-grid-col-12 center toernooiPaginaTegel big">
                                         <h:outputText value="#{toonToernooiBean.kampioenschap.contact}"
                                                       escape="false">
                                             <f:converter converterId="NewLineConverter"/>
@@ -121,7 +121,8 @@
                                 <ui:repeat value="#{sponsList}" var="spons">
                                     <div class="ui-grid-col-4 right10 center">
                                         <p:link target="_blank"
-                                                href="http://#{spons.linksTo}">
+                                                href="http://#{spons.linksTo}"
+                                                styleClass="wrappedCommandLink">
 
                                             <div>
                                                 #{spons.naam}
@@ -133,6 +134,7 @@
                                                     height="#{spons.logoHoogte}"
                                                     width="#{spons.logoBreedte}"
                                                     title="#{spons.naam}"
+                                                    styleClass="top10"
                                                     />
 
                                         </p:link>
@@ -140,6 +142,8 @@
                                 </ui:repeat>
 
                             </div>
+
+                            <p:spacer height="30"/>
                         </ui:repeat>
 
                     </div>

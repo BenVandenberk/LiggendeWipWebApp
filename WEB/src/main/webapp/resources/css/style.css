@@ -48,7 +48,7 @@ a {
   padding-top: 10px;
   padding-bottom: 10px;
   z-index: 1000;
-  background: transparent radial-gradient(circle at 50% 75%, #676767, #343434) repeat scroll 0 0;
+  background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
   border: 1px solid lightgray;
   font-size: x-small;
   text-align: center; }
@@ -117,14 +117,15 @@ a {
   margin: 0px 10px 0px 10px;
   font-weight: bold;
   text-decoration: none;
-  color: black; }
+  color: #0073ea; }
 
 .menuLink:hover {
   border: solid black 1px;
   border-radius: 5px;
   padding: 2px;
   cursor: pointer;
-  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
+  background: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #ffffff; }
 
 .formGrid {
   text-align: left;
@@ -161,7 +162,7 @@ a {
   font-size: 40px; }
 
 .plus:hover {
-  font-size: 45px; }
+  color: #0073ea; }
 
 .left {
   text-align: left; }
@@ -247,12 +248,13 @@ a {
   text-underline: none;
   text-align: center;
   border-radius: 10px;
-  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
-  color: #eeffee; }
+  background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #0073ea; }
 
 .kampioenschap:hover {
   border: 2px solid black;
-  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
+  background: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #ffffff; }
 
 .evenement {
   border: 1px solid black;
@@ -262,7 +264,7 @@ a {
   text-underline: none;
   text-align: center;
   border-radius: 10px;
-  color: #eeffee; }
+  color: #0073ea; }
 
 .subToernooi {
   border: 1px solid black;
@@ -273,12 +275,13 @@ a {
   text-align: center;
   border-radius: 10px;
   width: 90%;
-  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
-  color: #eeffee; }
+  background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #0073ea; }
 
 .subToernooi:hover {
   border: 2px solid black;
-  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
+  background: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #ffffff; }
 
 .toernooi {
   border: 1px solid black;
@@ -286,12 +289,13 @@ a {
   border-radius: 10px;
   margin-top: 10px;
   text-decoration: none;
-  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
-  color: #eeffee; }
+  background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #0073ea; }
 
 .toernooi:hover {
   border: 2px solid black;
-  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
+  background: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #ffffff; }
 
 .sponsor {
   border: 1px solid black;
@@ -299,18 +303,19 @@ a {
   text-decoration: none;
   margin-top: 10px;
   border-radius: 10px;
-  background: transparent linear-gradient(#868686, #666666) repeat scroll 0 0;
-  color: #eeffee; }
+  background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #0073ea; }
 
 .sponsor:hover {
   border: 2px solid black;
-  background: transparent linear-gradient(#99a699, #778877) repeat scroll 0 0; }
+  background: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+  color: #ffffff; }
 
 .sponsorKampioenschap {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: #eeffee;
+  color: black;
   margin-top: 10px;
   border-radius: 10px; }
 
@@ -318,7 +323,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: #eeffee;
+  color: #0073ea;
   margin-top: 10px;
   border-radius: 10px; }
 

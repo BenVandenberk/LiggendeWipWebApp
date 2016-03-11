@@ -51,13 +51,14 @@
                             <div class="ui-grid-col-3 center">
                                 <h:panelGroup rendered="#{toonKampioenschapBean.kampioenschap.sponsors.size() > 0}">
                                     <p:link target="_blank"
-                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(0).linksTo}">
+                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(0).linksTo}"
+                                            styleClass="wrappedCommandLink">
                                         <div class="ui-grid-row formRow">
                                             <div class="ui-grid-col-12">
                                                 #{toonKampioenschapBean.kampioenschap.sponsors.get(0).naam}
                                             </div>
                                         </div>
-                                        <div class="ui-grid-row">
+                                        <div class="ui-grid-row formRow">
                                             <div class="ui-grid-col-12">
                                                 <p:graphicImage
                                                         value="#{toonKampioenschapBean.kampioenschap.sponsors.get(0).fullPath}"
@@ -126,13 +127,14 @@
                             <div class="ui-grid-col-3 center">
                                 <h:panelGroup rendered="#{toonKampioenschapBean.kampioenschap.sponsors.size() > 1}">
                                     <p:link target="_blank"
-                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(1).linksTo}">
+                                            href="http://#{toonKampioenschapBean.kampioenschap.sponsors.get(1).linksTo}"
+                                            styleClass="wrappedCommandLink">
                                         <div class="ui-grid-row formRow">
                                             <div class="ui-grid-col-12">
                                                 #{toonKampioenschapBean.kampioenschap.sponsors.get(1).naam}
                                             </div>
                                         </div>
-                                        <div class="ui-grid-row">
+                                        <div class="ui-grid-row formRow">
                                             <div class="ui-grid-col-12">
                                                 <p:graphicImage
                                                         value="#{toonKampioenschapBean.kampioenschap.sponsors.get(1).fullPath}"
@@ -178,7 +180,8 @@
                                 <ui:repeat value="#{sponsList}" var="spons">
                                     <div class="ui-grid-col-4 right10 center">
                                         <p:link target="_blank"
-                                                href="http://#{spons.linksTo}">
+                                                href="http://#{spons.linksTo}"
+                                                styleClass="wrappedCommandLink">
 
                                             <div>
                                                 #{spons.naam}
@@ -190,6 +193,7 @@
                                                     height="#{spons.logoHoogte}"
                                                     width="#{spons.logoBreedte}"
                                                     title="#{spons.naam}"
+                                                    styleClass="top10"
                                                     />
 
                                         </p:link>
@@ -197,6 +201,8 @@
                                 </ui:repeat>
 
                             </div>
+
+                            <p:spacer height="30"/>
                         </ui:repeat>
                     </div>
 

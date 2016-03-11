@@ -8,18 +8,39 @@
 //$button-background: #93c3cd url("/javax.faces.resource/images/ui-bg_diagonals-small_50_93c3cd_40x40.png.xhtml?ln=primefaces-hot-sneaks") repeat scroll 50% 50%;
 //$body-background-color: white;
 //$text-color: black;
+//$hover-text-color: black;
+//$hover-color: #ccd232;
 
 //AFTERDARK
-$background: rgba(0, 0, 0, 0) radial-gradient(circle at 50% 75% , #676767, #343434) repeat scroll 0 0;
-$button-hover: rgba(0, 0, 0, 0) linear-gradient(#99a699, #778877) repeat scroll 0 0;
-$button-background: rgba(0, 0, 0, 0) linear-gradient(#868686, #666666) repeat scroll 0 0;
+//$background: rgba(0, 0, 0, 0) radial-gradient(circle at 50% 75% , #676767, #343434) repeat scroll 0 0;
+//$button-hover: rgba(0, 0, 0, 0) linear-gradient(#99a699, #778877) repeat scroll 0 0;
+//$button-background: rgba(0, 0, 0, 0) linear-gradient(#868686, #666666) repeat scroll 0 0;
+//$body-background-color: white;
+//$text-color: #eeffee;
+//$hover-text-color: #eeffee;
+//$hover-color: #778877;
+
+//DOT-LUV
+//$background: #111111 url("/javax.faces.resource/images/ui-bg_gloss-wave_20_111111_500x100.png.xhtml?ln=primefaces-dot-luv") repeat-x scroll 50% top;
+//$button-hover: #00498f url("/javax.faces.resource/images/ui-bg_dots-small_40_00498f_2x2.png.xhtml?ln=primefaces-dot-luv") repeat scroll 50% 50%;
+//$button-background: #333333 url("/javax.faces.resource/images/ui-bg_dots-small_20_333333_2x2.png.xhtml?ln=primefaces-dot-luv") repeat scroll 50% 50%;
+//$body-background-color: white;
+//$text-color: #d9d9d9;
+//$hover-text-color: #d9d9d9;
+//$hover-color: #00498f;
+
+//FLICK
+$background: #ffffff url("/javax.faces.resource/images/ui-bg_flat_75_ffffff_40x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+$button-hover: #0073ea url("/javax.faces.resource/images/ui-bg_highlight-soft_25_0073ea_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
+$button-background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
 $body-background-color: white;
-$text-color: #eeffee;
+$text-color: #0073ea;
+$hover-text-color: #ffffff;
+$hover-color: #0073ea;
 
 
 //$font-stack: "Lucida Grande", Lucida, Verdana, sans-serif;
 $font-stack: Quicksand;
-
 
 /* -------------
      HTML TAGS
@@ -158,7 +179,7 @@ a {
   margin: 0px 10px 0px 10px;
   font-weight: bold;
   text-decoration: none;
-  color: black;
+  color: $text-color;
 }
 
 .menuLink:hover {
@@ -167,6 +188,7 @@ a {
   padding: 2px;
   cursor: pointer;
   background: $button-hover;
+  color: $hover-text-color;
 }
 
 .formGrid {
@@ -213,7 +235,7 @@ a {
 }
 
 .plus:hover {
-  font-size: 45px;
+  color: $hover-color;
 }
 
 .left {
@@ -329,6 +351,7 @@ a {
 .kampioenschap:hover {
   border: 2px solid black;
   background: $button-hover;
+  color: $hover-text-color;
 }
 
 .evenement {
@@ -358,6 +381,7 @@ a {
 .subToernooi:hover {
   border: 2px solid black;
   background: $button-hover;
+  color: $hover-text-color;
 }
 
 .toernooi {
@@ -373,6 +397,7 @@ a {
 .toernooi:hover {
   border: 2px solid black;
   background: $button-hover;
+  color: $hover-text-color;
 }
 
 .sponsor {
@@ -388,13 +413,14 @@ a {
 .sponsor:hover {
   border: 2px solid black;
   background: $button-hover;
+  color: $hover-text-color;
 }
 
 .sponsorKampioenschap {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: $text-color;
+  color: black;
   margin-top: 10px;
   border-radius: 10px;
 }
