@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <f:metadata>
                     <f:viewParam name="id" value="#{toonKampioenschapBean.kampioenschapsId}"/>
@@ -82,14 +82,6 @@
                                     #{toonKampioenschapBean.kampioenschap.beginDatum.datumInEuropeesFormaat} tot #{toonKampioenschapBean.kampioenschap.eindDatum.datumInEuropeesFormaat}
                                 </div>
 
-                                <div class="subTitelCenter">
-                                    Waar?
-                                </div>
-                                <div class="center">
-                                    <h:outputText value="#{toonKampioenschapBean.kampioenschap.locatie}" escape="false">
-                                        <f:converter converterId="NewLineConverter"/>
-                                    </h:outputText>
-                                </div>
 
                                 <div class="subTitelCenter">
                                     Wat?
@@ -118,6 +110,24 @@
                                         </p:outputLabel>
                                     </div>
                                 </p:outputPanel>
+
+                                <div class="subTitelCenter">
+                                    Waar?
+                                </div>
+                                <div class="center">
+                                    <h:outputText value="#{toonKampioenschapBean.kampioenschap.locatie}" escape="false">
+                                        <f:converter converterId="NewLineConverter"/>
+                                    </h:outputText>
+                                </div>
+
+                                <div id="googleMap" style="width:500px;height:380px;"
+                                     class="centerPlus top10 bottom10"></div>
+
+
+                                <h:inputHidden value="#{toonKampioenschapBean.kampioenschap.locatieLat}"
+                                               id="input_lat"/>
+                                <h:inputHidden value="#{toonKampioenschapBean.kampioenschap.locatieLng}"
+                                               id="input_lng"/>
 
                                 <div class="subTitelCenter">
                                     Toernooien
@@ -215,6 +225,10 @@
                 </div>
 
             </h:form>
+
+            <h:outputScript library="js" name="maps_bezoeker.js"/>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHvCE905NfeUcBWn-sb2P0tHeP3r0l-B0&amp;libraries=places"
+                    />
 
         </ui:define>
 
