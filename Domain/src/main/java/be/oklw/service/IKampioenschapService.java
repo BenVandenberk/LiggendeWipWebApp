@@ -5,10 +5,10 @@ import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import java.util.List;
 
-@Remote
+@Local
 public interface IKampioenschapService {
 
     Kampioenschap getKampioenschap(int id);

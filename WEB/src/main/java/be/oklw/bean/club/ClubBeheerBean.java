@@ -20,6 +20,8 @@ import java.util.List;
 @SessionScoped
 public class ClubBeheerBean implements Serializable {
 
+    //region MEMBERS
+
     private static final long serialVersionUID = 2742323554076118994L;
 
     @EJB
@@ -42,14 +44,17 @@ public class ClubBeheerBean implements Serializable {
     private Kampioenschap kampioenschap;
     private Toernooi toernooi;
 
-    private List<Kampioenschap> kampioenschappenVerleden;
-    private List<Kampioenschap> kampioenschappenToekomst;
-
     private int kampId;
     private int toerId;
     private int sponsId;
 
     private String inschrijvingenGeopendMessage;
+
+    private boolean isNieuwToernooi;
+
+    //endregion
+
+    //region PROPERTIES
 
     public void setToerId(int toerId) {
         this.toerId = toerId;
@@ -106,7 +111,16 @@ public class ClubBeheerBean implements Serializable {
         return club;
     }
 
+    public boolean isNieuwToernooi() {
+        return isNieuwToernooi;
+    }
+
+    //endregion
+
+    //region METHODS
+
     public String toernooiKlik() {
+        isNieuwToernooi = false;
         toernooi = toernooiService.getToernooi(toerId);
         kampioenschap = toernooi.getKampioenschap();
         if (toernooi != null) {
@@ -119,7 +133,9 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String nieuwToernooi() {
-        return "club_nieuw_toernooi?faces-redirect=true";
+        toernooi = new Toernooi();
+        isNieuwToernooi = true;
+        return "club_toernooi_aanpassen?faces-redirect=true";
     }
 
     public String opslaan() {
@@ -128,7 +144,11 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String opslaanToernooi() {
-        kampioenschapService.opslaanToernooi(toernooi);
+        if (isNieuwToernooi) {
+            kampioenschapService.nieuwToernooi(toernooi, kampioenschap);
+        } else {
+            kampioenschapService.opslaanToernooi(toernooi);
+        }
         return "club_kampioenschapspagina?faces-redirect=true";
     }
 
@@ -170,4 +190,6 @@ public class ClubBeheerBean implements Serializable {
             club = clubService.getClub(user);
         }
     }
+
+    //endregion
 }
