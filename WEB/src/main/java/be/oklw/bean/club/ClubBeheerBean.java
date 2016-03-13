@@ -52,6 +52,8 @@ public class ClubBeheerBean implements Serializable {
 
     private boolean isNieuwToernooi;
 
+    private String geselecteerdMenuKey;
+
     //endregion
 
     //region PROPERTIES
@@ -115,6 +117,14 @@ public class ClubBeheerBean implements Serializable {
         return isNieuwToernooi;
     }
 
+    public String getGeselecteerdMenuKey() {
+        return geselecteerdMenuKey;
+    }
+
+    public void setGeselecteerdMenuKey(String geselecteerdMenuKey) {
+        this.geselecteerdMenuKey = geselecteerdMenuKey;
+    }
+
     //endregion
 
     //region METHODS
@@ -174,6 +184,13 @@ public class ClubBeheerBean implements Serializable {
         return "club_inschrijvingen_beheren?faces-redirect=true&toerID=" + toernooi.getId();
     }
 
+    public void addMenu() {
+        toernooi.addMenu();
+    }
+
+    public void removeMenu() {
+        toernooi.removeMenu(geselecteerdMenuKey);
+    }
 
     public void refresh() {
         kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());

@@ -1,14 +1,12 @@
 package be.oklw.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
-public class Menu implements Serializable{
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 5929884805890656030L;
 
@@ -20,8 +18,11 @@ public class Menu implements Serializable{
     private String omschrijving;
     private BigDecimal prijs;
 
-    public Menu() {
+    @Transient
+    private UUID inMemoryKey;
 
+    public Menu() {
+        inMemoryKey = UUID.randomUUID();
     }
 
     public int getId() {
@@ -50,6 +51,10 @@ public class Menu implements Serializable{
 
     public void setPrijs(BigDecimal prijs) {
         this.prijs = prijs;
+    }
+
+    public UUID getInMemoryKey() {
+        return inMemoryKey;
     }
 
     @Override

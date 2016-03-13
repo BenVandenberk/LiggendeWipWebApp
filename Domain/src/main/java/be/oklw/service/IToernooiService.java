@@ -2,9 +2,9 @@ package be.oklw.service;
 
 import be.oklw.model.Toernooi;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
-@Remote
+@Local
 public interface IToernooiService {
 
     Toernooi getToernooi(int id);

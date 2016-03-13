@@ -5,6 +5,8 @@ import be.oklw.usertype.DatumConverter;
 import be.oklw.usertype.ToernooiStatusConverter;
 import be.oklw.util.Datum;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -51,7 +53,8 @@ public class Toernooi implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "toernooi_id")
-    private Set<Menu> menus;
+    @Fetch(FetchMode.SELECT)
+    private List<Menu> menus;
 
     //endregion
 
@@ -59,7 +62,7 @@ public class Toernooi implements Serializable {
 
     public Toernooi() {
         ploegen = new HashSet<Ploeg>();
-        menus = new HashSet<Menu>();
+        menus = new ArrayList<Menu>();
         status = new Aangemaakt();
     }
 
@@ -195,12 +198,8 @@ public class Toernooi implements Serializable {
         updateIngesteldStatus();
     }
 
-    public Set<Menu> getMenus() {
-        return menus;
-    }
-
-    public List<Menu> getMenuList() {
-        return new ArrayList<Menu>(getMenus());
+    public List<Menu> getMenus() {
+        return Collections.unmodifiableList(menus);
     }
 
     //endregion
@@ -235,6 +234,23 @@ public class Toernooi implements Serializable {
         if (status instanceof Vol) {
             status = new InschrijvingenOpen();
         }
+    }
+
+    public void addMenu() {
+        int volgendeMenu = menus.size() + 1;
+
+        Menu menu = new Menu();
+        menu.setNaam("Menu " + volgendeMenu);
+
+        menus.add(menu);
+    }
+
+    public void removeMenu(int menuId) {
+        menus.removeIf(menu -> menu.getId() == menuId);
+    }
+
+    public void removeMenu(String menuMemoryKey) {
+        menus.removeIf(menu -> menu.getInMemoryKey().toString().equals(menuMemoryKey));
     }
 
     public List<Ploeg> getPloegenVan(Club club) {
