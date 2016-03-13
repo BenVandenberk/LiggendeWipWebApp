@@ -5,7 +5,11 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 @Entity
 public class Inschrijving implements Serializable {
@@ -43,7 +47,7 @@ public class Inschrijving implements Serializable {
     }
 
     public List<MenuBestelling> getMenuBestellingen() {
-        return menuBestellingen;
+        return Collections.unmodifiableList(menuBestellingen);
     }
 
     public Club getClub() {
@@ -98,10 +102,16 @@ public class Inschrijving implements Serializable {
     public static Inschrijving nieuweInschrijving(Club club, Toernooi toernooi) throws IllegalStateException {
         Inschrijving inschrijving = new Inschrijving();
         inschrijving.setClub(club);
-        inschrijving.setToernooi(toernooi);
 
         // De nodige checks worden in deze method, door het Toernooi object gedaan
         toernooi.addInschrijving(inschrijving);
+        inschrijving.setToernooi(toernooi);
+
+        if (toernooi.isHeeftMaaltijd()) {
+            for (Menu menu : toernooi.getMenus()) {
+                inschrijving.addMenuBestelling(menu);
+            }
+        }
 
         return inschrijving;
     }
@@ -110,11 +120,25 @@ public class Inschrijving implements Serializable {
         boolean ingevuld = true;
 
         Iterator<Ploeg> ploegIterator = ploegen.iterator();
-        while(ingevuld && ploegIterator.hasNext()) {
+        while (ingevuld && ploegIterator.hasNext()) {
             ingevuld = ploegIterator.next().namenZijnIngevuld();
         }
 
         return ingevuld;
+    }
+
+    public BigDecimal totaleInleg() {
+        return toernooi.getInlegPerPloeg().multiply(new BigDecimal(getAantalPloegenIngeschreven()));
+    }
+
+    public BigDecimal totalePrijs() {
+        BigDecimal maaltijdPrijs = BigDecimal.ZERO;
+
+        for (MenuBestelling menuBestelling : menuBestellingen) {
+            maaltijdPrijs = maaltijdPrijs.add(menuBestelling.bestellingPrijs());
+        }
+
+        return maaltijdPrijs.add(totaleInleg());
     }
 
     protected boolean removePloeg(int ploegId) {
@@ -124,6 +148,12 @@ public class Inschrijving implements Serializable {
     protected void addPloeg(Ploeg ploeg) {
         ploegen.add(ploeg);
         ploeg.setInschrijving(this);
+    }
+
+    protected void addMenuBestelling(Menu menu) {
+        menuBestellingen.add(
+                new MenuBestelling(menu)
+        );
     }
 
     @Override

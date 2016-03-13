@@ -278,6 +278,10 @@ a {
   margin-left: 10px;
 }
 
+.left30 {
+  margin-left: 30px;
+}
+
 .big {
   font-size: x-large;
 }
@@ -302,6 +306,11 @@ a {
 
 .red {
   color: red;
+}
+
+.bold {
+  font-weight: bold;
+  font-style: oblique;
 }
 
 #img_help:hover {
@@ -451,7 +460,7 @@ a {
   margin: 10px;
 }
 
-.postForm, .gegevensContent, .inschrijvingenContent, .cateringContent {
+.postForm, .gegevensContent, .inschrijvingenContent, .cateringContent, .ploegenContent, .maaltijdenContent, .afrekeningContent {
   display: none;
 }
 
@@ -459,7 +468,7 @@ a {
   cursor: pointer;
 }
 
-.upExpand, .upExpandGegevens, .upExpandCatering, .upExpandInschrijvingen {
+.upExpand, .upExpandGegevens, .upExpandCatering, .upExpandInschrijvingen, .upExpandPloegen, .upExpandMaaltijden, .upExpandAfrekening {
   display: none;
 }
 

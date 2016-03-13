@@ -55,7 +55,7 @@ public class Toernooi implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Menu> menus;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "toernooi_id")
     @Fetch(FetchMode.SELECT)
     private List<Inschrijving> inschrijvingen;
@@ -273,6 +273,11 @@ public class Toernooi implements Serializable {
 
         boolean ploegVerwijderd = inschrijving.removePloeg(ploegId);
 
+        if (inschrijving.getAantalPloegenIngeschreven() == 0) {
+            inschrijvingen.remove(inschrijving);
+            inschrijving.setClub(null);
+        }
+
         if (ploegVerwijderd && status instanceof Vol) {
             status = new InschrijvingenOpen();
         }
@@ -413,6 +418,16 @@ public class Toernooi implements Serializable {
 
     public int aantalIngeschrevenPloegen() {
         return inschrijvingen.stream().mapToInt(Inschrijving::getAantalPloegenIngeschreven).sum();
+    }
+
+    public List<Ploeg> getIngeschrevenPloegen() {
+        List<Ploeg> ploegen = new ArrayList<>();
+
+        for (Inschrijving inschrijving : inschrijvingen) {
+            ploegen.addAll(inschrijving.getPloegen());
+        }
+
+        return ploegen;
     }
 
     //endregion

@@ -1,6 +1,7 @@
 package be.oklw.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class MenuBestelling {
@@ -13,6 +14,14 @@ public class MenuBestelling {
     private Menu menu;
 
     private int aantal;
+
+    public MenuBestelling() {
+
+    }
+
+    public MenuBestelling(Menu menu) {
+        this.menu = menu;
+    }
 
     public Menu getMenu() {
         return menu;
@@ -28,6 +37,10 @@ public class MenuBestelling {
 
     public void setAantal(int aantal) {
         this.aantal = aantal;
+    }
+
+    public BigDecimal bestellingPrijs() {
+        return menu.getPrijs().multiply(new BigDecimal(aantal));
     }
 
     @Override

@@ -64,139 +64,279 @@
                                                styleClass="big"></p:outputLabel>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-9">
-                                <div class="subTitel">
-                                    Inschrijvingen
+                    <h:panelGroup id="pnl_ploegen">
+
+                        <div class="ui-grid ui-grid-responsive">
+
+                            <div class="ui-grid-row">
+                                <div class="ui-grid-col-9">
+                                    <div class="subTitel pointer ploegenHeader">
+                                        Ploegen
+                                        <i class="fa fa-angle-double-down downExpandPloegen"/>
+                                        <i class="fa fa-angle-double-up upExpandPloegen"/>
+                                    </div>
+                                </div>
+                                <div class="ui-grid-col-3 labelNaastSubTitel right">
+                                    <p:outputLabel
+                                            value="[#{inschrijvingenBeherenBean.toernooi.aantalIngeschrevenPloegen()}/#{inschrijvingenBeherenBean.toernooi.maximumAantalPloegen}]"></p:outputLabel>
                                 </div>
                             </div>
-                            <div class="ui-grid-col-3 labelNaastSubTitel right">
-                                <p:outputLabel
-                                        value="[#{inschrijvingenBeherenBean.toernooi.aantalIngeschrevenPloegen()}/#{inschrijvingenBeherenBean.toernooi.maximumAantalPloegen}]"></p:outputLabel>
-                            </div>
+
                         </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-12">
-                                <p:outputLabel value="Voor dit toernooi zijn er nog geen inschrijvingen"
-                                               rendered="#{inschrijvingenBeherenBean.ingeschrevenPloegen.size() == 0}"/>
+                        <div class="ui-grid ui-grid-responsive formGrid ploegenContent">
 
-                                <ui:repeat value="#{inschrijvingenBeherenBean.ingeschrevenPloegen}" var="ploeg">
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12">
+                                    <p:outputLabel value="Voor dit toernooi zijn er nog geen inschrijvingen"
+                                                   rendered="#{inschrijvingenBeherenBean.ingeschrevenPloegen.size() == 0}"/>
 
-                                    <div class="ui-grid-row inschrijving">
+                                    <ui:repeat value="#{inschrijvingenBeherenBean.ingeschrevenPloegen}" var="ploeg">
 
-                                        <div class="ui-grid-col-4">
+                                        <div class="ui-grid-row inschrijving">
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-12">
-                                                    Club: <p:outputLabel value="#{ploeg.club.naam}"
-                                                                         styleClass="left10"/>
-                                                </div>
-                                            </div>
-
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-12">
-                                                    Ploeg: <p:inputText value="#{ploeg.naam}"
-                                                                        styleClass="left10"
-                                                                        size="10"/>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="ui-grid-col-4">
-
-                                            <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
+                                            <div class="ui-grid-col-4">
 
                                                 <div class="ui-grid-row formRow">
-                                                    <div class="ui-grid-col-12 center">
-                                                        #{status.index + 1}) <p:inputText value="#{deeln.naam}"
-                                                                                          styleClass="left10"
-                                                                                          size="15">
-                                                        <p:ajax event="change"
-                                                                update="@form"/>
-                                                    </p:inputText>
+                                                    <div class="ui-grid-col-12">
+                                                        Club: <p:outputLabel value="#{ploeg.inschrijving.club.naam}"
+                                                                             styleClass="left10"/>
                                                     </div>
                                                 </div>
 
-                                            </ui:repeat>
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12">
+                                                        Ploeg: <p:inputText value="#{ploeg.naam}"
+                                                                            styleClass="left10"
+                                                                            size="10"/>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui-grid-col-4">
+
+                                                <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
+
+                                                    <div class="ui-grid-row formRow">
+                                                        <div class="ui-grid-col-12 center">
+                                                            #{status.index + 1}) <p:inputText value="#{deeln.naam}"
+                                                                                              styleClass="left10"
+                                                                                              size="15">
+                                                            <p:ajax event="change"
+                                                                    update="@form"/>
+                                                        </p:inputText>
+                                                        </div>
+                                                    </div>
+
+                                                </ui:repeat>
+
+                                            </div>
+
+                                            <div class="ui-grid-col-3 right">
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12">
+                                                        <p:selectBooleanCheckbox value="#{ploeg.betaald}"
+                                                                                 itemLabel="Betaald"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12">
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12">
+
+                                                        <h:panelGroup id="pnl_tick"
+                                                                      rendered="#{ploeg.namenZijnIngevuld()}">
+                                                            <i class="fa fa-check big green"/>
+                                                        </h:panelGroup>
+
+                                                        <h:panelGroup id="pnl_cross"
+                                                                      rendered="#{!ploeg.namenZijnIngevuld()}">
+                                                            <i class="fa fa-close big red"/>
+                                                        </h:panelGroup>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui-grid-col-1 right">
+
+                                                <p:commandLink styleClass="wrappedCommandLink"
+                                                               update="@all :frm:pnl_maaltijden :frm:pnl_ploegen :frm:pnl_afrekening"
+                                                               action="#{inschrijvingenBeherenBean.verwijderPloeg}">
+                                                    <f:setPropertyActionListener value="#{ploeg.id}"
+                                                                                 target="#{inschrijvingenBeherenBean.teVerwijderenPloegId}"/>
+                                                    <f:setPropertyActionListener value="#{ploeg.inschrijving.club.id}"
+                                                                                 target="#{inschrijvingenBeherenBean.clubIdTeVerwijderenPloeg}"/>
+                                                    <i class="fa fa-minus-square-o plus"></i>
+                                                </p:commandLink>
+
+                                            </div>
 
                                         </div>
 
-                                        <div class="ui-grid-col-3 right">
+                                    </ui:repeat>
+                                </div>
+                            </div>
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-12">
-                                                    <p:selectBooleanCheckbox value="#{ploeg.betaald}"
-                                                                             itemLabel="Betaald"/>
-                                                </div>
-                                            </div>
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12 right">
+                                    <p:commandLink onclick="PF('dial_club').show();">
+                                        <i class="fa fa-plus-square-o plus"></i>
+                                    </p:commandLink>
+                                </div>
+                            </div>
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-12">
-                                                    <p:spinner value="#{ploeg.aantalMaaltijden}"
-                                                               size="1"
-                                                               rendered="#{inschrijvingenBeherenBean.toernooi.heeftMaaltijd}"
-                                                               stepFactor="1"
-                                                               min="0"
-                                                               label="Maaltijden"/>
-                                                    <p:outputLabel value="Maaltijden"
-                                                                   styleClass="left10"
-                                                                   rendered="#{inschrijvingenBeherenBean.toernooi.heeftMaaltijd}"/>
-                                                </div>
-                                            </div>
+                            <div class="pageButton">
+                                <p:commandButton value="Opslaan"
+                                                 action="#{inschrijvingenBeherenBean.opslaan}"></p:commandButton>
+                            </div>
 
-                                            <div class="ui-grid-row formRow">
-                                                <div class="ui-grid-col-12">
+                        </div>
 
-                                                    <h:panelGroup id="pnl_tick" rendered="#{ploeg.namenZijnIngevuld()}">
-                                                        <i class="fa fa-check big green"/>
-                                                    </h:panelGroup>
+                    </h:panelGroup>
 
-                                                    <h:panelGroup id="pnl_cross"
-                                                                  rendered="#{!ploeg.namenZijnIngevuld()}">
-                                                        <i class="fa fa-close big red"/>
-                                                    </h:panelGroup>
+                    <h:panelGroup rendered="#{inschrijvingenBeherenBean.toernooi.heeftMaaltijd}" id="pnl_maaltijden">
 
-                                                </div>
-                                            </div>
+                        <div class="subTitel pointer maaltijdenHeader">
+                            Maaltijden
+                            <i class="fa fa-angle-double-down downExpandMaaltijden"/>
+                            <i class="fa fa-angle-double-up upExpandMaaltijden"/>
+                        </div>
 
+                        <div class="ui-grid-responsive formGrid maaltijdenContent">
+
+                            <ui:repeat value="#{inschrijvingenBeherenBean.toernooi.inschrijvingen}" var="inschrijving"
+                                       varStatus="status">
+
+                                <div class="ui-grid-row formRow">
+                                    #{inschrijving.club.naam}
+                                </div>
+
+                                <ui:repeat value="#{inschrijving.menuBestellingen}" var="menuBestelling">
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-3">
+                                            <p:spacer width="30" height="0"/>
+
+                                            <p:outputLabel
+                                                    value="Menu '#{menuBestelling.menu.naam}' - €#{menuBestelling.menu.prijs}:"
+                                                    id="menunaam">
+                                                <p:tooltip value="#{menuBestelling.menu.omschrijving}" escape="false"
+                                                           for="menunaam">
+                                                    <f:converter converterId="NewLineConverter"/>
+                                                </p:tooltip>
+                                            </p:outputLabel>
                                         </div>
 
-                                        <div class="ui-grid-col-1 right">
-
-                                            <p:commandLink styleClass="wrappedCommandLink"
-                                                           update="@all"
-                                                           action="#{inschrijvingenBeherenBean.verwijderPloeg}">
-                                                <f:setPropertyActionListener value="#{ploeg.id}"
-                                                                             target="#{inschrijvingenBeherenBean.teVerwijderenPloegId}"/>
-                                                <f:setPropertyActionListener value="#{ploeg.club.id}"
-                                                                             target="#{inschrijvingenBeherenBean.clubIdTeVerwijderenPloeg}"/>
-                                                <i class="fa fa-minus-square-o plus"></i>
-                                            </p:commandLink>
-
+                                        <div class="ui-grid-col-2">
+                                            <p:spinner value="#{menuBestelling.aantal}"
+                                                       stepFactor="1"
+                                                       size="3"
+                                                       min="0">
+                                                <p:ajax event="change" update=":frm:pnl_afrekening"/>
+                                            </p:spinner>
                                         </div>
 
                                     </div>
 
                                 </ui:repeat>
+
+                                <p:separator style="margin:20px 0 20px 0" rendered="#{!status.last}"/>
+
+                            </ui:repeat>
+
+                            <div class="pageButton">
+                                <p:commandButton value="Opslaan"
+                                                 action="#{inschrijvingenBeherenBean.opslaan}"></p:commandButton>
                             </div>
+
                         </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-12 right">
-                                <p:commandLink onclick="PF('dial_club').show();">
-                                    <i class="fa fa-plus-square-o plus"></i>
-                                </p:commandLink>
-                            </div>
-                        </div>
-                    </div>
+                    </h:panelGroup>
 
-                    <div class="pageButton">
-                        <p:commandButton value="Opslaan"
-                                         action="#{inschrijvingenBeherenBean.opslaan}"></p:commandButton>
-                    </div>
+                    <h:panelGroup id="pnl_afrekening" rendered="#{inschrijvingenBeherenBean.afrekeningZichtbaar()}">
+
+                        <div class="subTitel pointer afrekeningHeader">
+                            Afrekening
+                            <i class="fa fa-angle-double-down downExpandAfrekening"/>
+                            <i class="fa fa-angle-double-up upExpandAfrekening"/>
+                        </div>
+
+                        <div class="ui-grid-responsive formGrid afrekeningContent">
+
+                            <ui:repeat value="#{inschrijvingenBeherenBean.toernooi.inschrijvingen}" var="inschrijving"
+                                       varStatus="status">
+
+                                <div class="ui-grid-row formRow">
+                                    #{inschrijving.club.naam}
+                                </div>
+
+                                <ui:repeat value="#{inschrijving.menuBestellingen}" var="menuBestelling">
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-3">
+                                            <p:spacer width="30" height="0"/>
+
+                                            <p:outputLabel
+                                                    value="Menu '#{menuBestelling.menu.naam}':"
+                                                    id="menunaamAfr">
+                                                <p:tooltip value="#{menuBestelling.menu.omschrijving}" escape="false"
+                                                           for="menunaamAfr">
+                                                    <f:converter converterId="NewLineConverter"/>
+                                                </p:tooltip>
+                                            </p:outputLabel>
+                                        </div>
+
+                                        <div class="ui-grid-col-9 left">
+                                            #{menuBestelling.aantal} x €#{menuBestelling.menu.prijs} = €#{menuBestelling.bestellingPrijs()}
+                                        </div>
+
+                                    </div>
+
+                                </ui:repeat>
+
+                                <h:panelGroup rendered="#{inschrijvingenBeherenBean.toernooi.metInleg}">
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-3">
+                                            <p:spacer width="30" height="0"/>
+
+                                            <p:outputLabel
+                                                    value="Inleg:"/>
+                                        </div>
+
+                                        <div class="ui-grid-col-9 left">
+                                            #{inschrijving.aantalPloegenIngeschreven} x €#{inschrijvingenBeherenBean.toernooi.inlegPerPloeg} = €#{inschrijving.totaleInleg()}
+                                        </div>
+
+                                    </div>
+
+                                </h:panelGroup>
+
+                                <div class="ui-grid-row formRow">
+                                    <p:outputLabel value="Totaal: €#{inschrijving.totalePrijs()}" styleClass="bold"/>
+                                </div>
+
+                                <p:separator style="margin:20px 0 20px 0" rendered="#{!status.last}"/>
+
+                            </ui:repeat>
+
+                        </div>
+
+                    </h:panelGroup>
 
                 </div>
 
@@ -217,12 +357,14 @@
                                              actionListener="#{inschrijvingenBeherenBean.maakInschrijvingVoorSelected}"
                                              process="@form"
                                              onclick="PF('dial_club').close();"
-                                             update="@all"/>
+                                             update="@all :frm:pnl_maaltijden :frm:pnl_afrekening"/>
                         </div>
 
                     </div>
                 </h:form>
             </p:dialog>
+
+            <h:outputScript library="js" name="club_inschrijvingen_beheren.js"/>
 
         </ui:define>
 
