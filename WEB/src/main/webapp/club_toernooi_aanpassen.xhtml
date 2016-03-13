@@ -20,11 +20,13 @@
                         </div>
                     </div>
 
-                    <div class="subTitel">
+                    <div class="subTitel gegevensHeader pointer">
                         Gegevens
+                        <i class="fa fa-angle-double-down downExpandGegevens"/>
+                        <i class="fa fa-angle-double-up upExpandGegevens"/>
                     </div>
 
-                    <div class="ui-grid ui-grid-responsive formGrid">
+                    <div class="ui-grid ui-grid-responsive formGrid gegevensContent">
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
@@ -137,6 +139,7 @@
 
                         <p:spacer height="20"/>
 
+
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
                                 <p:outputLabel value="Met inleg?"></p:outputLabel>
@@ -161,6 +164,7 @@
 
                         <p:spacer height="20"/>
 
+
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
                                 <p:outputLabel value="Inschrijvingsdeadline:"></p:outputLabel>
@@ -184,6 +188,15 @@
                         </div>
 
                         <p:spacer height="20"/>
+                    </div>
+
+                    <div class="subTitel cateringHeader pointer">
+                        Catering
+                        <i class="fa fa-angle-double-down downExpandCatering"/>
+                        <i class="fa fa-angle-double-up upExpandCatering"/>
+                    </div>
+
+                    <div class="ui-grid ui-grid-responsive formGrid cateringContent">
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
@@ -191,40 +204,89 @@
                             </div>
                             <div class="ui-grid-col-3">
                                 <p:selectBooleanCheckbox value="#{clubBeheerBean.toernooi.heeftMaaltijd}">
-                                    <p:ajax event="change" update=":frm:in_catering"/>
+                                    <p:ajax event="change" update=":frm:pnl_catering"/>
                                 </p:selectBooleanCheckbox>
                             </div>
                         </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Catering:"></p:outputLabel>
+                        <h:panelGroup id="pnl_catering">
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Menu's:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-9">
+                                    <p:outputLabel value="Voor dit toernooi zijn er nog geen menu's"
+                                                   rendered="#{clubBeheerBean.toernooi.menuList.size() == 0}"/>
+
+                                    <ui:repeat value="#{clubBeheerBean.toernooi.menuList}" var="menu">
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Naam:
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+                                                <p:inputText value="#{menu.naam}"
+                                                             disabled="#{!clubBeheerBean.toernooi.heeftMaaltijd}"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+                                                Prijs per persoon:
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+                                                <p:spinner prefix="€"
+                                                           stepFactor="0.5"
+                                                           min="0"
+                                                           max="1000"
+                                                           size="5"
+                                                           value="#{menu.prijs}"
+                                                           disabled="#{!clubBeheerBean.toernooi.heeftMaaltijd}"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Omschrijving:
+                                            </div>
+
+                                            <div class="ui-grid-col-9">
+                                                <p:inputTextarea value="#{menu.omschrijving}"
+                                                                 cols="50"
+                                                                 autoResize="true"
+                                                                 disabled="#{!clubBeheerBean.toernooi.heeftMaaltijd}"/>
+                                            </div>
+
+                                        </div>
+
+                                    </ui:repeat>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-6 right">
+                                            <i class="fa fa-plus-square-o plus"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="ui-grid-col-9">
-                                <p:inputTextarea id="in_catering" cols="50" autoResize="true"
-                                                 value="#{clubBeheerBean.toernooi.cateringInfo}"
-                                                 disabled="#{!clubBeheerBean.toernooi.heeftMaaltijd}"></p:inputTextarea>
-                            </div>
-                        </div>
+                        </h:panelGroup>
 
                     </div>
 
-                    <div class="pageButton">
-                        <p:commandButton value="Toernooi Verwijderen"></p:commandButton>
-                        <p:spacer width="10"/>
-                        <p:commandButton value="Toernooi Opslaan"
-                                         action="#{clubBeheerBean.opslaanToernooi}"></p:commandButton>
-                    </div>
 
-                    <div class="subTitel">
+                    <div class="subTitel inschrijvingenHeader pointer">
                         Inschrijvingen
+                        <i class="fa fa-angle-double-down downExpandInschrijvingen"/>
+                        <i class="fa fa-angle-double-up upExpandInschrijvingen"/>
                     </div>
 
                     <p:messages showDetail="true" id="msg"></p:messages>
 
                     <h:panelGroup id="inschrijvingen">
 
-                        <div class="ui-grid ui-grid-responsive formGrid">
+                        <div class="ui-grid ui-grid-responsive formGrid inschrijvingenContent">
                             <div class="ui-grid-row formRow">
                                 <div class="ui-grid-col-6">
 
@@ -272,6 +334,15 @@
 
                     </h:panelGroup>
 
+                    <p:spacer height="30"/>
+
+                    <div class="pageButton">
+                        <p:commandButton value="Toernooi Verwijderen"></p:commandButton>
+                        <p:spacer width="10"/>
+                        <p:commandButton value="Toernooi Opslaan"
+                                         action="#{clubBeheerBean.opslaanToernooi}"></p:commandButton>
+                    </div>
+
                 </div>
 
             </h:form>
@@ -295,6 +366,8 @@
                     </div>
                 </h:form>
             </p:dialog>
+
+            <h:outputScript library="js" name="club_toernooi.js"/>
 
         </ui:define>
 

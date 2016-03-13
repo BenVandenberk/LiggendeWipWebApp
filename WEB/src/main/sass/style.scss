@@ -447,7 +447,7 @@ a {
   margin: 10px;
 }
 
-.postForm {
+.postForm, .gegevensContent, .inschrijvingenContent, .cateringContent {
   display: none;
 }
 
@@ -455,7 +455,7 @@ a {
   cursor: pointer;
 }
 
-.upExpand {
+.upExpand, .upExpandGegevens, .upExpandCatering, .upExpandInschrijvingen {
   display: none;
 }
 

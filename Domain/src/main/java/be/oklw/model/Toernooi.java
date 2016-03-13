@@ -49,12 +49,17 @@ public class Toernooi implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toernooi", orphanRemoval = true)
     private Set<Ploeg> ploegen;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "toernooi_id")
+    private Set<Menu> menus;
+
     //endregion
 
     //region CONSTRUCTORS
 
     public Toernooi() {
         ploegen = new HashSet<Ploeg>();
+        menus = new HashSet<Menu>();
         status = new Aangemaakt();
     }
 
@@ -188,6 +193,14 @@ public class Toernooi implements Serializable {
     public void setMetInleg(boolean metInleg) {
         this.metInleg = metInleg;
         updateIngesteldStatus();
+    }
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public List<Menu> getMenuList() {
+        return new ArrayList<Menu>(getMenus());
     }
 
     //endregion

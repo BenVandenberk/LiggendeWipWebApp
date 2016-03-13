@@ -16,7 +16,6 @@
     <entity class="SiteSponsor"></entity>
     <entity class="Foto"></entity>
     <entity class="Nieuws"></entity>
-
-
+    <entity class="Menu"></entity>
 
 </entity-mappings>

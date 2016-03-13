@@ -339,13 +339,13 @@ a {
   padding: 20px;
   margin: 10px; }
 
-.postForm {
+.postForm, .gegevensContent, .inschrijvingenContent, .cateringContent {
   display: none; }
 
 .post:hover {
   cursor: pointer; }
 
-.upExpand {
+.upExpand, .upExpandGegevens, .upExpandCatering, .upExpandInschrijvingen {
   display: none; }
 
 /* -------------------------
