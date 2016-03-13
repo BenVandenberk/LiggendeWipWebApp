@@ -13,7 +13,7 @@ import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
-@Remote
+@Local
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)

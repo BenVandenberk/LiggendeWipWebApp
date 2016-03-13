@@ -4,10 +4,11 @@ import be.oklw.model.Club;
 import be.oklw.model.Toernooi;
 import be.oklw.model.hulp.Inschrijving;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
 import java.util.List;
 
-@Remote
+@Local
 public interface IInschrijfService {
 
     void verwijderPloeg(int ploegId);

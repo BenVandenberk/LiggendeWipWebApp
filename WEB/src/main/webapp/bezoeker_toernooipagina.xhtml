@@ -66,7 +66,8 @@
 
                         <div class="ui-grid-row formRow">
 
-                            <div class="ui-grid-col-7 toernooiPaginaTegel center">
+                            <div class="ui-grid-col-7 toernooiPaginaTegel center vert-center">
+
                                 <div class="big">
                                     #{toonToernooiBean.toernooi.maximumAantalPloegen} Ploegen
                                 </div>
@@ -81,12 +82,13 @@
 
                                 <h:panelGroup rendered="#{toonToernooiBean.toernooi.metInleg}">
                                     <div class="big top10">
-                                        € #{toonToernooiBean.toernooi.inlegPerPloeg} Inleg per Ploeg
+                                        €#{toonToernooiBean.toernooi.inlegPerPloeg} Inleg per Ploeg
                                     </div>
                                     <div class="big">
                                         Rekeningnummer: #{toonToernooiBean.kampioenschap.rekeningnummer}
                                     </div>
                                 </h:panelGroup>
+
                             </div>
 
                             <div class="ui-grid-col-5">
@@ -94,10 +96,41 @@
                                 <h:panelGroup rendered="#{toonToernooiBean.toernooi.heeftMaaltijd}">
                                     <div class="ui-grid-row">
                                         <div class="ui-grid-col-12 center toernooiPaginaTegel big">
-                                            <h:outputText value="#{toonToernooiBean.toernooi.cateringInfo}"
-                                                          escape="false">
-                                                <f:converter converterId="NewLineConverter"/>
-                                            </h:outputText>
+
+                                            <div class="ui-grid-row formRow">
+                                                <div class="ui-grid-col-12 center bottom10">
+                                                    Menu<p:outputLabel value="'s"
+                                                                       rendered="#{toonToernooiBean.toernooi.menus.size() > 1}"/>
+                                                </div>
+                                            </div>
+
+                                            <ui:repeat value="#{toonToernooiBean.toernooi.menus}" var="menu"
+                                                       varStatus="status">
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12 center">
+                                                        #{menu.naam}
+                                                    </div>
+                                                </div>
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12 center">
+                                                        <h:outputText value="#{menu.omschrijving}" escape="false">
+                                                            <f:converter converterId="NewLineConverter"/>
+                                                        </h:outputText>
+                                                    </div>
+                                                </div>
+
+                                                <div class="ui-grid-row formRow">
+                                                    <div class="ui-grid-col-12 center">
+                                                        €#{menu.prijs} per persoon
+                                                    </div>
+                                                </div>
+
+                                                <p:separator rendered="#{!status.last}" style="margin: 20px 0 20px 0"/>
+
+                                            </ui:repeat>
+
                                         </div>
                                     </div>
                                 </h:panelGroup>

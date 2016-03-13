@@ -15,7 +15,7 @@ import java.util.List;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Stateless
-@Remote(IGebruikerService.class)
+@Local(IGebruikerService.class)
 @TransactionManagement(value = TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GebruikerService implements IGebruikerService {

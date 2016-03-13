@@ -4,10 +4,11 @@ import be.oklw.exception.BusinessException;
 import be.oklw.model.Account;
 import be.oklw.model.SysteemAccount;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
 import java.util.List;
 
-@Remote
+@Local
 public interface IGebruikerService {
 
     Account login(String userName, String password);

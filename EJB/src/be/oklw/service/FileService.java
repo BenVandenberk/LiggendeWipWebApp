@@ -3,7 +3,8 @@ package be.oklw.service;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.ejb.Remote;
+
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +14,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Stateless
-@Remote
+@Local
 public class FileService implements IFileService {
 
     final String UPLOAD_PATH = "/home/java/development/upload";

@@ -3,10 +3,11 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.*;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
 import java.util.List;
 
-@Remote
+@Local
 public interface ISponsorService {
 
     void saveSponsor(Sponsor sponsor);

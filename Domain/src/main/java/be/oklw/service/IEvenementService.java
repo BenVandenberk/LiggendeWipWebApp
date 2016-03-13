@@ -2,13 +2,12 @@ package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
 import be.oklw.model.Evenement;
-import be.oklw.model.Kampioenschap;
 import be.oklw.util.Datum;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import java.util.List;
 
-@Remote
+@Local
 public interface IEvenementService {
 
     List<Evenement> getAlleEvenementen();

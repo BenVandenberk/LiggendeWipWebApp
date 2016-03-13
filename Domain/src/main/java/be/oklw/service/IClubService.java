@@ -3,13 +3,14 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.*;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Remote
+@Local
 public interface IClubService {
 
     void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException;

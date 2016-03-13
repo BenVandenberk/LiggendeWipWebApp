@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Remote
+@Local
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class NieuwsService implements INieuwsService {
 

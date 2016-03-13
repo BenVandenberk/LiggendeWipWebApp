@@ -34,7 +34,6 @@ public class Toernooi implements Serializable {
     private String omschrijving;
     private boolean heeftMaaltijd;
     private boolean metInleg;
-    private String cateringInfo;
 
     @Convert(converter = DatumConverter.class)
     private Datum datum;
@@ -179,14 +178,6 @@ public class Toernooi implements Serializable {
 
     public void setHeeftMaaltijd(boolean heeftMaaltijd) {
         this.heeftMaaltijd = heeftMaaltijd;
-    }
-
-    public String getCateringInfo() {
-        return cateringInfo;
-    }
-
-    public void setCateringInfo(String cateringInfo) {
-        this.cateringInfo = cateringInfo;
     }
 
     public boolean isMetInleg() {

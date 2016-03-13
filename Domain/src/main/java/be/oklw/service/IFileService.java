@@ -2,10 +2,11 @@ package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
+
 import java.io.IOException;
 
-@Remote
+@Local
 public interface IFileService {
 
     /**
