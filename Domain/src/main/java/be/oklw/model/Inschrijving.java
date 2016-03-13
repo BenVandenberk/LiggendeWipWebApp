@@ -1,5 +1,8 @@
 package be.oklw.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -19,14 +22,15 @@ public class Inschrijving implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "inschrijving_id")
-    private Set<Ploeg> ploegen;
+    @Fetch(FetchMode.SELECT)
+    private List<Ploeg> ploegen;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "inschrijving_id")
     private List<MenuBestelling> menuBestellingen;
 
     protected Inschrijving() {
-        ploegen = new HashSet<>();
+        ploegen = new ArrayList<>();
         menuBestellingen = new ArrayList<>();
     }
 
@@ -34,8 +38,8 @@ public class Inschrijving implements Serializable {
         return id;
     }
 
-    public Set<Ploeg> getPloegen() {
-        return Collections.unmodifiableSet(ploegen);
+    public List<Ploeg> getPloegen() {
+        return Collections.unmodifiableList(ploegen);
     }
 
     public List<MenuBestelling> getMenuBestellingen() {
@@ -76,10 +80,6 @@ public class Inschrijving implements Serializable {
         return toernooi.getPersonenPerPloeg();
     }
 
-    public List<Ploeg> getPloegenList() {
-        return new ArrayList<Ploeg>(ploegen);
-    }
-
     public boolean toernooiHeeftMaaltijd() {
         return toernooi.isHeeftMaaltijd();
     }
@@ -104,6 +104,26 @@ public class Inschrijving implements Serializable {
         toernooi.addInschrijving(inschrijving);
 
         return inschrijving;
+    }
+
+    public boolean namenZijnIngevuld() {
+        boolean ingevuld = true;
+
+        Iterator<Ploeg> ploegIterator = ploegen.iterator();
+        while(ingevuld && ploegIterator.hasNext()) {
+            ingevuld = ploegIterator.next().namenZijnIngevuld();
+        }
+
+        return ingevuld;
+    }
+
+    protected boolean removePloeg(int ploegId) {
+        return ploegen.removeIf(ploeg -> ploeg.getId() == ploegId);
+    }
+
+    protected void addPloeg(Ploeg ploeg) {
+        ploegen.add(ploeg);
+        ploeg.setInschrijving(this);
     }
 
     @Override

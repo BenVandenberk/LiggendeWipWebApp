@@ -38,6 +38,9 @@ public class Ploeg implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Toernooi toernooi;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Inschrijving inschrijving;
+
     //endregion
 
     //region CONSTRUCTORS
@@ -46,7 +49,7 @@ public class Ploeg implements Serializable {
 
     }
 
-    private Ploeg(String naam) {
+    protected Ploeg(String naam) {
         this.naam = naam;
         inschrijfDatum = new Datum();
         deelnemers = new HashSet<>();
@@ -121,52 +124,59 @@ public class Ploeg implements Serializable {
         this.betaald = betaald;
     }
 
+    public Inschrijving getInschrijving() {
+        return inschrijving;
+    }
+
+    public void setInschrijving(Inschrijving inschrijving) {
+        this.inschrijving = inschrijving;
+    }
 
     //endregion
 
     //region PUBLIC METHODS
 
-    /**
-     * Gebruik deze method om een ploeg in te schrijven voor een toernooi
-     *
-     * @param club
-     * @param toernooi
-     * @param naam
-     * @return de ingeschreven Ploeg
-     * @throws IllegalArgumentException als club of toernooi null zijn
-     * @throws IllegalStateException    als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
-     */
-    public static Ploeg schrijfPloegInVoorToernooi(Club club, Toernooi toernooi, String naam)
-            throws IllegalArgumentException, IllegalStateException {
-        if (club == null || toernooi == null) {
-            throw new IllegalArgumentException(
-                    "De Club en het Toernooi moeten verwijzen naar een bestaand object");
-        }
-
-        Ploeg ploeg = new Ploeg(naam);
-
-        if (toernooi.getStatus().isInschrijvenMogelijk()) {
-
-            ploeg.setClub(club);
-            ploeg.setToernooi(toernooi);
-            ploeg.setAantalLeden(toernooi.getPersonenPerPloeg());
-
-            Deelnemer deelnemer;
-            for (int i = 0; i < ploeg.aantalLeden; i++) {
-                deelnemer = new Deelnemer();
-                deelnemer.setNaam(String.format("Ploeglid %d", i + 1));
-                ploeg.addDeelnemer(deelnemer);
-            }
-
-            club.addPloeg(ploeg);
-            toernooi.addPloeg(ploeg);
-
-        } else {
-            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toStringSimple()));
-        }
-
-        return ploeg;
-    }
+//    /**
+//     * Gebruik deze method om een ploeg in te schrijven voor een toernooi
+//     *
+//     * @param club
+//     * @param toernooi
+//     * @param naam
+//     * @return de ingeschreven Ploeg
+//     * @throws IllegalArgumentException als club of toernooi null zijn
+//     * @throws IllegalStateException    als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
+//     */
+//    public static Ploeg schrijfPloegInVoorToernooi(Club club, Toernooi toernooi, String naam)
+//            throws IllegalArgumentException, IllegalStateException {
+//        if (club == null || toernooi == null) {
+//            throw new IllegalArgumentException(
+//                    "De Club en het Toernooi moeten verwijzen naar een bestaand object");
+//        }
+//
+//        Ploeg ploeg = new Ploeg(naam);
+//
+//        if (toernooi.getStatus().isInschrijvenMogelijk()) {
+//
+//            ploeg.setClub(club);
+//            ploeg.setToernooi(toernooi);
+//            ploeg.setAantalLeden(toernooi.getPersonenPerPloeg());
+//
+//            Deelnemer deelnemer;
+//            for (int i = 0; i < ploeg.aantalLeden; i++) {
+//                deelnemer = new Deelnemer();
+//                deelnemer.setNaam(String.format("Ploeglid %d", i + 1));
+//                ploeg.addDeelnemer(deelnemer);
+//            }
+//
+//            club.addPloeg(ploeg);
+//            toernooi.addPloeg(ploeg);
+//
+//        } else {
+//            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toStringSimple()));
+//        }
+//
+//        return ploeg;
+//    }
 
     public void addDeelnemer(Deelnemer deelnemer)
             throws IllegalStateException {

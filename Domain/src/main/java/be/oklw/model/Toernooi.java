@@ -57,6 +57,7 @@ public class Toernooi implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "toernooi_id")
+    @Fetch(FetchMode.SELECT)
     private List<Inschrijving> inschrijvingen;
 
     //endregion
@@ -67,6 +68,7 @@ public class Toernooi implements Serializable {
         ploegen = new HashSet<Ploeg>();
         menus = new ArrayList<Menu>();
         status = new Aangemaakt();
+        inschrijvingen = new ArrayList<>();
     }
 
     //endregion
@@ -219,34 +221,63 @@ public class Toernooi implements Serializable {
         inschrijvingen.add(inschrijving);
     }
 
-    protected void addPloeg(Ploeg ploeg) {
-        ploegen.add(ploeg);
+//    protected void addPloeg(Ploeg ploeg) {
+//        ploegen.add(ploeg);
+//        if (aantalIngeschrevenPloegen() >= maximumAantalPloegen) {
+//            status = new Vol();
+//        }
+//    }
+
+    public Inschrijving addPloeg(Club club, String naam) {
+        if (!inschrijvenMogelijk()) {
+            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", status.toStringSimple()));
+        }
+
+        Inschrijving inschrijving = getInschrijngVan(club);
+
+        if (inschrijving == null) {
+            throw new IllegalStateException("Voor deze club is er nog geen inschrijving");
+        }
+
+        Ploeg ploeg = new Ploeg(naam);
+        ploeg.setAantalLeden(personenPerPloeg);
+        Deelnemer deelnemer;
+        for (int i = 0; i < ploeg.getAantalLeden(); i++) {
+            deelnemer = new Deelnemer();
+            deelnemer.setNaam(String.format("Ploeglid %d", i + 1));
+            ploeg.addDeelnemer(deelnemer);
+        }
+
+        inschrijving.addPloeg(ploeg);
+
         if (aantalIngeschrevenPloegen() >= maximumAantalPloegen) {
             status = new Vol();
         }
+
+        return inschrijving;
     }
 
-    protected void removePloeg(Ploeg ploeg) {
-        ploegen.remove(ploeg);
-        if (status instanceof Vol) {
+//    protected void removePloeg(Ploeg ploeg) {
+//        ploegen.remove(ploeg);
+//        if (status instanceof Vol) {
+//            status = new InschrijvingenOpen();
+//        }
+//    }
+
+    public Inschrijving removePloeg(int ploegId, Club club) {
+        Inschrijving inschrijving = getInschrijngVan(club);
+
+        if (inschrijving == null) {
+            throw new IllegalStateException("Voor deze club is er nog geen inschrijving");
+        }
+
+        boolean ploegVerwijderd = inschrijving.removePloeg(ploegId);
+
+        if (ploegVerwijderd && status instanceof Vol) {
             status = new InschrijvingenOpen();
         }
-    }
 
-    public void removePloeg(int ploegId) {
-        Ploeg ploeg = null;
-
-        for (Ploeg p : ploegen) {
-            if (p.getId() == ploegId) {
-                ploeg = p;
-            }
-        }
-
-        ploegen.remove(ploeg);
-
-        if (status instanceof Vol) {
-            status = new InschrijvingenOpen();
-        }
+        return inschrijving;
     }
 
     public void addMenu() {
@@ -266,17 +297,17 @@ public class Toernooi implements Serializable {
         menus.removeIf(menu -> menu.getInMemoryKey().toString().equals(menuMemoryKey));
     }
 
-    public List<Ploeg> getPloegenVan(Club club) {
-        List<Ploeg> result = new ArrayList<>();
-
-        for (Ploeg ploeg : ploegen) {
-            if (ploeg.getClub().equals(club)) {
-                result.add(ploeg);
-            }
-        }
-
-        return result;
-    }
+//    public List<Ploeg> getPloegenVan(Club club) {
+//        List<Ploeg> result = new ArrayList<>();
+//
+//        for (Ploeg ploeg : ploegen) {
+//            if (ploeg.getClub().equals(club)) {
+//                result.add(ploeg);
+//            }
+//        }
+//
+//        return result;
+//    }
 
     /**
      * Geeft de inschrijving voor dit toernooi van de meegegeven club terug
@@ -381,7 +412,7 @@ public class Toernooi implements Serializable {
     }
 
     public int aantalIngeschrevenPloegen() {
-        return inschrijvingen.stream().mapToInt(ins -> ins.getAantalPloegenIngeschreven()).sum();
+        return inschrijvingen.stream().mapToInt(Inschrijving::getAantalPloegenIngeschreven).sum();
     }
 
     //endregion

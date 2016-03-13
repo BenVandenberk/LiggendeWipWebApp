@@ -85,9 +85,9 @@
                                 <div class="ui-grid-col-12">
 
                                     <p:outputLabel value="Voor dit toernooi heb je nog geen enkele ploeg ingeschreven"
-                                                   rendered="#{toonInschrijvingBean.ingeschrevenPloegen.size() == 0}"/>
+                                                   rendered="#{toonInschrijvingBean.inschrijving.aantalPloegenIngeschreven == 0}"/>
 
-                                    <ui:repeat value="#{toonInschrijvingBean.ingeschrevenPloegen}" var="ploeg">
+                                    <ui:repeat value="#{toonInschrijvingBean.inschrijving.ploegen}" var="ploeg">
 
                                         <div class="inschrijving">
 

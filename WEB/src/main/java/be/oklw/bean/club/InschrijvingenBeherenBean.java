@@ -126,49 +126,49 @@ public class InschrijvingenBeherenBean {
     }
 
     public void maakInschrijvingVoorSelected() {
-        if (toernooi == null) {
-            redirect();
-        }
-
-        Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
-
-        int volgendePloegIndex = toernooi.getPloegenVan(selectedClub).size() + 1;
-
-        try {
-            Ploeg.schrijfPloegInVoorToernooi(selectedClub, toernooi, selectedClub.getNaam() + " " + volgendePloegIndex);
-            toernooi = toernooiService.save(toernooi);
-        } catch (Exception ex) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    "Fout",
-                    ex.getMessage()
-            ));
-        }
+//        if (toernooi == null) {
+//            redirect();
+//        }
+//
+//        Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
+//
+//        int volgendePloegIndex = toernooi.getPloegenVan(selectedClub).size() + 1;
+//
+//        try {
+//            Ploeg.schrijfPloegInVoorToernooi(selectedClub, toernooi, selectedClub.getNaam() + " " + volgendePloegIndex);
+//            toernooi = toernooiService.save(toernooi);
+//        } catch (Exception ex) {
+//            FacesContext facesContext = FacesContext.getCurrentInstance();
+//            facesContext.addMessage(null, new FacesMessage(
+//                    FacesMessage.SEVERITY_ERROR,
+//                    "Fout",
+//                    ex.getMessage()
+//            ));
+//        }
     }
 
     public void verwijderPloeg() {
-        if (toernooi == null) {
-            redirect();
-        }
-        if (teVerwijderenPloegId < 0 || clubIdTeVerwijderenPloeg < 0) {
-            return;
-        }
-
-        Club geassocieerdeClub = alleClubs.stream().filter(c -> c.getId() == clubIdTeVerwijderenPloeg).findFirst().get();
-
-        try {
-            toernooi.removePloeg(teVerwijderenPloegId);
-            geassocieerdeClub.removePloeg(teVerwijderenPloegId);
-            toernooi = toernooiService.save(toernooi);
-        } catch (Exception ex) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    "Fout",
-                    ex.getMessage()
-            ));
-        }
+//        if (toernooi == null) {
+//            redirect();
+//        }
+//        if (teVerwijderenPloegId < 0 || clubIdTeVerwijderenPloeg < 0) {
+//            return;
+//        }
+//
+//        Club geassocieerdeClub = alleClubs.stream().filter(c -> c.getId() == clubIdTeVerwijderenPloeg).findFirst().get();
+//
+//        try {
+//            toernooi.removePloeg(teVerwijderenPloegId);
+//            geassocieerdeClub.removePloeg(teVerwijderenPloegId);
+//            toernooi = toernooiService.save(toernooi);
+//        } catch (Exception ex) {
+//            FacesContext facesContext = FacesContext.getCurrentInstance();
+//            facesContext.addMessage(null, new FacesMessage(
+//                    FacesMessage.SEVERITY_ERROR,
+//                    "Fout",
+//                    ex.getMessage()
+//            ));
+//        }
     }
 
     public String opslaan() {

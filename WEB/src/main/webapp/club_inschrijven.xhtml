@@ -29,7 +29,7 @@
                                     Onder 'Reeds Ingeschreven' ziet u alle inschrijvingen van uw club voor komende toernooien. Een groen vinkje betekent dat alle namen
                                     zijn ingevuld en de inschrijving volledig is. Bij een rood kruisje moet u de namen van de ploegleden nog doorgeven.<br/><br/>
                                     Het is mogelijk dat een inschrijving onder 'Reeds Ingeschreven' niet meer beschikbaar is onder 'Inschrijven'. Dit is zo in het geval dat de
-                                    organiserende club de inschrijvingen voor dat toernooi heeft afgesloten.
+                                    organiserende club de inschrijvingen voor dat toernooi heeft afgesloten of de inschrijfdeadline verstreken is.
                                 </p>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
 
                                     </div>
 
-                                    <ui:repeat value="#{inschrijving.ploegenList}" var="ploeg">
+                                    <ui:repeat value="#{inschrijving.ploegen}" var="ploeg">
 
                                         <div class="ui-grid-row formRow">
 
@@ -161,11 +161,11 @@
 
                                         <div class="ui-grid-col-12 right">
 
-                                            <h:panelGroup rendered="#{ploeg.namenZijnIngevuld()}">
+                                            <h:panelGroup rendered="#{inschrijving.namenZijnIngevuld()}">
                                                 <i class="fa fa-check big green"/>
                                             </h:panelGroup>
 
-                                            <h:panelGroup rendered="#{!ploeg.namenZijnIngevuld()}">
+                                            <h:panelGroup rendered="#{!inschrijving.namenZijnIngevuld()}">
                                                 <i class="fa fa-close big red"/>
                                             </h:panelGroup>
 

@@ -13,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @ManagedBean
 @ViewScoped
@@ -32,6 +31,7 @@ public class ToonInschrijvingBean {
     private Toernooi toernooi;
     private Kampioenschap kampioenschap;
     private Club club;
+    private Inschrijving inschrijving;
 
     private int teVerwijderenPloegId;
 
@@ -55,6 +55,12 @@ public class ToonInschrijvingBean {
                     redirect();
                 }
                 kampioenschap = toernooi.getKampioenschap();
+                inschrijving = toernooi.getInschrijngVan(club);
+
+                // De club is nog niet ingeschreven
+                if (inschrijving == null) {
+                    inschrijving = Inschrijving.nieuweInschrijving(club, toernooi);
+                }
             }
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -86,24 +92,28 @@ public class ToonInschrijvingBean {
         return kampioenschap;
     }
 
-    public List<Ploeg> getIngeschrevenPloegen() {
-        if (toernooi != null) {
-            return toernooi.getPloegenVan(club);
-        } else {
-            redirect();
-        }
-        return null;
+    public Inschrijving getInschrijving() {
+        return inschrijving;
     }
+
+    //    public List<Ploeg> getIngeschrevenPloegen() {
+//        if (toernooi != null) {
+//            return toernooi.getPloegenVan(club);
+//        } else {
+//            redirect();
+//        }
+//        return null;
+//    }
 
     public void addPloeg() {
         if (toernooi == null) {
             redirect();
         }
 
-        int volgendePloegIndex = toernooi.getPloegenVan(club).size() + 1;
+        int volgendePloegIndex = inschrijving.getPloegen().size() + 1;
 
         try {
-            Ploeg.schrijfPloegInVoorToernooi(club, toernooi, club.getNaam() + " " + volgendePloegIndex);
+            inschrijving = toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -121,8 +131,10 @@ public class ToonInschrijvingBean {
         }
 
         try {
-            toernooi.removePloeg(teVerwijderenPloegId);
-            club.removePloeg(teVerwijderenPloegId);
+//            toernooi.removePloeg(teVerwijderenPloegId);
+//            club.removePloeg(teVerwijderenPloegId);
+//            toernooi = toernooiService.save(toernooi);
+            inschrijving = toernooi.removePloeg(teVerwijderenPloegId, club);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
