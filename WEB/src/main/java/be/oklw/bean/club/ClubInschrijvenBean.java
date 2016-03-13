@@ -2,8 +2,8 @@ package be.oklw.bean.club;
 
 import be.oklw.model.Account;
 import be.oklw.model.Club;
+import be.oklw.model.Inschrijving;
 import be.oklw.model.Kampioenschap;
-import be.oklw.model.hulp.Inschrijving;
 import be.oklw.service.IClubService;
 import be.oklw.service.IInschrijfService;
 import be.oklw.service.IKampioenschapService;

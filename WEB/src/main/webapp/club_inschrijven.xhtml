@@ -131,7 +131,7 @@
 
                                     </div>
 
-                                    <ui:repeat value="#{inschrijving.ploegen}" var="ploeg">
+                                    <ui:repeat value="#{inschrijving.ploegenList}" var="ploeg">
 
                                         <div class="ui-grid-row formRow">
 
@@ -147,7 +147,7 @@
 
                                             </div>
 
-                                            <h:panelGroup rendered="#{inschrijving.toernooiHeeftMaaltijd}">
+                                            <h:panelGroup rendered="#{inschrijving.toernooiHeeftMaaltijd()}">
                                                 <div class="ui-grid-col-4 left">
                                                     (#{ploeg.aantalMaaltijden} Maaltijden)
                                                 </div>
@@ -161,11 +161,11 @@
 
                                         <div class="ui-grid-col-12 right">
 
-                                            <h:panelGroup rendered="#{inschrijving.namenIngevuld()}">
+                                            <h:panelGroup rendered="#{ploeg.namenZijnIngevuld()}">
                                                 <i class="fa fa-check big green"/>
                                             </h:panelGroup>
 
-                                            <h:panelGroup rendered="#{!inschrijving.namenIngevuld()}">
+                                            <h:panelGroup rendered="#{!ploeg.namenZijnIngevuld()}">
                                                 <i class="fa fa-close big red"/>
                                             </h:panelGroup>
 

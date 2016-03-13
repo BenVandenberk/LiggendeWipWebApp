@@ -1,9 +1,9 @@
 package be.oklw.service;
 
 import be.oklw.model.Club;
+import be.oklw.model.Inschrijving;
 import be.oklw.model.Ploeg;
 import be.oklw.model.Toernooi;
-import be.oklw.model.hulp.Inschrijving;
 import be.oklw.util.Datum;
 
 import javax.ejb.*;
@@ -35,6 +35,39 @@ public class InschrijfService implements IInschrijfService {
                 .executeUpdate();
     }
 
+//    @Override
+//    public List<Inschrijving> getInschrijvingenVoor(Club club) {
+//        List<Toernooi> alleToernooien = entityManager.createQuery("SELECT t FROM Toernooi t", Toernooi.class).getResultList();
+//
+//        Datum vandaag = new Datum();
+//        List<Toernooi> toekomstigeToernooien = alleToernooien.stream().filter(t -> t.getDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
+//
+//        List<Ploeg> ploegenVanClub;
+//        List<Inschrijving> inschrijvingenVanClub = new ArrayList<>();
+//        Inschrijving inschrijving;
+//        for (Toernooi toernooi : toekomstigeToernooien) {
+//
+//            ploegenVanClub = toernooi.getPloegenVan(club);
+//
+//            if (ploegenVanClub.size() > 0) {
+//
+//                inschrijving = new Inschrijving();
+//                inschrijving.setAantalPloegenIngeschreven(ploegenVanClub.size());
+//                inschrijving.setDeelnemersPerPloeg(toernooi.getPersonenPerPloeg());
+//                inschrijving.setKampioenschapsnaam(toernooi.getKampioenschap().getNaam());
+//                inschrijving.setToernooinaam(toernooi.getNaam());
+//                inschrijving.setPloegen(ploegenVanClub);
+//                inschrijving.setToernooiHeeftMaaltijd(toernooi.isHeeftMaaltijd());
+//
+//                inschrijvingenVanClub.add(inschrijving);
+//
+//            }
+//        }
+//
+//        return inschrijvingenVanClub;
+//    }
+
+
     @Override
     public List<Inschrijving> getInschrijvingenVoor(Club club) {
         List<Toernooi> alleToernooien = entityManager.createQuery("SELECT t FROM Toernooi t", Toernooi.class).getResultList();
@@ -42,29 +75,17 @@ public class InschrijfService implements IInschrijfService {
         Datum vandaag = new Datum();
         List<Toernooi> toekomstigeToernooien = alleToernooien.stream().filter(t -> t.getDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
 
-        List<Ploeg> ploegenVanClub;
-        List<Inschrijving> inschrijvingenVanClub = new ArrayList<>();
-        Inschrijving inschrijving;
-        for (Toernooi toernooi : toekomstigeToernooien) {
+        List<Inschrijving> result = new ArrayList<>();
 
-            ploegenVanClub = toernooi.getPloegenVan(club);
+        toekomstigeToernooien.stream()
+                .forEach(toer -> {
+                    Inschrijving inschrijving = toer.getInschrijngVan(club);
+                    if (inschrijving != null) {
+                        result.add(inschrijving);
+                    }
+                });
 
-            if (ploegenVanClub.size() > 0) {
-
-                inschrijving = new Inschrijving();
-                inschrijving.setAantalPloegenIngeschreven(ploegenVanClub.size());
-                inschrijving.setDeelnemersPerPloeg(toernooi.getPersonenPerPloeg());
-                inschrijving.setKampioenschapsnaam(toernooi.getKampioenschap().getNaam());
-                inschrijving.setToernooinaam(toernooi.getNaam());
-                inschrijving.setPloegen(ploegenVanClub);
-                inschrijving.setToernooiHeeftMaaltijd(toernooi.isHeeftMaaltijd());
-
-                inschrijvingenVanClub.add(inschrijving);
-
-            }
-        }
-
-        return inschrijvingenVanClub;
+        return result;
     }
 
     @Override

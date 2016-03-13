@@ -55,6 +55,10 @@ public class Toernooi implements Serializable {
     @Fetch(FetchMode.SELECT)
     private List<Menu> menus;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "toernooi_id")
+    private List<Inschrijving> inschrijvingen;
+
     //endregion
 
     //region CONSTRUCTORS
@@ -193,9 +197,27 @@ public class Toernooi implements Serializable {
         return Collections.unmodifiableList(menus);
     }
 
+    public List<Inschrijving> getInschrijvingen() {
+        return Collections.unmodifiableList(inschrijvingen);
+    }
+
     //endregion
 
     //region PUBLIC METHODS
+
+    protected void addInschrijving(Inschrijving inschrijving) throws IllegalStateException {
+        if (inschrijvingen.stream()
+                .anyMatch(ins -> ins.getClub()
+                        .equals(inschrijving.getClub()))) {
+            throw new IllegalStateException("Voor deze club is er al een inschrijving voor het toernooi");
+        }
+
+        if (!inschrijvenMogelijk()) {
+            throw new IllegalStateException("Voor dit toernooi is inschrijven niet mogelijk");
+        }
+
+        inschrijvingen.add(inschrijving);
+    }
 
     protected void addPloeg(Ploeg ploeg) {
         ploegen.add(ploeg);
@@ -256,8 +278,30 @@ public class Toernooi implements Serializable {
         return result;
     }
 
+    /**
+     * Geeft de inschrijving voor dit toernooi van de meegegeven club terug
+     *
+     * @param club
+     * @return de gevraagde inschrijving of null als er voor dit toernooi nog geen inschrijving is voor de meegegeven club
+     */
+    public Inschrijving getInschrijngVan(Club club) {
+        Optional<Inschrijving> optInschrijving = inschrijvingen.stream()
+                .filter(ins -> ins.getClub().equals(club))
+                .findFirst();
+
+        if (optInschrijving.isPresent()) {
+            return optInschrijving.get();
+        }
+
+        return null;
+    }
+
     public boolean inschrijvenMogelijk() {
         return status.isInschrijvenMogelijk();
+    }
+
+    public boolean clubAlIngeschreven(Club club) {
+        return inschrijvingen.stream().anyMatch(ins -> ins.getClub().equals(club));
     }
 
     /**
@@ -337,7 +381,7 @@ public class Toernooi implements Serializable {
     }
 
     public int aantalIngeschrevenPloegen() {
-        return ploegen.size();
+        return inschrijvingen.stream().mapToInt(ins -> ins.getAantalPloegenIngeschreven()).sum();
     }
 
     //endregion

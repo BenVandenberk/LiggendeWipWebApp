@@ -2,7 +2,7 @@ package be.oklw.service;
 
 import be.oklw.model.Club;
 import be.oklw.model.Toernooi;
-import be.oklw.model.hulp.Inschrijving;
+import be.oklw.model.Inschrijving;
 
 import javax.ejb.Local;
 
