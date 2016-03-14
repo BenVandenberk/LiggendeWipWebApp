@@ -126,7 +126,8 @@
                                                                                               styleClass="left10"
                                                                                               size="15">
                                                             <p:ajax event="change"
-                                                                    update="@form"/>
+                                                                    update="@form"
+                                                                    oncomplete="restoreState()"/>
                                                         </p:inputText>
                                                         </div>
                                                     </div>
@@ -172,7 +173,8 @@
 
                                                 <p:commandLink styleClass="wrappedCommandLink"
                                                                update="@all :frm:pnl_maaltijden :frm:pnl_ploegen :frm:pnl_afrekening"
-                                                               action="#{inschrijvingenBeherenBean.verwijderPloeg}">
+                                                               action="#{inschrijvingenBeherenBean.verwijderPloeg}"
+                                                               oncomplete="restoreState()">
                                                     <f:setPropertyActionListener value="#{ploeg.id}"
                                                                                  target="#{inschrijvingenBeherenBean.teVerwijderenPloegId}"/>
                                                     <f:setPropertyActionListener value="#{ploeg.inschrijving.club.id}"
@@ -190,7 +192,7 @@
 
                             <div class="ui-grid-row formRow">
                                 <div class="ui-grid-col-12 right">
-                                    <p:commandLink onclick="PF('dial_club').show();">
+                                    <p:commandLink onclick="PF('dial_club').show();" ajax="true">
                                         <i class="fa fa-plus-square-o plus"></i>
                                     </p:commandLink>
                                 </div>
@@ -244,7 +246,8 @@
                                                        stepFactor="1"
                                                        size="3"
                                                        min="0">
-                                                <p:ajax event="change" update=":frm:pnl_afrekening"/>
+                                                <p:ajax event="change" update=":frm:pnl_afrekening"
+                                                        oncomplete="afrekeningState()"/>
                                             </p:spinner>
                                         </div>
 
@@ -340,6 +343,10 @@
 
                 </div>
 
+                <h:inputHidden id="ploegenZichtbaar" value="#{inschrijvingenBeherenBean.ploegenZichtbaar}"/>
+                <h:inputHidden id="maaltijdenZichtbaar" value="#{inschrijvingenBeherenBean.maaltijdenZichtbaar}"/>
+                <h:inputHidden id="afrekeningZichtbaar" value="#{inschrijvingenBeherenBean.afrekeningZichtbaar}"/>
+
             </h:form>
 
             <p:dialog id="dial" header="Club Kiezen" modal="true" widgetVar="dial_club">
@@ -357,12 +364,15 @@
                                              actionListener="#{inschrijvingenBeherenBean.maakInschrijvingVoorSelected}"
                                              process="@form"
                                              onclick="PF('dial_club').close();"
-                                             update="@all :frm:pnl_maaltijden :frm:pnl_afrekening"/>
+                                             update="@all :frm:pnl_maaltijden :frm:pnl_afrekening"
+                                             oncomplete="restoreState()"
+                                             ajax="true"/>
                         </div>
 
                     </div>
                 </h:form>
             </p:dialog>
+
 
             <h:outputScript library="js" name="club_inschrijvingen_beheren.js"/>
 
