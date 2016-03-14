@@ -14,201 +14,245 @@
                     <div class="titel">
                         #{clubBeheerBean.kampioenschap.naam}
                     </div>
-                    <div class="subTitel">
-                        Algemene Info
-                    </div>
 
-                    <div class="ui-grid ui-grid-responsive formGrid">
+                    <p:spacer height="30"/>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Startdatum:"/>
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel
-                                        value="#{clubBeheerBean.kampioenschap.beginDatum.datumInEuropeesFormaat}"/>
-                            </div>
-                        </div>
+                    <p:tabView id="tabs" cache="false" onTabChange="tabChangeHandler(index)">
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Einddatum:"/>
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel
-                                        value="#{clubBeheerBean.kampioenschap.eindDatum.datumInEuropeesFormaat}"/>
-                            </div>
-                        </div>
+                        <p:tab title="Algemene Info">
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Contact:"/>
+                            <div class="subTitel">
+                                Algemene Info
                             </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.contact}"/>
-                            </div>
-                        </div>
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Overnachtingen:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.overnachtingInfo}"/>
-                            </div>
-                        </div>
+                            <div class="ui-grid ui-grid-responsive formGrid">
 
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Omschrijving:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.omschrijving}"/>
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Rekeningnummer:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputText value="#{clubBeheerBean.kampioenschap.rekeningnummer}"/>
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Adres:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.locatie}"/>
-                            </div>
-                        </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Duid aan op de kaart:"/>
-                            </div>
-                            <div class="ui-grid-col-6">
-                                <input id="pac-input" class="controls" type="text" placeholder="Typ adres"></input>
-
-                                <div id="googleMap" style="width:500px;height:380px;"
-                                     class="centerPlus top10 bottom10"></div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="subTitel">
-                        Toernooien
-                    </div>
-
-                    <h:panelGroup id="pnl_toernooien">
-                        <p:outputLabel value="Klik op '+' om een toernooi aan te maken"
-                                       rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}"/>
-                        <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
-                            <h:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
-                                <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
-
-                                <div class="toernooi">
-                                    <div>#{toer.naam}</div>
-                                    <div>#{toer.datum.datumInEuropeesFormaat}</div>
-                                    <div class="right">#{toer.maximumAantalPloegen} Ploegen</div>
-                                    <div class="right">#{toer.personenPerPloeg} schutters per ploeg</div>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Startdatum:"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel
+                                                value="#{clubBeheerBean.kampioenschap.beginDatum.datumInEuropeesFormaat}"/>
+                                    </div>
                                 </div>
-                            </h:commandLink>
-                        </ui:repeat>
-                    </h:panelGroup>
 
-                    <div class="ui-grid ui-grid-responsive">
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-9">
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Einddatum:"/>
+                                    </div>
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel
+                                                value="#{clubBeheerBean.kampioenschap.eindDatum.datumInEuropeesFormaat}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Contact:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.contact}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Overnachtingen:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <p:inputTextarea cols="50"
+                                                         value="#{clubBeheerBean.kampioenschap.overnachtingInfo}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Omschrijving:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <p:inputTextarea cols="50"
+                                                         value="#{clubBeheerBean.kampioenschap.omschrijving}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Rekeningnummer:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <p:inputText value="#{clubBeheerBean.kampioenschap.rekeningnummer}"/>
+                                    </div>
+                                </div>
 
                             </div>
-                            <div class="ui-grid-col-3 right">
-                                <p:commandLink action="#{clubBeheerBean.nieuwToernooi}">
-                                    <i class="fa fa-plus-square-o plus"></i>
-                                </p:commandLink>
+
+                        </p:tab>
+
+                        <p:tab title="Waar?">
+
+
+                            <div class="ui-grid ui-grid-responsive formGrid">
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Adres:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <p:inputTextarea cols="50" value="#{clubBeheerBean.kampioenschap.locatie}"/>
+                                    </div>
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-3">
+                                        <p:outputLabel value="Duid aan op de kaart:"/>
+                                    </div>
+                                    <div class="ui-grid-col-6">
+                                        <input id="pac-input" class="controls" type="text"
+                                               placeholder="Typ adres"></input>
+
+                                        <div id="googleMap" style="width:500px;height:380px;"
+                                             class="centerPlus top10 bottom10"></div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="subTitel">
-                        Sponsoring
-                    </div>
+                            <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLat}" id="input_lat"/>
+                            <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLng}" id="input_lng"/>
 
-                    <p:messages id="msg_spons" showDetail="true" closable="true"></p:messages>
+                        </p:tab>
 
-                    <h:panelGroup id="pnl_sponsors">
-                        <p:outputLabel value="Klik op '+' om een clubsponsor toe te voegen"
-                                       rendered="#{clubBeheerBean.kampioenschap.sponsors.size() == 0}"/>
-                        <ui:repeat value="#{clubBeheerBean.kampioenschap.sponsors}" var="spons">
+                        <p:tab title="Toernooien">
 
+                            <div class="subTitel">
+                                Toernooien
+                            </div>
+
+                            <h:panelGroup id="pnl_toernooien">
+                                <p:outputLabel value="Klik op '+' om een toernooi aan te maken"
+                                               rendered="#{clubBeheerBean.kampioenschap.toernooien.size() == 0}"/>
+                                <ui:repeat value="#{clubBeheerBean.kampioenschap.toernooien}" var="toer">
+                                    <h:commandLink action="#{clubBeheerBean.toernooiKlik}"
+                                                   styleClass="wrappedCommandLink">
+                                        <f:setPropertyActionListener value="#{toer.id}"
+                                                                     target="#{clubBeheerBean.toerId}"/>
+
+                                        <div class="toernooi">
+                                            <div>#{toer.naam}</div>
+                                            <div>#{toer.datum.datumInEuropeesFormaat}</div>
+                                            <div class="right">#{toer.maximumAantalPloegen} Ploegen</div>
+                                            <div class="right">#{toer.personenPerPloeg} schutters per ploeg</div>
+                                        </div>
+                                    </h:commandLink>
+                                </ui:repeat>
+                            </h:panelGroup>
 
                             <div class="ui-grid ui-grid-responsive">
-                                <div class="ui-grid-row">
-                                    <div class="ui-grid-col-11">
-
-                                        <div class="ui-grid-row sponsorKampioenschap">
-                                            <div class="ui-grid-col-4">
-                                                <p:graphicImage cache="false" alt="logo" value="#{spons.fullPath}"
-                                                                height="#{spons.logoHoogte}"
-                                                                width="#{spons.logoBreedte}"/>
-                                            </div>
-                                            <div class="ui-grid-col-4">
-                                                #{spons.naam} <br/>
-                                                Link: #{spons.linksTo}
-                                            </div>
-                                            <div class="ui-grid-col-4">
-                                                #{spons.logoBreedte} x #{spons.logoHoogte}
-                                            </div>
-                                        </div>
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-9">
 
                                     </div>
-                                    <div class="ui-grid-col-1 relative">
-                                        <p:commandLink action="#{clubBeheerBean.verwijderSponsor}"
-                                                       update=":frm_kamppagina:pnl_sponsors :frm_dial:selectSponsor">
-                                            <f:setPropertyActionListener value="#{spons.id}"
-                                                                         target="#{clubBeheerBean.sponsId}"/>
-                                            <p:confirm header="Bevestiging"
-                                                       message="Ben je zeker dat je de sponsor wil verwijderen?"
-                                                       icon="ui-icon-alert"/>
-                                            <i class="fa fa-minus-square-o plus bottomLeft"></i>
+                                    <div class="ui-grid-col-3 right">
+                                        <p:commandLink action="#{clubBeheerBean.nieuwToernooi}">
+                                            <i class="fa fa-plus-square-o plus"></i>
                                         </p:commandLink>
-
-                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                            <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes"
-                                                             icon="ui-icon-check"/>
-                                            <p:commandButton value="Nee" type="button" styleClass="ui-confirmdialog-no"
-                                                             icon="ui-icon-close"/>
-                                        </p:confirmDialog>
                                     </div>
                                 </div>
                             </div>
 
-                        </ui:repeat>
-                    </h:panelGroup>
+                        </p:tab>
 
-                    <div class="ui-grid ui-grid-responsive">
-                        <div class="ui-grid-row formRow">
+                        <p:tab title="Sponsoring">
 
-                            <div class="ui-grid-col-11 right">
-                                <p:commandLink onclick="PF('dial_sponsor').show();">
-                                    <i class="fa fa-plus-square-o plus"></i>
-                                </p:commandLink>
+                            <div class="subTitel">
+                                Sponsoring
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="subTitel">
-                        Foto's
-                    </div>
+                            <p:messages id="msg_spons" showDetail="true" closable="true"></p:messages>
 
-                    <div class="left">
-                        <p:commandButton value="Foto's Uploaden"
-                                         action="club_fotos_uploaden?faces-redirect=true"></p:commandButton>
-                    </div>
+                            <h:panelGroup id="pnl_sponsors">
+                                <p:outputLabel value="Klik op '+' om een clubsponsor toe te voegen"
+                                               rendered="#{clubBeheerBean.kampioenschap.sponsors.size() == 0}"/>
+                                <ui:repeat value="#{clubBeheerBean.kampioenschap.sponsors}" var="spons">
+
+
+                                    <div class="ui-grid ui-grid-responsive">
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-11">
+
+                                                <div class="ui-grid-row sponsorKampioenschap">
+                                                    <div class="ui-grid-col-4">
+                                                        <p:graphicImage cache="false" alt="logo"
+                                                                        value="#{spons.fullPath}"
+                                                                        height="#{spons.logoHoogte}"
+                                                                        width="#{spons.logoBreedte}"/>
+                                                    </div>
+                                                    <div class="ui-grid-col-4">
+                                                        #{spons.naam} <br/>
+                                                        Link: #{spons.linksTo}
+                                                    </div>
+                                                    <div class="ui-grid-col-4">
+                                                        #{spons.logoBreedte} x #{spons.logoHoogte}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="ui-grid-col-1 relative">
+                                                <p:commandLink action="#{clubBeheerBean.verwijderSponsor}"
+                                                               update=":frm_kamppagina:tabs:pnl_sponsors :frm_dial:selectSponsor">
+                                                    <f:setPropertyActionListener value="#{spons.id}"
+                                                                                 target="#{clubBeheerBean.sponsId}"/>
+                                                    <p:confirm header="Bevestiging"
+                                                               message="Ben je zeker dat je de sponsor wil verwijderen?"
+                                                               icon="ui-icon-alert"/>
+                                                    <i class="fa fa-minus-square-o plus bottomLeft"></i>
+                                                </p:commandLink>
+
+                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                    <p:commandButton value="Ja" type="button"
+                                                                     styleClass="ui-confirmdialog-yes"
+                                                                     icon="ui-icon-check"/>
+                                                    <p:commandButton value="Nee" type="button"
+                                                                     styleClass="ui-confirmdialog-no"
+                                                                     icon="ui-icon-close"/>
+                                                </p:confirmDialog>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </ui:repeat>
+                            </h:panelGroup>
+
+                            <div class="ui-grid ui-grid-responsive">
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-11 right">
+                                        <p:commandLink onclick="PF('dial_sponsor').show();">
+                                            <i class="fa fa-plus-square-o plus"></i>
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </p:tab>
+
+                        <p:tab title="Foto's">
+
+                            <div class="subTitel">
+                                Foto's
+                            </div>
+
+                            <div class="left">
+                                <p:commandButton value="Foto's Uploaden"
+                                                 action="club_fotos_uploaden?faces-redirect=true"></p:commandButton>
+                            </div>
+
+                        </p:tab>
+
+                    </p:tabView>
+
+                    <p:spacer height="30"/>
 
                     <div class="pageButton">
                         <p:commandButton value="Opslaan" action="#{clubBeheerBean.opslaan}"
@@ -216,9 +260,6 @@
                     </div>
 
                 </div>
-
-                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLat}" id="input_lat"/>
-                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLng}" id="input_lng"/>
 
             </h:form>
 
@@ -242,10 +283,11 @@
                 </h:form>
             </p:dialog>
 
-
             <h:outputScript library="js" name="maps_club.js" target="head"/>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHvCE905NfeUcBWn-sb2P0tHeP3r0l-B0&amp;libraries=places"
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHvCE905NfeUcBWn-sb2P0tHeP3r0l-B0&amp;libraries=places&amp;callback=initAutocomplete"
+                    async="async" defer="defer"
                     />
+
         </ui:define>
 
     </ui:composition>

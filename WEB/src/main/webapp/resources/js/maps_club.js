@@ -1,13 +1,13 @@
 $(function () {
-    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    //google.maps.event.addDomListener(window, 'load', initAutocomplete);
 });
 
 function initAutocomplete() {
     var brusselLat = 50.850340;
     var brusselLng = 4.351710;
 
-    var kampLat = Number($("#frm_kamppagina\\:input_lat").val());
-    var kampLng = Number($("#frm_kamppagina\\:input_lng").val());
+    var kampLat = Number($("#frm_kamppagina\\:tabs\\:input_lat").val());
+    var kampLng = Number($("#frm_kamppagina\\:tabs\\:input_lng").val());
 
     var lat, lng;
     if (kampLat != 0 && kampLng != 0) {
@@ -86,10 +86,19 @@ function initAutocomplete() {
             }
 
             // EIGEN CODE
-            $("#frm_kamppagina\\:input_lat").val(place.geometry.location.lat());
-            $("#frm_kamppagina\\:input_lng").val(place.geometry.location.lng());
+            $("#frm_kamppagina\\:tabs\\:input_lat").val(place.geometry.location.lat());
+            $("#frm_kamppagina\\:tabs\\:input_lng").val(place.geometry.location.lng());
         });
         map.fitBounds(bounds);
     });
+}
+
+function tabChangeHandler(i) {
+
+    if (i == 1) {
+        initAutocomplete();
+    } else {
+        return;
+    }
 }
 
