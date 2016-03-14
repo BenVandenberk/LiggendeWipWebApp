@@ -18,6 +18,8 @@ public class Inschrijving implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private boolean betaald;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
 
@@ -64,6 +66,14 @@ public class Inschrijving implements Serializable {
 
     public void setToernooi(Toernooi toernooi) {
         this.toernooi = toernooi;
+    }
+
+    public boolean isBetaald() {
+        return betaald;
+    }
+
+    public void setBetaald(boolean betaald) {
+        this.betaald = betaald;
     }
 
     //region HELPERS

@@ -42,10 +42,6 @@ public class InschrijvingenBeherenBean {
     private int teVerwijderenPloegId = -1;
     private int clubIdTeVerwijderenPloeg = -1;
 
-    private boolean ploegenZichtbaar = false;
-    private boolean maaltijdenZichtbaar = false;
-    private boolean afrekeningZichtbaar = false;
-
     public int getToernooiId() {
         return toernooiId;
     }
@@ -105,30 +101,6 @@ public class InschrijvingenBeherenBean {
         );
 
         return ingeschrevenPloegen;
-    }
-
-    public boolean isPloegenZichtbaar() {
-        return ploegenZichtbaar;
-    }
-
-    public void setPloegenZichtbaar(boolean ploegenZichtbaar) {
-        this.ploegenZichtbaar = ploegenZichtbaar;
-    }
-
-    public boolean isMaaltijdenZichtbaar() {
-        return maaltijdenZichtbaar;
-    }
-
-    public void setMaaltijdenZichtbaar(boolean maaltijdenZichtbaar) {
-        this.maaltijdenZichtbaar = maaltijdenZichtbaar;
-    }
-
-    public boolean isAfrekeningZichtbaar() {
-        return afrekeningZichtbaar;
-    }
-
-    public void setAfrekeningZichtbaar(boolean afrekeningZichtbaar) {
-        this.afrekeningZichtbaar = afrekeningZichtbaar;
     }
 
     public List<SelectItem> getClubs() {
