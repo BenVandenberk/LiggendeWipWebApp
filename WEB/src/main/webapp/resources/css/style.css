@@ -352,13 +352,13 @@ a {
   padding: 20px;
   margin: 10px; }
 
-.postForm, .gegevensContent, .inschrijvingenContent, .cateringContent, .ploegenContent, .maaltijdenContent, .afrekeningContent {
+.postForm {
   display: none; }
 
 .post:hover {
   cursor: pointer; }
 
-.upExpand, .upExpandGegevens, .upExpandCatering, .upExpandInschrijvingen, .upExpandPloegen, .upExpandMaaltijden, .upExpandAfrekening {
+.upExpand {
   display: none; }
 
 /* -------------------------
