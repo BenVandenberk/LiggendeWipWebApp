@@ -101,11 +101,6 @@ public class ToonInschrijvingBean {
             redirect();
         }
 
-//        // De club is nog niet ingeschreven
-//        if (inschrijving == null) {
-//            inschrijving = Inschrijving.nieuweInschrijving(selectedClub, toernooi);
-//        }
-
         int volgendePloegIndex = inschrijving.getPloegen().size() + 1;
 
         try {
@@ -145,7 +140,7 @@ public class ToonInschrijvingBean {
         }
 
         try {
-            toernooi = toernooiService.save(toernooi);
+            inschrijfService.save(inschrijving);
             return "club_inschrijven?faces-redirect=true";
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();

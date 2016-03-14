@@ -76,4 +76,9 @@ public class InschrijfService implements IInschrijfService {
         }
         return builder.toString();
     }
+
+    @Override
+    public void save(Inschrijving inschrijving) {
+        entityManager.merge(inschrijving);
+    }
 }

@@ -12,7 +12,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Toernooi implements Serializable {
@@ -47,9 +50,6 @@ public class Toernooi implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Kampioenschap kampioenschap;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toernooi", orphanRemoval = true)
-    private Set<Ploeg> ploegen;
-
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "toernooi_id")
     @Fetch(FetchMode.SELECT)
@@ -65,7 +65,6 @@ public class Toernooi implements Serializable {
     //region CONSTRUCTORS
 
     public Toernooi() {
-        ploegen = new HashSet<Ploeg>();
         menus = new ArrayList<Menu>();
         status = new Aangemaakt();
         inschrijvingen = new ArrayList<>();
@@ -74,10 +73,6 @@ public class Toernooi implements Serializable {
     //endregion
 
     //region GETTERS en SETTERS
-
-    public Set<Ploeg> getPloegen() {
-        return Collections.unmodifiableSet(ploegen);
-    }
 
     public Kampioenschap getKampioenschap() {
         return kampioenschap;
@@ -287,18 +282,6 @@ public class Toernooi implements Serializable {
     public void removeMenu(String menuMemoryKey) {
         menus.removeIf(menu -> menu.getInMemoryKey().toString().equals(menuMemoryKey));
     }
-
-//    public List<Ploeg> getPloegenVan(Club club) {
-//        List<Ploeg> result = new ArrayList<>();
-//
-//        for (Ploeg ploeg : ploegen) {
-//            if (ploeg.getClub().equals(club)) {
-//                result.add(ploeg);
-//            }
-//        }
-//
-//        return result;
-//    }
 
     /**
      * Geeft de inschrijving voor dit toernooi van de meegegeven club terug

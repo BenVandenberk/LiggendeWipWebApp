@@ -22,8 +22,6 @@ public class Ploeg implements Serializable {
 
     private String naam;
     private int aantalLeden;
-    private int aantalMaaltijden;
-    private boolean betaald;
 
     @Convert(converter = DatumConverter.class)
     private Datum inschrijfDatum;
@@ -31,12 +29,6 @@ public class Ploeg implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Ploeg_id")
     private Set<Deelnemer> deelnemers;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Club club;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Toernooi toernooi;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Inschrijving inschrijving;
@@ -58,23 +50,6 @@ public class Ploeg implements Serializable {
     //endregion
 
     //region GETTERS & SETTERS
-
-
-    public Toernooi getToernooi() {
-        return toernooi;
-    }
-
-    public void setToernooi(Toernooi toernooi) {
-        this.toernooi = toernooi;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
 
     public List<Deelnemer> getDeelnemers() {
         return Collections.unmodifiableList(new ArrayList<>(deelnemers));
@@ -108,22 +83,6 @@ public class Ploeg implements Serializable {
         this.inschrijfDatum = inschrijfDatum;
     }
 
-    public int getAantalMaaltijden() {
-        return aantalMaaltijden;
-    }
-
-    public void setAantalMaaltijden(int aantalMaaltijden) {
-        this.aantalMaaltijden = aantalMaaltijden;
-    }
-
-    public boolean isBetaald() {
-        return betaald;
-    }
-
-    public void setBetaald(boolean betaald) {
-        this.betaald = betaald;
-    }
-
     public Inschrijving getInschrijving() {
         return inschrijving;
     }
@@ -135,48 +94,6 @@ public class Ploeg implements Serializable {
     //endregion
 
     //region PUBLIC METHODS
-
-//    /**
-//     * Gebruik deze method om een ploeg in te schrijven voor een toernooi
-//     *
-//     * @param club
-//     * @param toernooi
-//     * @param naam
-//     * @return de ingeschreven Ploeg
-//     * @throws IllegalArgumentException als club of toernooi null zijn
-//     * @throws IllegalStateException    als inschrijven voor het toernooi niet mogelijk is vanwege de toernooistatus
-//     */
-//    public static Ploeg schrijfPloegInVoorToernooi(Club club, Toernooi toernooi, String naam)
-//            throws IllegalArgumentException, IllegalStateException {
-//        if (club == null || toernooi == null) {
-//            throw new IllegalArgumentException(
-//                    "De Club en het Toernooi moeten verwijzen naar een bestaand object");
-//        }
-//
-//        Ploeg ploeg = new Ploeg(naam);
-//
-//        if (toernooi.getStatus().isInschrijvenMogelijk()) {
-//
-//            ploeg.setClub(club);
-//            ploeg.setToernooi(toernooi);
-//            ploeg.setAantalLeden(toernooi.getPersonenPerPloeg());
-//
-//            Deelnemer deelnemer;
-//            for (int i = 0; i < ploeg.aantalLeden; i++) {
-//                deelnemer = new Deelnemer();
-//                deelnemer.setNaam(String.format("Ploeglid %d", i + 1));
-//                ploeg.addDeelnemer(deelnemer);
-//            }
-//
-//            club.addPloeg(ploeg);
-//            toernooi.addPloeg(ploeg);
-//
-//        } else {
-//            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", toernooi.getStatus().toStringSimple()));
-//        }
-//
-//        return ploeg;
-//    }
 
     public void addDeelnemer(Deelnemer deelnemer)
             throws IllegalStateException {

@@ -21,4 +21,6 @@ public interface IInschrijfService {
      * @return een message met info over de verstuurde mails
      */
     String openInschrijvingen(Toernooi toernooi);
+
+    void save(Inschrijving inschrijving);
 }

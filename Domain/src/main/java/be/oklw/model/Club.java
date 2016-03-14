@@ -36,9 +36,6 @@ public class Club implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "club")
     private List<Sponsor> sponsors;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "club")
-    private Set<Ploeg> ploegen;
-
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "Club_id")
     private Set<Contact> contacten;
@@ -77,10 +74,6 @@ public class Club implements Serializable {
 
     public List<Sponsor> getSponsors() {
         return Collections.unmodifiableList(sponsors);
-    }
-
-    public Set<Ploeg> getPloegen() {
-        return Collections.unmodifiableSet(ploegen);
     }
 
     public Set<Contact> getContacten() {
@@ -180,14 +173,6 @@ public class Club implements Serializable {
         }
     }
 
-    protected void addPloeg(Ploeg ploeg) {
-        ploegen.add(ploeg);
-    }
-
-    public void removePloeg(Ploeg ploeg) {
-        ploegen.remove(ploeg);
-    }
-
     public void addContact(Contact contact) {
         contacten.add(contact);
     }
@@ -240,18 +225,6 @@ public class Club implements Serializable {
 
     public String getLogoFullPath() {
         return String.format("%s%s", PAD, logoPad);
-    }
-
-    public void removePloeg(int ploegId) {
-        Ploeg ploeg = null;
-
-        for (Ploeg p : ploegen) {
-            if (p.getId() == ploegId) {
-                ploeg = p;
-            }
-        }
-
-        ploegen.remove(ploeg);
     }
 
     //endregion
