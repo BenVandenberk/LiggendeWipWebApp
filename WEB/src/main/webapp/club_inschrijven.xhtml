@@ -131,11 +131,13 @@
 
                                     </div>
 
-                                    <ui:repeat value="#{inschrijving.ploegen}" var="ploeg">
+                                    <p:spacer height="15"/>
+
+                                    <ui:repeat value="#{inschrijving.ploegen}" var="ploeg" varStatus="status">
 
                                         <div class="ui-grid-row formRow">
 
-                                            <div class="ui-grid-col-3">
+                                            <div class="ui-grid-col-3 left">
                                                 #{ploeg.naam}
                                             </div>
 
@@ -147,9 +149,15 @@
 
                                             </div>
 
-                                            <h:panelGroup rendered="#{inschrijving.toernooiHeeftMaaltijd()}">
-                                                <div class="ui-grid-col-4 left">
-                                                    (#{ploeg.aantalMaaltijden} Maaltijden)
+                                            <h:panelGroup rendered="#{status.first}">
+                                                <div class="ui-grid-col-4 right">
+                                                    <h:panelGroup rendered="#{inschrijving.namenZijnIngevuld()}">
+                                                        <i class="fa fa-check big green"/>
+                                                    </h:panelGroup>
+
+                                                    <h:panelGroup rendered="#{!inschrijving.namenZijnIngevuld()}">
+                                                        <i class="fa fa-close big red"/>
+                                                    </h:panelGroup>
                                                 </div>
                                             </h:panelGroup>
 
@@ -157,21 +165,64 @@
 
                                     </ui:repeat>
 
-                                    <div class="ui-grid-row formRow">
+                                    <h:panelGroup rendered="#{inschrijving.betalingVereist()}">
 
-                                        <div class="ui-grid-col-12 right">
-
-                                            <h:panelGroup rendered="#{inschrijving.namenZijnIngevuld()}">
-                                                <i class="fa fa-check big green"/>
-                                            </h:panelGroup>
-
-                                            <h:panelGroup rendered="#{!inschrijving.namenZijnIngevuld()}">
-                                                <i class="fa fa-close big red"/>
-                                            </h:panelGroup>
-
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-12">
+                                                <p:separator/>
+                                            </div>
                                         </div>
 
-                                    </div>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{inschrijving.toernooiHeeftMaaltijd()}">
+
+                                        <ui:repeat value="#{inschrijving.menuBestellingen}" var="menuBestelling">
+
+                                            <div class="ui-grid-row formRow">
+
+                                                <p:outputLabel id="menu"
+                                                               value="#{menuBestelling.aantal} x Menu '#{menuBestelling.menu.naam}'   (€#{menuBestelling.menu.prijs} per persoon)">
+                                                    <p:tooltip for="menu" value="#{menuBestelling.menu.omschrijving}"
+                                                               escape="false">
+                                                        <f:converter converterId="NewLineConverter"/>
+                                                    </p:tooltip>
+                                                </p:outputLabel>
+
+                                            </div>
+
+                                        </ui:repeat>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{inschrijving.toernooi.metInleg}">
+
+                                        <div class="ui-grid-row formRow">
+                                            #{inschrijving.aantalPloegenIngeschreven} Ploegen (€#{inschrijving.toernooi.inlegPerPloeg} per ploeg)
+                                        </div>
+
+                                    </h:panelGroup>
+
+                                    <h:panelGroup rendered="#{inschrijving.betalingVereist()}">
+
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-12">
+                                                <p:separator/>
+                                            </div>
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-6 left">
+                                                <p:outputLabel value="Totaal: €#{inschrijving.totalePrijs()}"
+                                                               styleClass="bold"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-6 right">
+                                                Rekeningnummer: #{inschrijving.toernooi.kampioenschap.rekeningnummer}
+                                            </div>
+                                        </div>
+
+                                    </h:panelGroup>
 
                                 </div>
 

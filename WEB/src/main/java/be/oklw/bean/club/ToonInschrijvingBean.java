@@ -96,19 +96,15 @@ public class ToonInschrijvingBean {
         return inschrijving;
     }
 
-    //    public List<Ploeg> getIngeschrevenPloegen() {
-//        if (toernooi != null) {
-//            return toernooi.getPloegenVan(club);
-//        } else {
-//            redirect();
-//        }
-//        return null;
-//    }
-
     public void addPloeg() {
         if (toernooi == null) {
             redirect();
         }
+
+//        // De club is nog niet ingeschreven
+//        if (inschrijving == null) {
+//            inschrijving = Inschrijving.nieuweInschrijving(selectedClub, toernooi);
+//        }
 
         int volgendePloegIndex = inschrijving.getPloegen().size() + 1;
 
@@ -131,9 +127,6 @@ public class ToonInschrijvingBean {
         }
 
         try {
-//            toernooi.removePloeg(teVerwijderenPloegId);
-//            club.removePloeg(teVerwijderenPloegId);
-//            toernooi = toernooiService.save(toernooi);
             inschrijving = toernooi.removePloeg(teVerwijderenPloegId, club);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {

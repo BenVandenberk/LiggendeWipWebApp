@@ -221,13 +221,6 @@ public class Toernooi implements Serializable {
         inschrijvingen.add(inschrijving);
     }
 
-//    protected void addPloeg(Ploeg ploeg) {
-//        ploegen.add(ploeg);
-//        if (aantalIngeschrevenPloegen() >= maximumAantalPloegen) {
-//            status = new Vol();
-//        }
-//    }
-
     public Inschrijving addPloeg(Club club, String naam) {
         if (!inschrijvenMogelijk()) {
             throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", status.toStringSimple()));
@@ -236,7 +229,7 @@ public class Toernooi implements Serializable {
         Inschrijving inschrijving = getInschrijngVan(club);
 
         if (inschrijving == null) {
-            throw new IllegalStateException("Voor deze club is er nog geen inschrijving");
+            inschrijving = Inschrijving.nieuweInschrijving(club, this);
         }
 
         Ploeg ploeg = new Ploeg(naam);
@@ -256,13 +249,6 @@ public class Toernooi implements Serializable {
 
         return inschrijving;
     }
-
-//    protected void removePloeg(Ploeg ploeg) {
-//        ploegen.remove(ploeg);
-//        if (status instanceof Vol) {
-//            status = new InschrijvingenOpen();
-//        }
-//    }
 
     public Inschrijving removePloeg(int ploegId, Club club) {
         Inschrijving inschrijving = getInschrijngVan(club);

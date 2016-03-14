@@ -69,6 +69,30 @@
                                 <p:outputLabel value="#{toonInschrijvingBean.toernooi.datum.datumInEuropeesFormaat}"/>
                             </div>
                         </div>
+
+                        <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.metInleg}">
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3 indent">
+                                    <p:outputLabel value="Inleg per Ploeg:"/>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="€#{toonInschrijvingBean.toernooi.inlegPerPloeg}"/>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{toonInschrijvingBean.inschrijving.betalingVereist()}">
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Rekeningnummer:"/>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="#{toonInschrijvingBean.toernooi.kampioenschap.rekeningnummer}"
+                                                   styleClass="boldPlain"/>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+
                     </div>
 
                     <div class="subTitel">
@@ -103,7 +127,7 @@
 
                                                 <div class="ui-grid-col-3 right">
                                                     <p:commandLink action="#{toonInschrijvingBean.verwijderPloeg}"
-                                                                   update="frm:pnl_ploegen frm:msg"
+                                                                   update="frm:pnl_ploegen frm:msg frm:pnl_afrekening"
                                                                    styleClass="wrappedCommandLink">
                                                         <f:setPropertyActionListener value="#{ploeg.id}"
                                                                                      target="#{toonInschrijvingBean.teVerwijderenPloegId}"/>
@@ -126,9 +150,13 @@
 
                                                         <div class="ui-grid-row formRow">
 
-                                                            <div class="ui-grid-col-9">
-                                                                #{status.index + 1}) <p:inputText
-                                                                    value="#{deeln.naam}"/>
+                                                            <div class="ui-grid-col-1">
+                                                                #{status.index + 1})
+                                                            </div>
+
+                                                            <div class="ui-grid-col-11 left">
+                                                                <p:inputText
+                                                                        value="#{deeln.naam}"/>
                                                             </div>
 
                                                         </div>
@@ -138,25 +166,6 @@
                                                 </div>
 
                                             </div>
-
-                                            <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.heeftMaaltijd}">
-
-                                                <div class="ui-grid-row formRow">
-
-                                                    <div class="ui-grid-col-3">
-                                                        Aantal maaltijden:
-                                                    </div>
-
-                                                    <div class="ui-grid-col-3">
-                                                        <p:spinner value="#{ploeg.aantalMaaltijden}"
-                                                                   stepFactor="1"
-                                                                   size="3"
-                                                                />
-                                                    </div>
-
-                                                </div>
-
-                                            </h:panelGroup>
 
                                         </div>
 
@@ -169,7 +178,7 @@
                             <div class="ui-grid-row">
                                 <div class="ui-grid-col-12 right">
                                     <p:commandLink actionListener="#{toonInschrijvingBean.addPloeg}"
-                                                   update="frm:pnl_ploegen frm:msg">
+                                                   update="frm:pnl_ploegen frm:msg frm:pnl_afrekening">
                                         <i class="fa fa-plus-square-o plus"></i>
                                     </p:commandLink>
                                 </div>
@@ -178,13 +187,115 @@
 
                     </h:panelGroup>
 
-                    <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.heeftMaaltijd}">
+                    <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.heeftMaaltijd}" id="pnl_maaltijden">
 
                         <div class="subTitel">
                             Maaltijden
                         </div>
 
+                        <div class="ui-grid-responsive">
 
+                            <ui:repeat value="#{toonInschrijvingBean.inschrijving.menuBestellingen}"
+                                       var="menuBestelling">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:outputLabel
+                                                value="Menu '#{menuBestelling.menu.naam}' - €#{menuBestelling.menu.prijs}:"
+                                                id="menunaam">
+                                            <p:tooltip value="#{menuBestelling.menu.omschrijving}"
+                                                       escape="false"
+                                                       for="menunaam">
+                                                <f:converter converterId="NewLineConverter"/>
+                                            </p:tooltip>
+                                        </p:outputLabel>
+                                    </div>
+
+                                    <div class="ui-grid-col-2 left">
+                                        <p:spinner value="#{menuBestelling.aantal}"
+                                                   stepFactor="1"
+                                                   size="3"
+                                                   min="0">
+                                            <p:ajax event="change" update=":frm:pnl_afrekening"/>
+                                        </p:spinner>
+                                    </div>
+
+                                </div>
+
+                            </ui:repeat>
+
+                        </div>
+
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{toonInschrijvingBean.inschrijving.betalingVereist()}" id="pnl_afrekening">
+
+                        <div class="subTitel">
+                            Afrekening
+                        </div>
+
+                        <div class="ui-grid-responsive">
+
+                            <div class="ui-grid-row formRow">
+                                Indien u uw inschrijving volledig acht, verzoekt #{toonInschrijvingBean.kampioenschap.club.naam} u vriendelijk onderstaand bedrag te storten op #{toonInschrijvingBean.kampioenschap.rekeningnummer}
+                            </div>
+
+                            <p:spacer heigth="20"/>
+
+                            <ui:repeat value="#{toonInschrijvingBean.inschrijving.menuBestellingen}"
+                                       var="menuBestelling">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:outputLabel
+                                                value="Menu '#{menuBestelling.menu.naam}':"
+                                                id="menunaamAfr">
+                                            <p:tooltip value="#{menuBestelling.menu.omschrijving}"
+                                                       escape="false"
+                                                       for="menunaamAfr">
+                                                <f:converter converterId="NewLineConverter"/>
+                                            </p:tooltip>
+                                        </p:outputLabel>
+                                    </div>
+
+                                    <div class="ui-grid-col-9 left">
+                                        #{menuBestelling.aantal} x €#{menuBestelling.menu.prijs} = €#{menuBestelling.bestellingPrijs()}
+                                    </div>
+
+                                </div>
+
+                            </ui:repeat>
+
+                            <h:panelGroup rendered="#{toonInschrijvingBean.toernooi.metInleg}">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:outputLabel
+                                                value="Inleg:"/>
+                                    </div>
+
+                                    <div class="ui-grid-col-9 left">
+                                        #{toonInschrijvingBean.inschrijving.aantalPloegenIngeschreven} x €#{toonInschrijvingBean.toernooi.inlegPerPloeg} = €#{toonInschrijvingBean.inschrijving.totaleInleg()}
+                                    </div>
+
+                                </div>
+
+                            </h:panelGroup>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-3 left">
+                                    <p:spacer height="20" width="0"/>
+                                    <p:outputLabel value="Totaal: €#{toonInschrijvingBean.inschrijving.totalePrijs()}"
+                                                   styleClass="bold"/>
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     </h:panelGroup>
 

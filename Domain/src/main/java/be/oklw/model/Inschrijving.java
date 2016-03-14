@@ -151,6 +151,10 @@ public class Inschrijving implements Serializable {
         return maaltijdPrijs.add(totaleInleg());
     }
 
+    public boolean betalingVereist() {
+        return toernooi.isMetInleg() || toernooi.isHeeftMaaltijd();
+    }
+
     protected boolean removePloeg(int ploegId) {
         return ploegen.removeIf(ploeg -> ploeg.getId() == ploegId);
     }

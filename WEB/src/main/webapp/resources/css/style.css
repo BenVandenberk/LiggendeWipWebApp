@@ -155,7 +155,7 @@ a {
   cursor: pointer; }
 
 .indent {
-  padding-left: 10px; }
+  padding-left: 20px; }
 
 .plus {
   color: black;
@@ -221,6 +221,9 @@ a {
 .bold {
   font-weight: bold;
   font-style: oblique; }
+
+.boldPlain {
+  font-weight: bold; }
 
 #img_help:hover {
   cursor: pointer; }
@@ -333,7 +336,7 @@ a {
   border: 1px solid black;
   padding: 10px;
   text-decoration: none;
-  color: #0073ea;
+  color: black;
   margin-top: 10px;
   border-radius: 10px; }
 
