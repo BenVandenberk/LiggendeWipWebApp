@@ -64,4 +64,9 @@ public class Lopend extends ToernooiStatus {
     public String toStringSimple() {
         return "Lopend";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Het toernooi is bezig";
+    }
 }

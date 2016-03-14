@@ -129,6 +129,32 @@ public class ClubBeheerBean implements Serializable {
 
     //region METHODS
 
+    public String verwijderToernooi() {
+
+        if (!toernooi.isVerwijderbaar()) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    String.format("Toernooi is niet verwijderbaar: %s", toernooi.getStatus().toUserFriendlyString())
+            ));
+            return "";
+        }
+
+        try {
+            kampioenschapService.verwijderToernooi(toernooi, kampioenschap);
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()
+            ));
+        }
+
+        return "club_kampioenschapspagina?faces-redirect=true";
+    }
+
     public String toernooiKlik() {
         isNieuwToernooi = false;
         toernooi = toernooiService.getToernooi(toerId);

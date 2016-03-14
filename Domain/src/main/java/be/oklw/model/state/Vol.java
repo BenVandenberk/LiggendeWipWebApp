@@ -64,4 +64,9 @@ public class Vol extends ToernooiStatus {
     public String toStringSimple() {
         return "Vol";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Het toernooi is volzet";
+    }
 }

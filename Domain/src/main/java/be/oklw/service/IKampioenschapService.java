@@ -19,6 +19,8 @@ public interface IKampioenschapService {
 
     void opslaanToernooi(Toernooi toernooi);
 
+    void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
+
     Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException;
 
     List<Foto> getFotos(Kampioenschap kampioenschap);

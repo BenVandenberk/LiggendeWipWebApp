@@ -51,6 +51,16 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
+    public void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            kampioenschap.removeToernooi(toernooi);
+            entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
     public Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException {
         Foto foto = new Foto();
         foto.setOriginalFilename(fileName);

@@ -64,4 +64,9 @@ public class Gearchiveerd extends ToernooiStatus {
     public String toStringSimple() {
         return "Gearchiveerd";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Het toernooi is gearchiveerd";
+    }
 }

@@ -64,4 +64,9 @@ public class Afgerond extends ToernooiStatus {
     public String toStringSimple() {
         return "Afgerond";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Het toernooi is afgerond";
+    }
 }

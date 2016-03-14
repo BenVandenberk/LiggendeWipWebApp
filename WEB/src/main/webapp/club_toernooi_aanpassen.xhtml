@@ -23,17 +23,17 @@
                         </div>
                     </div>
 
-                    <p:messages showDetail="true"></p:messages>
-                    
-                    <p:spacer height="30" />
-                    
+                    <p:messages showDetail="true" id="global_msg"></p:messages>
+
+                    <p:spacer height="30"/>
+
                     <p:tabView id="tabs" cache="false">
-                        
+
                         <p:tab title="Gegevens">
 
                             <div class="subTitel">
                                 Gegevens
-                            </div> 
+                            </div>
 
                             <div class="ui-grid ui-grid-responsive formGrid">
 
@@ -57,7 +57,8 @@
                                         <p:inputText validatorMessage="Naam is verplicht"
                                                      value="#{clubBeheerBean.toernooi.naam}" id="naam">
                                             <f:validateRequired/>
-                                            <p:ajax event="change" update=":frm:tabs:msg_naam :frm:tabs:naam" global="false"/>
+                                            <p:ajax event="change" update=":frm:tabs:msg_naam :frm:tabs:naam"
+                                                    global="false"/>
                                         </p:inputText>
                                     </div>
                                     <div class="ui-grid-col-3">
@@ -70,11 +71,14 @@
                                         <p:outputLabel value="Datum*:"></p:outputLabel>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar id="datum" value="#{clubBeheerBean.toernooi.datum}" pattern="dd/MM/yyyy"
-                                                    validatorMessage="Datum is verplicht" readonlyInput="true" required="true"
+                                        <p:calendar id="datum" value="#{clubBeheerBean.toernooi.datum}"
+                                                    pattern="dd/MM/yyyy"
+                                                    validatorMessage="Datum is verplicht" readonlyInput="true"
+                                                    required="true"
                                                     requiredMessage="Datum is verplicht" navigator="true" locale="nl">
                                             <f:converter converterId="DatumConverter"></f:converter>
-                                            <p:ajax event="dateSelect" update=":frm:tabs:msg_datum :frm:tabs:datum" global="false"/>
+                                            <p:ajax event="dateSelect" update=":frm:tabs:msg_datum :frm:tabs:datum"
+                                                    global="false"/>
                                         </p:calendar>
                                     </div>
                                     <div class="ui-grid-col-3">
@@ -87,10 +91,12 @@
                                         <p:outputLabel value="Startuur*:"></p:outputLabel>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <pe:timePicker locale="nl" value="#{clubBeheerBean.toernooi.startTijdstip}" id="uur"
+                                        <pe:timePicker locale="nl" value="#{clubBeheerBean.toernooi.startTijdstip}"
+                                                       id="uur"
                                                        required="true" requiredMessage="Startuur is verplicht">
                                             <f:converter converterId="TimeConverter"/>
-                                            <p:ajax event="close" update=":frm:tabs:uur :frm:tabs:msg_uur" global="false"/>
+                                            <p:ajax event="close" update=":frm:tabs:uur :frm:tabs:msg_uur"
+                                                    global="false"/>
                                         </pe:timePicker>
                                     </div>
                                     <div class="ui-grid-col-3">
@@ -115,7 +121,8 @@
                                         <p:outputLabel value="Aantal ploegen*:"></p:outputLabel>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:spinner id="ploegen" size="5" value="#{clubBeheerBean.toernooi.maximumAantalPloegen}"
+                                        <p:spinner id="ploegen" size="5"
+                                                   value="#{clubBeheerBean.toernooi.maximumAantalPloegen}"
                                                    validatorMessage="Aantal ploegen moet tussen 2 en 1000 liggen"
                                                    requiredMessage="Aantal Ploegen is verplicht" min="0">
                                             <f:validateRequired/>
@@ -133,7 +140,8 @@
                                         <p:outputLabel value="Aantal personen per ploeg*:"></p:outputLabel>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:spinner id="ppp" size="5" value="#{clubBeheerBean.toernooi.personenPerPloeg}" min="0"
+                                        <p:spinner id="ppp" size="5" value="#{clubBeheerBean.toernooi.personenPerPloeg}"
+                                                   min="0"
                                                    validatorMessage="Personen per Ploeg moet tussen 1 en 20 liggen"
                                                    requiredMessage="Personen per Ploeg is verplicht">
                                             <f:validateRequired/>
@@ -179,7 +187,8 @@
                                         <p:outputLabel value="Inschrijvingsdeadline:"></p:outputLabel>
                                     </div>
                                     <div class="ui-grid-col-3">
-                                        <p:calendar value="#{clubBeheerBean.toernooi.inschrijfDeadline}" pattern="dd/MM/yyyy"
+                                        <p:calendar value="#{clubBeheerBean.toernooi.inschrijfDeadline}"
+                                                    pattern="dd/MM/yyyy"
                                                     navigator="true" locale="nl" readonlyInput="true">
                                             <f:converter converterId="DatumConverter"></f:converter>
                                         </p:calendar>
@@ -195,11 +204,11 @@
                                                          value="#{clubBeheerBean.toernooi.omschrijving}"></p:inputTextarea>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </p:tab>
-                        
+
                         <p:tab title="Catering">
 
                             <div class="subTitel">
@@ -232,7 +241,8 @@
                                             <p:outputLabel value="Voor dit toernooi zijn er nog geen menu's"
                                                            rendered="#{clubBeheerBean.toernooi.menus.size() == 0}"/>
 
-                                            <ui:repeat value="#{clubBeheerBean.toernooi.menus}" var="menu" varStatus="status">
+                                            <ui:repeat value="#{clubBeheerBean.toernooi.menus}" var="menu"
+                                                       varStatus="status">
 
                                                 <div class="ui-grid-row formRow">
 
@@ -312,9 +322,9 @@
                                 </h:panelGroup>
 
                             </div>
-                            
+
                         </p:tab>
-                        
+
                         <p:tab title="Inschrijvingen" rendered="#{!clubBeheerBean.nieuwToernooi}">
 
                             <h:panelGroup id="inschrijvingen" rendered="#{!clubBeheerBean.nieuwToernooi}">
@@ -374,17 +384,23 @@
                                 </div>
 
                             </h:panelGroup>
-                            
+
                         </p:tab>
-                        
-                    </p:tabView> 
+
+                    </p:tabView>
 
                     <p:spacer height="30"/>
 
                     <div class="pageButton">
                         <p:commandButton value="Toernooi Verwijderen"
                                          rendered="#{!clubBeheerBean.nieuwToernooi}"
-                                         global="false"/>
+                                         global="false"
+                                         action="#{clubBeheerBean.verwijderToernooi}"
+                                         update=":frm:global_msg">
+
+                            <p:confirm header="Bevestiging" message="Ben je zeker dat je het toernooi wil verwijderen?"
+                                       icon="ui-icon-alert"/>
+                        </p:commandButton>
                         <p:button value="Annuleren"
                                   rendered="#{clubBeheerBean.nieuwToernooi}"
                                   outcome="club_kampioenschapspagina?faces-redirect=true"/>
@@ -418,6 +434,11 @@
                     </div>
                 </h:form>
             </p:dialog>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Nee" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
 
         </ui:define>
 

@@ -64,4 +64,9 @@ public class Ingesteld extends ToernooiStatus {
     public String toStringSimple() {
         return "Ingesteld";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Alle gegevens en instellingen met betrekking tot het toernooi zijn volledig";
+    }
 }

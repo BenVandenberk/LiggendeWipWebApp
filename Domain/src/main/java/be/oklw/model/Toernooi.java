@@ -218,7 +218,7 @@ public class Toernooi implements Serializable {
 
     public Inschrijving addPloeg(Club club, String naam) {
         if (!inschrijvenMogelijk()) {
-            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. Toernooistatus: %s", status.toStringSimple()));
+            throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. %s", status.toUserFriendlyString()));
         }
 
         Inschrijving inschrijving = getInschrijngVan(club);

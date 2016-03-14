@@ -43,6 +43,8 @@ public abstract class ToernooiStatus implements Serializable {
         return "Abstracte ToernooiStatus";
     }
 
+    public abstract String toUserFriendlyString();
+
     public static ToernooiStatus maak(String status) {
         switch (status) {
             case "Aangemaakt":

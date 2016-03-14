@@ -63,4 +63,9 @@ public class Aangemaakt extends ToernooiStatus {
     public String toStringSimple() {
         return "Aangemaakt";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "Het toernooi is juist aangemaakt";
+    }
 }

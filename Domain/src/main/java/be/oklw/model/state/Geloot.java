@@ -64,4 +64,9 @@ public class Geloot extends ToernooiStatus {
     public String toStringSimple() {
         return "Geloot";
     }
+
+    @Override
+    public String toUserFriendlyString() {
+        return "De loting voor het toernooi is gebeurd";
+    }
 }

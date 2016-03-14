@@ -26,11 +26,11 @@ public class Kampioenschap extends Evenement {
     @Fetch(FetchMode.SELECT)
     private List<Sponsor> sponsors;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap", orphanRemoval = true)
     @Fetch(FetchMode.SELECT)
     private List<Toernooi> toernooien;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap", orphanRemoval = true)
     private List<Foto> fotos;
 
     //endregion
@@ -40,6 +40,7 @@ public class Kampioenschap extends Evenement {
     public Kampioenschap() {
         sponsors = new ArrayList<Sponsor>();
         toernooien = new ArrayList<Toernooi>();
+        fotos = new ArrayList<Foto>();
     }
 
     //endregion
