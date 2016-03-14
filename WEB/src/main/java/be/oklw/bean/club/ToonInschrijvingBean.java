@@ -142,8 +142,6 @@ public class ToonInschrijvingBean {
         }
 
         try {
-//            inschrijfService.save(inschrijving);
-//            toernooi.updateInschrijvingVan(club, inschrijving);
             toernooi = toernooiService.save(toernooi);
             return "club_inschrijven?faces-redirect=true";
         } catch (Exception ex) {
