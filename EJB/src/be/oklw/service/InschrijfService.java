@@ -1,8 +1,8 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Club;
 import be.oklw.model.Inschrijving;
-import be.oklw.model.Ploeg;
 import be.oklw.model.Toernooi;
 import be.oklw.util.Datum;
 
@@ -57,7 +57,7 @@ public class InschrijfService implements IInschrijfService {
     }
 
     @Override
-    public String openInschrijvingen(Toernooi toernooi) {
+    public String openInschrijvingen(Toernooi toernooi) throws BusinessException {
         toernooi.openInschrijvingen();
         toernooiService.save(toernooi);
 
@@ -78,7 +78,11 @@ public class InschrijfService implements IInschrijfService {
     }
 
     @Override
-    public void save(Inschrijving inschrijving) {
-        entityManager.merge(inschrijving);
+    public void save(Inschrijving inschrijving) throws BusinessException {
+        try {
+            entityManager.merge(inschrijving);
+        } catch (Exception ex) {
+            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Toernooi;
 
 import javax.ejb.Local;
@@ -9,5 +10,5 @@ public interface IToernooiService {
 
     Toernooi getToernooi(int id);
 
-    Toernooi save(Toernooi toernooi);
+    Toernooi save(Toernooi toernooi) throws BusinessException;
 }

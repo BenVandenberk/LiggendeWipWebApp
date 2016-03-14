@@ -301,6 +301,14 @@ public class Toernooi implements Serializable {
         return null;
     }
 
+    public void updateInschrijvingVan(Club club, Inschrijving inschrijving) {
+        Inschrijving oud = getInschrijngVan(club);
+
+        if (oud != null) {
+            oud = inschrijving;
+        }
+    }
+
     public boolean inschrijvenMogelijk() {
         return status.isInschrijvenMogelijk();
     }

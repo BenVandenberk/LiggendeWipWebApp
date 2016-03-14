@@ -1,5 +1,6 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Club;
 import be.oklw.model.Toernooi;
 import be.oklw.model.Inschrijving;
@@ -20,7 +21,7 @@ public interface IInschrijfService {
      * @param toernooi het Toernooi waarvan de inschrijvingen geopend worden
      * @return een message met info over de verstuurde mails
      */
-    String openInschrijvingen(Toernooi toernooi);
+    String openInschrijvingen(Toernooi toernooi) throws BusinessException;
 
-    void save(Inschrijving inschrijving);
+    void save(Inschrijving inschrijving) throws BusinessException;
 }

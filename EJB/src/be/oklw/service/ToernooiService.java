@@ -1,5 +1,6 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Toernooi;
 
 import javax.ejb.*;
@@ -21,7 +22,11 @@ public class ToernooiService implements IToernooiService {
     }
 
     @Override
-    public Toernooi save(Toernooi toernooi) {
-        return entityManager.merge(toernooi);
+    public Toernooi save(Toernooi toernooi) throws BusinessException {
+        try {
+            return entityManager.merge(toernooi);
+        } catch (Exception ex) {
+            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+        }
     }
 }

@@ -24,7 +24,7 @@ public class GebruikerService implements IGebruikerService {
     EntityManager entityManager;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Account login(String userName, String password) {
+    public Account login(String userName, String password) throws BusinessException {
 
         List<Account> accounts =  entityManager.createQuery(
                 "select a from Account a where a.userName LIKE :un"
@@ -32,12 +32,12 @@ public class GebruikerService implements IGebruikerService {
          .getResultList();
 
         if (accounts.size() == 0) {
-            throw new IllegalArgumentException("Onbestaande gebruiker");
+            throw new BusinessException("Onbestaande gebruiker");
         }
 
         Account account = accounts.get(0);
         if (!Authentication.isJuistPaswoord(password, account.getPwHash(), account.getPwSalt())) {
-            throw new IllegalArgumentException("Onjuist paswoord");
+            throw new BusinessException("Onjuist paswoord");
         }
 
         return account;

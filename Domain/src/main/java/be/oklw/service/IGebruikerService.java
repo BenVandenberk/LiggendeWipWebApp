@@ -11,7 +11,7 @@ import java.util.List;
 @Local
 public interface IGebruikerService {
 
-    Account login(String userName, String password);
+    Account login(String userName, String password) throws BusinessException;
 
     void createAdmin();
 

@@ -42,12 +42,12 @@ public class LoginBean {
 
         try {
             Account account = gebruikerService.login(userName, password);
-            HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(true);
+            HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);
             httpSession.setAttribute("user", account);
             return "success";
 
         } catch (Exception ex) {
-            FacesMessage message = new FacesMessage(ex.getMessage());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oeps", ex.getMessage());
             facesContext.addMessage("", message);
         }
         return "";
@@ -55,10 +55,10 @@ public class LoginBean {
 
     public void preRenderListener() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
 
         String redirectMessage = null;
-        redirectMessage = (String)session.getAttribute("redirectMessage");
+        redirectMessage = (String) session.getAttribute("redirectMessage");
 
         if (redirectMessage != null) {
             facesContext.addMessage(null, new FacesMessage(redirectMessage));

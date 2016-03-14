@@ -101,11 +101,12 @@ public class ToonInschrijvingBean {
             redirect();
         }
 
-        int volgendePloegIndex = inschrijving.getPloegen().size() + 1;
+        int volgendePloegIndex = inschrijving == null ? 1 : inschrijving.getPloegen().size() + 1;
 
         try {
-            inschrijving = toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex);
+            toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex);
             toernooi = toernooiService.save(toernooi);
+            inschrijving = toernooi.getInschrijngVan(club);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -122,8 +123,9 @@ public class ToonInschrijvingBean {
         }
 
         try {
-            inschrijving = toernooi.removePloeg(teVerwijderenPloegId, club);
+            toernooi.removePloeg(teVerwijderenPloegId, club);
             toernooi = toernooiService.save(toernooi);
+            inschrijving = toernooi.getInschrijngVan(club);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -140,7 +142,9 @@ public class ToonInschrijvingBean {
         }
 
         try {
-            inschrijfService.save(inschrijving);
+//            inschrijfService.save(inschrijving);
+//            toernooi.updateInschrijvingVan(club, inschrijving);
+            toernooi = toernooiService.save(toernooi);
             return "club_inschrijven?faces-redirect=true";
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
