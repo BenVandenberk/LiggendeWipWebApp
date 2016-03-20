@@ -132,6 +132,32 @@ public class GebruikerController {
         return user.heeftRol(rol);
     }
 
+    public void opslaan() {
+        try {
+            clubService.save(club);
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_INFO,
+                            "Geslaagd",
+                            "Registratiecode is succesvol gewijzigd"
+                    )
+            );
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
+    }
+
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);

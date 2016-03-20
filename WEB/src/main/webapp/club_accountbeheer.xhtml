@@ -9,151 +9,204 @@
 
         <ui:define name="bodycontent">
 
-                <div class="bodyWrapper">
+            <div class="bodyWrapper">
 
-                    <div class="titel">
-                        Accountbeheer
-                    </div>
-
-                    <div class="ui-grid ui-grid-responsive formGrid">
-                <div class="ui-grid-row formRow">
-                    <div class="ui-grid-col-12">
-                        <p:fieldset legend="Gegevens: #{gebruikerController.user.userName}">
-
-                            <h:form id="frm_paswoord" binding="#{frm_paswoord}">
-
-                                <p:messages id="messages" rendered="#{frm_paswoord.submitted}" closable="true" autoUpdate="true"></p:messages>
-                                <o:validateEqual components="paswoord herhaald_paswoord" message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Oud paswoord:"></p:outputLabel>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
-                                    </div>
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
-                                        </p:password>
-                                    </div>
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
-                                    </div>
-                                    <div class="ui-grid-col-3">
-                                        <p:password id="herhaald_paswoord" value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
-                                    </div>
-                                </div>
-
-                                <div class="ui-grid-row formRow">
-                                    <div class="ui-grid-col-12  right">
-                                        <p:commandButton value="Verander paswoord" action="#{gebruikerController.veranderPaswoord}" update="@form"></p:commandButton>
-                                    </div>
-                                </div>
-
-                            </h:form>
-
-                        </p:fieldset>
-                        </div>
-                    </div>
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-12">
-                                <p:fieldset legend="Clublogo">
-
-                                    <h:form id="frm_upload" binding="#{frm_upload}" enctype="multipart/form-data">
-
-                                        <p:messages id="messages_upload" showDetail="true" closable="true"></p:messages>
-
-                                        <div class="ui-grid-row formRow">
-                                            <div class="ui-grid-col-10">
-                                                <p:fileUpload fileUploadListener="#{fileUploadBean.uploadClubLogo}"
-                                                              uploadLabel="Uploaden"
-                                                              cancelLabel="Annuleren"
-                                                              label="Bladeren"
-                                                              mode="advanced"
-                                                              update=":frm_afmetingen:spin_hoogte :frm_afmetingen:spin_breedte @form :frm_logo :frm_logo:pnl_logo"
-                                                              oncomplete="uploadComplete()"
-                                                              fileLimit="1"
-                                                              fileLimitMessage="Je kan maar 1 clublogo uploaden"
-                                                              sizeLimit="5242880"
-                                                              allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
-                                                              invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
-                                                              invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
-                                                              />
-                                            </div>
-                                        </div>
-
-
-                                    </h:form>
-
-                                    <p:spacer height="30" />
-
-                                    <div class="ui-grid-row formRow">
-                                        <div class="ui-grid-col-6">
-
-                                            <h:form id="frm_afmetingen">
-
-                                                <div class="ui-grid-row formRow">
-                                                    <div class="ui-grid-col-2">
-                                                        <p:outputLabel value="Hoogte"></p:outputLabel>
-                                                    </div>
-                                                    <div class="ui-grid-col-1">
-                                                        <p:spinner stepFactor="10" value="#{gebruikerController.club.logoHoogte}" id="spin_hoogte" size="5"></p:spinner>
-                                                    </div>
-                                                </div>
-
-                                                <div class="ui-grid-row formRow">
-                                                    <div class="ui-grid-col-2">
-                                                        <p:outputLabel value="Breedte"></p:outputLabel>
-                                                    </div>
-                                                    <div class="ui-grid-col-1">
-                                                        <p:spinner stepFactor="10" value="#{gebruikerController.club.logoBreedte}" id="spin_breedte" size="5"></p:spinner>
-                                                    </div>
-                                                </div>
-
-                                                <p:spacer height="15" />
-
-                                                <div class="ui-grid-row formRow">
-                                                    <div class="ui-grid-col-5">
-                                                        <p:commandButton id="btn_bewaar" value="Bewaar Afmetingen" actionListener="#{gebruikerController.bewaarAfmetingen}" update="@form"></p:commandButton>
-                                                        <p:spacer height="10" />
-                                                        <p:message id="mess_bewaar" for="btn_bewaar"/>
-                                                    </div>
-                                                </div>
-
-                                            </h:form>
-
-                                        </div>
-
-                                        <div class="ui-grid-col-6 right">
-                                            <h:form id="frm_logo">
-                                                <p:outputPanel rendered="#{!gebruikerController.heeftLogo}">
-                                                    <i class="fa fa-image" style="font-size: 200px"/>
-                                                </p:outputPanel>
-                                                <p:outputPanel id="pnl_logo" rendered="#{gebruikerController.heeftLogo}">
-                                                    <p:graphicImage cache="false" id="img_logo" value="#{gebruikerController.logoUrl}" alt="Logo"/>
-                                                </p:outputPanel>
-                                            </h:form>
-                                        </div>
-                                    </div>
-
-                                </p:fieldset>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="titel">
+                    Accountbeheer
                 </div>
 
-            <h:outputScript library="js" name="uploadimage.js" />
+                <div class="ui-grid ui-grid-responsive formGrid">
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-12">
+                            <p:fieldset legend="Gegevens: #{gebruikerController.user.userName}">
+
+                                <h:form id="frm_paswoord" binding="#{frm_paswoord}">
+
+                                    <p:messages id="messages" rendered="#{frm_paswoord.submitted}" closable="true"
+                                                autoUpdate="true"></p:messages>
+                                    <o:validateEqual components="paswoord herhaald_paswoord"
+                                                     message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Oud paswoord:"></p:outputLabel>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
+                                            </p:password>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:password id="herhaald_paswoord"
+                                                        value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
+                                        </div>
+                                    </div>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-12  right">
+                                            <p:commandButton value="Verander paswoord"
+                                                             action="#{gebruikerController.veranderPaswoord}"
+                                                             update="@form"></p:commandButton>
+                                        </div>
+                                    </div>
+
+                                </h:form>
+
+                            </p:fieldset>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-12">
+                            <p:fieldset legend="Registratie Code">
+
+                                <h:form id="frm_registratieCode">
+
+                                    <p>
+                                        Met behulp van deze code kunnen bezoekers van de site zich registreren als lid van uw club.
+                                    </p>
+
+                                    <p:messages id="msg_registratieCode" closable="true" autoUpdate="true"
+                                                showDetail="true"></p:messages>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Registratie Code:"></p:outputLabel>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputText value="#{gebruikerController.club.registratieCode}"
+                                                         validatorMessage="Registratiecode is verplicht"
+                                                         id="registratieCode">
+                                                <f:validateRequired/>
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-12  right">
+                                            <p:commandButton value="Opslaan" action="#{gebruikerController.opslaan}"
+                                                             update="@form"></p:commandButton>
+                                        </div>
+                                    </div>
+
+                                </h:form>
+
+                            </p:fieldset>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-12">
+                            <p:fieldset legend="Clublogo">
+
+                                <h:form id="frm_upload" binding="#{frm_upload}" enctype="multipart/form-data">
+
+                                    <p:messages id="messages_upload" showDetail="true" closable="true"></p:messages>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-10">
+                                            <p:fileUpload fileUploadListener="#{fileUploadBean.uploadClubLogo}"
+                                                          uploadLabel="Uploaden"
+                                                          cancelLabel="Annuleren"
+                                                          label="Bladeren"
+                                                          mode="advanced"
+                                                          update=":frm_afmetingen:spin_hoogte :frm_afmetingen:spin_breedte @form :frm_logo :frm_logo:pnl_logo"
+                                                          oncomplete="uploadComplete()"
+                                                          fileLimit="1"
+                                                          fileLimitMessage="Je kan maar 1 clublogo uploaden"
+                                                          sizeLimit="5242880"
+                                                          allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
+                                                          invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
+                                                          invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
+                                                    />
+                                        </div>
+                                    </div>
+
+
+                                </h:form>
+
+                                <p:spacer height="30"/>
+
+                                <div class="ui-grid-row formRow">
+                                    <div class="ui-grid-col-6">
+
+                                        <h:form id="frm_afmetingen">
+
+                                            <div class="ui-grid-row formRow">
+                                                <div class="ui-grid-col-2">
+                                                    <p:outputLabel value="Hoogte"></p:outputLabel>
+                                                </div>
+                                                <div class="ui-grid-col-1">
+                                                    <p:spinner stepFactor="10"
+                                                               value="#{gebruikerController.club.logoHoogte}"
+                                                               id="spin_hoogte" size="5"></p:spinner>
+                                                </div>
+                                            </div>
+
+                                            <div class="ui-grid-row formRow">
+                                                <div class="ui-grid-col-2">
+                                                    <p:outputLabel value="Breedte"></p:outputLabel>
+                                                </div>
+                                                <div class="ui-grid-col-1">
+                                                    <p:spinner stepFactor="10"
+                                                               value="#{gebruikerController.club.logoBreedte}"
+                                                               id="spin_breedte" size="5"></p:spinner>
+                                                </div>
+                                            </div>
+
+                                            <p:spacer height="15"/>
+
+                                            <div class="ui-grid-row formRow">
+                                                <div class="ui-grid-col-5">
+                                                    <p:commandButton id="btn_bewaar" value="Bewaar Afmetingen"
+                                                                     actionListener="#{gebruikerController.bewaarAfmetingen}"
+                                                                     update="@form"></p:commandButton>
+                                                    <p:spacer height="10"/>
+                                                    <p:message id="mess_bewaar" for="btn_bewaar"/>
+                                                </div>
+                                            </div>
+
+                                        </h:form>
+
+                                    </div>
+
+                                    <div class="ui-grid-col-6 right">
+                                        <h:form id="frm_logo">
+                                            <p:outputPanel rendered="#{!gebruikerController.heeftLogo}">
+                                                <i class="fa fa-image" style="font-size: 200px"/>
+                                            </p:outputPanel>
+                                            <p:outputPanel id="pnl_logo" rendered="#{gebruikerController.heeftLogo}">
+                                                <p:graphicImage cache="false" id="img_logo"
+                                                                value="#{gebruikerController.logoUrl}" alt="Logo"/>
+                                            </p:outputPanel>
+                                        </h:form>
+                                    </div>
+                                </div>
+
+                            </p:fieldset>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h:outputScript library="js" name="uploadimage.js"/>
 
         </ui:define>
 

@@ -202,4 +202,13 @@ public class ClubService implements IClubService {
         dbClub.getSponsors().size();
         return dbClub;
     }
+
+    @Override
+    public void save(Club club) throws BusinessException {
+        try {
+            entityManager.merge(club);
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er ging iets mis: %s", ex.getMessage()));
+        }
+    }
 }

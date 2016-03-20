@@ -26,6 +26,7 @@ public class Club implements Serializable {
     private String logoPad;
     private String naam;
     private String locatie;
+    private String registratieCode;
 
     private int logoBreedte;
     private int logoHoogte;
@@ -150,6 +151,14 @@ public class Club implements Serializable {
 
     public void setLogoHoogte(int logoHoogte) {
         this.logoHoogte = logoHoogte;
+    }
+
+    public String getRegistratieCode() {
+        return registratieCode;
+    }
+
+    public void setRegistratieCode(String registratieCode) {
+        this.registratieCode = registratieCode;
     }
 
     //endregion
