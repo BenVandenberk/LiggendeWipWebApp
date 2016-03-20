@@ -27,4 +27,6 @@ public interface IGebruikerService {
     Club valideerRegistratieCode(String code) throws BusinessException;
 
     Account registreer(Lid lid, Club club, String userName, String password) throws BusinessException;
+
+    void updateLid(Lid lid) throws BusinessException;
 }

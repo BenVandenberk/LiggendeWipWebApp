@@ -117,4 +117,13 @@ public class GebruikerService implements IGebruikerService {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
     }
+
+    @Override
+    public void updateLid(Lid lid) throws BusinessException {
+        try {
+            entityManager.merge(lid);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
 }

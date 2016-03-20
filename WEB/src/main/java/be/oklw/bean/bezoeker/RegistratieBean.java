@@ -1,14 +1,17 @@
 package be.oklw.bean.bezoeker;
 
+import be.oklw.bean.common.GebruikerController;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Lid;
+import be.oklw.model.PermissieNiveau;
 import be.oklw.service.IGebruikerService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -149,6 +152,45 @@ public class RegistratieBean {
                     )
             );
             return "";
+        }
+    }
+
+    public void veranderVanClub() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        if (!clubConfirmed) {
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_WARN,
+                            "Oeps",
+                            "Geef eerst een geldige registratiecode en klik op 'Controleer Code'"
+                    )
+            );
+            return;
+        }
+
+        try {
+            HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);
+            Account user = (Account) httpSession.getAttribute("user");
+            boolean loggedIn = user != null;
+
+            if (!loggedIn || !(user.getPermissieNiveau().equals(PermissieNiveau.LID))) {
+                throw new Exception("Om van club te veranderen moet je ingelogd zijn als Lid");
+            }
+
+            Lid lid = user.getLid();
+            lid.setClub(club);
+            gebruikerService.updateLid(lid);
+        } catch (Exception ex) {
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
         }
     }
 
