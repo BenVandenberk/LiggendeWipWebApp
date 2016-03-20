@@ -25,6 +25,7 @@ public class AuthorizationFilter implements Filter {
         ArrayList<String> bezoekerUrls = new ArrayList<>();
         bezoekerUrls.add("/login.xhtml");
         bezoekerUrls.add("/home.xhtml");
+        bezoekerUrls.add("/registreren.xhtml");
         bezoekerUrls.add("/bezoeker_fotos.xhtml");
         bezoekerUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
         bezoekerUrls.add("/bezoeker_kampioenschapsindex.xhtml");
@@ -70,9 +71,20 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         systeemUrls.add("/bezoeker_toernooipagina.xhtml");
 
+        ArrayList<String> lidUrls = new ArrayList<>();
+        lidUrls.add("/login.xhtml");
+        lidUrls.add("/home.xhtml");
+        lidUrls.add("/bezoeker_fotos.xhtml");
+        lidUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
+        lidUrls.add("/bezoeker_kampioenschapsindex.xhtml");
+        lidUrls.add("/bezoeker_kampioenschapspagina.xhtml");
+        lidUrls.add("/bezoeker_toernooipagina.xhtml");
+        lidUrls.add("/lid_accountbeheer.xhtml");
+
         toegelatenUrlsPerRol.put("club", clubUrls);
         toegelatenUrlsPerRol.put("bezoeker", bezoekerUrls);
         toegelatenUrlsPerRol.put("systeem", systeemUrls);
+        toegelatenUrlsPerRol.put("lid", lidUrls);
     }
 
     @Override

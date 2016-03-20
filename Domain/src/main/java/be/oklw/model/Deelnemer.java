@@ -1,9 +1,6 @@
 package be.oklw.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -18,6 +15,9 @@ public class Deelnemer implements Serializable {
     private int id;
 
     private String naam;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    private Lid lid;
 
     //endregion
 
@@ -39,9 +39,10 @@ public class Deelnemer implements Serializable {
 
     //region CONSTRUCTORS
 
-    public Deelnemer(){}
+    public Deelnemer() {
+    }
 
-    public Deelnemer(String naam){
+    public Deelnemer(String naam) {
         this.naam = naam;
     }
 

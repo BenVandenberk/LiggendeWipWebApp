@@ -19,5 +19,6 @@
     <entity class="Menu"></entity>
     <entity class="Inschrijving"></entity>
     <entity class="MenuBestelling"></entity>
+    <entity class="Lid"></entity>
 
 </entity-mappings>

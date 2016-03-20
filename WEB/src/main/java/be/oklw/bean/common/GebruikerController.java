@@ -1,9 +1,6 @@
 package be.oklw.bean.common;
 
-import be.oklw.model.Account;
-import be.oklw.model.Club;
-import be.oklw.model.PermissieNiveau;
-import be.oklw.model.SysteemAccount;
+import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
 
@@ -29,6 +26,7 @@ public class GebruikerController {
     private Account user;
     private boolean loggedIn;
     private Club club;
+    private Lid lid;
     private boolean heeftLogo;
     private String logoUrl;
     private String newEmail;
@@ -105,6 +103,10 @@ public class GebruikerController {
         this.club = club;
     }
 
+    public Lid getLid() {
+        return lid;
+    }
+
     public String getNewEmail() {
         return newEmail;
     }
@@ -130,6 +132,32 @@ public class GebruikerController {
             return false;
         }
         return user.heeftRol(rol);
+    }
+
+    public void opslaan() {
+        try {
+            clubService.save(club);
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_INFO,
+                            "Geslaagd",
+                            "Registratiecode is succesvol gewijzigd"
+                    )
+            );
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
     }
 
     public String logout() {
@@ -226,6 +254,32 @@ public class GebruikerController {
         return lijst;
     }
 
+    public void updateLidGegevens() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        try {
+            gebruikerService.updateLid(lid);
+
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_INFO,
+                            "Geslaagd",
+                            "Gegevens zijn succesvol gewijzigd"
+                    )
+            );
+        } catch (Exception ex) {
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
+    }
+
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -235,6 +289,10 @@ public class GebruikerController {
 
         if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.CLUB) {
             club = clubService.getClub(user);
+        }
+
+        if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.LID) {
+            lid = user.getLid();
         }
     }
 

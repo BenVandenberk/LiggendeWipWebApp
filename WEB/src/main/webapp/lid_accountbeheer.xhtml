@@ -1,0 +1,252 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:o="http://omnifaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+
+
+            <div class="bodyWrapper">
+
+                <div class="titel">
+                    Accountbeheer
+                </div>
+
+                <div class="ui-grid ui-grid-responsive formGrid">
+
+                    <p:fieldset legend="Paswoord">
+
+                        <h:form id="frm_paswoord" binding="#{frm_paswoord}">
+
+                            <p:messages id="messages" rendered="#{frm_paswoord.submitted}" closable="true"
+                                        autoUpdate="true"></p:messages>
+                            <o:validateEqual components="paswoord herhaald_paswoord"
+                                             message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Oud paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password value="#{gebruikerController.oudPaswoord}"></p:password>
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Nieuw paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password id="paswoord" value="#{gebruikerController.nieuwPaswoord}">
+                                    </p:password>
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Herhaal nieuw paswoord:"></p:outputLabel>
+                                </div>
+                                <div class="ui-grid-col-3">
+                                    <p:password id="herhaald_paswoord"
+                                                value="#{gebruikerController.nieuwPaswoordHerhaald}"></p:password>
+                                </div>
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12  right">
+                                    <p:commandButton value="Verander paswoord"
+                                                     action="#{gebruikerController.veranderPaswoord}"
+                                                     update="@form"></p:commandButton>
+                                </div>
+                            </div>
+
+                        </h:form>
+
+                    </p:fieldset>
+
+                    <br/>
+
+                    <p:fieldset legend="Gegevens">
+                        <h:form id="frm_gegevens" binding="#{frm_gegevens}">
+                            <p:messages id="msg_gegevens" rendered="#{frm_gegevens.submitted}" closable="true"
+                                        autoUpdate="true" showDetail="true"></p:messages>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Voornaam*:"></p:outputLabel>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:inputText id="voornaam" value="#{gebruikerController.lid.voornaam}"
+                                                 validatorMessage="Voornaam is verplicht">
+                                        <f:validateRequired/>
+                                        <f:ajax render="msg_voornaam voornaam"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:message for="voornaam" id="msg_voornaam"/>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Achternaam*:"></p:outputLabel>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:inputText id="achternaam" value="#{gebruikerController.lid.achternaam}"
+                                                 validatorMessage="Achternaam is verplicht">
+                                        <f:validateRequired/>
+                                        <f:ajax render="msg_achternaam achternaam"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:message for="achternaam" id="msg_achternaam"/>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Email*:"></p:outputLabel>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:inputText id="email" value="#{gebruikerController.lid.email}"
+                                                 validatorMessage="Email is verplicht">
+                                        <f:validateRequired/>
+                                        <f:ajax render="msg_email email"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:message for="email" id="msg_email"/>
+                                </div>
+
+                            </div>
+
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12  right">
+                                    <p:commandButton value="Opslaan"
+                                                     action="#{gebruikerController.updateLidGegevens}"
+                                                     update="@form"></p:commandButton>
+                                </div>
+                            </div>
+
+                        </h:form>
+                    </p:fieldset>
+
+                    <br/>
+
+                    <p:fieldset legend="Club">
+                        <h:form id="frm_club" binding="#{frm_club}">
+                            <p:messages id="msg_club" rendered="#{frm_club.submitted}" closable="true"
+                                        autoUpdate="true" showDetail="true" globalOnly="true"></p:messages>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-3">
+                                    <p:outputLabel value="Je bent lid van:"></p:outputLabel>
+                                </div>
+
+                                <div class="ui-grid-col-3 left">
+                                    <p:outputLabel value="#{gebruikerController.lid.club.naam}"
+                                                   styleClass="boldPlain"></p:outputLabel>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+                                <p>
+                                    Om van club te veranderen voer je de registratiecode in van je nieuwe club
+                                </p>
+                            </div>
+
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-2">
+                                    Registratiecode*:
+                                </div>
+
+                                <div class="ui-grid-col-3 right">
+                                    <p:inputText size="20" value="#{registratieBean.registratieCode}"
+                                                 validatorMessage="Registratie Code is verplicht"
+                                                 id="registratieCode">
+                                        <f:validateRequired/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="ui-grid-col-3">
+                                    <p:message for="registratieCode" id="msg_registratie"/>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-2">
+                                    Club:
+                                </div>
+
+                                <div class="ui-grid-col-3 right boldPlain">
+                                    <p:outputLabel value="#{registratieBean.club.naam}" id="clubnaam"/>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-grid-row formRow">
+
+                                <div class="ui-grid-col-5 right">
+
+                                    <p:commandButton value="Controleer Code"
+                                                     actionListener="#{registratieBean.controleerCode}"
+                                                     update="@form"
+                                                     process="frm_club"/>
+
+                                </div>
+
+                            </div>
+
+                            <h:panelGroup id="pnl_veranderClub" rendered="#{registratieBean.clubConfirmed}">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-5 right">
+
+                                        <p:commandButton value="Verander Van Club"
+                                                         action="#{registratieBean.veranderVanClub}"
+                                                         update="@form"/>
+
+                                    </div>
+
+                                </div>
+
+                            </h:panelGroup>
+
+
+                        </h:form>
+                    </p:fieldset>
+
+
+                </div>
+
+            </div>
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>
