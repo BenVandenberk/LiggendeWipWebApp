@@ -71,8 +71,12 @@ public class ScheduleBean implements Serializable {
                         Date st = e.getBeginDatum().getDatuminDateFormat();
                         Date ei = e.getEindDatum().getDatuminDateFormat();
                         if (((st.after(start)||st.equals(start)) && (st.before(end)||st.equals(end)))
-                                || ((ei.after(start)||ei.equals(end)) && (ei.before(end)||ei.equals(end))))
-                        addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei));
+                                || ((ei.after(start)||ei.equals(end)) && (ei.before(end)||ei.equals(end)))){
+                            if (e instanceof Kampioenschap){
+                            addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "kamp"));
+                            }
+                            else {  addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "even")); }
+                        }
                     } catch (ParseException e1) {
                         e1.printStackTrace();
                     }
