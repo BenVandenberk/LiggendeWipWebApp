@@ -35,6 +35,8 @@ public class AuthorizationFilter implements Filter {
         clubUrls.add("/login.xhtml");
         clubUrls.add("/club_beheer.xhtml");
         clubUrls.add("/club_accountbeheer.xhtml");
+        clubUrls.add("/club_contactbeheer.xhtml");
+        clubUrls.add("/club_schieting.xhtml");
         clubUrls.add("/club_inschrijven.xhtml");
         clubUrls.add("/club_inschrijvingen_beheren.xhtml");
         clubUrls.add("/club_kampioenschapspagina.xhtml");

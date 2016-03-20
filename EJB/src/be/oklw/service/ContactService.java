@@ -19,16 +19,18 @@ public class ContactService implements IContactService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
+    public Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
 
         entityManager.persist(contact);
         entityManager.flush();
+
+        return contact;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void wijzigContact (String naam, String telefoonnummer, String email, boolean isBeheerder, int id) throws BusinessException {
+    public Contact wijzigContact (String naam, String telefoonnummer, String email, boolean isBeheerder, int id) throws BusinessException {
         Contact contact = getContact(id);
         contact.setNaam(naam);
         contact.setEmail(email);
@@ -37,6 +39,8 @@ public class ContactService implements IContactService {
 
         entityManager.merge(contact);
         entityManager.flush();
+
+        return contact;
     }
 
     @Override

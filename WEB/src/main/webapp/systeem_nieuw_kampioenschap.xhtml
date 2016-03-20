@@ -124,6 +124,7 @@
 
                                     <div class="pageButton">
                                         <p:commandButton value="Kampioenschap toevoegen"
+                                                         process="kampForm"
                                                          update=":tbView:lijstForm:pnl_alle_evenementen @form"
                                                          actionListener="#{evenementController.maakNieuwKampioenschapAan}">
                                         </p:commandButton>
@@ -135,7 +136,7 @@
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
-                            <p:fieldset legend="Ander evenement aanmaken">
+                            <p:fieldset legend="Schieting aanmaken">
                                 <h:form id="evenForm">
                                     <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum"
                                                         validator="#{datumValidator}"
@@ -269,8 +270,9 @@
                                     </div>
 
                                     <div class="pageButton">
-                                        <p:commandButton value="Evenement toevoegen"
+                                        <p:commandButton value="Schieting toevoegen"
                                                          actionListener="#{evenementController.maakNieuwEvenementAan}"
+                                                         process="evenForm"
                                                          update=":tbView:lijstForm:pnl_alle_evenementen @form"/>
                                     </div>
                                 </h:form>
@@ -311,7 +313,7 @@
                                                         <p:outputLabel
                                                                 rendered="#{evenementController.isEvenement(evenement)}"
                                                                 styleClass="centerPlus pointer"
-                                                                value="Evenement"/>
+                                                                value="Schieting"/>
                                                     </div>
 
                                                     <div style="text-align: right">

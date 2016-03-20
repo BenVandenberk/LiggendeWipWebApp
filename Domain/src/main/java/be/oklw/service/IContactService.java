@@ -10,9 +10,9 @@ import java.util.List;
 @Local
 public interface IContactService {
 
-    void maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException;
+    Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException;
 
-    void wijzigContact(String naam, String telefoonnummer, String email, boolean isBeheerder, int contactId) throws BusinessException;
+    Contact wijzigContact(String naam, String telefoonnummer, String email, boolean isBeheerder, int contactId) throws BusinessException;
 
     Contact getNieuwsteContact ();
 
