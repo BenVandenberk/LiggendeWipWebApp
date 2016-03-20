@@ -12,7 +12,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 @ViewScoped
@@ -32,6 +35,9 @@ public class ToonInschrijvingBean {
     private Kampioenschap kampioenschap;
     private Club club;
     private Inschrijving inschrijving;
+
+    private List<Lid> alleClubLeden = new ArrayList<>();
+    private List<SelectItem> clubLeden = new ArrayList<>();
 
     private int teVerwijderenPloegId;
 
@@ -94,6 +100,14 @@ public class ToonInschrijvingBean {
 
     public Inschrijving getInschrijving() {
         return inschrijving;
+    }
+
+    public List<SelectItem> getClubLeden() {
+        return clubLeden;
+    }
+
+    public List<Lid> getAlleClubLeden() {
+        return alleClubLeden;
     }
 
     public void addPloeg() {
@@ -172,6 +186,16 @@ public class ToonInschrijvingBean {
         if (session != null) {
             Account user = (Account) session.getAttribute("user");
             club = clubService.getClub(user);
+        }
+
+        if (club != null) {
+            alleClubLeden = clubService.ledenVanClub(club);
+            for (Lid lid : alleClubLeden) {
+                clubLeden.add(new SelectItem(
+                        lid.getId(),
+                        lid.getFullName()
+                ));
+            }
         }
     }
 }

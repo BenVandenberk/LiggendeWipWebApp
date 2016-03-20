@@ -12,7 +12,6 @@ import java.util.*;
 public class Ploeg implements Serializable {
 
     private static final long serialVersionUID = 6543517911693869965L;
-    private static final String DEFAULT_DEELNEMER_PREFIX = "Ploeglid";
 
     //region PRIVATE MEMBERS
 
@@ -126,13 +125,7 @@ public class Ploeg implements Serializable {
 
         while (namenZijnIngevuld && deelnemerIterator.hasNext()) {
             deelnemer = deelnemerIterator.next();
-
-            if (StringUtils.isBlank(deelnemer.getNaam())) {
-                namenZijnIngevuld = false;
-            }
-            if (namenZijnIngevuld && deelnemer.getNaam().startsWith(DEFAULT_DEELNEMER_PREFIX)) {
-                namenZijnIngevuld = false;
-            }
+            namenZijnIngevuld = deelnemer.naamBekend();
         }
 
         return namenZijnIngevuld;

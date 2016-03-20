@@ -42,4 +42,6 @@ public interface IClubService {
     Club loadSponsors(Club club);
 
     void save(Club club) throws BusinessException;
+
+    List<Lid> ledenVanClub(Club club);
 }

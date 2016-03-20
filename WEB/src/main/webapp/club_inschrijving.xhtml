@@ -154,9 +154,34 @@
                                                                 #{status.index + 1})
                                                             </div>
 
-                                                            <div class="ui-grid-col-11 left">
+                                                            <div class="ui-grid-col-2 left">
+                                                                <p:selectBooleanCheckbox value="#{deeln.deelnemerIsLid}"
+                                                                                         itemLabel="Lid?">
+                                                                    <p:ajax event="change" update="vrijeNaam lid"/>
+                                                                </p:selectBooleanCheckbox>
+                                                            </div>
+
+                                                            <div class="ui-grid-col-4 left">
                                                                 <p:inputText
-                                                                        value="#{deeln.naam}"/>
+                                                                        value="#{deeln.naam}"
+                                                                        id="vrijeNaam"
+                                                                        disabled="#{deeln.deelnemerIsLid}"
+                                                                        size="15"/>
+                                                            </div>
+
+                                                            <div class="ui-grid-col-5 right">
+                                                                <p:selectOneMenu
+                                                                        value="#{deeln.lid}"
+                                                                        disabled="#{!deeln.deelnemerIsLid}"
+                                                                        id="lid"
+                                                                        converter="LidConverter">
+                                                                    <f:selectItems
+                                                                            value="#{toonInschrijvingBean.alleClubLeden}"
+                                                                            var="lid"
+                                                                            itemValue="#{lid}"
+                                                                            itemLabel="#{lid.fullName}"
+                                                                            noSelectionValue="Selecteer Lid"/>
+                                                                </p:selectOneMenu>
                                                             </div>
 
                                                         </div>

@@ -1,5 +1,7 @@
 package be.oklw.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,6 +9,7 @@ import java.io.Serializable;
 public class Deelnemer implements Serializable {
 
     private static final long serialVersionUID = 120194243711261552L;
+    private static final String DEFAULT_DEELNEMER_PREFIX = "Ploeglid";
 
     //region PRIVATE MEMBERS
 
@@ -15,6 +18,7 @@ public class Deelnemer implements Serializable {
     private int id;
 
     private String naam;
+    private boolean deelnemerIsLid;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     private Lid lid;
@@ -35,6 +39,22 @@ public class Deelnemer implements Serializable {
         return id;
     }
 
+    public boolean isDeelnemerIsLid() {
+        return deelnemerIsLid;
+    }
+
+    public void setDeelnemerIsLid(boolean isLid) {
+        this.deelnemerIsLid = isLid;
+    }
+
+    public Lid getLid() {
+        return lid;
+    }
+
+    public void setLid(Lid lid) {
+        this.lid = lid;
+    }
+
     //endregion
 
     //region CONSTRUCTORS
@@ -49,6 +69,19 @@ public class Deelnemer implements Serializable {
     //endregion
 
     //region PUBLIC METHODS
+
+    public boolean naamBekend() {
+        if (deelnemerIsLid && lid != null) {
+            return true;
+        }
+        if (StringUtils.isBlank(naam)) {
+            return false;
+        }
+        if (naam.startsWith(DEFAULT_DEELNEMER_PREFIX)) {
+            return false;
+        }
+        return true;
+    }
 
     //endregion
 

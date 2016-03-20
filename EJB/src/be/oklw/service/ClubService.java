@@ -1,18 +1,17 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
-import be.oklw.model.Club;
 import be.oklw.model.*;
 import be.oklw.util.Datum;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.*;
-import javax.persistence.metamodel.EntityType;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -41,15 +40,17 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException{
+    public void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException {
         Club club = new Club(naam, locatie);
-        if (adres != ""){club.setAdres(adres);}
+        if (adres != "") {
+            club.setAdres(adres);
+        }
 
         entityManager.persist(club);
         entityManager.flush();
 
-        if (contactLijst.size()!=0){
-            for (Contact c : contactLijst){
+        if (contactLijst.size() != 0) {
+            for (Contact c : contactLijst) {
                 club.addContact(c);
             }
             entityManager.merge(club);
@@ -59,7 +60,7 @@ public class ClubService implements IClubService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException{
+    public void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException {
 
         Club club = entityManager.find(Club.class, id);
         club.setAdres(adres);
@@ -74,9 +75,9 @@ public class ClubService implements IClubService {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public Club getClub(Account account) {
-        Club club = (Club)entityManager.createQuery("select c from Club c where c.account.id = :accId")
-                                        .setParameter("accId", account.getId())
-                                        .getSingleResult();
+        Club club = (Club) entityManager.createQuery("select c from Club c where c.account.id = :accId")
+                .setParameter("accId", account.getId())
+                .getSingleResult();
         club.getSponsors().size();
         return club;
     }
@@ -84,14 +85,14 @@ public class ClubService implements IClubService {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public Club getClub(int id) {
-        Club club = (Club)entityManager.find(Club.class, id);
+        Club club = (Club) entityManager.find(Club.class, id);
         return club;
     }
 
 
     @Override
-    public List<Club> getAllClubs(){
-        List<Club> allClubs = (List<Club>)entityManager.createQuery("select c from Club c").getResultList();
+    public List<Club> getAllClubs() {
+        List<Club> allClubs = (List<Club>) entityManager.createQuery("select c from Club c").getResultList();
         return allClubs;
     }
 
@@ -109,7 +110,7 @@ public class ClubService implements IClubService {
 
         for (Evenement e : club.getEvenementen()) {
             if (e instanceof Kampioenschap) {
-                kampioenschappen.add((Kampioenschap)e);
+                kampioenschappen.add((Kampioenschap) e);
             }
         }
 
@@ -128,7 +129,7 @@ public class ClubService implements IClubService {
     @Override
     public void dummyKampioenschappen() {
         Club club = entityManager.find(Club.class, 1);
-        Kampioenschap kamp1 =  club.maakKampioenschap("21e Grote prijs De Hoef", new Datum(1, 1, 2015), new Datum(2, 1, 2015));
+        Kampioenschap kamp1 = club.maakKampioenschap("21e Grote prijs De Hoef", new Datum(1, 1, 2015), new Datum(2, 1, 2015));
         Kampioenschap kamp2 = club.maakKampioenschap("22e Grote prijs De Hoef", new Datum(1, 1, 2016), new Datum(2, 1, 2016));
         Kampioenschap kamp3 = club.maakKampioenschap("23e Grote prijs De Hoef", new Datum(1, 1, 2017), new Datum(2, 1, 2017));
 
@@ -139,47 +140,46 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public void verwijderContact(Club club, Contact contact){
+    public void verwijderContact(Club club, Contact contact) {
         Contact teVerwijderenContact = entityManager.find(Contact.class, contact.getId());
-        if(club!=null){
-        Club selectedClub = entityManager.find(Club.class, club.getId());
-        if(selectedClub!=null){
-            Set<Contact> contactList = selectedClub.getContacten();
-            if(contactList != null){
-                Iterator<Contact> i = contactList.iterator();
-                while(i.hasNext()){
-                    Contact c = i.next();
-                    if (c.getId() == teVerwijderenContact.getId()){
-                        i.remove();
+        if (club != null) {
+            Club selectedClub = entityManager.find(Club.class, club.getId());
+            if (selectedClub != null) {
+                Set<Contact> contactList = selectedClub.getContacten();
+                if (contactList != null) {
+                    Iterator<Contact> i = contactList.iterator();
+                    while (i.hasNext()) {
+                        Contact c = i.next();
+                        if (c.getId() == teVerwijderenContact.getId()) {
+                            i.remove();
+                        }
                     }
                 }
+                selectedClub.setContacten(contactList);
+                entityManager.merge(selectedClub);
+                entityManager.flush();
             }
-            selectedClub.setContacten(contactList);
-            entityManager.merge(selectedClub);
-            entityManager.flush();
-        }
         }
         entityManager.remove(teVerwijderenContact);
         entityManager.flush();
     }
 
     @Override
-    public void verwijderClub(Club club) throws BusinessException{
+    public void verwijderClub(Club club) throws BusinessException {
         Club teVerwijderenClub = entityManager.find(Club.class, club.getId());
-        if (teVerwijderenClub.getEvenementen().isEmpty()){
-        Set<Contact> contactList = teVerwijderenClub.getContacten();
-        Iterator<Contact> i = contactList.iterator();
-        while(i.hasNext()){
-            Contact c = i.next();
-            i.remove();
-            entityManager.remove(c);
-            entityManager.flush();
-        }
+        if (teVerwijderenClub.getEvenementen().isEmpty()) {
+            Set<Contact> contactList = teVerwijderenClub.getContacten();
+            Iterator<Contact> i = contactList.iterator();
+            while (i.hasNext()) {
+                Contact c = i.next();
+                i.remove();
+                entityManager.remove(c);
+                entityManager.flush();
+            }
 
-        entityManager.remove(teVerwijderenClub);
-        entityManager.flush();
-        }
-        else{
+            entityManager.remove(teVerwijderenClub);
+            entityManager.flush();
+        } else {
             throw new BusinessException("Deze club kan niet verwijderd worden");
         }
     }
@@ -210,5 +210,13 @@ public class ClubService implements IClubService {
         } catch (Exception ex) {
             throw new BusinessException(String.format("Er ging iets mis: %s", ex.getMessage()));
         }
+    }
+
+    @Override
+    public List<Lid> ledenVanClub(Club club) {
+            List<Lid> leden = entityManager.createQuery("from Lid l where l.club.id=:clubId", Lid.class)
+                    .setParameter("clubId", club.getId())
+                    .getResultList();
+            return leden;
     }
 }

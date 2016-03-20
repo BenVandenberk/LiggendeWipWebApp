@@ -24,6 +24,10 @@ public class Lid implements Serializable {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getVoornaam() {
         return voornaam;
     }
@@ -54,5 +58,25 @@ public class Lid implements Serializable {
 
     public void setClub(Club club) {
         this.club = club;
+    }
+
+    public String getFullName() {
+        return String.format("%s %s", voornaam, achternaam);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lid lid = (Lid) o;
+
+        return id == lid.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
