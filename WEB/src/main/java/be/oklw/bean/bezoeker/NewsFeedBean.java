@@ -15,19 +15,17 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class NewsFeedBean implements Serializable {
 
     @EJB
     INieuwsService nieuwsService;
-
-    @ManagedProperty(value = "#{gebruikerController}")
-    private GebruikerController gebruikerController;
 
     private String nieuwtje;
     private Datum tonenTot;
@@ -36,11 +34,15 @@ public class NewsFeedBean implements Serializable {
 
     public void maakNieuwtjeAan(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         FacesMessage message;
 
         try {
-            account = gebruikerController.getUser();
-            nieuwsService.maakNieuwtjeAan(nieuwtje, new Datum(), tonenTot, account);
+            if (session != null) {
+                Account user = (Account) session.getAttribute("user");
+                account = user;
+                nieuwsService.maakNieuwtjeAan(nieuwtje, new Datum(), tonenTot, account);
+            }
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd aangemaakt", "Nieuwtje werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();
@@ -109,14 +111,6 @@ public class NewsFeedBean implements Serializable {
 
     public void setNieuwtje(String nieuwtje) {
         this.nieuwtje = nieuwtje;
-    }
-
-    public void setGebruikerController(GebruikerController gebruikerController) {
-        this.gebruikerController = gebruikerController;
-    }
-
-    public GebruikerController getGebruikerController(){
-        return gebruikerController;
     }
 
     public Nieuws getSelectedNieuwtje() {

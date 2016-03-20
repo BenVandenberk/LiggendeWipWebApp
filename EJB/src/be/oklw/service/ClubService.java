@@ -47,14 +47,12 @@ public class ClubService implements IClubService {
         }
 
         entityManager.persist(club);
-        entityManager.flush();
 
         if (contactLijst.size() != 0) {
             for (Contact c : contactLijst) {
                 club.addContact(c);
             }
             entityManager.merge(club);
-            entityManager.flush();
         }
     }
 
@@ -67,9 +65,7 @@ public class ClubService implements IClubService {
         club.setLocatie(locatie);
         club.setNaam(naam);
         club.setContacten(contactLijst);
-
         entityManager.merge(club);
-        entityManager.flush();
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -142,26 +138,25 @@ public class ClubService implements IClubService {
     @Override
     public void verwijderContact(Club club, Contact contact) {
         Contact teVerwijderenContact = entityManager.find(Contact.class, contact.getId());
-        if (club != null) {
-            Club selectedClub = entityManager.find(Club.class, club.getId());
-            if (selectedClub != null) {
-                Set<Contact> contactList = selectedClub.getContacten();
-                if (contactList != null) {
-                    Iterator<Contact> i = contactList.iterator();
-                    while (i.hasNext()) {
-                        Contact c = i.next();
-                        if (c.getId() == teVerwijderenContact.getId()) {
-                            i.remove();
-                        }
+
+        if(club!=null){
+        Club selectedClub = entityManager.find(Club.class, club.getId());
+        if(selectedClub!=null){
+            Set<Contact> contactList = selectedClub.getContacten();
+            if(contactList != null){
+                Iterator<Contact> i = contactList.iterator();
+                while(i.hasNext()){
+                    Contact c = i.next();
+                    if (c.getId() == teVerwijderenContact.getId()){
+                        i.remove();
                     }
                 }
-                selectedClub.setContacten(contactList);
-                entityManager.merge(selectedClub);
-                entityManager.flush();
             }
+            selectedClub.setContacten(contactList);
+            entityManager.merge(selectedClub);
         }
-        entityManager.remove(teVerwijderenContact);
-        entityManager.flush();
+        }
+
     }
 
     @Override

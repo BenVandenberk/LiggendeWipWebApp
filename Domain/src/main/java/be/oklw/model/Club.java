@@ -82,7 +82,10 @@ public class Club implements Serializable {
     }
 
     public void setContacten(Set<Contact> contactList) {
-        contacten = contactList;
+        this.contacten.clear();
+        if (contactList != null) {
+            this.contacten.addAll(contactList);
+        }
     }
 
     public Set<Evenement> getEvenementen() {

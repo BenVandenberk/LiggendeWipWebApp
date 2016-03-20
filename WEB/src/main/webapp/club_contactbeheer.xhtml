@@ -1,0 +1,156 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+            <h:form>
+
+                <div class="bodyWrapper">
+
+                    <div class="titel">
+                        Contactbeheer
+                    </div>
+
+                    <p:fieldset legend="contacten">
+
+                        <p:panelGrid class="noBorder transparentBackground" columns="2">
+
+                            <p:dataTable id="contactlijst"
+                                         var="contact"
+                                         value="#{clubContactBean.contactList}"
+                                         selectionMode="single"
+                                         selection="#{clubContactBean.selectedContact}"
+                                         rowKey="#{contact.naam}">
+                                <p:column headerText="Naam">
+                                    <h:outputText value="#{contact.naam}" />
+                                </p:column>
+
+                                <p:column headerText="Telefoon">
+                                    <h:outputText value="#{contact.telefoonnummer}" />
+                                </p:column>
+
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{contact.email}" />
+                                </p:column>
+
+                                <p:column headerText="accountbeheerder?">
+                                    <p:selectBooleanCheckbox value="#{contact.beheerder}" disabled="true"/>
+                                </p:column>
+                            </p:dataTable>
+
+                            <p:outputPanel>
+                                <p:commandButton value="Nieuw contact"
+                                                 actionListener="#{clubContactBean.showContactPanel}"
+                                                 update="@form">
+                                </p:commandButton>
+                                <p:commandButton value="Wijzig contact"
+                                                 actionListener="#{clubContactBean.showWijzigContactPanel}"
+                                                 update="@form">
+                                </p:commandButton>
+                                <p:commandButton value="Verwijder contact"
+                                                 actionListener="#{clubContactBean.verwijderContact}"
+                                                 process="@form"
+                                                 update="@form">
+                                </p:commandButton>
+                            </p:outputPanel>
+                        </p:panelGrid>
+
+                    </p:fieldset>
+
+
+                    <p:panel rendered="#{clubContactBean.showWijzig || clubContactBean.showNieuw}">
+                    <div class="subTitel">
+                        Nieuw contact toevoegen
+                    </div>
+
+                    <div class="ui-grid ui-grid-responsive formGrid">
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Club:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="#{clubContactBean.naam}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Naam*:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText validatorMessage="Naam is verplicht" value="#{clubContactBean.naam}" id="naam">
+                                    <f:validateRequired />
+                                    <f:ajax render="msg_naam naam" />
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_naam" for="naam"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Telefoon:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText value="#{clubContactBean.telefoonNummer}"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Email:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputText id="emailAdres" value="#{clubContactBean.email}" validatorMessage="Geldig emailadres vereist">
+                                    <f:validator validatorId="emailValidator"/>
+                                    <f:ajax render="msg_email emailAdres"/>
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_email" for="emailAdres"/>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Accountbeheerder?"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:selectBooleanCheckbox value="#{clubContactBean.beheerder}" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="pageButton">
+                        <p:panel>
+                        <p:commandButton rendered="#{!clubContactBean.showWijzig}"
+                                         value="Nieuw contact opslaan"
+                                         actionListener="#{clubContactBean.maakNieuwContactAan}"
+                                         process="@form"
+                                         update="@form">
+                        </p:commandButton>
+                        <p:commandButton rendered="#{clubContactBean.showWijzig}"
+                                         value="Wijzigingen opslaan"
+                                         actionListener="#{clubContactBean.wijzigContact}"
+                                         process="@form"
+                                         update="@form">
+                        </p:commandButton>
+                        </p:panel>
+                    </div>
+
+                    </p:panel>
+
+                </div>
+
+        </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>

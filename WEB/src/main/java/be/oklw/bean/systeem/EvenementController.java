@@ -1,5 +1,6 @@
 package be.oklw.bean.systeem;
 
+import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Evenement;
 import be.oklw.model.Kampioenschap;
@@ -13,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +51,23 @@ public class EvenementController implements Serializable{
         return evenementService.getAlleEvenementen();
     }
 
+    public List<Evenement> getEvenementenVanClub(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        Club club = null;
+        if (session != null) {
+            Account user = (Account) session.getAttribute("user");
+            club = clubService.getClub(user);
+        }
+        List<Evenement> clubEvenementen = new ArrayList<>();
+        for (Evenement e : getAlleEvenementen()){
+            if (e.getClub().equals(club)){
+                clubEvenementen.add(e);
+            }
+        }
+        return clubEvenementen;
+    }
+
     public List<String> getAlleClubs(){
         List<Club> clubList = clubService.getAllClubs();
         List<String> stringList = new ArrayList<>();
@@ -56,6 +75,18 @@ public class EvenementController implements Serializable{
             stringList.add(c.getNaam());
         }
         return stringList;
+    }
+
+    public Club getClub(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        Club club = null;
+        if (session != null) {
+            Account user = (Account) session.getAttribute("user");
+            club = clubService.getClub(user);
+        }
+        clubEvenement = club.getNaam();
+        return club;
     }
 
     public String getNaamKampioenschap() {
