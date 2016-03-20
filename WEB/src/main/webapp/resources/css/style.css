@@ -380,6 +380,12 @@ a {
 .ui-chkbox-label {
   margin: 0 0 5px 5px !important; }
 
+.kamp {
+  background: red; }
+
+.even {
+  background: green; }
+
 /* -------------------------
      GOOGLE MAPS
 -------------------------- */

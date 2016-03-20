@@ -82,8 +82,8 @@ public class Club implements Serializable {
     }
 
     public void setContacten(Set<Contact> contactList) {
-        this.contacten.clear();
-        if (contactList != null) {
+        this.contacten.retainAll(contactList);
+        if (contactList.size()!=0) {
             this.contacten.addAll(contactList);
         }
     }

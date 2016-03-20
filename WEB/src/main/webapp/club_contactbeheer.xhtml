@@ -61,8 +61,7 @@
 
                     </p:fieldset>
 
-
-                    <p:panel rendered="#{clubContactBean.showWijzig || clubContactBean.showNieuw}">
+                    <p:panel rendered="#{clubContactBean.showNieuw || clubContactBean.showWijzig}">
                     <div class="subTitel">
                         Nieuw contact toevoegen
                     </div>
@@ -127,9 +126,11 @@
 
                     </div>
 
+                    </p:panel>
+
                     <div class="pageButton">
-                        <p:panel>
-                        <p:commandButton rendered="#{!clubContactBean.showWijzig}"
+
+                        <p:commandButton rendered="#{clubContactBean.showNieuw}"
                                          value="Nieuw contact opslaan"
                                          actionListener="#{clubContactBean.maakNieuwContactAan}"
                                          process="@form"
@@ -141,10 +142,8 @@
                                          process="@form"
                                          update="@form">
                         </p:commandButton>
-                        </p:panel>
-                    </div>
 
-                    </p:panel>
+                    </div>
 
                 </div>
 
