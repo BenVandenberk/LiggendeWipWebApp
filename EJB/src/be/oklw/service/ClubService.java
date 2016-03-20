@@ -214,4 +214,9 @@ public class ClubService implements IClubService {
                     .getResultList();
             return leden;
     }
+
+    @Override
+    public Lid getLid(int id) {
+        return entityManager.find(Lid.class, id);
+    }
 }

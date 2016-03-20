@@ -174,7 +174,10 @@
                                                                         value="#{deeln.lid}"
                                                                         disabled="#{!deeln.deelnemerIsLid}"
                                                                         id="lid"
-                                                                        converter="LidConverter">
+                                                                        converter="LidConverter"
+                                                                        >
+                                                                    <f:selectItem itemLabel="Selecteer Lid" itemValue=""
+                                                                                  noSelectionOption="true"/>
                                                                     <f:selectItems
                                                                             value="#{toonInschrijvingBean.alleClubLeden}"
                                                                             var="lid"

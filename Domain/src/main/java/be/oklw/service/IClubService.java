@@ -44,4 +44,6 @@ public interface IClubService {
     void save(Club club) throws BusinessException;
 
     List<Lid> ledenVanClub(Club club);
+
+    Lid getLid(int id);
 }

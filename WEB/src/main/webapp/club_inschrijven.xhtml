@@ -144,7 +144,8 @@
                                             <div class="ui-grid-col-5 left">
 
                                                 <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
-                                                    #{deeln.naam} <p:outputLabel value="- " rendered="#{!status.last}"/>
+                                                    #{deeln.deelnemerIsLid ? deeln.lid.fullName : deeln.naam}
+                                                    <p:outputLabel value="- " rendered="#{!status.last}"/>
                                                 </ui:repeat>
 
                                             </div>

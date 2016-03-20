@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,6 @@ public class ToonInschrijvingBean {
     private Inschrijving inschrijving;
 
     private List<Lid> alleClubLeden = new ArrayList<>();
-    private List<SelectItem> clubLeden = new ArrayList<>();
 
     private int teVerwijderenPloegId;
 
@@ -100,10 +98,6 @@ public class ToonInschrijvingBean {
 
     public Inschrijving getInschrijving() {
         return inschrijving;
-    }
-
-    public List<SelectItem> getClubLeden() {
-        return clubLeden;
     }
 
     public List<Lid> getAlleClubLeden() {
@@ -190,12 +184,9 @@ public class ToonInschrijvingBean {
 
         if (club != null) {
             alleClubLeden = clubService.ledenVanClub(club);
-            for (Lid lid : alleClubLeden) {
-                clubLeden.add(new SelectItem(
-                        lid.getId(),
-                        lid.getFullName()
-                ));
-            }
+            alleClubLeden.sort(
+                    (lid, lid2) -> lid.getFullName().compareTo(lid2.getFullName())
+            );
         }
     }
 }
