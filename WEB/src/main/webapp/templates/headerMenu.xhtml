@@ -49,7 +49,17 @@
                                 styleClass="menuLink">
                         </p:link>
 
+                        <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('lid')}"
+                                value="Ingelogd als: #{gebruikerController.user.userName}"
+                                outcome="lid_accountbeheer"
+                                styleClass="menuLink">
+                        </p:link>
+
                         <p:link rendered="#{!gebruikerController.loggedIn}" value="Login" outcome="login"
+                                styleClass="menuLink">
+                        </p:link>
+
+                        <p:link rendered="#{!gebruikerController.loggedIn}" value="Registreer" outcome="registreren"
                                 styleClass="menuLink">
                         </p:link>
 

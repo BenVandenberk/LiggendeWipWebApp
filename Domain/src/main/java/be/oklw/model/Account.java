@@ -34,7 +34,7 @@ public class Account implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, optional = true)
     private Club club;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @OneToOne(fetch = FetchType.EAGER, optional = true, cascade = CascadeType.ALL)
     private Lid lid;
 
     //endregion
@@ -125,9 +125,11 @@ public class Account implements Serializable {
      * en wordt NIET automatisch gegenereerd bij het aanmaken van de club
      */
 
-    public Account(Lid lid, String userName){
+    public Account(Lid lid, String userName, String password){
         this.lid = lid;
         this.userName = userName;
+        this.pwSalt = Authentication.nextSalt();
+        this.pwHash = Authentication.hashPw(password, pwSalt);
         this.permissieNiveau = PermissieNiveau.LID;
     }
 

@@ -25,6 +25,7 @@ public class AuthorizationFilter implements Filter {
         ArrayList<String> bezoekerUrls = new ArrayList<>();
         bezoekerUrls.add("/login.xhtml");
         bezoekerUrls.add("/home.xhtml");
+        bezoekerUrls.add("/registreren.xhtml");
         bezoekerUrls.add("/bezoeker_fotos.xhtml");
         bezoekerUrls.add("/bezoeker_kampioenschap_fotos.xhtml");
         bezoekerUrls.add("/bezoeker_kampioenschapsindex.xhtml");
