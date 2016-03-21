@@ -207,16 +207,5 @@ public class ClubService implements IClubService {
         }
     }
 
-    @Override
-    public List<Lid> ledenVanClub(Club club) {
-            List<Lid> leden = entityManager.createQuery("from Lid l where l.club.id=:clubId", Lid.class)
-                    .setParameter("clubId", club.getId())
-                    .getResultList();
-            return leden;
-    }
 
-    @Override
-    public Lid getLid(int id) {
-        return entityManager.find(Lid.class, id);
-    }
 }

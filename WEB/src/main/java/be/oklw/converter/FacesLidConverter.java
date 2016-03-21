@@ -2,6 +2,7 @@ package be.oklw.converter;
 
 import be.oklw.model.Lid;
 import be.oklw.service.IClubService;
+import be.oklw.service.ILedenService;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -15,14 +16,14 @@ import javax.faces.convert.FacesConverter;
 public class FacesLidConverter implements Converter {
 
     @EJB
-    IClubService clubService;
+    ILedenService ledenService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (value != null && value.trim().length() > 0) {
             try {
                 int id = Integer.parseInt(value);
-                return clubService.getLid(id);
+                return ledenService.getLid(id);
             } catch (NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Geen geldig Lid."));
             }

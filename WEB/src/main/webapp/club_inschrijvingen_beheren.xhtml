@@ -134,33 +134,62 @@
 
                                                     </div>
 
-                                                    <div class="ui-grid-col-4">
+                                                    <div class="ui-grid-col-6">
 
                                                         <ui:repeat value="#{ploeg.deelnemers}" var="deeln"
                                                                    varStatus="status">
 
                                                             <div class="ui-grid-row formRow">
-                                                                <div class="ui-grid-col-12 center">
-                                                                    #{status.index + 1}) <p:inputText
-                                                                        value="#{deeln.naam}"
-                                                                        styleClass="left10"
-                                                                        size="15">
-                                                                    <p:ajax event="change"
-                                                                            update="@form"/>
-                                                                </p:inputText>
+
+                                                                <div class="ui-grid-col-1">
+                                                                    #{status.index + 1})
                                                                 </div>
+
+                                                                <div class="ui-grid-col-2 left">
+                                                                    <p:selectBooleanCheckbox
+                                                                            value="#{deeln.deelnemerIsLid}"
+                                                                            itemLabel="Lid?">
+                                                                        <p:ajax event="change"
+                                                                                update="vrijeNaam lid"/>
+                                                                    </p:selectBooleanCheckbox>
+                                                                </div>
+
+                                                                <div class="ui-grid-col-4 left">
+                                                                    <p:inputText
+                                                                            value="#{deeln.naam}"
+                                                                            id="vrijeNaam"
+                                                                            disabled="#{deeln.deelnemerIsLid}"
+                                                                            size="10"
+                                                                            />
+                                                                </div>
+
+                                                                <div class="ui-grid-col-5 left">
+                                                                    <p:selectOneMenu
+                                                                            value="#{deeln.lid}"
+                                                                            disabled="#{!deeln.deelnemerIsLid}"
+                                                                            id="lid"
+                                                                            converter="LidConverter"
+                                                                            >
+                                                                        <f:selectItem itemLabel="Selecteer Lid"
+                                                                                      itemValue=""
+                                                                                      noSelectionOption="true"/>
+                                                                        <f:selectItems
+                                                                                value="#{inschrijvingenBeherenBean.alleLedenPerClub.get(ploeg.inschrijving.club.id)}"
+                                                                                var="lid"
+                                                                                itemValue="#{lid}"
+                                                                                itemLabel="#{lid.fullName}"
+                                                                                noSelectionValue="Selecteer Lid"/>
+                                                                    </p:selectOneMenu>
+                                                                </div>
+
                                                             </div>
 
                                                         </ui:repeat>
 
                                                     </div>
 
-                                                    <div class="ui-grid-col-3 right">
+                                                    <div class="ui-grid-col-1 right">
 
-                                                        <h:panelGroup
-                                                                rendered="#{inschrijvingenBeherenBean.afrekeningZichtbaar()}">
-
-                                                        </h:panelGroup>
 
                                                         <div class="ui-grid-row formRow">
                                                             <div class="ui-grid-col-12">

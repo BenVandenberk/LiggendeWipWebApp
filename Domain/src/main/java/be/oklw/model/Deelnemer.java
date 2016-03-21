@@ -46,6 +46,8 @@ public class Deelnemer implements Serializable {
     public void setDeelnemerIsLid(boolean isLid) {
         if (!isLid) {
             this.lid = null;
+        } else {
+            naam = "";
         }
         this.deelnemerIsLid = isLid;
     }

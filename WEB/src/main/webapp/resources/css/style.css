@@ -361,6 +361,9 @@ a {
 .upExpand {
   display: none; }
 
+.deelnemerInput {
+  width: 100px; }
+
 /* -------------------------
      PRIMEFACES CLASSES
 -------------------------- */

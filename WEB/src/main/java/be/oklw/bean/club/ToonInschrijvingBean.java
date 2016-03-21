@@ -3,6 +3,7 @@ package be.oklw.bean.club;
 import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IInschrijfService;
+import be.oklw.service.ILedenService;
 import be.oklw.service.IToernooiService;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +29,9 @@ public class ToonInschrijvingBean {
 
     @EJB
     IInschrijfService inschrijfService;
+
+    @EJB
+    ILedenService ledenService;
 
     private int toernooiId = -1;
     private Toernooi toernooi;
@@ -183,7 +187,7 @@ public class ToonInschrijvingBean {
         }
 
         if (club != null) {
-            alleClubLeden = clubService.ledenVanClub(club);
+            alleClubLeden = ledenService.ledenVanClub(club);
             alleClubLeden.sort(
                     (lid, lid2) -> lid.getFullName().compareTo(lid2.getFullName())
             );

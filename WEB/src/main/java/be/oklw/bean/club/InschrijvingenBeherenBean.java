@@ -3,6 +3,7 @@ package be.oklw.bean.club;
 import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IInschrijfService;
+import be.oklw.service.ILedenService;
 import be.oklw.service.IToernooiService;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @ManagedBean
@@ -30,6 +32,9 @@ public class InschrijvingenBeherenBean {
     @EJB
     IInschrijfService inschrijfService;
 
+    @EJB
+    ILedenService ledenService;
+
     private int toernooiId = -1;
     private Toernooi toernooi;
     private Kampioenschap kampioenschap;
@@ -41,6 +46,8 @@ public class InschrijvingenBeherenBean {
 
     private int teVerwijderenPloegId = -1;
     private int clubIdTeVerwijderenPloeg = -1;
+
+    private HashMap<Integer, ArrayList<Lid>> alleLedenPerClub = new HashMap<>();
 
     public int getToernooiId() {
         return toernooiId;
@@ -129,6 +136,10 @@ public class InschrijvingenBeherenBean {
 
     public void setClubIdTeVerwijderenPloeg(int clubIdTeVerwijderenPloeg) {
         this.clubIdTeVerwijderenPloeg = clubIdTeVerwijderenPloeg;
+    }
+
+    public HashMap<Integer, ArrayList<Lid>> getAlleLedenPerClub() {
+        return alleLedenPerClub;
     }
 
     public void maakInschrijvingVoorSelected() {
@@ -233,6 +244,22 @@ public class InschrijvingenBeherenBean {
                     c.getId(),
                     c.getNaam()
             ));
+        }
+
+        // LEDENLIJST VULLEN
+        List<Lid> alleLeden = ledenService.alleLeden();
+
+        int clubId = -1;
+        for (Lid lid : alleLeden) {
+
+            clubId = lid.getClub().getId();
+            if (alleLedenPerClub.containsKey(clubId)) {
+                alleLedenPerClub.get(clubId).add(lid);
+            } else {
+                alleLedenPerClub.put(clubId, new ArrayList<Lid>());
+                alleLedenPerClub.get(clubId).add(lid);
+            }
+
         }
     }
 }
