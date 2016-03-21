@@ -39,13 +39,18 @@
                             </div>
                         </div>
 
-                        <p:spacer height="10"/>
-
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-6"></div>
                             <div class="ui-grid-col-6 left left10">
                                 <p:commandButton value="Login" action="#{loginBean.login}"
                                                  update="@form"></p:commandButton>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-6"></div>
+                            <div class="ui-grid-col-6 left left10">
+                                <h:link value="Paswoord Vergeten?" outcome="paswoord_vergeten"/>
                             </div>
                         </div>
 

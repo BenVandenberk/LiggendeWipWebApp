@@ -66,6 +66,7 @@ public class InschrijfService implements IInschrijfService {
         StringBuilder builder = new StringBuilder();
         builder.append("Beste beheerder/boogschutter,\n\n");
         builder.append(String.format("De inschrijvingen voor het toernooi %s van club %s zijn geopend", toernooi.getNaam(), toernooi.getKampioenschap().getClub().getNaam()));
+        builder.append("\n\n\nDeze mail is automatisch gegenereerd. Gelieve hier niet op te antwoorden.");
 
         mailService.sendMail("Inschrijvingen opengesteld", builder.toString(), emailAdressen);
 

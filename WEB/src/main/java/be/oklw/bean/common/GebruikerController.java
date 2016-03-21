@@ -160,6 +160,32 @@ public class GebruikerController {
         }
     }
 
+    public void saveUser() {
+        try {
+            gebruikerService.saveAccount(user);
+
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_INFO,
+                            "Geslaagd",
+                            "Gegevens succesvol opgeslagen"
+                    )
+            );
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
+    }
+
     public String logout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(true);

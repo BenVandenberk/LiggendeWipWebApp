@@ -11,7 +11,9 @@ import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -23,6 +25,9 @@ public class GebruikerService implements IGebruikerService {
 
     @PersistenceContext(unitName = "myunitname")
     EntityManager entityManager;
+
+    @EJB
+    IMailService mailService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Account login(String userName, String password) throws BusinessException {
@@ -66,8 +71,6 @@ public class GebruikerService implements IGebruikerService {
         systeemAccount.setPwHash(pwHash);
         systeemAccount.setPwSalt(salt);
         entityManager.persist(systeemAccount);
-
-        entityManager.flush();
     }
 
     @Override
@@ -122,6 +125,64 @@ public class GebruikerService implements IGebruikerService {
     public void updateLid(Lid lid) throws BusinessException {
         try {
             entityManager.merge(lid);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAccount(Account account) throws BusinessException {
+        try {
+            entityManager.merge(account);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public Account getAccount(String userName) throws BusinessException {
+        try {
+            return entityManager.createQuery("select a from Account a where a.userName=:UN", Account.class)
+                    .setParameter("UN", userName)
+                    .getSingleResult();
+        } catch (NoResultException noResEx) {
+            return null;
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public void resetPaswoord(Account account) throws BusinessException {
+        final int PW_LENGTH = 8;
+        final int LOWER_CASE_A = 97;
+
+        try {
+            Random random = new Random();
+            char[] randomPW = new char[PW_LENGTH];
+            int offset;
+
+            for (int i = 0; i < PW_LENGTH; i++) {
+                offset = random.nextInt(26);
+                randomPW[i] = (char) (LOWER_CASE_A + offset);
+            }
+
+            String nieuwPaswoord = new String(randomPW);
+
+            byte[] nieuweHash = Authentication.hashPw(nieuwPaswoord, account.getPwSalt());
+            account.setPwHash(nieuweHash);
+            entityManager.merge(account);
+
+            StringBuilder emailMessage = new StringBuilder();
+            emailMessage.append(String.format("Beste %s,\n\n", account.getUserName()));
+            emailMessage.append(String.format("Het paswoord van uw account werd veranderd naar: %s\n", nieuwPaswoord));
+            emailMessage.append(String.format("Log in met dit paswoord en verander uw paswoord via de link rechtsbovenaan 'Ingelogd als: %s'", account.getUserName()));
+            emailMessage.append("\n\n\nDeze mail is automatisch gegenereerd. Gelieve hier niet op te antwoorden.");
+
+            ArrayList<String> emailAdres = new ArrayList<String>();
+            emailAdres.add(account.getEmail());
+            mailService.sendMail("Accountsupport LiggendeWip.be", emailMessage.toString(), emailAdres);
+
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }

@@ -29,4 +29,10 @@ public interface IGebruikerService {
     Account registreer(Lid lid, Club club, String userName, String password) throws BusinessException;
 
     void updateLid(Lid lid) throws BusinessException;
+
+    void saveAccount(Account account) throws BusinessException;
+
+    Account getAccount(String userName) throws BusinessException;
+
+    void resetPaswoord(Account account) throws BusinessException;
 }

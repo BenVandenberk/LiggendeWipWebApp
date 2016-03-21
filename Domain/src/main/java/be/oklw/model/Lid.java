@@ -20,6 +20,9 @@ public class Lid implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Account account;
+
     public Lid() {
 
     }
@@ -50,6 +53,9 @@ public class Lid implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+        if (account != null) {
+            account.setEmail(email);
+        }
     }
 
     public Club getClub() {
@@ -62,6 +68,14 @@ public class Lid implements Serializable {
 
     public String getFullName() {
         return String.format("%s %s", voornaam, achternaam);
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    protected void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

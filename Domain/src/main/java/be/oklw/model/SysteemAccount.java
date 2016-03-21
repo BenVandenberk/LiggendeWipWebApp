@@ -15,7 +15,6 @@ public class SysteemAccount extends Account {
     //region PRIVATE MEMBERS
 
     private String naam;
-    private String email;
     private String telefoonnummer;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -33,14 +32,6 @@ public class SysteemAccount extends Account {
 
     public void setNaam(String naam) {
         this.naam = naam;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTelefoonnummer() {

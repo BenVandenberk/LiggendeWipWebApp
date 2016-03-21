@@ -26,6 +26,8 @@ public class Account implements Serializable {
     @Enumerated(EnumType.STRING)
     private PermissieNiveau permissieNiveau;
 
+    private String email;
+
     @Lob
     private byte[] pwHash;
     @Lob
@@ -99,6 +101,14 @@ public class Account implements Serializable {
         this.lid = lid;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     //endregion
 
     //region CONSTRUCTORS
@@ -112,7 +122,7 @@ public class Account implements Serializable {
      * en wordt automatisch gegenereerd bij het aanmaken van de club
      */
 
-    public Account(Club club){
+    public Account(Club club) {
         this.club = club;
         this.userName = club.getNaam();
         this.pwSalt = Authentication.nextSalt();
@@ -125,12 +135,14 @@ public class Account implements Serializable {
      * en wordt NIET automatisch gegenereerd bij het aanmaken van de club
      */
 
-    public Account(Lid lid, String userName, String password){
+    public Account(Lid lid, String userName, String password) {
         this.lid = lid;
         this.userName = userName;
+        this.email = lid.getEmail();
         this.pwSalt = Authentication.nextSalt();
         this.pwHash = Authentication.hashPw(password, pwSalt);
         this.permissieNiveau = PermissieNiveau.LID;
+        lid.setAccount(this);
     }
 
     //endregion
@@ -141,7 +153,7 @@ public class Account implements Serializable {
         return permissieNiveau.heeftRol(rol);
     }
 
-    public void removeNieuwtje(Nieuws nieuws){
+    public void removeNieuwtje(Nieuws nieuws) {
         Iterator<Nieuws> it = nieuwsList.iterator();
         while (it.hasNext()) {
             if (it.next().getId() == nieuws.getId()) {

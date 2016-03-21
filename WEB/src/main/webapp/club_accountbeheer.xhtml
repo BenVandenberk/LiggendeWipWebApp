@@ -19,7 +19,7 @@
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
-                            <p:fieldset legend="Gegevens: #{gebruikerController.user.userName}">
+                            <p:fieldset legend="Paswoord">
 
                                 <h:form id="frm_paswoord" binding="#{frm_paswoord}">
 
@@ -73,16 +73,57 @@
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
+                            <p:fieldset legend="Email">
+
+                                <h:form id="frm_email" binding="#{frm_email}">
+
+                                    <p>
+                                        Vul een geldig emailadres in om later indien nodig uw paswoord te kunnen resetten.
+                                    </p>
+
+                                    <p:messages id="msg_email" closable="true" autoUpdate="true"
+                                                showDetail="true" rendered="#{frm_email.submitted}"></p:messages>
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-3">
+                                            <p:outputLabel value="Email:"></p:outputLabel>
+                                        </div>
+                                        <div class="ui-grid-col-3">
+                                            <p:inputText value="#{gebruikerController.user.email}"
+                                                         validatorMessage="Email is verplicht"
+                                                         id="email">
+                                                <f:validateRequired/>
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="ui-grid-row formRow">
+                                        <div class="ui-grid-col-12  right">
+                                            <p:commandButton value="Opslaan" action="#{gebruikerController.saveUser}"
+                                                             update="@form"></p:commandButton>
+                                        </div>
+                                    </div>
+
+                                </h:form>
+
+                            </p:fieldset>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row formRow">
+                        <div class="ui-grid-col-12">
                             <p:fieldset legend="Registratie Code">
 
-                                <h:form id="frm_registratieCode">
+                                <h:form id="frm_registratieCode" binding="#{frm_registratiecode}">
 
                                     <p>
                                         Met behulp van deze code kunnen bezoekers van de site zich registreren als lid van uw club.
                                     </p>
 
                                     <p:messages id="msg_registratieCode" closable="true" autoUpdate="true"
-                                                showDetail="true"></p:messages>
+                                                showDetail="true"
+                                                rendered="#{frm_registratiecode.submitted}"></p:messages>
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
