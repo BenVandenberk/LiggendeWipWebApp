@@ -38,6 +38,11 @@
                         <p:menuitem value="Sitesponsoring" outcome="systeem_site_sponsoring"></p:menuitem>
                     </p:submenu>
 
+                    <p:submenu rendered="#{gebruikerController.heeftRol('lid')}" label="Lid"
+                               styleClass="right10">
+                        <p:menuitem value="Mijn Inschrijvingen" outcome="lid_inschrijvingen"></p:menuitem>
+                    </p:submenu>
+
                     <f:facet name="options">
 
                         <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('club')}"

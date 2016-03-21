@@ -155,6 +155,18 @@ public class Inschrijving implements Serializable {
         return toernooi.isMetInleg() || toernooi.isHeeftMaaltijd();
     }
 
+    public List<Ploeg> getPloegenMetLid(Lid lid) {
+        List<Ploeg> result = new ArrayList<>();
+
+        for (Ploeg ploeg : ploegen) {
+            if (ploeg.lidZitInPloeg(lid)) {
+                result.add(ploeg);
+            }
+        }
+
+        return result;
+    }
+
     protected boolean removePloeg(int ploegId) {
         return ploegen.removeIf(ploeg -> ploeg.getId() == ploegId);
     }

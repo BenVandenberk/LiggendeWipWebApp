@@ -88,6 +88,10 @@ public class Deelnemer implements Serializable {
         return true;
     }
 
+    public boolean isLid(Lid lid) {
+        return deelnemerIsLid && this.lid.equals(lid);
+    }
+
     //endregion
 
 

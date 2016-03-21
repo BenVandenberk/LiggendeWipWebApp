@@ -131,6 +131,17 @@ public class Ploeg implements Serializable {
         return namenZijnIngevuld;
     }
 
+    public boolean lidZitInPloeg(Lid lid) {
+        boolean lidZitInPloeg = false;
+
+        Iterator<Deelnemer> deelnemerIterator = deelnemers.iterator();
+        while(!lidZitInPloeg && deelnemerIterator.hasNext()) {
+            lidZitInPloeg = deelnemerIterator.next().isLid(lid);
+        }
+
+        return lidZitInPloeg;
+    }
+
     //endregion
 
     //region OBJECT METHODS

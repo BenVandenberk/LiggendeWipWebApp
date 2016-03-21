@@ -80,6 +80,7 @@ public class AuthorizationFilter implements Filter {
         lidUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         lidUrls.add("/bezoeker_toernooipagina.xhtml");
         lidUrls.add("/lid_accountbeheer.xhtml");
+        lidUrls.add("/lid_inschrijvingen.xhtml");
 
         toegelatenUrlsPerRol.put("club", clubUrls);
         toegelatenUrlsPerRol.put("bezoeker", bezoekerUrls);
