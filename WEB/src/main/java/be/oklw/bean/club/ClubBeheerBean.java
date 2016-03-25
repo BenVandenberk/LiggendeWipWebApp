@@ -157,9 +157,23 @@ public class ClubBeheerBean implements Serializable {
 
     public String toernooiKlik() {
         isNieuwToernooi = false;
-        toernooi = toernooiService.getToernooi(toerId);
-        kampioenschap = toernooi.getKampioenschap();
+
+        try {
+            toernooi = toernooiService.getToernooi(toerId);
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
+
         if (toernooi != null) {
+            kampioenschap = toernooi.getKampioenschap();
             return "club_toernooi_aanpassen?faces-redirect=true";
         } else {
             FacesContext facesContext = FacesContext.getCurrentInstance();

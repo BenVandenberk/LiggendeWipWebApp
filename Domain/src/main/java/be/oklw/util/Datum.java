@@ -12,14 +12,12 @@ import java.util.Locale;
 import static java.lang.Math.abs;
 
 /**
- *
  * Custom Datum klasse die de java.util.GregorianCalendar klasse wrapt
  *
  * @author Bert Neyt
  * @author Adriaan Kuipers
  * @author Ben Vandenberk
  * @version 4/10/2014
- *
  */
 public class Datum implements Comparable<Datum>, Serializable {
 
@@ -37,15 +35,10 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Maakt een datum object aan
      *
-     * @param dag
-     *            de dag van de maand
-     * @param maand
-     *            de maand
-     * @param jaar
-     *            het jaar
-     *
-     * @throws IllegalArgumentException
-     *             als een van de argumenten of de combinatie van argumenten ongeldig is
+     * @param dag   de dag van de maand
+     * @param maand de maand
+     * @param jaar  het jaar
+     * @throws IllegalArgumentException als een van de argumenten of de combinatie van argumenten ongeldig is
      */
     public Datum(int dag, int maand, int jaar) {
         boolean b = this.setDatum(dag, maand, jaar);
@@ -57,8 +50,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Maakt een datum object aan op basis van een ander datum object
      *
-     * @param datum
-     *            het datum object op basis waarvan de constructor een nieuw datum object aanmaakt
+     * @param datum het datum object op basis waarvan de constructor een nieuw datum object aanmaakt
      */
     public Datum(Datum datum) {
         this(datum.getDag(), datum.getMaand(), datum.getJaar());
@@ -68,11 +60,9 @@ public class Datum implements Comparable<Datum>, Serializable {
      * Maakt een datum object aan op basis van een string.
      * Format: DD/MM/YYYY of DD-MM-YYYY of in MySQL notatie YYYY-MM-DD of 'YYYY-MM-DD'
      *
-     * @param datum
-     *            de String met een datum waarde (DD/MM/YYYY of DD-MM-YYYY)
-     *            de String met een MySQL datum waarde (YYYY-MM-DD of 'YYYY-MM-DD')
-     * @throws IllegalArgumentException
-     *             als de input String van een foutief formaat is of als de datumwaarde ongeldig is
+     * @param datum de String met een datum waarde (DD/MM/YYYY of DD-MM-YYYY)
+     *              de String met een MySQL datum waarde (YYYY-MM-DD of 'YYYY-MM-DD')
+     * @throws IllegalArgumentException als de input String van een foutief formaat is of als de datumwaarde ongeldig is
      */
     public Datum(String datum) {
         String[] parts = datum.split(" ");
@@ -130,12 +120,9 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Zet het datum object op een geldige waarde
      *
-     * @param dag
-     *            de dag van de maand
-     * @param maand
-     *            de maand
-     * @param jaar
-     *            het jaar
+     * @param dag   de dag van de maand
+     * @param maand de maand
+     * @param jaar  het jaar
      * @return true als het zetten van de datum gelukt is
      */
     public boolean setDatum(int dag, int maand, int jaar) {
@@ -156,8 +143,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Overrides de default JVM Locale met de meegegeven Locale
      *
-     * @param loc
-     *            de Locale die door de Datum klasse gebruikt wordt om datums te formateren
+     * @param loc de Locale die door de Datum klasse gebruikt wordt om datums te formateren
      */
     public static void setLocale(Locale loc) {
         locale = loc;
@@ -178,12 +164,13 @@ public class Datum implements Comparable<Datum>, Serializable {
      * @return een string in Europees formaat (DD/MM/YYYY)
      */
     public String getDatumInEuropeesFormaat() {
-        return this.getDag() + "/" + this.getMaand() + "/" + this.getJaar();
+        return String.format("%02d/%02d/%d", this.getDag(), this.getMaand(), this.getJaar());
     }
 
     /**
      * Geeft een niet-afgebakende string in MySQL formaat ("YYYY-MM-DD")
      * Te gebruiken voor vb. MySQL datum notatie
+     *
      * @return een niet-afgebakende string in MySQL formaat ("YYY-MM-DD")
      */
     public String getDatumInMySQLFormaat() {
@@ -213,8 +200,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Geeft true terug als het datum object zich chronologisch vóór het meegegeven datum object bevindt
      *
-     * @param datum
-     *            het datum object waarmee vergeleken wordt
+     * @param datum het datum object waarmee vergeleken wordt
      * @return true als het datum object zich chronologisch vóór het meegegeven datum object bevindt
      */
     public boolean kleinerDan(Datum datum) {
@@ -225,8 +211,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Geeft het aantal gehele jaren terug dat zich bevindt tussen het datum object en het meegegeven datum object
      *
-     * @param datum
-     *            het datum object waarmee vergeleken wordt
+     * @param datum het datum object waarmee vergeleken wordt
      * @return het aantal gehele jaren dat zich bevindt tussen het datum object en het meegegeven datum object
      */
     public int verschilInJaren(Datum datum) {
@@ -253,8 +238,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Geeft het aantal gehele maanden terug dat zich bevindt tussen het datum object en het meegegeven datum object
      *
-     * @param datum
-     *            het datum object waarmee vergeleken wordt
+     * @param datum het datum object waarmee vergeleken wordt
      * @return het aantal gehele maanden dat zich bevindt tussen het datum object en het meegegeven datum object
      */
     public int verschilInMaanden(Datum datum) {
@@ -281,8 +265,7 @@ public class Datum implements Comparable<Datum>, Serializable {
     /**
      * Geeft het aantal gehele dagen terug dat zich bevindt tussen het datum object en het meegegeven datum object
      *
-     * @param datum
-     *            het datum object waarmee vergeleken wordt
+     * @param datum het datum object waarmee vergeleken wordt
      * @return het aantal gehele dagen dat zich bevindt tussen het datum object en het meegegeven datum object
      */
     public int verschilInDagen(Datum datum) {
@@ -295,8 +278,7 @@ public class Datum implements Comparable<Datum>, Serializable {
      * Verandert de datum met het meegegeven aantal dagen. Een positief getal verhoogt de datum, een negatief getal
      * verlaagt ze
      *
-     * @param aantalDagen
-     *            het aantal dagen waarmee de datum aangepast wordt
+     * @param aantalDagen het aantal dagen waarmee de datum aangepast wordt
      */
     public void veranderDatum(int aantalDagen) {
         this.gregorianCalendarDatum.add(Calendar.DAY_OF_YEAR, aantalDagen);
@@ -310,8 +292,7 @@ public class Datum implements Comparable<Datum>, Serializable {
      * Geeft een datum object terug dat verschilt van het huidige met het meegegeven aantal dagen. Een positieve waarde
      * geeft een latere datum terug, een negatieve een eerdere
      *
-     * @param aantalDagen
-     *            het aantal dagen waarmee de teruggegeven datum verschilt van het datum object
+     * @param aantalDagen het aantal dagen waarmee de teruggegeven datum verschilt van het datum object
      * @return het datum object dat met het aantal dagen is veranderd
      */
     public Datum getVeranderdeDatum(int aantalDagen) {

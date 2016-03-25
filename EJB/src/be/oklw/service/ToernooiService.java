@@ -17,8 +17,14 @@ public class ToernooiService implements IToernooiService {
     EntityManager entityManager;
 
     @Override
-    public Toernooi getToernooi(int id) {
-        return entityManager.find(Toernooi.class, id);
+    public Toernooi getToernooi(int id) throws BusinessException {
+        Toernooi toernooi = entityManager.find(Toernooi.class, id);
+
+        if (toernooi == null) {
+            throw new BusinessException("Ongeldige toernooi id");
+        }
+
+        return toernooi;
     }
 
     @Override
