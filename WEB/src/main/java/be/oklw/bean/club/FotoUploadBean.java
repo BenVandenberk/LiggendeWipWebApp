@@ -129,6 +129,11 @@ public class FotoUploadBean {
     @PostConstruct
     public void init() {
         kampioenschap = clubBeheerBean.getKampioenschap();
-        fotos = kampioenschapService.getFotos(kampioenschap);
+
+        try {
+            fotos = kampioenschapService.getFotos(kampioenschap);
+        } catch (Exception ex) {
+            System.err.println("Er ging iets mis in de @PostConstruct method van de FotoUploadBean: " + ex.getMessage());
+        }
     }
 }

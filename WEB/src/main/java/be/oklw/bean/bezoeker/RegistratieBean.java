@@ -1,6 +1,5 @@
 package be.oklw.bean.bezoeker;
 
-import be.oklw.bean.common.GebruikerController;
 import be.oklw.model.Account;
 import be.oklw.model.Club;
 import be.oklw.model.Lid;
@@ -11,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -32,6 +30,8 @@ public class RegistratieBean {
     private boolean clubConfirmed = false;
 
     private Club club;
+
+    //region GETTERS en SETTERS
 
     public String getRegistratieCode() {
         return registratieCode;
@@ -76,6 +76,8 @@ public class RegistratieBean {
     public boolean isClubConfirmed() {
         return clubConfirmed;
     }
+
+    //endregion
 
     public void controleerCode() {
         club = null;

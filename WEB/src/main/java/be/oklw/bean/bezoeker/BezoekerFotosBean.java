@@ -5,8 +5,10 @@ import be.oklw.service.IKampioenschapService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 @ManagedBean
@@ -28,6 +30,6 @@ public class BezoekerFotosBean {
 
     @PostConstruct
     public void init() {
-        kampioenschappenMetFotos = kampioenschapService.getKampioenschappenMetFotos();
+            kampioenschappenMetFotos = kampioenschapService.getKampioenschappenMetFotos();
     }
 }

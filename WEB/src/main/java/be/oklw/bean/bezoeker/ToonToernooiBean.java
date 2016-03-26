@@ -47,6 +47,7 @@ public class ToonToernooiBean {
         return sponsorsPerDrie;
     }
 
+    // Deze setter wordt aangeroepen bij elke HTTP GET van bezoeker_toernooipagina?toerId=<TOERNOOI_ID>
     public void setToernooiId(int toernooiId) {
         boolean veranderd = this.toernooiId != toernooiId;
 

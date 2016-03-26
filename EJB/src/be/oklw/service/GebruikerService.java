@@ -18,7 +18,6 @@ import java.util.Random;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Stateless
-@Local(IGebruikerService.class)
 @TransactionManagement(value = TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GebruikerService implements IGebruikerService {
@@ -29,7 +28,6 @@ public class GebruikerService implements IGebruikerService {
     @EJB
     IMailService mailService;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Account login(String userName, String password) throws BusinessException {
 
         List<Account> accounts = entityManager.createQuery(
@@ -49,7 +47,6 @@ public class GebruikerService implements IGebruikerService {
         return account;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException {
         if (!Authentication.isJuistPaswoord(oud, account.getPwHash(), account.getPwSalt())) {
             throw new BusinessException("Onjuist paswoord");
@@ -84,7 +81,6 @@ public class GebruikerService implements IGebruikerService {
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Account wijzigAdminContactGegevens(SysteemAccount systeemAccount, String newEmail, String newTelefoonNummer) throws BusinessException {
         if (isNotBlank(newEmail)) {
             systeemAccount.setEmail(newEmail);
