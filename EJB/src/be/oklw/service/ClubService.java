@@ -171,21 +171,18 @@ public class ClubService implements IClubService {
 
     @Override
     public Club addSponsor(Sponsor sponsor, Club club) {
-        entityManager.merge(club);
-        club.getSponsors().size();
+//        entityManager.merge(club);
+//        club.getSponsors().size();
+//        club.addSponsor(sponsor);
+//        entityManager.merge(club);
+//        entityManager.flush();
+//        Club metNieuweSponsor = entityManager.find(Club.class, club.getId());
+//        metNieuweSponsor.getSponsors().size();
+//        return metNieuweSponsor;
+
         club.addSponsor(sponsor);
         entityManager.merge(club);
-        entityManager.flush();
-        Club metNieuweSponsor = entityManager.find(Club.class, club.getId());
-        metNieuweSponsor.getSponsors().size();
-        return metNieuweSponsor;
-    }
-
-    @Override
-    public Club loadSponsors(Club club) {
-        Club dbClub = entityManager.find(Club.class, club.getId());
-        dbClub.getSponsors().size();
-        return dbClub;
+        return club;
     }
 
     @Override

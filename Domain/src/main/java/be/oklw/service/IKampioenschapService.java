@@ -86,9 +86,13 @@ public interface IKampioenschapService {
      * Geeft een lege lijst terug als er geen Kampioenschappen gevonden worden.
      *
      * @param uitVerleden true voor Kampioenschappen uit het verleden, false voor Kampioenschappen uit de toekomst.
-     * @return een List&lt;Kampioenschap&gt;
+     * @return een List&lt;Kampioenschap&gt; die leeg kan zijn
      */
     List<Kampioenschap> getKampioenschappen(boolean uitVerleden);
 
+    /**
+     * Geeft alle toekomstige Kampioenschappen terug die minstens één toernooi hebben waarvoor de inschrijvingen open zijn.
+     * @return een List&lt;Kampioenschap&gt; die leeg kan zijn
+     */
     List<Kampioenschap> getKampioenschapenInschrijvenMogelijk();
 }

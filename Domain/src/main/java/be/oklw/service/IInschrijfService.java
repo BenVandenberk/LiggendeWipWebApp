@@ -14,6 +14,11 @@ public interface IInschrijfService {
 
     void verwijderPloeg(int ploegId);
 
+    /**
+     * Geeft alle Inschrijvingen van de meegegeven Club terug voor toekomstige Toernooien.
+     * @param club de Club waarvoor Inschrijvingen opgehaald worden
+     * @return een List &lt;Inschrijving&gt; die leeg kan zijn
+     */
     List<Inschrijving> getInschrijvingenVoor(Club club);
 
     /**

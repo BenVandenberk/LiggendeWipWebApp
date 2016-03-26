@@ -59,8 +59,6 @@ public interface IClubService {
 
     Club addSponsor(Sponsor sponsor, Club club);
 
-    Club loadSponsors(Club club);
-
     void save(Club club) throws BusinessException;
 
 
