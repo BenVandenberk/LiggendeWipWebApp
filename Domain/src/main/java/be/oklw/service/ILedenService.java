@@ -18,6 +18,11 @@ public interface ILedenService {
      */
     List<Lid> ledenVanClub(Club club);
 
+    /**
+     * Zoekt een Lid op basis van id
+     * @param id de id van het Lid (int)
+     * @return het Lid of null als er geen Lid bestaat met de meegegeven id
+     */
     Lid getLid(int id);
 
     /**
@@ -26,5 +31,10 @@ public interface ILedenService {
      */
     List<Lid> alleLeden();
 
+    /**
+     * Haalt alle inschrijvingen van een Lid voor toekomstige Toernooien op. Deze method vult een lijst met hulpobjecten van het type LidInschrijving
+     * @param lid het Lid waarvoor Inschrijvingen gezocht worden
+     * @return een List&lt;LidInschrijving&gt;
+     */
     List<LidInschrijving> alleToekomstigeInschrijvingen(Lid lid);
 }

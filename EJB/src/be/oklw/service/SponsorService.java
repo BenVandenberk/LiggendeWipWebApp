@@ -75,24 +75,32 @@ public class SponsorService implements ISponsorService {
     }
 
     @Override
-    public void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount) {
-        systeemAccount.addSiteSponsor(siteSponsor);
-        entityManager.merge(systeemAccount);
-        entityManager.flush();
+    public void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount) throws BusinessException {
+        try {
+            systeemAccount.addSiteSponsor(siteSponsor);
+            entityManager.merge(systeemAccount);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void saveSiteSponsor(SiteSponsor siteSponsor) {
-        entityManager.merge(siteSponsor);
-        entityManager.flush();
+    public void saveSiteSponsor(SiteSponsor siteSponsor) throws BusinessException {
+        try {
+            entityManager.merge(siteSponsor);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) {
-        SiteSponsor teVerwijderen = entityManager.find(SiteSponsor.class, siteSponsorId);
-        systeemAccount.removeSiteSponsor(siteSponsorId);
-        entityManager.merge(systeemAccount);
-        entityManager.flush();
+    public void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) throws BusinessException {
+        try {
+            systeemAccount.removeSiteSponsor(siteSponsorId);
+            entityManager.merge(systeemAccount);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override

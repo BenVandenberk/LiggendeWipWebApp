@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
-@Local
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -28,7 +27,6 @@ public class EvenementService implements IEvenementService{
         return (List<Evenement>) query.getResultList();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void maakNieuwKampioenschapAan(String naam, String clubNaam, Datum start, Datum eind) throws BusinessException{
         Club club = (Club)entityManager.createQuery("select c from Club c where c.naam = :selClub")
@@ -40,7 +38,6 @@ public class EvenementService implements IEvenementService{
         entityManager.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void maakNieuwEvenementAan(String naam, String clubNaam, Datum start, Datum eind, String locatie, String omschrijving) throws BusinessException{
         Club club = (Club)entityManager.createQuery("select c from Club c where c.naam = :selClub")
@@ -52,7 +49,6 @@ public class EvenementService implements IEvenementService{
         entityManager.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void verwijderEvenement(Evenement evenement) throws BusinessException{
 

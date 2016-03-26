@@ -1,9 +1,6 @@
 package be.oklw.service;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.ejb.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -11,8 +8,8 @@ import java.util.List;
 import java.util.Properties;
 
 @Stateless
-@Local
 @TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class MailService implements IMailService {
 
     @Override

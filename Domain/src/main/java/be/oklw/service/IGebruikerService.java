@@ -42,6 +42,11 @@ public interface IGebruikerService {
      */
     Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException;
 
+    /**
+     * Zoekt een SysteemAccount op basis van id
+     * @param id de id (int)
+     * @return het SysteemAccount of null als er geen SysteemAccount bestaat met de meegegeven id
+     */
     SysteemAccount getSysteemAccount(int id);
 
     List<SysteemAccount> getAllSysteemAccount();

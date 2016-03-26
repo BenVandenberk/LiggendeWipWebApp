@@ -42,8 +42,6 @@ public class SiteSponsorBean implements Serializable {
     private int sponsId;
     private SiteSponsor siteSponsor;
     private boolean sponsorNieuw;
-    private boolean heeftLogo;
-    private String logoUrl;
 
     public boolean isHeeftLogo() {
         if (siteSponsor == null) {
@@ -149,14 +147,28 @@ public class SiteSponsorBean implements Serializable {
     }
 
     public String opslaan() {
-        if (sponsorNieuw) {
-            sponsorService.nieuweSiteSponsor(siteSponsor, sysAccount);
-        } else {
-            sponsorService.saveSiteSponsor(siteSponsor);
-        }
+        try {
+            if (sponsorNieuw) {
+                sponsorService.nieuweSiteSponsor(siteSponsor, sysAccount);
+            } else {
+                sponsorService.saveSiteSponsor(siteSponsor);
+            }
 
-        refresh();
-        return "systeem_site_sponsoring?faces-redirect=true";
+            refresh();
+            return "systeem_site_sponsoring?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+
+            return "";
+        }
     }
 
     public String annuleren() {

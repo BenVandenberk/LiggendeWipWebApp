@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Local
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ContactService implements IContactService {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
@@ -28,7 +27,6 @@ public class ContactService implements IContactService {
         return contact;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public Contact wijzigContact (String naam, String telefoonnummer, String email, boolean isBeheerder, int id) throws BusinessException {
         Contact contact = getContact(id);

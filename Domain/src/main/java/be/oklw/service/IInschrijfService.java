@@ -29,5 +29,10 @@ public interface IInschrijfService {
      */
     String openInschrijvingen(Toernooi toernooi) throws BusinessException;
 
+    /**
+     * Save een bestaande Inschrijving in de database ('merge')
+     * @param inschrijving de te saven Inschrijving
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
     void save(Inschrijving inschrijving) throws BusinessException;
 }

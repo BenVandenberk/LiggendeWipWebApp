@@ -49,11 +49,28 @@ public interface ISponsorService {
      */
     void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap) throws BusinessException;
 
-    void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount);
+    /**
+     * Voegt een SiteSponsor toe
+     * @param siteSponsor de toe te voegen SiteSponsor
+     * @param systeemAccount het SysteemAccount
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount) throws BusinessException;
 
-    void saveSiteSponsor(SiteSponsor siteSponsor);
+    /**
+     * Save een bestaande SiteSponsor in de database ('merge')
+     * @param siteSponsor de te saven SiteSponsor
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void saveSiteSponsor(SiteSponsor siteSponsor) throws BusinessException;
 
-    void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId);
+    /**
+     * Verwijdert een SiteSponsor
+     * @param systeemAccount het SysteemAccount
+     * @param siteSponsorId de id van de te verwijderen SiteSponsor (int)
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) throws BusinessException;
 
     /**
      * Haalt alle SiteSponsors op

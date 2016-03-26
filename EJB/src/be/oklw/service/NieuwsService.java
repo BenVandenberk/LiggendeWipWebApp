@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Local
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class NieuwsService implements INieuwsService {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void maakNieuwtjeAan(String tekst, Datum datum, Datum tonenTot, Account account) {
         Nieuws nieuws = new Nieuws(tekst, datum, tonenTot, account);

@@ -4,8 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import javax.ejb.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -14,6 +13,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.CONTAINER)
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class FileService implements IFileService {
 
     final String UPLOAD_PATH = "/home/java/development/upload";
