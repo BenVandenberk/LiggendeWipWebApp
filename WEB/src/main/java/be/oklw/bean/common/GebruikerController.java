@@ -207,11 +207,11 @@ public class GebruikerController {
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paswoord succesvol gewijzigd", "Paswoord succesvol gewijzigd");
                 facesContext.addMessage(null, message);
             } else {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Om je paswoord te veranderen moet je ingelogd zijn", "Om je paswoord te veranderen moet je ingelogd zijn");
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Om je paswoord te veranderen moet je ingelogd zijn");
                 facesContext.addMessage(null, message);
             }
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -229,11 +229,11 @@ public class GebruikerController {
                 facesContext.addMessage(null, message);
                 reset();
             } else {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Om je contactgegevens te veranderen moet je ingelogd zijn", "Om je contactgegevens te veranderen moet je ingelogd zijn");
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Om je contactgegevens te veranderen moet je ingelogd zijn");
                 facesContext.addMessage(null, message);
             }
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -248,7 +248,7 @@ public class GebruikerController {
         FacesMessage message;
 
         try {
-            clubService.bewaarAfmetingen(club);
+            clubService.save(club);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Opgeslagen", "Afmetingen succesvol opgeslagen");
             facesContext.addMessage("frm_afmetingen:btn_bewaar", message);
         } catch (Exception ex) {

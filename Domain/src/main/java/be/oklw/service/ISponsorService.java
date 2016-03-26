@@ -55,6 +55,10 @@ public interface ISponsorService {
 
     void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId);
 
+    /**
+     * Haalt alle SiteSponsors op
+     * @return een List&lt;SiteSponsor&gt;
+     */
     List<SiteSponsor> getSiteSponsors();
 
     /**

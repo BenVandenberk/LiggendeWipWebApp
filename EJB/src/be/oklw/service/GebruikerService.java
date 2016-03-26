@@ -10,6 +10,7 @@ import be.oklw.util.Authentication;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,43 +23,53 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GebruikerService implements IGebruikerService {
 
-    @PersistenceContext(unitName = "myunitname")
+    @PersistenceContext
     EntityManager entityManager;
 
     @EJB
     IMailService mailService;
 
+    @Override
     public Account login(String userName, String password) throws BusinessException {
 
-        List<Account> accounts = entityManager.createQuery(
-                "select a from Account a where a.userName LIKE :un"
-        ).setParameter("un", userName)
-                .getResultList();
+        try {
 
-        if (accounts.size() == 0) {
+            Account account = entityManager.createQuery("select a from Account a where a.userName=:un", Account.class)
+                    .setParameter("un", userName)
+                    .getSingleResult();
+
+            if (!Authentication.isJuistPaswoord(password, account.getPwHash(), account.getPwSalt())) {
+                throw new BusinessException("Onjuist paswoord");
+            }
+
+            return account;
+
+        } catch (NoResultException noResEx) {
             throw new BusinessException("Onbestaande gebruiker");
+        } catch (NonUniqueResultException nonUniqResEx) {
+            throw new BusinessException("Er zijn meerdere Accounts met gebruikersnaam " + userName);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
-
-        Account account = accounts.get(0);
-        if (!Authentication.isJuistPaswoord(password, account.getPwHash(), account.getPwSalt())) {
-            throw new BusinessException("Onjuist paswoord");
-        }
-
-        return account;
     }
 
+    @Override
     public Account veranderPaswoord(Account account, String oud, String nieuw) throws BusinessException {
         if (!Authentication.isJuistPaswoord(oud, account.getPwHash(), account.getPwSalt())) {
             throw new BusinessException("Onjuist paswoord");
         }
 
-        byte[] nieuweHash = Authentication.hashPw(nieuw, account.getPwSalt());
-        account.setPwHash(nieuweHash);
-        entityManager.merge(account);
-        entityManager.flush();
-        return account;
+        try {
+            byte[] nieuweHash = Authentication.hashPw(nieuw, account.getPwSalt());
+            account.setPwHash(nieuweHash);
+            entityManager.merge(account);
+            return account;
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
+    @Override
     public void createAdmin() {
 
         SysteemAccount systeemAccount = new SysteemAccount("admin");

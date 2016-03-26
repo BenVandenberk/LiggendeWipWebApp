@@ -10,16 +10,15 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-
 @RequestScoped
 @ManagedBean
 public class LoginBean {
 
-    private String userName;
-    private String password;
-
     @EJB
     private IGebruikerService gebruikerService;
+
+    private String userName;
+    private String password;
 
     public String getUserName() {
         return userName;
@@ -57,8 +56,7 @@ public class LoginBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
 
-        String redirectMessage = null;
-        redirectMessage = (String) session.getAttribute("redirectMessage");
+        String redirectMessage = (String) session.getAttribute("redirectMessage");
 
         if (redirectMessage != null) {
             facesContext.addMessage(null, new FacesMessage(redirectMessage));

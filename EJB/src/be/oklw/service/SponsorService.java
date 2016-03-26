@@ -97,7 +97,7 @@ public class SponsorService implements ISponsorService {
 
     @Override
     public List<SiteSponsor> getSiteSponsors() {
-        return (List<SiteSponsor>) entityManager.createQuery("SELECT s FROM SiteSponsor s").getResultList();
+        return entityManager.createQuery("SELECT s FROM SiteSponsor s", SiteSponsor.class).getResultList();
     }
 
     @Override

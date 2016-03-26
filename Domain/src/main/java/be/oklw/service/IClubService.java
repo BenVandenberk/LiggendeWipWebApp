@@ -45,8 +45,6 @@ public interface IClubService {
      */
     Club getClub(int id);
 
-    void bewaarAfmetingen(Club club);
-
     /**
      * [DEZE METHOD GAAT NIET NAAR DE DATABASE. ZE WERKT OP DE IN-MEMORY OBJECTEN] <br />
      * Haalt alle Kampioenschappen uit het verleden of uit de toekomst op van een Club. Een Kampioenschap behoort tot het verleden wanneer [einddatum van het kampioenschap < vandaag]
@@ -77,6 +75,11 @@ public interface IClubService {
      */
     Club addSponsor(Sponsor sponsor, Club club) throws BusinessException;
 
+    /**
+     * Save een bestaande Club in de database ('merge')
+     * @param club de te saven Club
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
     void save(Club club) throws BusinessException;
 
 

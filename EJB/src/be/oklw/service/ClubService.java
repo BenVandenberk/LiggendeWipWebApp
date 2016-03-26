@@ -95,12 +95,6 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public void bewaarAfmetingen(Club club) {
-        entityManager.merge(club);
-        entityManager.flush();
-    }
-
-    @Override
     public List<Kampioenschap> kampioenschappenVan(Club club, boolean uitVerleden) {
         List<Kampioenschap> kampioenschappen = new ArrayList<Kampioenschap>();
 
