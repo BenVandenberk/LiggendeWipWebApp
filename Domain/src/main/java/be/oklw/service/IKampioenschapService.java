@@ -50,6 +50,14 @@ public interface IKampioenschapService {
      */
     void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
 
+    /**
+     * Voegt een Foto toe aan een Kampioenschap
+     * @param fileContent de binaire representatie van de foto file
+     * @param fileName de filename van de foto
+     * @param kampioenschap het Kampioenschap
+     * @return het Kampioenschap waaraan de Foto is toegevoegd
+     * @throws BusinessException als er iets misloopt bij de file I/O of de data-access
+     */
     Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException;
 
     /**

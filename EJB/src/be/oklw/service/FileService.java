@@ -14,14 +14,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Stateless
-@Local
 public class FileService implements IFileService {
 
     final String UPLOAD_PATH = "/home/java/development/upload";
 
     @Override
-    public String upload(byte[] fileContent, String fileName, String relativePath) throws IOException{
-
+    public String upload(byte[] fileContent, String fileName, String relativePath) throws IOException {
 
         Path folder = Paths.get(UPLOAD_PATH + "/" + relativePath);
         String fileBaseName = FilenameUtils.getBaseName(fileName);

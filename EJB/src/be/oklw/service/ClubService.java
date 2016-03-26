@@ -26,14 +26,17 @@ public class ClubService implements IClubService {
     EntityManager entityManager;
 
     @Override
-    public void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException {
-        String logoPad = fileService.upload(fileContent, fileName, "clublogos");
+    public void veranderClubLogo(byte[] logoFileContent, String logoFileName, Club club) throws BusinessException {
+        try {
+            String logoPad = fileService.upload(logoFileContent, logoFileName, "clublogos");
 
-        club.setLogoBreedte(120);
-        club.setLogoHoogte(120);
-        club.setLogoPad(logoPad);
-        entityManager.merge(club);
-        entityManager.flush();
+            club.setLogoBreedte(120);
+            club.setLogoHoogte(120);
+            club.setLogoPad(logoPad);
+            entityManager.merge(club);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -72,14 +75,9 @@ public class ClubService implements IClubService {
         }
 
         try {
-            Club club = entityManager.createQuery("select c from Club c where c.account.id = :accId", Club.class)
+            return entityManager.createQuery("select c from Club c where c.account.id = :accId", Club.class)
                     .setParameter("accId", account.getId())
                     .getSingleResult();
-
-            // Sponsors laden wegens lazy loading
-            club.getSponsors().size();
-
-            return club;
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
@@ -171,15 +169,6 @@ public class ClubService implements IClubService {
 
     @Override
     public Club addSponsor(Sponsor sponsor, Club club) {
-//        entityManager.merge(club);
-//        club.getSponsors().size();
-//        club.addSponsor(sponsor);
-//        entityManager.merge(club);
-//        entityManager.flush();
-//        Club metNieuweSponsor = entityManager.find(Club.class, club.getId());
-//        metNieuweSponsor.getSponsors().size();
-//        return metNieuweSponsor;
-
         club.addSponsor(sponsor);
         entityManager.merge(club);
         return club;

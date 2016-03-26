@@ -1,7 +1,5 @@
 package be.oklw.service;
 
-import be.oklw.exception.BusinessException;
-
 import javax.ejb.Local;
 
 import java.io.IOException;

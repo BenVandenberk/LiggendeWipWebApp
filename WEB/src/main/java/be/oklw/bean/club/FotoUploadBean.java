@@ -33,6 +33,8 @@ public class FotoUploadBean {
 
     private String tag;
 
+    //region GETTERS en SETTERS
+
     public UploadedFile getFile() {
         return file;
     }
@@ -69,6 +71,8 @@ public class FotoUploadBean {
         this.tag = tag;
     }
 
+    //endregion
+
     public void uploadFoto(FileUploadEvent fileUploadEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage facesMessage;
@@ -81,7 +85,11 @@ public class FotoUploadBean {
                 kampioenschap = kampioenschapService.addFoto(file.getContents(), file.getFileName(), kampioenschap);
                 fotos = kampioenschapService.getFotos(kampioenschap);
             } catch (Exception ex) {
-                facesMessage = new FacesMessage(ex.getMessage());
+                facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,
+                        "Fout",
+                        ex.getMessage()
+                );
                 facesContext.addMessage(null, facesMessage);
             }
 

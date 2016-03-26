@@ -80,9 +80,7 @@ public class KampioenschapService implements IKampioenschapService {
                     fileService.upload(fileContent, fileName, "fotos")
             );
             kampioenschap.addFoto(foto);
-            entityManager.persist(foto);
-            entityManager.flush();
-            return kampioenschap;
+            return entityManager.merge(kampioenschap);
 
         } catch (Exception ex) {
             throw new BusinessException(
@@ -98,7 +96,7 @@ public class KampioenschapService implements IKampioenschapService {
                     .setParameter("kampId", kampioenschap.getId())
                     .getResultList();
         } catch (Exception ex) {
-            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
     }
 

@@ -11,7 +11,14 @@ import java.util.Set;
 @Local
 public interface IClubService {
 
-    void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException;
+    /**
+     * Verandert het logo van een Club
+     * @param logoFileContent de binaire representatie van de file (byte[])
+     * @param logoFileName de naam van de file
+     * @param club de Club waarvoor het logo aangepast wordt
+     * @throws BusinessException als er iets mis loopt met de file I/O of de data-access
+     */
+    void veranderClubLogo(byte[] logoFileContent, String logoFileName, Club club) throws BusinessException;
 
     void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException;
 

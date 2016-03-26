@@ -47,7 +47,11 @@ public class FileUploadBean {
             try {
                 clubService.veranderClubLogo(file.getContents(), file.getFileName(), club());
             } catch (Exception ex) {
-                facesMessage = new FacesMessage(ex.getMessage());
+                facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,
+                        "Fout",
+                        ex.getMessage()
+                );
                 facesContext.addMessage(null, facesMessage);
             }
 
