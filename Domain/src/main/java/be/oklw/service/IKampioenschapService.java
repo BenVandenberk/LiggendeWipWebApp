@@ -13,23 +13,48 @@ public interface IKampioenschapService {
 
     /**
      * Zoekt een Kampioenschap op basis van zijn id
+     *
      * @param id de id van het Kampioenschap (int)
      * @return het Kampioenschap of null als er geen Kampioenschap is met de meegegeven id
      */
     Kampioenschap getKampioenschap(int id);
 
-    void opslaan(Kampioenschap kampioenschap);
+    /**
+     * Save een bestaand Kampioenschap in de database ('merge')
+     * @param kampioenschap het te saven Kampioenschap
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void opslaan(Kampioenschap kampioenschap) throws BusinessException;
 
-    void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap);
+    /**
+     * Voegt een nieuw Toernooi toe aan een Kampioenschap.
+     * @param toernooi het Toernooi om toe te voegen
+     * @param kampioenschap het Kampioenschap waar het Toernooi aan toegevoegd wordt
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
 
-    void opslaanToernooi(Toernooi toernooi);
+    /**
+     * Save een bestaand Toernooi in de database ('merge')
+     * @param toernooi het te saven Toernooi
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void opslaanToernooi(Toernooi toernooi) throws BusinessException;
 
+    /**
+     * Verwijdert een Toernooi uit een Kampioenschap
+     *
+     * @param toernooi het te verwijderen Toernooi
+     * @param kampioenschap het Kampioenschap waaruit het Toernooi verwijderd wordt
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
     void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
 
     Kampioenschap addFoto(byte[] fileContent, String fileName, Kampioenschap kampioenschap) throws BusinessException;
 
     /**
      * Geeft alle Fotos van een Kampioenschap terug
+     *
      * @param kampioenschap het Kampioenschap
      * @return een List&lt;Foto&gt;
      * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
@@ -38,6 +63,7 @@ public interface IKampioenschapService {
 
     /**
      * Geeft alle Fotos van een Kampioenschap terug
+     *
      * @param kampioenschapId de id van het Kampioenschap
      * @return een List&lt;Foto&gt;
      * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
@@ -58,6 +84,7 @@ public interface IKampioenschapService {
     /**
      * Geeft een lijst terug van alle Kampioenschappen uit het verleden of in de toekomst. Een Kampioenschap behoort tot het verleden wanneer [einddatum van het kampioenschap < vandaag]
      * Geeft een lege lijst terug als er geen Kampioenschappen gevonden worden.
+     *
      * @param uitVerleden true voor Kampioenschappen uit het verleden, false voor Kampioenschappen uit de toekomst.
      * @return een List&lt;Kampioenschap&gt;
      */

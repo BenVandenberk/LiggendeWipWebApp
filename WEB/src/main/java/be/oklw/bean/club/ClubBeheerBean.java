@@ -5,6 +5,7 @@ import be.oklw.model.Club;
 import be.oklw.model.Kampioenschap;
 import be.oklw.model.Toernooi;
 import be.oklw.service.*;
+import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -106,6 +107,11 @@ public class ClubBeheerBean implements Serializable {
 
     public String kampioenschapKlik() {
         kampioenschap = kampioenschapService.getKampioenschap(kampId);
+
+        // Als er geen juiste id gepost is
+        if (kampioenschap == null) {
+            return "";
+        }
         return "club_kampioenschapspagina?faces-redirect=true";
     }
 
@@ -189,22 +195,55 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String opslaan() {
-        kampioenschapService.opslaan(kampioenschap);
-        return "club_beheer?faces-redirect=true";
+        try {
+            kampioenschapService.opslaan(kampioenschap);
+            return "club_beheer?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()
+                    )
+            );
+        }
+        return "";
     }
 
     public String opslaanToernooi() {
-        if (isNieuwToernooi) {
-            kampioenschapService.nieuwToernooi(toernooi, kampioenschap);
-        } else {
-            kampioenschapService.opslaanToernooi(toernooi);
+        try {
+            if (isNieuwToernooi) {
+                kampioenschapService.nieuwToernooi(toernooi, kampioenschap);
+            } else {
+                kampioenschapService.opslaanToernooi(toernooi);
+            }
+
+            return "club_kampioenschapspagina?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()));
         }
-        return "club_kampioenschapspagina?faces-redirect=true";
+        return "";
     }
 
     public void verwijderSponsor() {
-        sponsorService.verwijderSponsorVan(sponsId, kampioenschap);
-        refresh();
+        try {
+            sponsorService.verwijderSponsorVan(sponsId, kampioenschap);
+            refresh();
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()));
+        }
     }
 
     public void openInschrijvingen() {
@@ -221,6 +260,19 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public String inschrijvingenBeheren() {
+
+        if (toernooi == null) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    "Ongeldig Toernooi")
+            );
+            return "";
+        }
+
         return "club_inschrijvingen_beheren?faces-redirect=true&toerID=" + toernooi.getId();
     }
 
@@ -233,8 +285,12 @@ public class ClubBeheerBean implements Serializable {
     }
 
     public void refresh() {
-        kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());
-        club = clubService.getClub(user);
+        try {
+            kampioenschap = kampioenschapService.getKampioenschap(kampioenschap.getId());
+            club = clubService.getClub(user);
+        } catch (Exception ex) {
+            System.err.println("Ongeldige session state: " + ex.getMessage());
+        }
     }
 
     @PostConstruct
@@ -244,7 +300,12 @@ public class ClubBeheerBean implements Serializable {
 
         if (session != null) {
             user = (Account) session.getAttribute("user");
-            club = clubService.getClub(user);
+
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
         }
     }
 

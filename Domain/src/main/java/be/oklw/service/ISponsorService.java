@@ -18,7 +18,13 @@ public interface ISponsorService {
 
     void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap);
 
-    void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap);
+    /**
+     * Verwijdert een clubsponsor van een Kampioenschap
+     * @param sponsorId de id van de Sponsor (int)
+     * @param kampioenschap het Kampioenschap
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap) throws BusinessException;
 
     void nieuweSiteSponsor(SiteSponsor siteSponsor, SysteemAccount systeemAccount);
 

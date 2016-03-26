@@ -31,22 +31,32 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
-    public void opslaan(Kampioenschap kampioenschap) {
-        entityManager.merge(kampioenschap);
-        entityManager.flush();
+    public void opslaan(Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) {
-        entityManager.persist(toernooi);
-        kampioenschap.addToernooi(toernooi);
-        entityManager.flush();
+    public void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            entityManager.persist(toernooi);
+            kampioenschap.addToernooi(toernooi);
+            entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void opslaanToernooi(Toernooi toernooi) {
-        entityManager.merge(toernooi);
-        entityManager.flush();
+    public void opslaanToernooi(Toernooi toernooi) throws BusinessException {
+        try {
+            entityManager.merge(toernooi);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override

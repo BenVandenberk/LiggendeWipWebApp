@@ -48,13 +48,18 @@ public class ClubInschrijvenBean {
         Club club = null;
         if (session != null) {
             Account user = (Account) session.getAttribute("user");
-            club = clubService.getClub(user);
+
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
         }
 
         kampioenschappenInschrijvenMogelijk = kampioenschapService.getKampioenschapenInschrijvenMogelijk();
 
         if (club != null) {
-        inschrijvingenVanClub = inschrijfService.getInschrijvingenVoor(club);
+            inschrijvingenVanClub = inschrijfService.getInschrijvingenVoor(club);
         }
     }
 }

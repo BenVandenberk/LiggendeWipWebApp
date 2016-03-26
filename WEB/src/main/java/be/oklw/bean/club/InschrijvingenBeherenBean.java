@@ -233,7 +233,12 @@ public class InschrijvingenBeherenBean {
 
         if (session != null) {
             Account user = (Account) session.getAttribute("user");
-            club = clubService.getClub(user);
+
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
         }
 
         // CLUBLIJST VULLEN

@@ -109,7 +109,12 @@ public class ClubSponsorBean implements Serializable {
 
         if (session != null) {
             user = (Account)session.getAttribute("user");
-            club = clubService.getClub(user);
+
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
         }
     }
 }

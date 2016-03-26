@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Stateless
-@Local
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class ClubService implements IClubService {
@@ -26,7 +25,6 @@ public class ClubService implements IClubService {
     @PersistenceContext
     EntityManager entityManager;
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void veranderClubLogo(byte[] fileContent, String fileName, Club club) throws IOException {
         String logoPad = fileService.upload(fileContent, fileName, "clublogos");
@@ -38,7 +36,6 @@ public class ClubService implements IClubService {
         entityManager.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException {
         Club club = new Club(naam, locatie);
@@ -56,7 +53,6 @@ public class ClubService implements IClubService {
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException {
 
@@ -68,21 +64,30 @@ public class ClubService implements IClubService {
         entityManager.merge(club);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
-    public Club getClub(Account account) {
-        Club club = (Club) entityManager.createQuery("select c from Club c where c.account.id = :accId")
-                .setParameter("accId", account.getId())
-                .getSingleResult();
-        club.getSponsors().size();
-        return club;
+    public Club getClub(Account account) throws BusinessException {
+
+        if (!account.getPermissieNiveau().equals(PermissieNiveau.CLUB)) {
+            throw new BusinessException("Het meegegeven Account is geen ClubAccount");
+        }
+
+        try {
+            Club club = entityManager.createQuery("select c from Club c where c.account.id = :accId", Club.class)
+                    .setParameter("accId", account.getId())
+                    .getSingleResult();
+
+            // Sponsors laden wegens lazy loading
+            club.getSponsors().size();
+
+            return club;
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public Club getClub(int id) {
-        Club club = (Club) entityManager.find(Club.class, id);
-        return club;
+        return entityManager.find(Club.class, id);
     }
 
 
@@ -92,14 +97,12 @@ public class ClubService implements IClubService {
         return allClubs;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public void bewaarAfmetingen(Club club) {
         entityManager.merge(club);
         entityManager.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     @Override
     public List<Kampioenschap> kampioenschappenVan(Club club, boolean uitVerleden) {
         List<Kampioenschap> kampioenschappen = new ArrayList<Kampioenschap>();
@@ -114,25 +117,12 @@ public class ClubService implements IClubService {
         Datum vandaag = new Datum();
         List<Kampioenschap> result;
         if (uitVerleden) {
-            result = kampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) <= 0).collect(Collectors.toList());
+            result = kampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) < 0).collect(Collectors.toList());
         } else {
-            result = kampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) > 0).collect(Collectors.toList());
+            result = kampioenschappen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) >= 0).collect(Collectors.toList());
         }
 
         return result;
-    }
-
-    @Override
-    public void dummyKampioenschappen() {
-        Club club = entityManager.find(Club.class, 1);
-        Kampioenschap kamp1 = club.maakKampioenschap("21e Grote prijs De Hoef", new Datum(1, 1, 2015), new Datum(2, 1, 2015));
-        Kampioenschap kamp2 = club.maakKampioenschap("22e Grote prijs De Hoef", new Datum(1, 1, 2016), new Datum(2, 1, 2016));
-        Kampioenschap kamp3 = club.maakKampioenschap("23e Grote prijs De Hoef", new Datum(1, 1, 2017), new Datum(2, 1, 2017));
-
-        kamp3.setContact("Contact HIER");
-        kamp3.setOmschrijving("Omschrijving HIER");
-        kamp3.setOvernachtingInfo("Hotel zusenzo");
-        kamp3.setRekeningnummer("BE8700157382214");
     }
 
     @Override

@@ -9,13 +9,12 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Local
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SponsorService implements ISponsorService {
 
-    @PersistenceContext(unitName = "myunitname")
+    @PersistenceContext
     EntityManager entityManager;
 
     @Override
@@ -27,8 +26,8 @@ public class SponsorService implements ISponsorService {
     @Override
     public void removeSponsor(Club club, int sponsorId) throws BusinessException {
         List results = entityManager.createNativeQuery("SELECT * FROM Evenement_Sponsor e WHERE e.sponsors_id = :sponsid")
-                                        .setParameter("sponsid", sponsorId)
-                                        .getResultList();
+                .setParameter("sponsid", sponsorId)
+                .getResultList();
         if (results.size() > 0) {
             throw new BusinessException("Deze sponsor kan niet verwijderd worden omdat ze reeds gekoppeld is aan een Evenement");
         }
@@ -43,8 +42,8 @@ public class SponsorService implements ISponsorService {
     @Override
     public List<Sponsor> getSponsorsVanExcludeVan(Club club, Kampioenschap kampioenschap) {
         List<Sponsor> clubSponsors = entityManager.createQuery("select s from Sponsor s WHERE s.club.id = :clubId", Sponsor.class)
-                                              .setParameter("clubId", club.getId())
-                                              .getResultList();
+                .setParameter("clubId", club.getId())
+                .getResultList();
         List<Sponsor> kampioenschapSponsors = kampioenschap.getSponsors();
         return clubSponsors.stream().filter(s -> !kampioenschapSponsors.contains(s)).collect(Collectors.toList());
     }
@@ -58,10 +57,13 @@ public class SponsorService implements ISponsorService {
     }
 
     @Override
-    public void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap) {
-        kampioenschap.removeSponsor(sponsorId);
-        entityManager.merge(kampioenschap);
-        entityManager.flush();
+    public void verwijderSponsorVan(int sponsorId, Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            kampioenschap.removeSponsor(sponsorId);
+            entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -87,6 +89,6 @@ public class SponsorService implements ISponsorService {
 
     @Override
     public List<SiteSponsor> getSiteSponsors() {
-        return (List<SiteSponsor>)entityManager.createQuery("SELECT s FROM SiteSponsor s").getResultList();
+        return (List<SiteSponsor>) entityManager.createQuery("SELECT s FROM SiteSponsor s").getResultList();
     }
 }

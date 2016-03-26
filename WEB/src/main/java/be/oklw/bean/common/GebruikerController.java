@@ -314,7 +314,11 @@ public class GebruikerController {
         loggedIn = user != null;
 
         if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.CLUB) {
-            club = clubService.getClub(user);
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
         }
 
         if (loggedIn && user.getPermissieNiveau() == PermissieNiveau.LID) {

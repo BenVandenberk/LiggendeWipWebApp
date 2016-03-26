@@ -20,6 +20,7 @@ public interface IInschrijfService {
      * Opent inschrijvingen van het toernooi en stuurt een mail naar alle clubcontacten
      * @param toernooi het Toernooi waarvan de inschrijvingen geopend worden
      * @return een message met info over de verstuurde mails
+     * @throws BusinessException als er iets mis gaat met de data-access of met het versturen van de mails
      */
     String openInschrijvingen(Toernooi toernooi) throws BusinessException;
 
