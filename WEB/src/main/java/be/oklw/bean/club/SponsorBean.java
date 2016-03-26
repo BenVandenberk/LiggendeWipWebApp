@@ -1,7 +1,10 @@
 package be.oklw.bean.club;
 
-import be.oklw.bean.club.ClubSponsorBean;
+import be.oklw.hulp.SponsorCRUDHelper;
+import be.oklw.model.Account;
+import be.oklw.model.Club;
 import be.oklw.model.Sponsor;
+import be.oklw.service.IClubService;
 import be.oklw.service.IFileService;
 import be.oklw.service.ISponsorService;
 import org.apache.commons.lang3.StringUtils;
@@ -12,17 +15,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @ManagedBean
 @ViewScoped
 public class SponsorBean {
-
-    @ManagedProperty(value= "#{clubSponsorBean}")
-    ClubSponsorBean clubSponsorBean;
 
     @EJB
     IFileService fileService;
@@ -30,10 +30,12 @@ public class SponsorBean {
     @EJB
     ISponsorService sponsorService;
 
+    @EJB
+    IClubService clubService;
+
     private UploadedFile file;
     private Sponsor sponsor;
-    private boolean heeftLogo;
-    private String logoUrl;
+    private Club club;
 
     public UploadedFile getFile() {
         return file;
@@ -65,10 +67,6 @@ public class SponsorBean {
         this.sponsor = sponsor;
     }
 
-    public void setClubSponsorBean(ClubSponsorBean clubSponsorBean) {
-        this.clubSponsorBean = clubSponsorBean;
-    }
-
     public void uploadSponsorLogo(FileUploadEvent event) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage facesMessage;
@@ -96,7 +94,7 @@ public class SponsorBean {
     }
 
     public String opslaanNieuw() {
-        clubSponsorBean.addSponsor(sponsor);
+        clubService.addSponsor(sponsor, club);
         return "success";
     }
 
@@ -113,13 +111,27 @@ public class SponsorBean {
 
     @PostConstruct
     public void init() {
-        // Nieuwe Sponsor
-        if (clubSponsorBean.getSponsId() < 0) {
-            sponsor = new Sponsor();
-            sponsor.setLogoBreedte(120);
-            sponsor.setLogoHoogte(120);
-        } else { // Bestaande Sponsor
-            sponsor = clubSponsorBean.getSponsor();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(false);
+
+        if (session != null) {
+            SponsorCRUDHelper sponsorCRUDHelper = (SponsorCRUDHelper) session.getAttribute("sponsorCRUDHelper");
+            Account user = (Account)session.getAttribute("user");
+
+            try {
+                club = clubService.getClub(user);
+            } catch (Exception ex) {
+                System.err.println("Ongeldige session state: " + ex.getMessage());
+            }
+
+            // Nieuwe Sponsor
+            if (sponsorCRUDHelper.isNieuw()) {
+                sponsor = new Sponsor();
+                sponsor.setLogoBreedte(120);
+                sponsor.setLogoHoogte(120);
+            } else { // Bestaande Sponsor
+                sponsor = sponsorService.getSponsor(sponsorCRUDHelper.getId());
+            }
         }
     }
 }

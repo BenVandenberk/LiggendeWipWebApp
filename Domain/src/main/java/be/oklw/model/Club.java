@@ -2,6 +2,8 @@ package be.oklw.model;
 
 import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,7 +36,8 @@ public class Club implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Account account;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "club")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
     private List<Sponsor> sponsors;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

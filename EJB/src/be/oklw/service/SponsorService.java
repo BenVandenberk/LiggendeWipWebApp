@@ -18,9 +18,12 @@ public class SponsorService implements ISponsorService {
     EntityManager entityManager;
 
     @Override
-    public void saveSponsor(Sponsor sponsor) {
+    public void saveSponsor(Sponsor sponsor) throws BusinessException {
+        try {
         entityManager.merge(sponsor);
-        entityManager.flush();
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -32,11 +35,13 @@ public class SponsorService implements ISponsorService {
             throw new BusinessException("Deze sponsor kan niet verwijderd worden omdat ze reeds gekoppeld is aan een Evenement");
         }
 
-        Sponsor teVerwijderen = entityManager.find(Sponsor.class, sponsorId);
-        club.removeSponsor(teVerwijderen);
-        entityManager.remove(teVerwijderen);
-        entityManager.merge(club);
-        entityManager.flush();
+        try {
+            Sponsor teVerwijderen = entityManager.find(Sponsor.class, sponsorId);
+            club.removeSponsor(teVerwijderen);
+            entityManager.merge(club);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
@@ -90,5 +95,10 @@ public class SponsorService implements ISponsorService {
     @Override
     public List<SiteSponsor> getSiteSponsors() {
         return (List<SiteSponsor>) entityManager.createQuery("SELECT s FROM SiteSponsor s").getResultList();
+    }
+
+    @Override
+    public Sponsor getSponsor(int id) {
+        return entityManager.find(Sponsor.class, id);
     }
 }

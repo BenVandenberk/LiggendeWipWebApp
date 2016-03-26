@@ -10,8 +10,19 @@ import java.util.List;
 @Local
 public interface ISponsorService {
 
-    void saveSponsor(Sponsor sponsor);
+    /**
+     * Save een bestaande Sponsor in de database ('merge')
+     * @param sponsor de te saven Sponsor
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void saveSponsor(Sponsor sponsor) throws BusinessException;
 
+    /**
+     * Verwijdert een Sponsor. Een Sponsor kan enkel verwijderd worden als ze nog niet gekoppeld is aan een Kampioenschap.
+     * @param club de Club waarvan een Sponsor verwijderd wordt
+     * @param sponsorId de id van de te verwijderen Sponsor (int)
+     * @throws BusinessException als de Sponsor al gekoppeld is aan een Kampioenschap of als er iets mis gaat met de data-access
+     */
     void removeSponsor(Club club, int sponsorId) throws BusinessException;
 
     List<Sponsor> getSponsorsVanExcludeVan(Club club, Kampioenschap kampioenschap);
@@ -33,4 +44,11 @@ public interface ISponsorService {
     void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId);
 
     List<SiteSponsor> getSiteSponsors();
+
+    /**
+     * Zoekt een Sponsor op basis van id
+     * @param id de id van de Sponsor (int)
+     * @return de Sponsor of null als er geen Sponsor met de meegegeven id bestaat
+     */
+    Sponsor getSponsor(int id);
 }
