@@ -50,9 +50,9 @@
                             Preview
                         </div>
 
-                        <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's" rendered="#{fotoUploadBean.fotos.size() == 0}" />
+                        <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's" rendered="#{fotoUploadBean.kampioenschap.fotos.size() == 0}" />
 
-                        <p:galleria id="galleria" value="#{fotoUploadBean.fotos}" var="foto" autoPlay="false" styleClass="centerPlus" rendered="#{fotoUploadBean.fotos.size() > 0}" showCaption="true">
+                        <p:galleria id="galleria" value="#{fotoUploadBean.kampioenschap.fotos}" var="foto" autoPlay="false" styleClass="centerPlus" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}" showCaption="true">
                             <a href="#{foto.fullPath}" class="fotoLink">
                                 <p:graphicImage value="#{foto.fullPath}" alt="#{foto.caption}" title="#{foto.originalFilename}" styleClass="fancybox"></p:graphicImage>
                             </a>
@@ -80,8 +80,8 @@
                         </p:galleria>
 
                         <div class="center top10">
-                            <p:outputLabel value="Tag" styleClass="right10" rendered="#{fotoUploadBean.fotos.size() > 0}"/>
-                            <p:inputText value="#{fotoUploadBean.tag}" rendered="#{fotoUploadBean.fotos.size() > 0}"></p:inputText>
+                            <p:outputLabel value="Tag" styleClass="right10" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}"/>
+                            <p:inputText value="#{fotoUploadBean.tag}" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}"></p:inputText>
                         </div>
 
                         <div class="pageButton">

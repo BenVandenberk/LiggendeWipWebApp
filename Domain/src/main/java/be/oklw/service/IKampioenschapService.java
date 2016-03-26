@@ -78,9 +78,21 @@ public interface IKampioenschapService {
      */
     List<Foto> getFotos(int kampioenschapId) throws BusinessException;
 
-    void verwijderFoto(int fotoId, Kampioenschap kampioenschap);
+    /**
+     * Verwijdert een Foto van een Kampioenschap
+     * @param fotoId de id van de te verwijderen Foto (int)
+     * @param kampioenschap het Kampioenschap
+     * @return het geüpdatete Kampioenschap
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    Kampioenschap verwijderFoto(int fotoId, Kampioenschap kampioenschap) throws BusinessException;
 
-    void saveFoto(Foto foto);
+    /**
+     * Save een bestaande Foto in de database
+     * @param foto de te saven Foto
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void saveFoto(Foto foto) throws BusinessException;
 
     /**
      * Geeft een lijst terug van alle Kampioenschappen waar Foto's aan verbonden zijn. Geeft een lege lijst terug als er geen Kampioenschappen gevonden worden.

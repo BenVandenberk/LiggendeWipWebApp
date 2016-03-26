@@ -46,6 +46,9 @@ public class FileUploadBean {
 
             try {
                 clubService.veranderClubLogo(file.getContents(), file.getFileName(), club());
+
+                facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
+                facesContext.addMessage("frm_upload:messages_upload", facesMessage);
             } catch (Exception ex) {
                 facesMessage = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
@@ -54,9 +57,6 @@ public class FileUploadBean {
                 );
                 facesContext.addMessage(null, facesMessage);
             }
-
-            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
-            facesContext.addMessage("frm_upload:messages_upload", facesMessage);
         } else {
             facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Geen file geselecteerd om up te loaden");
             facesContext.addMessage(null, facesMessage);

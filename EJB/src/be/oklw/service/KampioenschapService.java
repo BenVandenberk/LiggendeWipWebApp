@@ -107,21 +107,27 @@ public class KampioenschapService implements IKampioenschapService {
                     .setParameter("kampId", kampioenschapId)
                     .getResultList();
         } catch (Exception ex) {
-            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
     }
 
     @Override
-    public void verwijderFoto(int fotoId, Kampioenschap kampioenschap) {
-        Foto teVerwijderen = entityManager.find(Foto.class, fotoId);
-        entityManager.remove(teVerwijderen);
-        entityManager.flush();
+    public Kampioenschap verwijderFoto(int fotoId, Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            kampioenschap.removeFoto(fotoId);
+            return entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override
-    public void saveFoto(Foto foto) {
-        entityManager.merge(foto);
-        entityManager.flush();
+    public void saveFoto(Foto foto) throws BusinessException {
+        try {
+            entityManager.merge(foto);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override

@@ -13,7 +13,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.util.List;
 import java.util.Optional;
 
 @ManagedBean
@@ -27,8 +26,6 @@ public class FotoUploadBean {
     ClubBeheerBean clubBeheerBean;
 
     private UploadedFile file;
-    private List<Foto> fotos;
-    private Kampioenschap kampioenschap;
     private int geselecteerdeFotoId;
 
     private String tag;
@@ -47,14 +44,6 @@ public class FotoUploadBean {
         this.clubBeheerBean = clubBeheerBean;
     }
 
-    public List<Foto> getFotos() {
-        return fotos;
-    }
-
-    public void setFotos(List<Foto> fotos) {
-        this.fotos = fotos;
-    }
-
     public int getGeselecteerdeFotoId() {
         return geselecteerdeFotoId;
     }
@@ -71,6 +60,10 @@ public class FotoUploadBean {
         this.tag = tag;
     }
 
+    public Kampioenschap getKampioenschap() {
+        return clubBeheerBean.getKampioenschap();
+    }
+
     //endregion
 
     public void uploadFoto(FileUploadEvent fileUploadEvent) {
@@ -82,8 +75,12 @@ public class FotoUploadBean {
         if (file.getContents().length > 0) {
 
             try {
-                kampioenschap = kampioenschapService.addFoto(file.getContents(), file.getFileName(), kampioenschap);
-                fotos = kampioenschapService.getFotos(kampioenschap);
+                clubBeheerBean.setKampioenschap(
+                        kampioenschapService.addFoto(file.getContents(), file.getFileName(), getKampioenschap())
+                );
+
+                facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
+                facesContext.addMessage(null, facesMessage);
             } catch (Exception ex) {
                 facesMessage = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
@@ -92,9 +89,6 @@ public class FotoUploadBean {
                 );
                 facesContext.addMessage(null, facesMessage);
             }
-
-            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
-            facesContext.addMessage(null, facesMessage);
         } else {
             facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Geen file geselecteerd om up te loaden");
             facesContext.addMessage(null, facesMessage);
@@ -103,9 +97,10 @@ public class FotoUploadBean {
 
     public void verwijderFoto() {
         try {
-            kampioenschapService.verwijderFoto(geselecteerdeFotoId, kampioenschap);
+            clubBeheerBean.setKampioenschap(
+                    kampioenschapService.verwijderFoto(geselecteerdeFotoId, getKampioenschap())
+            );
             geselecteerdeFotoId = -1;
-            fotos = kampioenschapService.getFotos(kampioenschap);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -118,7 +113,7 @@ public class FotoUploadBean {
 
     public void saveTag() {
         try {
-            Optional<Foto> foto = fotos.stream().filter(f -> f.getId() == geselecteerdeFotoId).findFirst();
+            Optional<Foto> foto = getKampioenschap().getFotos().stream().filter(f -> f.getId() == geselecteerdeFotoId).findFirst();
             if (foto.isPresent()) {
                 foto.get().setCaption(tag);
                 kampioenschapService.saveFoto(foto.get());
@@ -131,17 +126,6 @@ public class FotoUploadBean {
                     "Fout",
                     "Er ging iets mis bij het aanpassen van de tag"
             ));
-        }
-    }
-
-    @PostConstruct
-    public void init() {
-        kampioenschap = clubBeheerBean.getKampioenschap();
-
-        try {
-            fotos = kampioenschapService.getFotos(kampioenschap);
-        } catch (Exception ex) {
-            System.err.println("Er ging iets mis in de @PostConstruct method van de FotoUploadBean: " + ex.getMessage());
         }
     }
 }
