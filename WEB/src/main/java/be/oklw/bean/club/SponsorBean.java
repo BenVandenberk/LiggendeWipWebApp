@@ -80,13 +80,17 @@ public class SponsorBean {
                 sponsor.setLogoUrl(logoNaam);
                 sponsor.setLogoHoogte(120);
                 sponsor.setLogoBreedte(120);
+
+                facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
+                facesContext.addMessage(null, facesMessage);
             } catch (Exception ex) {
-                facesMessage = new FacesMessage(ex.getMessage());
+                facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR,
+                        "Fout",
+                        ex.getMessage()
+                );
                 facesContext.addMessage(null, facesMessage);
             }
-
-            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
-            facesContext.addMessage(null, facesMessage);
         } else {
             facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Geen file geselecteerd om up te loaden");
             facesContext.addMessage(null, facesMessage);
@@ -94,8 +98,20 @@ public class SponsorBean {
     }
 
     public String opslaanNieuw() {
-        clubService.addSponsor(sponsor, club);
-        return "success";
+        try {
+            clubService.addSponsor(sponsor, club);
+            return "success";
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()
+            );
+            facesContext.addMessage(null, facesMessage);
+
+            return "";
+        }
     }
 
     public String opslaanBestaand() {

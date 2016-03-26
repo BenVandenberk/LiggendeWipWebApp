@@ -221,7 +221,7 @@ public class Toernooi implements Serializable {
             throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. %s", status.toUserFriendlyString()));
         }
 
-        Inschrijving inschrijving = getInschrijngVan(club);
+        Inschrijving inschrijving = getInschrijvingVan(club);
 
         if (inschrijving == null) {
             inschrijving = Inschrijving.nieuweInschrijving(club, this);
@@ -246,7 +246,7 @@ public class Toernooi implements Serializable {
     }
 
     public Inschrijving removePloeg(int ploegId, Club club) {
-        Inschrijving inschrijving = getInschrijngVan(club);
+        Inschrijving inschrijving = getInschrijvingVan(club);
 
         if (inschrijving == null) {
             throw new IllegalStateException("Voor deze club is er nog geen inschrijving");
@@ -289,7 +289,7 @@ public class Toernooi implements Serializable {
      * @param club
      * @return de gevraagde inschrijving of null als er voor dit toernooi nog geen inschrijving is voor de meegegeven club
      */
-    public Inschrijving getInschrijngVan(Club club) {
+    public Inschrijving getInschrijvingVan(Club club) {
         Optional<Inschrijving> optInschrijving = inschrijvingen.stream()
                 .filter(ins -> ins.getClub().equals(club))
                 .findFirst();
@@ -302,7 +302,7 @@ public class Toernooi implements Serializable {
     }
 
     public void updateInschrijvingVan(Club club, Inschrijving inschrijving) {
-        Inschrijving oud = getInschrijngVan(club);
+        Inschrijving oud = getInschrijvingVan(club);
 
         if (oud != null) {
             oud = inschrijving;

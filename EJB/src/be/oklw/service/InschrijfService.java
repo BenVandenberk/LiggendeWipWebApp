@@ -46,7 +46,7 @@ public class InschrijfService implements IInschrijfService {
 
         toekomstigeToernooien.stream()
                 .forEach(toer -> {
-                    Inschrijving inschrijving = toer.getInschrijngVan(club);
+                    Inschrijving inschrijving = toer.getInschrijvingVan(club);
                     if (inschrijving != null) {
                         result.add(inschrijving);
                     }

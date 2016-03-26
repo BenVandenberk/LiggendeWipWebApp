@@ -35,7 +35,7 @@ public class InschrijvingenBeherenBean {
     @EJB
     ILedenService ledenService;
 
-    private int toernooiId = -1;
+    private int toernooiId = -999;
     private Toernooi toernooi;
     private Kampioenschap kampioenschap;
     private Club club;
@@ -53,6 +53,7 @@ public class InschrijvingenBeherenBean {
         return toernooiId;
     }
 
+    // Deze setter wordt aangeroepen bij elke HTTP GET van club_inschrijvingen_beheren?id=<TOERNOOI_ID>
     public void setToernooiId(int toernooiId) {
         boolean veranderd = this.toernooiId != toernooiId;
 
@@ -149,7 +150,7 @@ public class InschrijvingenBeherenBean {
 
         Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
 
-        Inschrijving inschrijving = toernooi.getInschrijngVan(selectedClub);
+        Inschrijving inschrijving = toernooi.getInschrijvingVan(selectedClub);
 
         // De club is nog niet ingeschreven
         if (inschrijving == null) {

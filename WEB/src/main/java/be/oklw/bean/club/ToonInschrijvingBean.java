@@ -33,7 +33,7 @@ public class ToonInschrijvingBean {
     @EJB
     ILedenService ledenService;
 
-    private int toernooiId = -1;
+    private int toernooiId = -999;
     private Toernooi toernooi;
     private Kampioenschap kampioenschap;
     private Club club;
@@ -47,6 +47,7 @@ public class ToonInschrijvingBean {
         return toernooiId;
     }
 
+    // Deze setter wordt aangeroepen bij elke HTTP GET van club_inschrijving?toerId=<TOERNOOI_ID>
     public void setToernooiId(int toernooiId) {
         boolean veranderd = this.toernooiId != toernooiId;
 
@@ -63,7 +64,7 @@ public class ToonInschrijvingBean {
                     redirect();
                 }
                 kampioenschap = toernooi.getKampioenschap();
-                inschrijving = toernooi.getInschrijngVan(club);
+                inschrijving = toernooi.getInschrijvingVan(club);
 
                 // De club is nog niet ingeschreven
                 if (inschrijving == null) {
@@ -118,7 +119,7 @@ public class ToonInschrijvingBean {
         try {
             toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex);
             toernooi = toernooiService.save(toernooi);
-            inschrijving = toernooi.getInschrijngVan(club);
+            inschrijving = toernooi.getInschrijvingVan(club);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -137,7 +138,7 @@ public class ToonInschrijvingBean {
         try {
             toernooi.removePloeg(teVerwijderenPloegId, club);
             toernooi = toernooiService.save(toernooi);
-            inschrijving = toernooi.getInschrijngVan(club);
+            inschrijving = toernooi.getInschrijvingVan(club);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(

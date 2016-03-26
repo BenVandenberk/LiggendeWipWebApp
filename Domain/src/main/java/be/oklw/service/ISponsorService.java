@@ -25,9 +25,21 @@ public interface ISponsorService {
      */
     void removeSponsor(Club club, int sponsorId) throws BusinessException;
 
+    /**
+     * Haalt alle Sponsors van de meegegeven Club op behalve die Sponsors die al gelinkt zijn aan het meegegeven Kampioenschap.
+     * @param club de Club waar Sponsors van opgehaald worden
+     * @param kampioenschap het Kampioenschap wiens Sponsors niet meegenomen mogen worden in het resultaat
+     * @return een List&lt;Sponsor&gt; die leeg kan zijn
+     */
     List<Sponsor> getSponsorsVanExcludeVan(Club club, Kampioenschap kampioenschap);
 
-    void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap);
+    /**
+     * Koppelt een Sponsor aan een Kampioenschap
+     * @param sponsorId de id van de te koppelen Sponsor (int)
+     * @param kampioenschap het Kampioenschap waar de Sponsor aan gekoppeld wordt
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap) throws BusinessException;
 
     /**
      * Verwijdert een clubsponsor van een Kampioenschap

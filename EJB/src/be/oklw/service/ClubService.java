@@ -91,8 +91,7 @@ public class ClubService implements IClubService {
 
     @Override
     public List<Club> getAllClubs() {
-        List<Club> allClubs = (List<Club>) entityManager.createQuery("select c from Club c").getResultList();
-        return allClubs;
+        return entityManager.createQuery("select c from Club c", Club.class).getResultList();
     }
 
     @Override
@@ -168,10 +167,13 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public Club addSponsor(Sponsor sponsor, Club club) {
-        club.addSponsor(sponsor);
-        entityManager.merge(club);
-        return club;
+    public Club addSponsor(Sponsor sponsor, Club club) throws BusinessException {
+        try {
+            club.addSponsor(sponsor);
+            return entityManager.merge(club);
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
     }
 
     @Override
@@ -179,7 +181,7 @@ public class ClubService implements IClubService {
         try {
             entityManager.merge(club);
         } catch (Exception ex) {
-            throw new BusinessException(String.format("Er ging iets mis: %s", ex.getMessage()));
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
         }
     }
 

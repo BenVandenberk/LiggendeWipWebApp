@@ -20,7 +20,7 @@ public class SponsorService implements ISponsorService {
     @Override
     public void saveSponsor(Sponsor sponsor) throws BusinessException {
         try {
-        entityManager.merge(sponsor);
+            entityManager.merge(sponsor);
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
@@ -54,11 +54,14 @@ public class SponsorService implements ISponsorService {
     }
 
     @Override
-    public void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap) {
-        Sponsor toeTeVoegen = entityManager.find(Sponsor.class, sponsorId);
-        kampioenschap.addSponsor(toeTeVoegen);
-        entityManager.merge(kampioenschap);
-        entityManager.flush();
+    public void voegSponsorToeAan(int sponsorId, Kampioenschap kampioenschap) throws BusinessException {
+        try {
+            Sponsor toeTeVoegen = entityManager.find(Sponsor.class, sponsorId);
+            kampioenschap.addSponsor(toeTeVoegen);
+            entityManager.merge(kampioenschap);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 
     @Override

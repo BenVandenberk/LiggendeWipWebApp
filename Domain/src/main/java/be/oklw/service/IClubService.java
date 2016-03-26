@@ -62,9 +62,20 @@ public interface IClubService {
 
     void verwijderClub(Club club) throws BusinessException;
 
+    /**
+     * Haalt alle Clubs op
+     * @return een List&lt;Club&gt; die leeg kan zijn
+     */
     List<Club> getAllClubs();
 
-    Club addSponsor(Sponsor sponsor, Club club);
+    /**
+     * Voegt een Sponsor toe aan een Club
+     * @param sponsor de toe te voegen Sponsor
+     * @param club de Club waaraan de Sponsor toegevoegd wordt
+     * @return de geüpdatete Club
+     * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
+     */
+    Club addSponsor(Sponsor sponsor, Club club) throws BusinessException;
 
     void save(Club club) throws BusinessException;
 

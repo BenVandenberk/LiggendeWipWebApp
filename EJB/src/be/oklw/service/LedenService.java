@@ -25,10 +25,9 @@ public class LedenService implements ILedenService {
 
     @Override
     public List<Lid> ledenVanClub(Club club) {
-        List<Lid> leden = entityManager.createQuery("select l from Lid l where l.club.id=:clubId", Lid.class)
+        return entityManager.createQuery("select l from Lid l where l.club.id=:clubId", Lid.class)
                 .setParameter("clubId", club.getId())
                 .getResultList();
-        return leden;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class LedenService implements ILedenService {
 
     @Override
     public List<Lid> alleLeden() {
-        return entityManager.createQuery("from Lid", Lid.class).getResultList();
+        return entityManager.createQuery("select l from Lid l", Lid.class).getResultList();
     }
 
     @Override

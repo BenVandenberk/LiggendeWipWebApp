@@ -1,6 +1,5 @@
 package be.oklw.bean.club;
 
-import be.oklw.bean.club.ClubBeheerBean;
 import be.oklw.model.Club;
 import be.oklw.model.Sponsor;
 import be.oklw.service.IClubService;
@@ -48,6 +47,14 @@ public class SponsorDialogBean {
         this.selectedSponsor = selectedSponsor;
     }
 
+    public int getSelectedSponsorId() {
+        return selectedSponsorId;
+    }
+
+    public void setSelectedSponsorId(int selectedSponsorId) {
+        this.selectedSponsorId = selectedSponsorId;
+    }
+
     public List<SelectItem> getClubSponsors() {
         List<Sponsor> sponsors = sponsorService.getSponsorsVanExcludeVan(club, clubBeheerBean.getKampioenschap());
         clubSponsors = new ArrayList<>();
@@ -67,13 +74,6 @@ public class SponsorDialogBean {
         }
     }
 
-    public int getSelectedSponsorId() {
-        return selectedSponsorId;
-    }
-
-    public void setSelectedSponsorId(int selectedSponsorId) {
-        this.selectedSponsorId = selectedSponsorId;
-    }
 
     @PostConstruct
     public void init() {
