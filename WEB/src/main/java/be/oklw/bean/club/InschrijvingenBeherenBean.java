@@ -66,7 +66,7 @@ public class InschrijvingenBeherenBean {
                 if (toernooi == null) {
                     redirect();
                 }
-                if (!toernooi.getStatus().isInschrijvingenOpen()) {
+                if (!toernooi.inschrijvenBeherenMogelijk()) {
                     redirect();
                 }
                 if (!toernooi.getKampioenschap().getClub().equals(club)) {
@@ -82,6 +82,7 @@ public class InschrijvingenBeherenBean {
                     "Fout",
                     ex.getMessage()
             ));
+            redirect();
         }
     }
 
@@ -148,19 +149,19 @@ public class InschrijvingenBeherenBean {
             redirect();
         }
 
-        Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
-
-        Inschrijving inschrijving = toernooi.getInschrijvingVan(selectedClub);
-
-        // De club is nog niet ingeschreven
-        if (inschrijving == null) {
-            inschrijving = Inschrijving.nieuweInschrijving(selectedClub, toernooi);
-        }
-
-        int volgendePloegIndex = inschrijving.getAantalPloegenIngeschreven() + 1;
-
         try {
-            toernooi.addPloeg(selectedClub, selectedClub.getNaam() + " " + volgendePloegIndex);
+            Club selectedClub = alleClubs.stream().filter(c -> c.getId() == selectedClubId).findFirst().get();
+
+            Inschrijving inschrijving = toernooi.getInschrijvingVan(selectedClub);
+
+            // De club is nog niet ingeschreven
+            if (inschrijving == null) {
+                inschrijving = Inschrijving.nieuweInschrijvingBeheer(selectedClub, toernooi);
+            }
+
+            int volgendePloegIndex = inschrijving.getAantalPloegenIngeschreven() + 1;
+
+            toernooi.addPloeg(selectedClub, selectedClub.getNaam() + " " + volgendePloegIndex, true);
             toernooi = toernooiService.save(toernooi);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -219,9 +220,11 @@ public class InschrijvingenBeherenBean {
     }
 
     private void redirect() {
+        // Redirecten naar homepagina als er gepruld wordt in de url-balk
+
         try {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            externalContext.redirect(externalContext.getRequestContextPath() + "club_toernooi_aanpassen.xhtml");
+            externalContext.redirect(externalContext.getRequestContextPath() + "home.xhtml");
         } catch (Exception ex) {
             System.err.println(String.format("Fout bij redirection: %s", ex.getMessage()));
         }

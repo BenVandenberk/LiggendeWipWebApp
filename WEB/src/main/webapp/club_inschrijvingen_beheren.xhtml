@@ -32,8 +32,7 @@
                                     Als clubbeheerder heeft u volledige rechten op de inschrijvingen van alle toernooien van uw club. Dit maakt het mogelijk om ploegen in
                                     te schrijven in opdracht van andere clubs. Wees echter zeker dat de veranderingen die u hier maakt in overeenstemming zijn met de wensen van de clubs in kwestie.<br/><br/>
                                     De ploegnaam, de namen van de ploegleden en het aantal maaltijden zijn velden die zowel voor u als voor de inschrijvende club aanpasbaar zijn.
-                                    Het veldje 'Aantal maaltijden' is enkel zichtbaar voor toernooien met maaltijd.<br/><br/>
-                                    Het veldje 'Betaald' is enkel voor u zichtbaar en kan gebruikt worden om bij te houden welke ploegen hun bijdrage al gestort hebben.<br/><br/>
+                                    Het veldje 'Betaald' is enkel voor u zichtbaar en kan gebruikt worden om bij te houden welke clubs hun bijdrage al gestort hebben.<br/><br/>
                                     <i class="fa fa-check big green"/> - Alle namen zijn ingevuld (van belang voor de toernooiloting)<br/><br/>
                                     <i class="fa fa-close big red"/> - Nog niet alle namen zijn ingevuld
                                 </p>
@@ -61,6 +60,16 @@
                             </div>
                             <div class="ui-grid-col-3">
                                 <p:outputLabel value="#{inschrijvingenBeherenBean.toernooi.naam}"
+                                               styleClass="big"></p:outputLabel>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Toernooistatus:" styleClass="big"></p:outputLabel>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="#{inschrijvingenBeherenBean.toernooi.status.toStringSimple()}"
                                                styleClass="big"></p:outputLabel>
                             </div>
                         </div>
@@ -160,7 +169,7 @@
                                                                             id="vrijeNaam"
                                                                             disabled="#{deeln.deelnemerIsLid}"
                                                                             size="10"
-                                                                            />
+                                                                    />
                                                                 </div>
 
                                                                 <div class="ui-grid-col-5 left">
@@ -169,7 +178,7 @@
                                                                             disabled="#{!deeln.deelnemerIsLid}"
                                                                             id="lid"
                                                                             converter="LidConverter"
-                                                                            >
+                                                                    >
                                                                         <f:selectItem itemLabel="Selecteer Lid"
                                                                                       itemValue=""
                                                                                       noSelectionOption="true"/>

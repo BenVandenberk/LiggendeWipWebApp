@@ -101,10 +101,10 @@ public class Inschrijving implements Serializable {
     //endregion
 
     /**
-     * Maakt een inschrijving aan voor een club-toernooi combinatie
-     *
-     * @param club
-     * @param toernooi
+     * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN'<br/>
+     * Maakt een inschrijving aan voor een club-toernooi combinatie en set de nodige properties in verwante objecten
+     * @param club de Club die ingeschreven wordt
+     * @param toernooi het Toernooi waarvoor ingeschreven wordt
      * @return de aangemaakte Inschrijving
      * @throws IllegalStateException als er al een inschrijving bestaat voor de club-toernooi combinatie of
      *                               als inschrijven voor het toernooi niet mogelijk is
@@ -115,6 +115,32 @@ public class Inschrijving implements Serializable {
 
         // De nodige checks worden in deze method, door het Toernooi object gedaan
         toernooi.addInschrijving(inschrijving);
+        inschrijving.setToernooi(toernooi);
+
+        if (toernooi.isHeeftMaaltijd()) {
+            for (Menu menu : toernooi.getMenus()) {
+                inschrijving.addMenuBestelling(menu);
+            }
+        }
+
+        return inschrijving;
+    }
+
+    /**
+     * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN BEHEREN'<br/>
+     * Maakt een Inschrijving aan set de nodige properties in verwante objecten
+     * @param club de Club die ingeschreven wordt
+     * @param toernooi het Toernooi waarvoor ingeschreven wordt
+     * @return de aangemaakte Inschrijving
+     * @throws IllegalStateException als er al een inschrijving bestaat voor de club-toernooi combinatie of
+     *                               als inschrijven voor het toernooi niet mogelijk is
+     */
+    public static Inschrijving nieuweInschrijvingBeheer(Club club, Toernooi toernooi) throws IllegalStateException {
+        Inschrijving inschrijving = new Inschrijving();
+        inschrijving.setClub(club);
+
+        // De nodige checks worden in deze method, door het Toernooi object gedaan
+        toernooi.addInschrijvingBeheer(inschrijving);
         inschrijving.setToernooi(toernooi);
 
         if (toernooi.isHeeftMaaltijd()) {

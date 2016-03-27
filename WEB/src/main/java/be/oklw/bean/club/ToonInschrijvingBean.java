@@ -117,7 +117,7 @@ public class ToonInschrijvingBean {
         int volgendePloegIndex = inschrijving == null ? 1 : inschrijving.getPloegen().size() + 1;
 
         try {
-            toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex);
+            toernooi.addPloeg(club, club.getNaam() + " " + volgendePloegIndex, false);
             toernooi = toernooiService.save(toernooi);
             inschrijving = toernooi.getInschrijvingVan(club);
         } catch (Exception ex) {

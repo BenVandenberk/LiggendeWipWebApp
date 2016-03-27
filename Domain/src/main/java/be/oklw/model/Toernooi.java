@@ -202,6 +202,16 @@ public class Toernooi implements Serializable {
 
     //region PUBLIC METHODS
 
+    /**
+     * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN'<br/>
+     * Voegt een inschrijving toe
+     * @param inschrijving de toe te voegen Inschrijving
+     * @throws IllegalStateException als
+     * <ul>
+     *     <li>Er al een Inschrijving is voor de Club</li>
+     *     <li>Inschrijven voor het Toernooi niet mogelijk is</li>
+     * </ul>
+     */
     protected void addInschrijving(Inschrijving inschrijving) throws IllegalStateException {
         if (inschrijvingen.stream()
                 .anyMatch(ins -> ins.getClub()
@@ -210,21 +220,49 @@ public class Toernooi implements Serializable {
         }
 
         if (!inschrijvenMogelijk()) {
-            throw new IllegalStateException("Voor dit toernooi is inschrijven niet mogelijk");
+            throw new IllegalStateException("Voor dit toernooi is inschrijven niet mogelijk. Toernooistatus: " + status.toUserFriendlyString());
         }
 
         inschrijvingen.add(inschrijving);
     }
 
-    public Inschrijving addPloeg(Club club, String naam) {
-        if (!inschrijvenMogelijk()) {
+    /**
+     * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN BEHEREN'<br/>
+     * Voegt een inschrijving toe
+     * @param inschrijving de toe te voegen Inschrijving
+     * @throws IllegalStateException als
+     * <ul>
+     *     <li>Er al een Inschrijving is voor de Club</li>
+     *     <li>Inschrijven beheren voor het Toernooi niet mogelijk is</li>
+     * </ul>
+     */
+    protected void addInschrijvingBeheer(Inschrijving inschrijving) throws IllegalStateException {
+        if (inschrijvingen.stream()
+                .anyMatch(ins -> ins.getClub()
+                        .equals(inschrijving.getClub()))) {
+            throw new IllegalStateException("Voor deze club is er al een inschrijving voor het toernooi");
+        }
+
+        if (!inschrijvenBeherenMogelijk()) {
+            throw new IllegalStateException("Inschrijvingen beheren is voor dit Toernooi niet meer mogelijk. Toernooistatus: " + status.toUserFriendlyString());
+        }
+
+        inschrijvingen.add(inschrijving);
+    }
+
+    public Inschrijving addPloeg(Club club, String naam, boolean alsBeheerder) {
+        if (!alsBeheerder && !inschrijvenMogelijk()) {
             throw new IllegalStateException(String.format("Inschrijven voor dit toernooi is niet mogelijk. %s", status.toUserFriendlyString()));
+        }
+
+        if (alsBeheerder && !inschrijvenBeherenMogelijk()) {
+            throw new IllegalStateException("Inschrijvingen beheren is voor dit Toernooi niet meer mogelijk. Toernooistatus: " + status.toUserFriendlyString());
         }
 
         Inschrijving inschrijving = getInschrijvingVan(club);
 
         if (inschrijving == null) {
-            inschrijving = Inschrijving.nieuweInschrijving(club, this);
+            inschrijving = alsBeheerder ? Inschrijving.nieuweInschrijvingBeheer(club, this) : Inschrijving.nieuweInschrijving(club, this);
         }
 
         Ploeg ploeg = new Ploeg(naam);
