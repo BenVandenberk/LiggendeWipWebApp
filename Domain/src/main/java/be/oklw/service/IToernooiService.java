@@ -23,4 +23,9 @@ public interface IToernooiService {
      * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
      */
     Toernooi save(Toernooi toernooi) throws BusinessException;
+
+    /**
+     * Loopt over alle toernooien en kijkt of de inschrijfdeadline verstreken is. Als dit het geval is, wordt de toernooistatus geüpdate naar 'Inschrijvingen Afgesloten'
+     */
+    void updateInschrijfStatusAlleToernooien();
 }

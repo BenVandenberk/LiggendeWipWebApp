@@ -313,6 +313,10 @@ public class Toernooi implements Serializable {
         return status.isInschrijvenMogelijk();
     }
 
+    public boolean inschrijvingenOpen() {
+        return status.isInschrijvingenOpen();
+    }
+
     public boolean clubAlIngeschreven(Club club) {
         return inschrijvingen.stream().anyMatch(ins -> ins.getClub().equals(club));
     }
