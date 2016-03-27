@@ -1,5 +1,7 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
+
 import javax.ejb.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -13,7 +15,7 @@ import java.util.Properties;
 public class MailService implements IMailService {
 
     @Override
-    public boolean sendMail(String subject, String body, List<String> toAdressen) {
+    public boolean sendMail(String subject, String body, List<String> toAdressen) throws BusinessException {
         final String username = "oklw.webmaster@gmail.com";
         final String password = "oklwBertBen2016";
 
@@ -47,7 +49,7 @@ public class MailService implements IMailService {
             Transport.send(message);
 
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new BusinessException(e.getMessage());
         }
         return true;
     }

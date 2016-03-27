@@ -46,9 +46,10 @@ public interface IKampioenschapService {
      *
      * @param toernooi het te verwijderen Toernooi
      * @param kampioenschap het Kampioenschap waaruit het Toernooi verwijderd wordt
+     * @return het geüpdatete Kampioenschap
      * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
      */
-    void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
+    Kampioenschap verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
 
     /**
      * Voegt een Foto toe aan een Kampioenschap

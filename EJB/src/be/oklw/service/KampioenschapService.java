@@ -41,6 +41,22 @@ public class KampioenschapService implements IKampioenschapService {
 
     @Override
     public void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
+        if (toernooi.getDatum().compareTo(kampioenschap.getBeginDatum()) < 0 || toernooi.getDatum().compareTo(kampioenschap.getEindDatum()) > 0) {
+            throw new BusinessException(String.format(
+                    "De toernooidatum moet liggen tussen %s en %s",
+                    kampioenschap.getBeginDatum().getDatumInEuropeesFormaat(),
+                    kampioenschap.getEindDatum().getDatumInEuropeesFormaat())
+            );
+        }
+
+        if (toernooi.getInschrijfDeadline().compareTo(toernooi.getDatum()) > 0) {
+            throw new BusinessException("De inschrijfdeadline moet voor de toernooidatum liggen");
+        }
+
+        if (toernooi.getInschrijfDeadline().compareTo(new Datum()) <= 0) {
+            throw new BusinessException("De inschrijfdeadline moet in de toekomst liggen");
+        }
+
         try {
             entityManager.persist(toernooi);
             kampioenschap.addToernooi(toernooi);
@@ -52,6 +68,22 @@ public class KampioenschapService implements IKampioenschapService {
 
     @Override
     public void opslaanToernooi(Toernooi toernooi) throws BusinessException {
+        if (toernooi.getDatum().compareTo(toernooi.getKampioenschap().getBeginDatum()) < 0 || toernooi.getDatum().compareTo(toernooi.getKampioenschap().getEindDatum()) > 0) {
+            throw new BusinessException(String.format(
+                    "De toernooidatum moet liggen tussen %s en %s",
+                    toernooi.getKampioenschap().getBeginDatum().getDatumInEuropeesFormaat(),
+                    toernooi.getKampioenschap().getEindDatum().getDatumInEuropeesFormaat())
+            );
+        }
+
+        if (toernooi.getInschrijfDeadline().compareTo(toernooi.getDatum()) > 0) {
+            throw new BusinessException("De inschrijfdeadline moet voor de toernooidatum liggen");
+        }
+
+        if (toernooi.getInschrijfDeadline().compareTo(new Datum()) <= 0) {
+            throw new BusinessException("De inschrijfdeadline moet in de toekomst liggen");
+        }
+
         try {
             entityManager.merge(toernooi);
         } catch (Exception ex) {
@@ -60,10 +92,10 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
-    public void verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
+    public Kampioenschap verwijderToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
         try {
             kampioenschap.removeToernooi(toernooi);
-            entityManager.merge(kampioenschap);
+            return entityManager.merge(kampioenschap);
         } catch (Exception ex) {
             throw new BusinessException("Er ging iets mis: " + ex.getMessage());
         }

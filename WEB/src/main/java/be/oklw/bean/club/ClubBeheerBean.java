@@ -1,11 +1,7 @@
 package be.oklw.bean.club;
 
-import be.oklw.model.Account;
-import be.oklw.model.Club;
-import be.oklw.model.Kampioenschap;
-import be.oklw.model.Toernooi;
+import be.oklw.model.*;
 import be.oklw.service.*;
-import org.omnifaces.util.Faces;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -131,6 +127,34 @@ public class ClubBeheerBean implements Serializable {
         this.geselecteerdMenuKey = geselecteerdMenuKey;
     }
 
+    public String getInschrijvingenOpenBevestigingMessage() {
+        StringBuilder message = new StringBuilder();
+
+        message.append("Na het openstellen van de inschrijvingen is het niet meer mogelijk om onderstaande gegevens aan te passen.<br/>Controleer voor u doorgaat of de gegevens kloppen.");
+        message.append(String.format("<br/><br/>Naam: %s", toernooi.getNaam()));
+        message.append(String.format("<br/>Datum: %s", toernooi.getDatum().getDatumInEuropeesFormaat()));
+        message.append(String.format("<br/>Startuur: %s", toernooi.getStartTijdstip()));
+        message.append(String.format("<br/>Aantal Ploegen: %d", toernooi.getMaximumAantalPloegen()));
+        message.append(String.format("<br/>Aantal Personen per Ploeg: %d", toernooi.getPersonenPerPloeg()));
+        message.append(String.format("<br/>Inschrijfdeadline: %s", toernooi.getInschrijfDeadline().getDatumInEuropeesFormaat()));
+
+        message.append(String.format("<br/><br/>Met Inleg: %s", toernooi.isMetInleg() ? "Ja" : "Nee"));
+        if (toernooi.isMetInleg()) {
+            message.append(String.format("<br/>Inleg per Ploeg: €%s", toernooi.getInlegPerPloeg().toString()));
+        }
+
+        message.append(String.format("<br/><br/>Met Maaltijd: %s<br/>", toernooi.isHeeftMaaltijd() ? "Ja" : "Nee"));
+
+        if (toernooi.isHeeftMaaltijd()) {
+            for (Menu menu : toernooi.getMenus()) {
+                message.append(String.format("<br/>%s - €%s per persoon", menu.getNaam(), menu.getPrijs().toString()));
+                message.append(String.format("<br/>%s", menu.getOmschrijving()));
+            }
+        }
+
+        return message.toString();
+    }
+
     //endregion
 
     //region METHODS
@@ -148,7 +172,7 @@ public class ClubBeheerBean implements Serializable {
         }
 
         try {
-            kampioenschapService.verwijderToernooi(toernooi, kampioenschap);
+            kampioenschap = kampioenschapService.verwijderToernooi(toernooi, kampioenschap);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
@@ -226,9 +250,9 @@ public class ClubBeheerBean implements Serializable {
             facesContext.addMessage(
                     null,
                     new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    "Fout",
-                    ex.getMessage()));
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            ex.getMessage()));
         }
         return "";
     }
@@ -266,9 +290,9 @@ public class ClubBeheerBean implements Serializable {
             facesContext.addMessage(
                     null,
                     new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR,
-                    "Fout",
-                    "Ongeldig Toernooi")
+                            FacesMessage.SEVERITY_ERROR,
+                            "Fout",
+                            "Ongeldig Toernooi")
             );
             return "";
         }
