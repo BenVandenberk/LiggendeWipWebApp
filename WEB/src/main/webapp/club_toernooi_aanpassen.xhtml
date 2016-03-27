@@ -393,18 +393,22 @@
 
                                             <p:outputLabel
                                                     value="De inschrijvingen voor dit toernooi zijn vooralsnog gesloten"
-                                                    rendered="#{!clubBeheerBean.toernooi.status.inschrijvingenOpen}"/>
+                                                    rendered="#{clubBeheerBean.toernooi.openstellenInschrijvingenMogelijk()}"/>
 
                                             <p:outputLabel
                                                     value="De inschrijvingen voor dit toernooi zijn geopend"
                                                     rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"/>
+
+                                            <p:outputLabel
+                                                    value="De inschrijvingen voor dit toernooi zijn afgesloten. Andere clubs kunnen niet meer inschrijven. U kan nog wijzigingen aanbrengen aan de inschrijvingen via 'Inschrijvingen Beheren'"
+                                                    rendered="#{clubBeheerBean.toernooi.inschrijvingenAfgesloten()}"/>
 
 
                                         </div>
                                         <div class="ui-grid-col-6 right">
                                             <p:commandButton
                                                     value="Inschrijvingen Openen"
-                                                    rendered="#{!clubBeheerBean.toernooi.status.inschrijvingenOpen}"
+                                                    rendered="#{clubBeheerBean.toernooi.openstellenInschrijvingenMogelijk()}"
                                                     onclick="PF('confrimDlg').show()"
                                                     global="false"
                                                     update=":frm:tabs:bevestigingMessage"
@@ -440,9 +444,15 @@
 
                                             <p:commandButton
                                                     value="Inschrijvingen Afsluiten"
-                                                    update="frm:tabs:inschrijvingen frm:tabs:msg"
+                                                    update="frm:tabs:inschrijvingen frm:tabs:msg @form"
                                                     rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"
-                                                    global="false"/>
+                                                    actionListener="#{clubBeheerBean.sluitInschrijvingenAf}"
+                                                    global="false">
+                                                <p:confirm
+                                                        message="Als u de inschrijvingen afsluit, kunnen andere clubs niet meer inschrijven voor dit toernooi. Zelf kan u nog wel aanpassingen doen via 'Inschrijvingen Beheren'. Inschrijvingen afsluiten?"
+                                                        header="Ben u zeker?"
+                                                />
+                                            </p:commandButton>
                                         </div>
                                     </div>
 
@@ -452,7 +462,7 @@
                                             <p:commandButton
                                                     value="Inschrijvingen Beheren"
                                                     action="#{clubBeheerBean.inschrijvingenBeheren}"
-                                                    rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"
+                                                    rendered="#{clubBeheerBean.toernooi.inschrijvenBeherenMogelijk()}"
                                                     global="false"/>
                                         </div>
 

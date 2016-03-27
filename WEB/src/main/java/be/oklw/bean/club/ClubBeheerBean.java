@@ -283,6 +283,19 @@ public class ClubBeheerBean implements Serializable {
         }
     }
 
+    public void sluitInschrijvingenAf() {
+        try {
+            toernooi.sluitInschrijvingen();
+            toernooiService.save(toernooi);
+        } catch (Exception ex) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "Fout",
+                    ex.getMessage()));
+        }
+    }
+
     public String inschrijvingenBeheren() {
 
         if (toernooi == null) {

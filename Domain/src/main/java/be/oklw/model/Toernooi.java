@@ -321,6 +321,27 @@ public class Toernooi implements Serializable {
         return inschrijvingen.stream().anyMatch(ins -> ins.getClub().equals(club));
     }
 
+    public boolean openstellenInschrijvingenMogelijk() {
+        return (status instanceof Ingesteld);
+    }
+
+    public boolean inschrijvingenAfgesloten() {
+        return !(
+                    (status instanceof Aangemaakt) ||
+                    (status instanceof Ingesteld) ||
+                    (status instanceof InschrijvingenOpen) ||
+                    (status instanceof Vol)
+                );
+    }
+
+    public boolean inschrijvenBeherenMogelijk() {
+        return (
+                    (status instanceof InschrijvingenOpen) ||
+                    (status instanceof Vol) ||
+                    (status instanceof InschrijvingenAfgesloten)
+                );
+    }
+
     /**
      * Geeft true als volgende properties geset zijn:
      * <ul>
@@ -361,16 +382,9 @@ public class Toernooi implements Serializable {
         status = new InschrijvingenOpen();
     }
 
-    public void annuleerInschrijving(Ploeg ploeg) {
-        status.annuleerInschrijving(ploeg);
-    }
-
-    public void annuleerInschrijving(int id) {
-        status.annuleerInschrijving(id);
-    }
-
     public void sluitInschrijvingen() {
         status.sluitInschrijvingen();
+        status = new InschrijvingenAfgesloten();
     }
 
     public void loot() {
