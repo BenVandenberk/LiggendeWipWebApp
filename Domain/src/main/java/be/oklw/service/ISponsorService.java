@@ -21,9 +21,10 @@ public interface ISponsorService {
      * Verwijdert een Sponsor. Een Sponsor kan enkel verwijderd worden als ze nog niet gekoppeld is aan een Kampioenschap.
      * @param club de Club waarvan een Sponsor verwijderd wordt
      * @param sponsorId de id van de te verwijderen Sponsor (int)
+     * @return de geüpdatete Club
      * @throws BusinessException als de Sponsor al gekoppeld is aan een Kampioenschap of als er iets mis gaat met de data-access
      */
-    void removeSponsor(Club club, int sponsorId) throws BusinessException;
+    Club removeSponsor(Club club, int sponsorId) throws BusinessException;
 
     /**
      * Haalt alle Sponsors van de meegegeven Club op behalve die Sponsors die al gelinkt zijn aan het meegegeven Kampioenschap.

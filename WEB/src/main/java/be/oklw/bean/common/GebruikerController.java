@@ -51,7 +51,7 @@ public class GebruikerController {
 
 
     public String getLogoUrl() {
-        return String.format("upload/clublogos/%s?time=%s", club.getLogoPad(), new Date().getTime());
+        return String.format("upload/clublogos/%s?time=%s", club.getLogoFileName(), new Date().getTime());
     }
 
     public void setLogoUrl(String logoUrl) {
@@ -62,7 +62,7 @@ public class GebruikerController {
         if (club == null) {
             return false;
         }
-        return isNotBlank(club.getLogoPad());
+        return isNotBlank(club.getLogoFileName());
     }
 
     public void setHeeftLogo(boolean heeftLogo) {

@@ -14,6 +14,7 @@ public class Club implements Serializable {
 
     private static final long serialVersionUID = 659453794239094252L;
     private static final String PAD = "upload/clublogos/";
+    private static final String RELATIVE_PAD = "clublogos";
 
     //region PRIVATE MEMBERS
 
@@ -25,7 +26,7 @@ public class Club implements Serializable {
     private Datum sinds;
 
     private String adres;
-    private String logoPad;
+    private String logoFileName;
     private String naam;
     private String locatie;
 
@@ -88,7 +89,7 @@ public class Club implements Serializable {
 
     public void setContacten(Set<Contact> contactList) {
         this.contacten.retainAll(contactList);
-        if (contactList.size()!=0) {
+        if (contactList.size() != 0) {
             this.contacten.addAll(contactList);
         }
     }
@@ -137,12 +138,12 @@ public class Club implements Serializable {
         this.adres = adres;
     }
 
-    public String getLogoPad() {
-        return logoPad;
+    public String getLogoFileName() {
+        return logoFileName;
     }
 
-    public void setLogoPad(String link) {
-        this.logoPad = link;
+    public void setLogoFileName(String link) {
+        this.logoFileName = link;
     }
 
     public int getLogoBreedte() {
@@ -241,9 +242,12 @@ public class Club implements Serializable {
     }
 
     public String getLogoFullPath() {
-        return String.format("%s%s", PAD, logoPad);
+        return String.format("%s%s", PAD, logoFileName);
     }
 
+    public static String getRelativePad() {
+        return RELATIVE_PAD;
+    }
     //endregion
 
     //region OBJECT METHODS

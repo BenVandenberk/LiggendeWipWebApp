@@ -9,6 +9,7 @@ public class Sponsor implements Serializable {
 
     private static final long serialVersionUID = -5733677035312717060L;
     private static final String PAD = "upload/clubsponsors/";
+    private static final String RELATIVE_PAD = "clubsponsors";
 
     //region PRIVATE MEMBERS
 
@@ -21,7 +22,7 @@ public class Sponsor implements Serializable {
     private int logoHoogte;
     private int logoBreedte;
     private boolean logoOnline;
-    private String logoUrl;
+    private String logoFileName;
 
     @Lob
     @Column(length = 1000)
@@ -100,12 +101,12 @@ public class Sponsor implements Serializable {
         this.logoOnline = logoOnline;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public String getLogoFileName() {
+        return logoFileName;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public void setLogoFileName(String logoUrl) {
+        this.logoFileName = logoUrl;
     }
 
     public String getLogoUrlOnline() {
@@ -120,7 +121,7 @@ public class Sponsor implements Serializable {
         if (isLogoOnline()) {
             return logoUrlOnline;
         } else {
-            return PAD + logoUrl;
+            return PAD + logoFileName;
         }
     }
 
@@ -128,6 +129,9 @@ public class Sponsor implements Serializable {
 
     //region PUBLIC METHODS
 
+    public static String getRelativePad() {
+        return RELATIVE_PAD;
+    }
 
     //endregion
 

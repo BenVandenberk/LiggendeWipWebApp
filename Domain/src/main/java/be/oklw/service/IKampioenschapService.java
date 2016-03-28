@@ -80,7 +80,7 @@ public interface IKampioenschapService {
     List<Foto> getFotos(int kampioenschapId) throws BusinessException;
 
     /**
-     * Verwijdert een Foto van een Kampioenschap
+     * Verwijdert een Foto van een Kampioenschap (de record in de database en de file op het filesysteem)
      * @param fotoId de id van de te verwijderen Foto (int)
      * @param kampioenschap het Kampioenschap
      * @return het geüpdatete Kampioenschap

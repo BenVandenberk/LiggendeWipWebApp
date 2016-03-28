@@ -80,7 +80,7 @@ public class ClubSponsorBean {
 
     public void removeSponsor() {
         try {
-            sponsorService.removeSponsor(club, sponsId);
+            club = sponsorService.removeSponsor(club, sponsId);
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage()));

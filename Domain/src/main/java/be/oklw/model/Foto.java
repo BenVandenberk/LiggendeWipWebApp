@@ -8,6 +8,7 @@ public class Foto implements Serializable {
 
     private static final long serialVersionUID = 8266089329013397594L;
     private static final String PAD = "upload/fotos/";
+    private static final String RELATIVE_PAD = "fotos";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +62,10 @@ public class Foto implements Serializable {
 
     public void setOriginalFilename(String originalFilename) {
         this.originalFilename = originalFilename;
+    }
+
+    public static String getRelativePath() {
+        return RELATIVE_PAD;
     }
 
     @Override

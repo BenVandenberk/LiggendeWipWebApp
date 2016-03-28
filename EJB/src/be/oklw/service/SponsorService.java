@@ -7,6 +7,7 @@ import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -16,6 +17,9 @@ public class SponsorService implements ISponsorService {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @EJB
+    IFileService fileService;
 
     @Override
     public void saveSponsor(Sponsor sponsor) throws BusinessException {
@@ -27,7 +31,7 @@ public class SponsorService implements ISponsorService {
     }
 
     @Override
-    public void removeSponsor(Club club, int sponsorId) throws BusinessException {
+    public Club removeSponsor(Club club, int sponsorId) throws BusinessException {
         List results = entityManager.createNativeQuery("SELECT * FROM Evenement_Sponsor e WHERE e.sponsors_id = :sponsid")
                 .setParameter("sponsid", sponsorId)
                 .getResultList();
@@ -37,8 +41,19 @@ public class SponsorService implements ISponsorService {
 
         try {
             Sponsor teVerwijderen = entityManager.find(Sponsor.class, sponsorId);
-            club.removeSponsor(teVerwijderen);
-            entityManager.merge(club);
+            if (teVerwijderen != null) {
+                club.removeSponsor(teVerwijderen);
+                Club geupdate = entityManager.merge(club);
+
+                fileService.delete(
+                        teVerwijderen.getLogoFileName(),
+                        Sponsor.getRelativePad()
+                );
+
+                return geupdate;
+            }
+
+            return club;
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
@@ -96,8 +111,19 @@ public class SponsorService implements ISponsorService {
     @Override
     public void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) throws BusinessException {
         try {
-            systeemAccount.removeSiteSponsor(siteSponsorId);
-            entityManager.merge(systeemAccount);
+            Optional<SiteSponsor> siteSponsorOpt = systeemAccount.getSiteSponsors().stream().filter(siteSponsor -> siteSponsor.getId() == siteSponsorId).findFirst();
+
+            if (siteSponsorOpt.isPresent()) {
+                systeemAccount.removeSiteSponsor(siteSponsorId);
+                entityManager.merge(systeemAccount);
+
+                if (!siteSponsorOpt.get().isLogoOnline()) { // Alleen verwijderen van filesysteem als logo niet online staat
+                    fileService.delete(
+                            siteSponsorOpt.get().getLogoFileName(),
+                            SiteSponsor.getRelativePad()
+                    );
+                }
+            }
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }

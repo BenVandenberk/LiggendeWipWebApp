@@ -175,7 +175,7 @@
                                                           allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
                                                           invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
                                                           invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
-                                                    />
+                                            />
                                         </div>
                                     </div>
 
@@ -217,8 +217,13 @@
                                                 <div class="ui-grid-col-5">
                                                     <p:commandButton id="btn_bewaar" value="Bewaar Afmetingen"
                                                                      actionListener="#{gebruikerController.bewaarAfmetingen}"
-                                                                     update="@form"></p:commandButton>
-                                                    <p:spacer height="10"/>
+                                                                     update="@form"
+                                                                     oncomplete="uploadComplete()"
+                                                    >
+                                                    </p:commandButton>
+                                                </div>
+
+                                                <div class="ui-grid-col-5 left">
                                                     <p:message id="mess_bewaar" for="btn_bewaar"/>
                                                 </div>
                                             </div>

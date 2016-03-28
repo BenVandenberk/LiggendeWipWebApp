@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -146,8 +147,23 @@ public class KampioenschapService implements IKampioenschapService {
     @Override
     public Kampioenschap verwijderFoto(int fotoId, Kampioenschap kampioenschap) throws BusinessException {
         try {
-            kampioenschap.removeFoto(fotoId);
-            return entityManager.merge(kampioenschap);
+            Optional<Foto> teVerwijderenFotoOpt = kampioenschap.getFotos().stream().filter(f -> f.getId() == fotoId).findFirst();
+            Kampioenschap geupdate;
+
+            if (teVerwijderenFotoOpt.isPresent()) {
+                kampioenschap.removeFoto(fotoId);
+                geupdate = entityManager.merge(kampioenschap);
+
+                // Als er zich een exception voordoet in bovenstaande code wordt dit niet uitgevoerd.
+                fileService.delete(
+                        teVerwijderenFotoOpt.get().getFilename(),
+                        Foto.getRelativePath()
+                );
+
+                return geupdate;
+            }
+            
+            return kampioenschap;
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }

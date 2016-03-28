@@ -47,14 +47,14 @@ public class SiteSponsorBean implements Serializable {
         if (siteSponsor == null) {
             return false;
         }
-        return StringUtils.isNotBlank(siteSponsor.getLogoUrl()) || StringUtils.isNotBlank(siteSponsor.getLogoUrlOnline());
+        return StringUtils.isNotBlank(siteSponsor.getLogoFileName()) || StringUtils.isNotBlank(siteSponsor.getLogoUrlOnline());
     }
 
     public String getLogoUrl() {
         if (siteSponsor.isLogoOnline()) {
             return siteSponsor.getLogoUrlOnline();
         }
-        return String.format("upload/sitesponsors/%s?time=%s", siteSponsor.getLogoUrl(), new Date().getTime());
+        return String.format("upload/sitesponsors/%s?time=%s", siteSponsor.getLogoFileName(), new Date().getTime());
     }
 
     public int getSponsId() {
@@ -130,7 +130,7 @@ public class SiteSponsorBean implements Serializable {
 
             try {
                 String logoNaam = fileService.upload(file.getContents(), file.getFileName(), "sitesponsors");
-                siteSponsor.setLogoUrl(logoNaam);
+                siteSponsor.setLogoFileName(logoNaam);
                 siteSponsor.setLogoHoogte(120);
                 siteSponsor.setLogoBreedte(120);
             } catch (Exception ex) {

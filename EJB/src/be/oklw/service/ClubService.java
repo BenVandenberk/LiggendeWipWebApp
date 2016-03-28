@@ -3,6 +3,7 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.*;
 import be.oklw.util.Datum;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
 
 import javax.ejb.*;
@@ -29,11 +30,22 @@ public class ClubService implements IClubService {
     @Override
     public void veranderClubLogo(byte[] logoFileContent, String logoFileName, Club club) throws BusinessException {
         try {
+
+            // VERWIJDEREN OUDE LOGO VAN FILESYSTEEM
+            if (StringUtils.isNotBlank(club.getLogoFileName())) {
+                fileService.delete(
+                        club.getLogoFileName(),
+                        Club.getRelativePad()
+                );
+                club.setLogoFileName("");
+            }
+
+            // UPLOADEN EN INSTELLEN NIEUWE LOGO
             String logoPad = fileService.upload(logoFileContent, logoFileName, "clublogos");
 
             club.setLogoBreedte(120);
             club.setLogoHoogte(120);
-            club.setLogoPad(logoPad);
+            club.setLogoFileName(logoPad);
             entityManager.merge(club);
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());

@@ -49,7 +49,7 @@ public class SponsorBean {
         if (sponsor == null) {
             return false;
         }
-        return StringUtils.isNotBlank(sponsor.getLogoUrl()) || StringUtils.isNotBlank(sponsor.getLogoUrlOnline());
+        return StringUtils.isNotBlank(sponsor.getLogoFileName()) || StringUtils.isNotBlank(sponsor.getLogoUrlOnline());
     }
 
     public Sponsor getSponsor() {
@@ -60,7 +60,7 @@ public class SponsorBean {
         if (sponsor.isLogoOnline()) {
             return sponsor.getLogoUrlOnline();
         }
-        return String.format("upload/clubsponsors/%s?time=%s", sponsor.getLogoUrl(), new Date().getTime());
+        return String.format("upload/clubsponsors/%s?time=%s", sponsor.getLogoFileName(), new Date().getTime());
     }
 
     public void setSponsor(Sponsor sponsor) {
@@ -77,7 +77,7 @@ public class SponsorBean {
 
             try {
                 String logoNaam = fileService.upload(file.getContents(), file.getFileName(), "clubsponsors");
-                sponsor.setLogoUrl(logoNaam);
+                sponsor.setLogoFileName(logoNaam);
                 sponsor.setLogoHoogte(120);
                 sponsor.setLogoBreedte(120);
 
