@@ -33,7 +33,13 @@
                                 <p:outputLabel value="Link:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText value="#{sponsorBean.sponsor.linksTo}"></p:inputText>
+                                <p:inputText value="#{sponsorBean.sponsor.linksTo}" id="linksTo">
+                                    <f:validator validatorId="URLValidator" for="linksTo"/>
+                                    <p:ajax event="change" update=":frm:linksTo :frm:msg_linksTo"/>
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-8">
+                                <p:message for="linksTo" id="msg_linksTo" showDetail="true" showSummary="true"/>
                             </div>
                         </div>
 
