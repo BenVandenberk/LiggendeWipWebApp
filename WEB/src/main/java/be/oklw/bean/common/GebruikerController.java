@@ -6,11 +6,13 @@ import be.oklw.service.IGebruikerService;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
@@ -135,28 +137,22 @@ public class GebruikerController {
     }
 
     public void opslaan() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesMessage facesMessage = new FacesMessage();
+
         try {
             clubService.save(club);
-
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(
-                    null,
-                    new FacesMessage(
-                            FacesMessage.SEVERITY_INFO,
-                            "Geslaagd",
-                            "Registratiecode is succesvol gewijzigd"
-                    )
-            );
+            facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd", "Registratiecode is succesvol gewijzigd");
+        } catch (EJBException EJBEx) {
+            if (EJBEx.getCause().getCause() instanceof PersistenceException) {
+                facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oeps", "Deze registratiecode is al eens gebruikt. Kies een andere code");
+            } else {
+                facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", EJBEx.getMessage());
+            }
         } catch (Exception ex) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(
-                    null,
-                    new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR,
-                            "Fout",
-                            ex.getMessage()
-                    )
-            );
+            facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
+        } finally {
+            facesContext.addMessage(null, facesMessage);
         }
     }
 

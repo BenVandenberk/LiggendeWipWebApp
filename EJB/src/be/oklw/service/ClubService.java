@@ -3,11 +3,12 @@ package be.oklw.service;
 import be.oklw.exception.BusinessException;
 import be.oklw.model.*;
 import be.oklw.util.Datum;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.IOException;
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -120,22 +121,22 @@ public class ClubService implements IClubService {
     public void verwijderContact(Club club, Contact contact) {
         Contact teVerwijderenContact = entityManager.find(Contact.class, contact.getId());
 
-        if(club!=null){
-        Club selectedClub = entityManager.find(Club.class, club.getId());
-        if(selectedClub!=null){
-            Set<Contact> contactList = selectedClub.getContacten();
-            if(contactList != null){
-                Iterator<Contact> i = contactList.iterator();
-                while(i.hasNext()){
-                    Contact c = i.next();
-                    if (c.getId() == teVerwijderenContact.getId()){
-                        i.remove();
+        if (club != null) {
+            Club selectedClub = entityManager.find(Club.class, club.getId());
+            if (selectedClub != null) {
+                Set<Contact> contactList = selectedClub.getContacten();
+                if (contactList != null) {
+                    Iterator<Contact> i = contactList.iterator();
+                    while (i.hasNext()) {
+                        Contact c = i.next();
+                        if (c.getId() == teVerwijderenContact.getId()) {
+                            i.remove();
+                        }
                     }
                 }
+                selectedClub.setContacten(contactList);
+                entityManager.merge(selectedClub);
             }
-            selectedClub.setContacten(contactList);
-            entityManager.merge(selectedClub);
-        }
         }
 
     }
@@ -174,6 +175,11 @@ public class ClubService implements IClubService {
     public void save(Club club) throws BusinessException {
         try {
             entityManager.merge(club);
+        } catch (PersistenceException pEx) {
+            if (pEx.getCause() instanceof ConstraintViolationException) { // Bij saven van een niet-unieke registratiecode
+                throw new BusinessException("Deze registratiecode is al eens gebruikt. Kies een andere code.");
+            }
+            throw new BusinessException(String.format("Er liep iets mis: %s", pEx.getMessage()));
         } catch (Exception ex) {
             throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
         }

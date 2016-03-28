@@ -20,11 +20,21 @@ public class Lid implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Club club;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     private Account account;
 
     public Lid() {
 
+    }
+
+    /**
+     * Copy constructor die een nieuw Lid maakt met ENKEL DEZELFDE VOORNAAM, ACHTERNAAM EN EMAIL
+     * @param lid het te kopiëren Lid
+     */
+    public Lid(Lid lid) {
+        this.voornaam = lid.getVoornaam();
+        this.achternaam = lid.getAchternaam();
+        this.email = lid.getEmail();
     }
 
     public int getId() {
@@ -74,7 +84,7 @@ public class Lid implements Serializable {
         return account;
     }
 
-    protected void setAccount(Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

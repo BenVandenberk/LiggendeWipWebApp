@@ -6,12 +6,10 @@ import be.oklw.model.Club;
 import be.oklw.model.Lid;
 import be.oklw.model.SysteemAccount;
 import be.oklw.util.Authentication;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javax.ejb.*;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -88,7 +86,7 @@ public class GebruikerService implements IGebruikerService {
 
     @Override
     public List<SysteemAccount> getAllSysteemAccount() {
-        return (List<SysteemAccount>) entityManager.createQuery("Select s from SysteemAccount s").getResultList();
+        return entityManager.createQuery("Select s from SysteemAccount s", SysteemAccount.class).getResultList();
     }
 
     @Override
@@ -106,7 +104,7 @@ public class GebruikerService implements IGebruikerService {
     @Override
     public Club valideerRegistratieCode(String code) throws BusinessException {
         try {
-            return entityManager.createQuery("from Club c where c.registratieCode=:regCode", Club.class)
+            return entityManager.createQuery("select c from Club c where c.registratieCode=:regCode", Club.class)
                     .setParameter("regCode", code)
                     .getSingleResult();
         } catch (NoResultException noResEx) {
@@ -123,6 +121,11 @@ public class GebruikerService implements IGebruikerService {
             Account lidAccount = new Account(lid, userName, password);
             entityManager.persist(lidAccount);
             return lidAccount;
+        } catch (PersistenceException pEx) {
+            if (pEx.getCause() instanceof ConstraintViolationException) { // Bij saven van een niet-unieke username
+                throw new BusinessException("Deze gebruikersnaam bestaat al. Kies een andere gebruikersnaam.");
+            }
+            throw new BusinessException("Er liep iets mis: " + pEx.getMessage());
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }

@@ -145,6 +145,10 @@ public class RegistratieBean {
 
             return "home?faces-redirect=true";
         } catch (Exception ex) {
+
+            // Reset het lid, maar behoud de voornaam, achternaam en email. Zonder reset, heeft het lid al een id toegekend gekregen en loop je in 'Detached Entity passed to Persist'
+            lid = new Lid(lid);
+
             facesContext.addMessage(
                     null,
                     new FacesMessage(

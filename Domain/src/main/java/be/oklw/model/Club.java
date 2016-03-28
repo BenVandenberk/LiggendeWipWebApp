@@ -28,6 +28,8 @@ public class Club implements Serializable {
     private String logoPad;
     private String naam;
     private String locatie;
+
+    @Column(unique = true)
     private String registratieCode;
 
     private int logoBreedte;
