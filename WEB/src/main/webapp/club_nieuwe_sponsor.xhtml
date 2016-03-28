@@ -80,29 +80,31 @@
                                     </div>
 
                                     <div class="ui-grid-row formRow">
-                                        <h:form id="frm_upload" enctype="multipart/form-data">
+                                        <div class="ui-grid-col-8">
+                                            <h:form id="frm_upload" enctype="multipart/form-data">
 
-                                            <p:messages id="messages_upload" showDetail="true"
-                                                        closable="true"></p:messages>
+                                                <p:messages id="messages_upload" showDetail="true"
+                                                            closable="true"></p:messages>
 
-                                            <p:fileUpload fileUploadListener="#{sponsorBean.uploadSponsorLogo}"
-                                                          uploadLabel="Uploaden"
-                                                          cancelLabel="Annuleren"
-                                                          label="Bladeren"
-                                                          mode="advanced"
-                                                          update=":frm:spin_hoogte :frm:spin_breedte @form :frm:pnl_logo :frm:grp_logo"
-                                                          oncomplete="uploadComplete()"
-                                                          fileLimit="1"
-                                                          fileLimitMessage="Je kan maar 1 sponsorlogo uploaden"
-                                                          sizeLimit="5242880"
-                                                          allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
-                                                          invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
-                                                          invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
-                                                          disabled="#{sponsorBean.sponsor.logoOnline}"
-                                                          id="file_logo"
-                                            />
+                                                <p:fileUpload fileUploadListener="#{sponsorBean.uploadSponsorLogo}"
+                                                              uploadLabel="Uploaden"
+                                                              cancelLabel="Annuleren"
+                                                              label="Bladeren"
+                                                              mode="advanced"
+                                                              update=":frm:spin_hoogte :frm:spin_breedte @form :frm:pnl_logo :frm:grp_logo"
+                                                              oncomplete="uploadComplete()"
+                                                              fileLimit="1"
+                                                              fileLimitMessage="Je kan maar 1 sponsorlogo uploaden"
+                                                              sizeLimit="5242880"
+                                                              allowTypes="/\.(gif|jpg|jpeg|tiff|png|bmp)$/i"
+                                                              invalidFileMessage="Alleen .bmp, .gif, .jpeg, .jpg, .tiff en .png zijn toegelaten"
+                                                              invalidSizeMessage="Maximum toegelaten bestandsgrootte is 5 MB"
+                                                              disabled="#{sponsorBean.sponsor.logoOnline}"
+                                                              id="file_logo"
+                                                />
 
-                                        </h:form>
+                                            </h:form>
+                                        </div>
                                     </div>
 
 
@@ -139,15 +141,17 @@
 
                                         </div>
 
-                                        <h:panelGroup id="grp_logo">
-                                            <p:outputPanel rendered="#{!sponsorBean.heeftLogo}">
-                                                <i class="fa fa-image" style="font-size: 200px"/>
-                                            </p:outputPanel>
-                                            <p:outputPanel id="pnl_logo" rendered="#{sponsorBean.heeftLogo}">
-                                                <p:graphicImage cache="false" id="img_logo"
-                                                                value="#{sponsorBean.logoUrl}" alt="Logo"/>
-                                            </p:outputPanel>
-                                        </h:panelGroup>
+                                        <div class="ui-grid-col-6 right">
+                                            <h:panelGroup id="grp_logo">
+                                                <p:outputPanel rendered="#{!sponsorBean.heeftLogo}">
+                                                    <i class="fa fa-image" style="font-size: 200px"/>
+                                                </p:outputPanel>
+                                                <p:outputPanel id="pnl_logo" rendered="#{sponsorBean.heeftLogo}">
+                                                    <p:graphicImage cache="false" id="img_logo"
+                                                                    value="#{sponsorBean.logoUrl}" alt="Logo"/>
+                                                </p:outputPanel>
+                                            </h:panelGroup>
+                                        </div>
 
                                     </div>
 
