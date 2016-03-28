@@ -19,7 +19,7 @@
 
                     <p:spacer height="30"/>
 
-                    <p:tabView id="tabs" cache="false" onTabChange="tabChangeHandler(index)">
+                    <p:tabView id="tabs" cache="false">
 
                         <p:tab title="Algemene Info">
 
@@ -87,15 +87,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-
-                        </p:tab>
-
-                        <p:tab title="Waar?">
-
-
-                            <div class="ui-grid ui-grid-responsive formGrid">
-
                                 <div class="ui-grid-row formRow">
                                     <div class="ui-grid-col-3">
                                         <p:outputLabel value="Adres:"/>
@@ -118,10 +109,10 @@
                                     </div>
                                 </div>
 
-                            </div>
+                                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLat}" id="input_lat"/>
+                                <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLng}" id="input_lng"/>
 
-                            <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLat}" id="input_lat"/>
-                            <h:inputHidden value="#{clubBeheerBean.kampioenschap.locatieLng}" id="input_lng"/>
+                            </div>
 
                         </p:tab>
 
@@ -288,7 +279,7 @@
             <h:outputScript library="js" name="maps_club.js" target="head"/>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHvCE905NfeUcBWn-sb2P0tHeP3r0l-B0&amp;libraries=places&amp;callback=initAutocomplete"
                     async="async" defer="defer"
-                    />
+            />
 
         </ui:define>
 

@@ -1,5 +1,5 @@
 $(function () {
-    //google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
 });
 
 function initAutocomplete() {
@@ -91,14 +91,5 @@ function initAutocomplete() {
         });
         map.fitBounds(bounds);
     });
-}
-
-function tabChangeHandler(i) {
-
-    if (i == 1) {
-        initAutocomplete();
-    } else {
-        return;
-    }
 }
 
