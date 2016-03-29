@@ -55,8 +55,12 @@ public class ClubService implements IClubService {
     @Override
     public void maakNieuweClubAan(String naam, String locatie, String adres, Set<Contact> contactLijst) throws BusinessException {
         Club club = new Club(naam, locatie);
-        if (adres != "") {
-            club.setAdres(adres);
+        club.setAdres(adres);
+
+        for (Club c : getAllClubs()){
+            if (c.getNaam().equals(naam)){
+                throw new BusinessException("De opgegeven clubnaam bestaat al, gelieve een andere te kiezen");
+            }
         }
 
         entityManager.persist(club);
@@ -71,6 +75,12 @@ public class ClubService implements IClubService {
 
     @Override
     public void wijzigClub(String naam, String locatie, String adres, Set<Contact> contactLijst, int id) throws BusinessException {
+
+        for (Club c : getAllClubs()){
+            if (c.getNaam().equals(naam) && c.getId()!= id){
+                throw new BusinessException("De opgegeven clubnaam bestaat al, gelieve een andere te kiezen");
+            }
+        }
 
         Club club = entityManager.find(Club.class, id);
         club.setAdres(adres);
