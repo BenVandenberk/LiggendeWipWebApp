@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+
 
                 <div class="bodyWrapper">
 
@@ -18,7 +18,7 @@
                     <p:fieldset legend="contacten">
 
                         <p:panelGrid class="noBorder transparentBackground" columns="2">
-
+                            <h:form id="tableForm">
                             <p:dataTable id="contactlijst"
                                          var="contact"
                                          value="#{clubContactBean.contactList}"
@@ -45,11 +45,11 @@
                             <p:outputPanel>
                                 <p:commandButton value="Nieuw contact"
                                                  actionListener="#{clubContactBean.showContactPanel}"
-                                                 update="@form">
+                                                 update=":contactForm">
                                 </p:commandButton>
                                 <p:commandButton value="Wijzig contact"
                                                  actionListener="#{clubContactBean.showWijzigContactPanel}"
-                                                 update="@form">
+                                                 update=":contactForm">
                                 </p:commandButton>
                                 <p:commandButton value="Verwijder contact"
                                                  actionListener="#{clubContactBean.verwijderContact}"
@@ -57,16 +57,19 @@
                                                  update="@form">
                                 </p:commandButton>
                             </p:outputPanel>
+                            </h:form>
                         </p:panelGrid>
 
                     </p:fieldset>
 
+                    <h:form id="contactForm">
                     <p:panel rendered="#{clubContactBean.showNieuw || clubContactBean.showWijzig}">
                     <div class="subTitel">
                         Nieuw contact toevoegen
                     </div>
 
                     <div class="ui-grid ui-grid-responsive formGrid">
+
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
                                 <p:outputLabel value="Club:"/>
@@ -133,21 +136,22 @@
                         <p:commandButton rendered="#{clubContactBean.showNieuw}"
                                          value="Nieuw contact opslaan"
                                          actionListener="#{clubContactBean.maakNieuwContactAan}"
-                                         process="@form"
-                                         update="@form">
+                                         process=":contactForm"
+                                         update=":tableForm :contactForm" ajax="false">
+
                         </p:commandButton>
                         <p:commandButton rendered="#{clubContactBean.showWijzig}"
                                          value="Wijzigingen opslaan"
                                          actionListener="#{clubContactBean.wijzigContact}"
-                                         process="@form"
-                                         update="@form">
+                                         process=":contactForm"
+                                         update=":tableForm :contactForm" ajax="false">
                         </p:commandButton>
 
                     </div>
-
+                    </h:form>
                 </div>
 
-        </h:form>
+
         </ui:define>
 
     </ui:composition>

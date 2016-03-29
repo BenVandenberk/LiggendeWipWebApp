@@ -46,6 +46,5 @@ public class NieuwsService implements INieuwsService {
         nieuws.getAccount().removeNieuwtje(teVerwijderenNieuws);
         entityManager.remove(teVerwijderenNieuws);
         entityManager.merge(nieuws.getAccount());
-        entityManager.flush();
     }
 }

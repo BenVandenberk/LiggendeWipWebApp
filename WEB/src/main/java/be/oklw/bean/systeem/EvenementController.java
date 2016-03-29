@@ -67,6 +67,7 @@ public class EvenementController implements Serializable{
         List<Evenement> clubEvenementen = new ArrayList<>();
         for (Evenement e : getAlleEvenementen()){
             if (e.getClub().equals(club)){
+                if (!(e instanceof Kampioenschap))
                 clubEvenementen.add(e);
             }
         }

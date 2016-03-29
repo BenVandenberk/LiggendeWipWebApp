@@ -23,10 +23,9 @@
                             <p:carousel value="#{newsFeedBean.getLaatsteNieuwtjes()}"
                                         headerText="Laatste nieuwtjes"
                                         var="news"
-                                        vertical="true"
                                         circular="true"
                                         autoPlayInterval="10000"
-                                        rows="1"
+                                        numVisible="1"
                                         responsive="true">
 
                                 <p:graphicImage value="#{news.account.getClub().logoFullPath}"
@@ -42,16 +41,16 @@
                                 <h:outputText value="#{news.nieuws}"/><br/>
                                 <!--<p:inputTextarea readonly="true" value="#{news.nieuws}"-->
                                 <!--style="width:98.5%"/><br/>-->
-                                <p:commandButton action="#{newsFeedBean.verwijderNieuwtje}"
-                                                 rendered="#{gebruikerController.heeftRol('systeem')}"
-                                                 process="@form"
-                                                 update=":carouselForm"
-                                                 value="Verwijder">
+                                <p:commandButton rendered="#{gebruikerController.heeftRol('systeem')}"
+                                                 action="#{newsFeedBean.verwijderNieuwtje}"
+                                                 value="Verwijder"
+                                                 update=":carouselForm">
                                     <f:setPropertyActionListener value="#{news}"
                                                                  target="#{newsFeedBean.selectedNieuwtje}"/>
                                 </p:commandButton>
 
                             </p:carousel>
+
                         </h:form>
                         <h:form id="newsForm">
                             <p:tab rendered="#{gebruikerController.heeftRol('club') || gebruikerController.heeftRol('systeem')}">

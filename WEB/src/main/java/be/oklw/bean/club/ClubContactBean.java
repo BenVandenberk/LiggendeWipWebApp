@@ -24,7 +24,7 @@ public class ClubContactBean {
     private String naam;
     private String telefoonNummer;
     private String email;
-    private boolean isBeheerder;
+    private boolean beheerder;
     private boolean showWijzig = false;
     private boolean showNieuw = false;
 
@@ -71,7 +71,7 @@ public class ClubContactBean {
             naam = selectedContact.getNaam();
             email = selectedContact.getEmail();
             telefoonNummer = selectedContact.getTelefoonnummer();
-            isBeheerder = selectedContact.isBeheerder();
+            beheerder = selectedContact.isBeheerder();
         }
     }
 
@@ -90,7 +90,7 @@ public class ClubContactBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
         try {
-            contactList.add(contactService.maakNieuwContactAan(naam, telefoonNummer, email, isBeheerder));
+            contactList.add(contactService.maakNieuwContactAan(naam, telefoonNummer, email, beheerder));
             clubService.wijzigClub(thisClub.getNaam(), thisClub.getLocatie(), thisClub.getAdres(), contactList, thisClub.getId());
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
@@ -105,7 +105,7 @@ public class ClubContactBean {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
         try {
-            Contact contact = contactService.wijzigContact(naam, telefoonNummer, email, isBeheerder, selectedContact.getId());
+            Contact contact = contactService.wijzigContact(naam, telefoonNummer, email, beheerder, selectedContact.getId());
             if(contactList != null){
                 Iterator<Contact> i = contactList.iterator();
                 while(i.hasNext()){
@@ -132,7 +132,7 @@ public class ClubContactBean {
         naam = null;
         email = null;
         telefoonNummer = null;
-        isBeheerder = false;
+        beheerder = false;
         selectedContact = null;
     }
 
@@ -161,11 +161,11 @@ public class ClubContactBean {
     }
 
     public boolean isBeheerder() {
-        return isBeheerder;
+        return beheerder;
     }
 
-    public void setIsBeheerder(boolean isBeheerder) {
-        this.isBeheerder = isBeheerder;
+    public void setBeheerder(boolean beheerder) {
+        this.beheerder = beheerder;
     }
 
     public Contact getSelectedContact() {
