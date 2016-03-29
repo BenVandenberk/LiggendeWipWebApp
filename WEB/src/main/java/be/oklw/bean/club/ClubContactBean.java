@@ -73,13 +73,36 @@ public class ClubContactBean {
             telefoonNummer = selectedContact.getTelefoonnummer();
             beheerder = selectedContact.isBeheerder();
         }
+        else{
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    "Geen contact geselecteerd"
+            ));
+        }
     }
 
     public void verwijderContact(){
         try {
-            clubService.verwijderContact(thisClub, selectedContact);
-            contactList.remove(selectedContact);
-            reset();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            if(selectedContact!=null){
+                clubService.verwijderContact(thisClub, selectedContact);
+                contactList.remove(selectedContact);
+                facesContext.addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_INFO,
+                        "Geslaagd!",
+                        "Contact werd verwijderd"
+                ));
+                reset();
+            }
+            else {
+                facesContext.addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_WARN,
+                        "Oeps",
+                        "Geen contact geselecteerd"
+                ));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,11 +115,11 @@ public class ClubContactBean {
         try {
             contactList.add(contactService.maakNieuwContactAan(naam, telefoonNummer, email, beheerder));
             clubService.wijzigClub(thisClub.getNaam(), thisClub.getLocatie(), thisClub.getAdres(), contactList, thisClub.getId());
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw contact werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();
         } catch (BusinessException ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -117,11 +140,11 @@ public class ClubContactBean {
             }
             contactList.add(contact);
             //clubService.wijzigClub(thisClub.getNaam(), thisClub.getLocatie(), thisClub.getAdres(), contactList, thisClub.getId());
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contact werd gewijzigd", "Contact werd gewijzigd");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Contact werd gewijzigd");
             facesContext.addMessage(null, message);
             reset();
         } catch (BusinessException ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }

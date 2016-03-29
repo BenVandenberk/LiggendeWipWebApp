@@ -37,12 +37,19 @@ public class SysteemClubBeheerController {
 
         try {
             if(selectedClub!=null){
-            clubService.verwijderClub(selectedClub);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Club werd verwijderd", "Club werd verwijderd");
-            facesContext.addMessage(null, message);}
-            else{throw new Exception("geen club geselecteerd");}
+                clubService.verwijderClub(selectedClub);
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Club werd verwijderd");
+                facesContext.addMessage(null, message);
+            }
+            else{
+               facesContext.addMessage(null, new FacesMessage(
+                       FacesMessage.SEVERITY_WARN,
+                       "Oeps",
+                       "Geen club geselecteerd"
+               ));
+            }
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -61,7 +68,15 @@ public class SysteemClubBeheerController {
         clubController.setSelectedClub(selectedClub);
         clubController.setShowWijzig(true);
         return "to_nieuwe_club";}
-        else{return "";}
+        else{
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    "Geen club geselecteerd"
+            ));
+            return "";
+        }
     }
 
     public String naarNieuweClub(){

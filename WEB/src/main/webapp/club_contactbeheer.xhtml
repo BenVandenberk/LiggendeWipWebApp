@@ -45,16 +45,16 @@
                             <p:outputPanel>
                                 <p:commandButton value="Nieuw contact"
                                                  actionListener="#{clubContactBean.showContactPanel}"
-                                                 update=":contactForm">
+                                                 update=":contactForm :global_msg">
                                 </p:commandButton>
                                 <p:commandButton value="Wijzig contact"
                                                  actionListener="#{clubContactBean.showWijzigContactPanel}"
-                                                 update=":contactForm">
+                                                 update=":contactForm :global_msg">
                                 </p:commandButton>
                                 <p:commandButton value="Verwijder contact"
                                                  actionListener="#{clubContactBean.verwijderContact}"
                                                  process="@form"
-                                                 update="@form">
+                                                 update="@form :global_msg">
                                 </p:commandButton>
                             </p:outputPanel>
                             </h:form>
@@ -62,22 +62,15 @@
 
                     </p:fieldset>
 
+                    <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
+
                     <h:form id="contactForm">
                     <p:panel rendered="#{clubContactBean.showNieuw || clubContactBean.showWijzig}">
                     <div class="subTitel">
-                        Nieuw contact toevoegen
+                        Contact toevoegen/wijzigen
                     </div>
 
                     <div class="ui-grid ui-grid-responsive formGrid">
-
-                        <div class="ui-grid-row formRow">
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="Club:"/>
-                            </div>
-                            <div class="ui-grid-col-3">
-                                <p:outputLabel value="#{clubContactBean.naam}"/>
-                            </div>
-                        </div>
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-3">
@@ -137,14 +130,14 @@
                                          value="Nieuw contact opslaan"
                                          actionListener="#{clubContactBean.maakNieuwContactAan}"
                                          process=":contactForm"
-                                         update=":tableForm :contactForm" ajax="false">
+                                         update=":tableForm :contactForm :global_msg" ajax="false">
 
                         </p:commandButton>
                         <p:commandButton rendered="#{clubContactBean.showWijzig}"
                                          value="Wijzigingen opslaan"
                                          actionListener="#{clubContactBean.wijzigContact}"
                                          process=":contactForm"
-                                         update=":tableForm :contactForm" ajax="false">
+                                         update=":tableForm :contactForm :global_msg" ajax="false">
                         </p:commandButton>
 
                     </div>

@@ -19,16 +19,20 @@ public class ContactService implements IContactService {
 
     @Override
     public Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
+        try{
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
 
         entityManager.persist(contact);
-        entityManager.flush();
 
         return contact;
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
     }
 
     @Override
     public Contact wijzigContact (String naam, String telefoonnummer, String email, boolean isBeheerder, int id) throws BusinessException {
+       try{
         Contact contact = getContact(id);
         contact.setNaam(naam);
         contact.setEmail(email);
@@ -36,17 +40,23 @@ public class ContactService implements IContactService {
         contact.setIsBeheerder(isBeheerder);
 
         entityManager.merge(contact);
-        entityManager.flush();
 
         return contact;
+       } catch (Exception ex) {
+           throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+       }
     }
 
     @Override
-    public Contact getNieuwsteContact (){
+    public Contact getNieuwsteContact () throws BusinessException {
+        try{
         List<Contact> nieuwsteContactList = entityManager.createQuery("SELECT c FROM Contact c ORDER BY c.id desc")
                 .setMaxResults(1).getResultList();
         Contact nieuwsteContact = nieuwsteContactList.get(0);
         return nieuwsteContact;
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
     }
 
     @Override

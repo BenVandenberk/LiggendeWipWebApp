@@ -19,6 +19,8 @@
                         Nieuwe club
                     </div>
 
+                    <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
+
                 <div class="ui-grid ui-grid-responsive formGrid">
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-3">
@@ -93,6 +95,8 @@
                     </div>
 
                     <div class="pageButton">
+                        <p:commandButton ajax="false" value="Terug" action="to_systeem_clubbeheer"/>
+
                         <p:commandButton rendered="#{!clubController.showWijzig}" ajax="false" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
                         <p:commandButton rendered="#{clubController.showWijzig}" ajax="false" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
                     </div>

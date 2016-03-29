@@ -147,12 +147,12 @@
                                 <p:commandButton value="Schieting toevoegen"
                                                  actionListener="#{evenementController.maakNieuwEvenementAan}"
                                                  process="evenForm"
-                                                 update="@form :lijstForm"/>
+                                                 update="@form :lijstForm :global_msg"/>
                             </div>
                         </h:form>
 
                     </p:fieldset>
-
+                    <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
                     <br/>
 
                 <div class="ui-grid-row formRow">
@@ -190,7 +190,7 @@
                                                 </div>
 
                                                 <div style="text-align: right">
-                                                    <p:commandLink update="@form"
+                                                    <p:commandLink update="@form :global_msg"
                                                                    action="#{evenementController.verwijderEvenement}">
                                                         <f:setPropertyActionListener value="#{evenement}"
                                                                                      target="#{evenementController.selectedEvenement}"/>

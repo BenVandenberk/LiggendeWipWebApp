@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import java.io.Serializable;
 import java.util.*;
 
@@ -86,15 +87,15 @@ public class ClubController implements Serializable{
 
         try {
                 clubService.maakNieuweClubAan(naam, locatie, adres, contactLijstBean.getContactLijst());
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwe club werd aangemaakt", "Nieuwe club werd aangemaakt");
-                facesContext.addMessage(null, message);
+                Flash flash = facesContext.getExternalContext().getFlash();
+                flash.setKeepMessages(true);
+                facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwe club werd aangemaakt"));
                 reset();
-                return "to_systeem_clubbeheer";
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
-        return "";
+        return "to_systeem_clubbeheer";
     }
 
     public String wijzigClub(){
@@ -103,15 +104,17 @@ public class ClubController implements Serializable{
 
         try {
             clubService.wijzigClub(naam, locatie, adres, contactLijstBean.getContactLijst(), selectedClub.getId());
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Club werd aangepast", "Club werd aangepast");
-            facesContext.addMessage(null, message);
+
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Club werd aangepast"));
             reset();
-            return "to_systeem_clubbeheer";
+
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
-        return "";
+        return "to_systeem_clubbeheer";
     }
 
     public void verwijderContact(){
@@ -122,9 +125,16 @@ public class ClubController implements Serializable{
             contactLijstBean.verwijderContact(selectedContact.getId());
             clubService.verwijderContact(selectedClub, selectedContact);
         }
-        else{throw new Exception("geen contact geselecteerd");}}
+        else {
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    "Geen contact geselecteerd"
+            ));
+        }
+        }
         catch (Exception ex){
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -165,7 +175,15 @@ public class ClubController implements Serializable{
         contactController.setSelectedContact(selectedContact);
         contactController.setShowWijzig(true);
         return "to_contact";}
-        else{return "";}
+        else{
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    "Geen contact geselecteerd"
+            ));
+            return "";
+        }
     }
 
     public boolean isShowWijzig() {

@@ -17,7 +17,6 @@
                     Kalenderbeheer
                 </div>
 
-
                 <div class="ui-grid ui-grid-responsive formGrid">
 
                     <div class="ui-grid-row formRow">
@@ -125,11 +124,13 @@
                                     <div class="pageButton">
                                         <p:commandButton value="Kampioenschap toevoegen"
                                                          process="kampForm"
-                                                         update=":tbView:lijstForm:pnl_alle_evenementen @form"
+                                                         update=":tbView:lijstForm:pnl_alle_evenementen :kampForm :kamp_msg"
                                                          actionListener="#{evenementController.maakNieuwKampioenschapAan}">
                                         </p:commandButton>
                                     </div>
+
                                 </h:form>
+                                <p:messages showDetail="true" id="kamp_msg" globalOnly="true"></p:messages>
                             </p:fieldset>
                         </div>
                     </div>
@@ -273,9 +274,10 @@
                                         <p:commandButton value="Schieting toevoegen"
                                                          actionListener="#{evenementController.maakNieuwEvenementAan}"
                                                          process="evenForm"
-                                                         update=":tbView:lijstForm:pnl_alle_evenementen @form"/>
+                                                         update=":tbView:lijstForm:pnl_alle_evenementen :evenForm :ev_msg"/>
                                     </div>
                                 </h:form>
+                                <p:messages showDetail="true" id="ev_msg" globalOnly="true"></p:messages>
                             </p:fieldset>
                         </div>
                     </div>
@@ -283,11 +285,13 @@
 
                     <div class="ui-grid-row formRow">
                         <div class="ui-grid-col-12">
-
+                            <p:messages showDetail="true" id="list_msg" globalOnly="true"></p:messages>
                             <p:tabView id="tbView">
                                 <p:tab title="Lijst" id="tb">
+
                                     <h:form id="lijstForm">
                                         <h:panelGroup id="pnl_alle_evenementen">
+
                                             <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
 
                                                 <div class="ui-grid-responsive formGrid evenement">
@@ -317,7 +321,7 @@
                                                     </div>
 
                                                     <div style="text-align: right">
-                                                        <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen"
+                                                        <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen :list_msg"
                                                                        action="#{evenementController.verwijderEvenement}">
                                                             <f:setPropertyActionListener value="#{evenement}"
                                                                                          target="#{evenementController.selectedEvenement}"/>
@@ -326,6 +330,8 @@
                                                     </div>
                                                 </div>
                                             </ui:repeat>
+
+
                                         </h:panelGroup>
                                     </h:form>
                                 </p:tab>

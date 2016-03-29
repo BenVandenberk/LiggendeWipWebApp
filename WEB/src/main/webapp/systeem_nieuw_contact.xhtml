@@ -80,6 +80,8 @@
                     </div>
 
                     <div class="pageButton">
+                        <p:commandButton ajax="false" value="Terug" action="to_nieuwe_club"/>
+
                         <p:commandButton rendered="#{!contactController.showWijzig}" value="Nieuw contact opslaan" ajax="false" action="#{contactController.maakNieuwContactAan}"/>
                         <p:commandButton rendered="#{contactController.showWijzig}" value="Wijzigingen opslaan" ajax="false" action="#{contactController.wijzigContact}"/>
                     </div>

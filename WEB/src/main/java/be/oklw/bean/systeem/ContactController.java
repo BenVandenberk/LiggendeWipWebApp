@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import java.io.Serializable;
 
 @SessionScoped
@@ -93,15 +94,18 @@ public class ContactController implements Serializable{
         try {
             contactService.maakNieuwContactAan(naam, telefoonnummer, email, beheerder);
             contactLijstBean.addNieuwsteContact();
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw contact werd aangemaakt", "Nieuw contact werd aangemaakt");
-            facesContext.addMessage(null, message);
+
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw contact werd aangemaakt"));
+
             reset();
-            return "to_nieuwe_club";
+
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
-        return "";
+        return "to_nieuwe_club";
     }
 
     public String wijzigContact(){
@@ -111,15 +115,17 @@ public class ContactController implements Serializable{
         try {
             contactService.wijzigContact(naam, telefoonnummer, email, beheerder, selectedContact.getId());
             contactLijstBean.wijzigContact(selectedContact.getId());
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contact werd gewijzigd", "Contact werd gewijzigd");
-            facesContext.addMessage(null, message);
+            Flash flash = facesContext.getExternalContext().getFlash();
+            flash.setKeepMessages(true);
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Contact werd gewijzigd"));
+
             reset();
-            return "to_nieuwe_club";
+
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
-        return "";
+        return "to_nieuwe_club";
     }
 
     public void reset(){

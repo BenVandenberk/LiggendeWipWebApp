@@ -1,5 +1,6 @@
 package be.oklw.bean.systeem;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Contact;
 import be.oklw.service.IContactService;
 
@@ -27,7 +28,11 @@ public class ContactLijstBean implements Serializable{
     }
 
     public void addNieuwsteContact(){
-        contactLijst.add(contactService.getNieuwsteContact());
+        try {
+            contactLijst.add(contactService.getNieuwsteContact());
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
     }
 
     public void wijzigContact(int contactId){

@@ -29,29 +29,35 @@ public class EvenementService implements IEvenementService{
 
     @Override
     public void maakNieuwKampioenschapAan(String naam, String clubNaam, Datum start, Datum eind) throws BusinessException{
+        try{
         Club club = (Club)entityManager.createQuery("select c from Club c where c.naam = :selClub")
                 .setParameter("selClub", clubNaam).getSingleResult();
         Kampioenschap kampioenschap = club.maakKampioenschap(naam, start, eind);
 
         entityManager.persist(kampioenschap);
         //entityManager.merge(club);
-        entityManager.flush();
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
     }
 
     @Override
     public void maakNieuwEvenementAan(String naam, String clubNaam, Datum start, Datum eind, String locatie, String omschrijving) throws BusinessException{
+        try{
         Club club = (Club)entityManager.createQuery("select c from Club c where c.naam = :selClub")
                 .setParameter("selClub", clubNaam).getSingleResult();
         Evenement evenement = club.maakEvenement(naam, start, eind, locatie, omschrijving);
 
         entityManager.persist(evenement);
         //entityManager.merge(club);
-        entityManager.flush();
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
     }
 
     @Override
     public void verwijderEvenement(Evenement evenement) throws BusinessException{
-
+        try{
         Evenement teVerwijderenEvenement = entityManager.find(Evenement.class, evenement.getId());
 
         if (teVerwijderenEvenement instanceof Kampioenschap){
@@ -61,7 +67,6 @@ public class EvenementService implements IEvenementService{
                 club.removeEvenement(teVerwijderenKampioenschap);
                 entityManager.remove(teVerwijderenKampioenschap);
                 entityManager.merge(club);
-                entityManager.flush();
             }
             else{
                 throw new BusinessException("Kampioenschap is niet verwijderbaar!");
@@ -72,7 +77,9 @@ public class EvenementService implements IEvenementService{
             club.removeEvenement(teVerwijderenEvenement);
             entityManager.remove(teVerwijderenEvenement);
             entityManager.merge(club);
-            entityManager.flush();
+        }
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
         }
     }
 

@@ -43,7 +43,7 @@ public class NewsFeedBean implements Serializable {
                 account = user;
                 nieuwsService.maakNieuwtjeAan(nieuwtje, new Datum(), tonenTot, account);
             }
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd aangemaakt", "Nieuwtje werd aangemaakt");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwtje werd toegevoegd");
             facesContext.addMessage(null, message);
             reset();
         } catch (Exception ex) {
@@ -58,7 +58,7 @@ public class NewsFeedBean implements Serializable {
 
         try {
             nieuwsService.verwijderNieuwtje(selectedNieuwtje);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuwtje werd verwijderd", "Nieuwtje werd verwijderd");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwtje werd verwijderd uit de feed");
             facesContext.addMessage(null, message);
             reset();
         } catch (Exception ex) {

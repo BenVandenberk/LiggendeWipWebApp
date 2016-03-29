@@ -130,7 +130,8 @@ public class ClubService implements IClubService {
     }
 
     @Override
-    public void verwijderContact(Club club, Contact contact) {
+    public void verwijderContact(Club club, Contact contact) throws BusinessException {
+        try{
         Contact teVerwijderenContact = entityManager.find(Contact.class, contact.getId());
 
         if (club != null) {
@@ -150,11 +151,15 @@ public class ClubService implements IClubService {
                 entityManager.merge(selectedClub);
             }
         }
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
+        }
 
     }
 
     @Override
     public void verwijderClub(Club club) throws BusinessException {
+        try{
         Club teVerwijderenClub = entityManager.find(Club.class, club.getId());
         if (teVerwijderenClub.getEvenementen().isEmpty()) {
             Set<Contact> contactList = teVerwijderenClub.getContacten();
@@ -163,13 +168,14 @@ public class ClubService implements IClubService {
                 Contact c = i.next();
                 i.remove();
                 entityManager.remove(c);
-                entityManager.flush();
             }
 
             entityManager.remove(teVerwijderenClub);
-            entityManager.flush();
         } else {
             throw new BusinessException("Deze club kan niet verwijderd worden");
+        }
+        } catch (Exception ex) {
+            throw new BusinessException(String.format("Er liep iets mis: %s", ex.getMessage()));
         }
     }
 

@@ -56,7 +56,7 @@ public interface IClubService {
      */
     List<Kampioenschap> kampioenschappenVan(Club club, boolean uitVerleden);
 
-    void verwijderContact(Club club, Contact contact);
+    void verwijderContact(Club club, Contact contact) throws BusinessException;
 
     void verwijderClub(Club club) throws BusinessException;
 

@@ -194,11 +194,11 @@ public class EvenementController implements Serializable{
 
         try {
             evenementService.maakNieuwKampioenschapAan(naamKampioenschap, clubKampioenschap, startDatumKampioenschap, eindDatumKampioenschap);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw kampioenschap werd aangemaakt", "Nieuw kampioenschap werd aangemaakt");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw kampioenschap werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -209,11 +209,11 @@ public class EvenementController implements Serializable{
 
         try {
             evenementService.maakNieuwEvenementAan(naamEvenement, clubEvenement, startDatumEvenement, eindDatumEvenement, locatieEvenement, omschrijvingEvenement);
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nieuw evenement werd aangemaakt", "Nieuw evenement werd aangemaakt");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwe schieting werd aangemaakt");
             facesContext.addMessage(null, message);
             reset();
         } catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
@@ -224,10 +224,15 @@ public class EvenementController implements Serializable{
 
         try{
             evenementService.verwijderEvenement(selectedEvenement);
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Geslaagd",
+                    "Dit evenement werd verwijderd"
+            ));
             reset();
         }
         catch (Exception ex) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", ex.getMessage());
             facesContext.addMessage(null, message);
         }
     }
