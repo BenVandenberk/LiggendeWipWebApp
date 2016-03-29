@@ -25,7 +25,7 @@
                                 <h:form id="kampForm">
                                     <o:validateMultiple id="validateMultiple" components="startdatum einddatum"
                                                         validator="#{datumValidator}"
-                                                        message="Einddatum mag niet vroeger zijn dan startdatum"/>
+                                                        message="Data verplicht, einddatum mag niet vroeger zijn dan startdatum"/>
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
@@ -42,14 +42,13 @@
                                             <p:outputLabel value="Startdatum:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:calendar validatorMessage="Startdatum verplicht" mode="popup"
+                                            <p:calendar mode="popup"
                                                         pattern="dd/MM/yyyy"
                                                         value="#{evenementController.startDatumKampioenschap}"
                                                         id="startdatum"
                                                         navigator="true"
                                                         locale="nl">
                                                 <f:converter converterId="DatumConverter"/>
-                                                <f:validateRequired/>
                                                 <f:ajax render="msg_startdatum startdatum"/>
                                             </p:calendar>
                                         </div>
@@ -89,14 +88,13 @@
                                             <p:outputLabel value="Einddatum:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:calendar validatorMessage="Einddatum verplicht" mode="popup"
+                                            <p:calendar mode="popup"
                                                         pattern="dd/MM/yyyy"
                                                         value="#{evenementController.eindDatumKampioenschap}"
                                                         id="einddatum"
                                                         navigator="true"
                                                         locale="nl">
                                                 <f:converter converterId="DatumConverter"/>
-                                                <f:validateRequired/>
                                                 <f:validator validatorId="datumValidator"/>
                                                 <f:ajax render="msg_einddatum einddatum"/>
                                             </p:calendar>
@@ -141,7 +139,7 @@
                                 <h:form id="evenForm">
                                     <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum"
                                                         validator="#{datumValidator}"
-                                                        message="Einddatum mag niet vroeger zijn dan startdatum"/>
+                                                        message="Data verplicht, einddatum mag niet vroeger zijn dan startdatum"/>
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">

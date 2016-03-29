@@ -226,7 +226,7 @@ public class EvenementController implements Serializable{
             evenementService.verwijderEvenement(selectedEvenement);
             facesContext.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_INFO,
-                    "Geslaagd",
+                    "Geslaagd!",
                     "Dit evenement werd verwijderd"
             ));
             reset();
