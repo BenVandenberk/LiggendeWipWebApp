@@ -7,7 +7,7 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+
 
                 <div class="bodyWrapper">
 
@@ -24,8 +24,8 @@
                 <div class="ui-grid ui-grid-responsive formGrid">
                 <div class="ui-grid-row formRow">
                 <div class="ui-grid-col-12">
-                    <p:panelGrid class="noBorder transparentBackground" columns="2">
-
+                    <p:panelGrid class="noBorder transparentBackground" columns="1">
+                        <h:form>
                                 <p:dataTable id="clublijst" var="club" value="#{systeemClubBeheerController.getClubLijst()}" selectionMode="single"
                                              selection="#{systeemClubBeheerController.selectedClub}" rowKey="#{club.naam}">
                                     <p:column headerText="Naam">
@@ -39,18 +39,18 @@
                                         <h:outputText value="#{club.sinds}" />
                                     </p:column>
                                 </p:dataTable>
-
+                                    <br/>
                                 <p:outputPanel>
-                                <p:commandButton class="formRow" value="Nieuwe club aanmaken" ajax = "false" action="#{systeemClubBeheerController.naarNieuweClub}"/>
-                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club aanpassen" ajax="false" action="#{systeemClubBeheerController.naarGeselecteerdeClub()}"/>
-                                <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club verwijderen" ajax="false" action="#{systeemClubBeheerController.verwijderClub()}"/>
+                                    <p:commandButton class="formRow" value="Nieuwe club aanmaken" ajax = "false" action="#{systeemClubBeheerController.naarNieuweClub}"/>
+                                    <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club aanpassen" ajax="false" action="#{systeemClubBeheerController.naarGeselecteerdeClub()}"/>
+                                    <p:commandButton process="clublijst" class="formRow" value="Geselecteerde club verwijderen" ajax="false" action="#{systeemClubBeheerController.verwijderClub()}"/>
                                 </p:outputPanel>
-
+                        </h:form>
                     </p:panelGrid>
                     </div></div></div>
                 </div>
 
-            </h:form>
+
         </ui:define>
 
     </ui:composition>
