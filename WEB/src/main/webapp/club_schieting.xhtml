@@ -10,202 +10,203 @@
         <ui:define name="bodycontent">
 
 
-                <div class="bodyWrapper">
+            <div class="bodyWrapper">
 
-                    <div class="titel">
-                        Schietingen
-                    </div>
+                <div class="titel">
+                    Schietingen
+                </div>
 
-                    <p:fieldset legend="Nieuwe Schieting">
+                <p:fieldset legend="Nieuwe Schieting">
 
-                        <h:form id="evenForm">
-                            <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum"
-                                                validator="#{datumValidator}"
-                                                message="Data verplicht, einddatum mag niet vroeger zijn dan startdatum"/>
+                    <h:form id="evenForm">
+                        <o:validateMultiple id="EvvalidateMultiple" components="Evstartdatum Eveinddatum"
+                                            validator="#{datumValidator}"
+                                            message="Data verplicht, einddatum mag niet vroeger zijn dan startdatum"/>
 
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Naam:"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:inputText validatorMessage="Naam verplicht"
-                                                 value="#{evenementController.naamEvenement}" id="Evnaam">
-                                        <f:validateRequired/>
-                                        <f:ajax render="msg_Evnaam Evnaam"/>
-                                    </p:inputText>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Startdatum:"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:calendar validatorMessage="Startdatum verplicht" id="Evstartdatum"
-                                                mode="popup" pattern="dd/MM/yyyy"
-                                                value="#{evenementController.startDatumEvenement}"
-                                                navigator="true"
-                                                locale="nl">
-                                        <f:converter converterId="DatumConverter"/>
-                                        <f:validateRequired/>
-                                        <f:ajax render="msg_Evstartdatum Evstartdatum"/>
-                                    </p:calendar>
-                                </div>
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Naam:"/>
                             </div>
+                            <div class="ui-grid-col-3 left">
+                                <p:inputText validatorMessage="Naam verplicht"
+                                             value="#{evenementController.naamEvenement}" id="Evnaam">
+                                    <f:validateRequired/>
+                                    <f:ajax render="msg_Evnaam Evnaam"/>
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Startdatum:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:calendar validatorMessage="Startdatum verplicht" id="Evstartdatum"
+                                            mode="popup" pattern="dd/MM/yyyy"
+                                            value="#{evenementController.startDatumEvenement}"
+                                            navigator="true"
+                                            locale="nl">
+                                    <f:converter converterId="DatumConverter"/>
+                                    <f:validateRequired/>
+                                    <f:ajax render="msg_Evstartdatum Evstartdatum"/>
+                                </p:calendar>
+                            </div>
+                        </div>
 
-                            <div class="ui-grid-row formRow">
+                        <div class="ui-grid-row formRow">
 
-                                <div class="ui-grid-col-3">
-
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:message id="msg_Evnaam" for="Evnaam"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:message id="msg_Evstartdatum" for="Evstartdatum"/>
-                                </div>
+                            <div class="ui-grid-col-3">
 
                             </div>
-
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Club:"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="#{evenementController.getClub().getNaam()}"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Einddatum:"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:calendar id="Eveinddatum" validatorMessage="Einddatum verplicht"
-                                                mode="popup" pattern="dd/MM/yyyy"
-                                                value="#{evenementController.eindDatumEvenement}"
-                                                navigator="true"
-                                                locale="nl">
-                                        <f:converter converterId="DatumConverter"/>
-                                        <f:validateRequired/>
-                                        <f:ajax render="msg_Eveinddatum Eveinddatum"/>
-                                    </p:calendar>
-                                </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_Evnaam" for="Evnaam"/>
                             </div>
-
-                            <div class="ui-grid-row formRow">
-
-                                <div class="ui-grid-col-3">
-
-                                </div>
-                                <div class="ui-grid-col-3">
-
-                                </div>
-                                <div class="ui-grid-col-3">
-
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:message id="msg_Eveinddatum" for="Eveinddatum"/>
-                                    <p:message for="EvvalidateMultiple"/>
-                                </div>
+                            <div class="ui-grid-col-3">
 
                             </div>
-
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Locatie: "/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:inputText id="Evlocatie" validatorMessage="Locatie verplicht"
-                                                 value="#{evenementController.locatieEvenement}">
-                                        <f:validateRequired/>
-                                        <f:ajax render="msg_Evlocatie Evlocatie"/>
-                                    </p:inputText>
-                                </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_Evstartdatum" for="Evstartdatum"/>
                             </div>
 
-                            <div class="ui-grid-row formRow">
+                        </div>
 
-                                <div class="ui-grid-col-3">
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Club:"/>
+                            </div>
+                            <div class="ui-grid-col-3 left">
+                                <p:outputLabel value="#{evenementController.getClub().getNaam()}"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Einddatum:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:calendar id="Eveinddatum" validatorMessage="Einddatum verplicht"
+                                            mode="popup" pattern="dd/MM/yyyy"
+                                            value="#{evenementController.eindDatumEvenement}"
+                                            navigator="true"
+                                            locale="nl">
+                                    <f:converter converterId="DatumConverter"/>
+                                    <f:validateRequired/>
+                                    <f:ajax render="msg_Eveinddatum Eveinddatum"/>
+                                </p:calendar>
+                            </div>
+                        </div>
 
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:message id="msg_Evlocatie" for="Evlocatie"/>
-                                </div>
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-3">
 
                             </div>
-
-                            <div class="ui-grid-row formRow">
-                                <div class="ui-grid-col-3">
-                                    <p:outputLabel value="Omschrijving:"/>
-                                </div>
-                                <div class="ui-grid-col-3">
-                                    <p:inputTextarea style="width: 300%"
-                                                     value="#{evenementController.omschrijvingEvenement}"/>
-                                </div>
+                            <div class="ui-grid-col-3">
 
                             </div>
+                            <div class="ui-grid-col-3">
 
-                            <div class="pageButton">
-                                <p:commandButton value="Schieting toevoegen"
-                                                 actionListener="#{evenementController.maakNieuwEvenementAan}"
-                                                 process="evenForm"
-                                                 update="@form :lijstForm :global_msg"/>
                             </div>
-                        </h:form>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_Eveinddatum" for="Eveinddatum"/>
+                                <p:message for="EvvalidateMultiple"/>
+                            </div>
 
-                    </p:fieldset>
-                    <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
-                    <br/>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Locatie: "/>
+                            </div>
+                            <div class="ui-grid-col-3 left">
+                                <p:inputText id="Evlocatie" validatorMessage="Locatie verplicht"
+                                             value="#{evenementController.locatieEvenement}">
+                                    <f:validateRequired/>
+                                    <f:ajax render="msg_Evlocatie Evlocatie"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-3">
+
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_Evlocatie" for="Evlocatie"/>
+                            </div>
+
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            <div class="ui-grid-col-3">
+                                <p:outputLabel value="Omschrijving:"/>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:inputTextarea style="width: 300%"
+                                                 value="#{evenementController.omschrijvingEvenement}"/>
+                            </div>
+
+                        </div>
+
+                        <div class="pageButton">
+                            <p:commandButton value="Schieting toevoegen"
+                                             actionListener="#{evenementController.maakNieuwEvenementAan}"
+                                             process="evenForm"
+                                             update="@form :lijstForm :global_msg"/>
+                        </div>
+                    </h:form>
+
+                </p:fieldset>
+                <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
+                <br/>
 
                 <div class="ui-grid-row formRow">
                     <div class="ui-grid-col-12">
 
                         <p:fieldset legend="Lijst met eigen schietingen">
-                                <h:form id="lijstForm">
-                                    <h:panelGroup id="pnl_alle_evenementen">
-                                        <ui:repeat value="#{evenementController.getEvenementenVanClub()}" var="evenement">
+                            <h:form id="lijstForm">
+                                <h:panelGroup id="pnl_alle_evenementen">
+                                    <ui:repeat value="#{evenementController.getEvenementenVanClub()}" var="evenement">
 
-                                            <div class="ui-grid-responsive formGrid evenement">
+                                        <div class="ui-grid-responsive formGrid evenement">
 
-                                                <div class="ui-grid-row">
-                                                    <p:outputLabel value="#{evenement.naam}"
-                                                                   styleClass="centerPlus pointer"/>
-                                                </div>
-
-                                                <div class="ui-grid-row">
-                                                    <p:outputLabel
-                                                            value="georganiseerd door club: #{evenement.club.naam}"
-                                                            styleClass="centerPlus pointer"/>
-                                                </div>
-
-                                                <div class="ui-grid-row">
-                                                    <p:outputLabel styleClass="centerPlus pointer"
-                                                                   value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
-                                                    </p:outputLabel>
-                                                </div>
-
-                                                <div class="ui-grid-row">
-                                                    <p:outputLabel
-                                                            rendered="#{evenementController.isEvenement(evenement)}"
-                                                            styleClass="centerPlus pointer"
-                                                            value="Schieting"/>
-                                                </div>
-
-                                                <div style="text-align: right">
-                                                    <p:commandLink update="@form :global_msg"
-                                                                   action="#{evenementController.verwijderEvenement}">
-                                                        <f:setPropertyActionListener value="#{evenement}"
-                                                                                     target="#{evenementController.selectedEvenement}"/>
-                                                        <i class="fa fa-minus-square-o plus"/>
-                                                    </p:commandLink>
-                                                </div>
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{evenement.naam}"
+                                                               styleClass="centerPlus"/>
                                             </div>
-                                        </ui:repeat>
-                                    </h:panelGroup>
-                                </h:form>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel
+                                                        value="Georganiseerd door club: #{evenement.club.naam}"
+                                                        styleClass="centerPlus"/>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus"
+                                                               value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel
+                                                        rendered="#{evenementController.isEvenement(evenement)}"
+                                                        styleClass="centerPlus"
+                                                        value="Schieting"/>
+                                            </div>
+
+                                            <div style="text-align: right">
+                                                <p:commandLink update="@form :global_msg"
+                                                               action="#{evenementController.verwijderEvenement}">
+                                                    <f:setPropertyActionListener value="#{evenement}"
+                                                                                 target="#{evenementController.selectedEvenement}"/>
+                                                    <i class="fa fa-minus-square-o plus"/>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+                                    </ui:repeat>
+                                </h:panelGroup>
+                            </h:form>
                         </p:fieldset>
 
                     </div>
 
-                </div></div>
+                </div>
+            </div>
 
         </ui:define>
 

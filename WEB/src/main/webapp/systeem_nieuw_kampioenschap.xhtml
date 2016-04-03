@@ -296,17 +296,17 @@
 
                                                     <div class="ui-grid-row">
                                                         <p:outputLabel value="#{evenement.naam}"
-                                                                       styleClass="centerPlus pointer"/>
+                                                                       styleClass="centerPlus"/>
                                                     </div>
 
                                                     <div class="ui-grid-row">
                                                         <p:outputLabel
                                                                 value="georganiseerd door club: #{evenement.club.naam}"
-                                                                styleClass="centerPlus pointer"/>
+                                                                styleClass="centerPlus"/>
                                                     </div>
 
                                                     <div class="ui-grid-row">
-                                                        <p:outputLabel styleClass="centerPlus pointer"
+                                                        <p:outputLabel styleClass="centerPlus"
                                                                        value="#{evenement.beginDatum.datumInEuropeesFormaat} tot #{evenement.eindDatum.datumInEuropeesFormaat}">
                                                         </p:outputLabel>
                                                     </div>
@@ -314,13 +314,14 @@
                                                     <div class="ui-grid-row">
                                                         <p:outputLabel
                                                                 rendered="#{evenementController.isEvenement(evenement)}"
-                                                                styleClass="centerPlus pointer"
+                                                                styleClass="centerPlus"
                                                                 value="Schieting"/>
                                                     </div>
 
                                                     <div style="text-align: right">
-                                                        <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen :list_msg :tbView:kalenderForm:schedule"
-                                                                       action="#{evenementController.verwijderEvenement}">
+                                                        <p:commandLink
+                                                                update=":tbView:lijstForm:pnl_alle_evenementen :list_msg :tbView:kalenderForm:schedule"
+                                                                action="#{evenementController.verwijderEvenement}">
                                                             <f:setPropertyActionListener value="#{evenement}"
                                                                                          target="#{evenementController.selectedEvenement}"/>
                                                             <i class="fa fa-minus-square-o plus"/>
@@ -339,35 +340,42 @@
                                         <div class="ui-grid-col-2"></div>
                                         <div class="ui-grid-col-8">
                                             <h:form id="kalenderForm">
-                                            <p:schedule id="schedule" value="#{scheduleBean.lazyModel}"
-                                                        widgetVar="myschedule"
-                                                        locale="nl"
-                                                        draggable="false"
-                                                        timeFormat=""
-                                                        leftHeaderTemplate="prev, next"
-                                                        rightHeaderTemplate="today"
-                                                        responsive="true">
-                                                <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails"
-                                                        oncomplete="PF('eventDialog').show();"/>
-                                            </p:schedule>
+                                                <p:schedule id="schedule" value="#{scheduleBean.lazyModel}"
+                                                            widgetVar="myschedule"
+                                                            locale="nl"
+                                                            draggable="false"
+                                                            timeFormat=""
+                                                            leftHeaderTemplate="prev, next"
+                                                            rightHeaderTemplate="today"
+                                                            responsive="true">
+                                                    <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}"
+                                                            update="eventDetails"
+                                                            oncomplete="PF('eventDialog').show();"/>
+                                                </p:schedule>
 
-                                            <p:dialog widgetVar="eventDialog" header="Detail" showEffect="clip" hideEffect="clip">
-                                                <h:panelGrid id="eventDetails">
-                                                    <p:outputLabel id="title" value="#{scheduleBean.selectedEvenement.naam}"/>
-                                                    <p:outputLabel id="club_id"
-                                                                   value="organisator: #{scheduleBean.selectedEvenement.club.naam}"/>
-                                                    <p:outputLabel id="locatie" value="#{scheduleBean.selectedEvenement.locatie}"/>
-                                                    <p:outputLabel rendered="#{!scheduleBean.isKampioenschap()}" id="omschrijving"
-                                                                   value="#{scheduleBean.selectedEvenement.omschrijving}"/>
-                                                    <p:commandLink update=":tbView:lijstForm:pnl_alle_evenementen :list_msg :tbView:kalenderForm:schedule"
-                                                                   action="#{evenementController.verwijderEvenement}"
-                                                                   oncomplete="PF('eventDialog').hide()">
-                                                        <f:setPropertyActionListener value="#{scheduleBean.selectedEvenement}"
-                                                                                     target="#{evenementController.selectedEvenement}"/>
-                                                        <i class="fa fa-minus-square-o plus"/>
-                                                    </p:commandLink>
-                                                </h:panelGrid>
-                                            </p:dialog>
+                                                <p:dialog widgetVar="eventDialog" header="Detail" showEffect="clip"
+                                                          hideEffect="clip">
+                                                    <h:panelGrid id="eventDetails">
+                                                        <p:outputLabel id="title"
+                                                                       value="#{scheduleBean.selectedEvenement.naam}"/>
+                                                        <p:outputLabel id="club_id"
+                                                                       value="organisator: #{scheduleBean.selectedEvenement.club.naam}"/>
+                                                        <p:outputLabel id="locatie"
+                                                                       value="#{scheduleBean.selectedEvenement.locatie}"/>
+                                                        <p:outputLabel rendered="#{!scheduleBean.isKampioenschap()}"
+                                                                       id="omschrijving"
+                                                                       value="#{scheduleBean.selectedEvenement.omschrijving}"/>
+                                                        <p:commandLink
+                                                                update=":tbView:lijstForm:pnl_alle_evenementen :list_msg :tbView:kalenderForm:schedule"
+                                                                action="#{evenementController.verwijderEvenement}"
+                                                                oncomplete="PF('eventDialog').hide()">
+                                                            <f:setPropertyActionListener
+                                                                    value="#{scheduleBean.selectedEvenement}"
+                                                                    target="#{evenementController.selectedEvenement}"/>
+                                                            <i class="fa fa-minus-square-o plus"/>
+                                                        </p:commandLink>
+                                                    </h:panelGrid>
+                                                </p:dialog>
                                             </h:form>
 
                                         </div>
