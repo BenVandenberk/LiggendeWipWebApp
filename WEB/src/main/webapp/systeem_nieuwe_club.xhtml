@@ -61,10 +61,17 @@
                         </div>
                     </div>
 
+                    <div class="pageButton">
+                        <p:commandButton ajax="false" value="Terug" action="to_systeem_clubbeheer" immediate="true"/>
+
+                        <p:commandButton rendered="#{!clubController.showWijzig}" ajax="false" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
+                        <p:commandButton rendered="#{clubController.showWijzig}" ajax="false" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
+                    </div>
+
                     <p:fieldset legend="contacten">
 
-                        <p:panelGrid class="noBorder transparentBackground" columns="2">
-
+                        <p:panelGrid class="noBorder transparentBackground" columns="1">
+                            <p:outputPanel>
                             <p:dataTable id="contactlijst" var="contact" value="#{contactLijstBean.contactLijst}" selectionMode="single" selection="#{clubController.selectedContact}" rowKey="#{contact.naam}">
                                 <p:column headerText="Naam">
                                     <h:outputText value="#{contact.naam}" />
@@ -82,8 +89,8 @@
                                     <p:selectBooleanCheckbox value="#{contact.beheerder}" disabled="true"/>
                                 </p:column>
                             </p:dataTable>
+                                <br/>
 
-                            <p:outputPanel>
                                 <p:commandButton class="formRow" value="Nieuw contact toevoegen" ajax="false" action="#{clubController.naarNieuwContact()}"/>
                                 <p:commandButton process="contactlijst" class="formRow" value="Geselecteerd contact aanpassen" ajax="false" action="#{clubController.naarGeselecteerdContact}"/>
                                 <p:commandButton class="formRow" value="Geselecteerd contact verwijderen" ajax="false" action="#{clubController.verwijderContact}"/>
@@ -94,12 +101,7 @@
 
                     </div>
 
-                    <div class="pageButton">
-                        <p:commandButton ajax="false" value="Terug" action="to_systeem_clubbeheer"/>
 
-                        <p:commandButton rendered="#{!clubController.showWijzig}" ajax="false" value="Nieuwe club opslaan" action="#{clubController.maakNieuweClubAan}"/>
-                        <p:commandButton rendered="#{clubController.showWijzig}" ajax="false" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
-                    </div>
 
                 </div>
 

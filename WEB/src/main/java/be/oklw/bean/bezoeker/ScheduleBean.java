@@ -31,8 +31,6 @@ package be.oklw.bean.bezoeker;
 @ViewScoped
 public class ScheduleBean implements Serializable {
 
-    private ScheduleModel eventModel;
-
     private ScheduleModel lazyModel;
 
     private ScheduleEvent event = new DefaultScheduleEvent();
@@ -52,16 +50,6 @@ public class ScheduleBean implements Serializable {
     public void init() {
 
         alleEvenementen = evenementService.getAlleEvenementen();
-
-        /*eventModel = new DefaultScheduleModel();
-
-        for (Evenement e : alleEvenementen){
-            try {
-                eventModel.addEvent(new DefaultScheduleEvent(e.getNaam(), e.getBeginDatum().getDatuminDateFormat(), e.getEindDatum().getDatuminDateFormat()));
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-        }*/
 
         lazyModel = new LazyScheduleModel(){
             @Override
@@ -83,10 +71,6 @@ public class ScheduleBean implements Serializable {
                 }
             }
         };
-    }
-
-    public ScheduleModel getEventModel() {
-        return eventModel;
     }
 
     public ScheduleEvent getEvent() {
@@ -117,10 +101,6 @@ public class ScheduleBean implements Serializable {
             return true;
         }
         return false;
-    }
-
-    private void addMessage(FacesMessage message) {
-        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public ScheduleModel getLazyModel() {

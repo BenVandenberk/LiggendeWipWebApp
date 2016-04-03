@@ -28,6 +28,9 @@ public class DatumValidator implements MultiFieldValidator, Validator{
     public boolean validateValues(FacesContext context, List<UIInput> components, List<Object> values) {
         String start = values.get(0).toString();
         String eind = values.get(1).toString();
+        if(start.equals("") || eind.equals("")){
+            return false;
+        }
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date startDate = null;
         Date endDate = null;
