@@ -125,7 +125,7 @@ public class Toernooi implements Serializable {
     }
 
     public BigDecimal getInlegPerPloeg() {
-        return inlegPerPloeg;
+        return inlegPerPloeg == null ? BigDecimal.ZERO : inlegPerPloeg;
     }
 
     public void setInlegPerPloeg(BigDecimal inlegPerPloeg) {
@@ -325,9 +325,9 @@ public class Toernooi implements Serializable {
         boolean menusMetZelfdeNaam = false;
 
         String menuNaam = "";
-        for (int i = 0;!menusMetZelfdeNaam && i < menus.size() - 1; i++) {
+        for (int i = 0; !menusMetZelfdeNaam && i < menus.size() - 1; i++) {
             menuNaam = menus.get(i).getNaam();
-            for (int j = i + 1;!menusMetZelfdeNaam && j < menus.size(); j++) {
+            for (int j = i + 1; !menusMetZelfdeNaam && j < menus.size(); j++) {
                 menusMetZelfdeNaam = menuNaam.equals(menus.get(j).getNaam());
             }
         }
