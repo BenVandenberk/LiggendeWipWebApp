@@ -12,6 +12,7 @@ public class TimedService implements ITimedService {
     @EJB
     IToernooiService toernooiService;
 
+    // Roep deze method aan wanneer je een contact opslaagt
     public void createTimer(long duration) {
         timerService.createTimer(duration, "Timer contacten gestart");
     }
