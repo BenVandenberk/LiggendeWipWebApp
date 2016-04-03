@@ -73,7 +73,7 @@ public class SponsorBean {
 
         file = event.getFile();
 
-        if(file.getContents().length > 0) {
+        if (file.getContents().length > 0) {
 
             try {
                 String logoNaam = fileService.upload(file.getContents(), file.getFileName(), "clubsponsors");
@@ -82,18 +82,18 @@ public class SponsorBean {
                 sponsor.setLogoBreedte(120);
 
                 facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", file.getFileName() + " opgeladen");
-                facesContext.addMessage(null, facesMessage);
+                facesContext.addMessage("frm:file_logo", facesMessage);
             } catch (Exception ex) {
                 facesMessage = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR,
                         "Fout",
                         ex.getMessage()
                 );
-                facesContext.addMessage(null, facesMessage);
+                facesContext.addMessage("frm:file_logo", facesMessage);
             }
         } else {
             facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Geen file geselecteerd om up te loaden");
-            facesContext.addMessage(null, facesMessage);
+            facesContext.addMessage("frm:file_logo", facesMessage);
         }
     }
 
@@ -128,11 +128,11 @@ public class SponsorBean {
     @PostConstruct
     public void init() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)facesContext.getExternalContext().getSession(false);
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 
         if (session != null) {
             SponsorCRUDHelper sponsorCRUDHelper = (SponsorCRUDHelper) session.getAttribute("sponsorCRUDHelper");
-            Account user = (Account)session.getAttribute("user");
+            Account user = (Account) session.getAttribute("user");
 
             try {
                 club = clubService.getClub(user);
