@@ -15,6 +15,8 @@ public class Menu implements Serializable {
     private int id;
 
     private String naam;
+
+    @Column(length = 2000)
     private String omschrijving;
     private BigDecimal prijs;
 

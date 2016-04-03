@@ -15,7 +15,7 @@
                         #{clubBeheerBean.kampioenschap.naam}
                     </div>
 
-                    <p:messages globalOnly="true" showDetail="true"></p:messages>
+                    <p:messages id="msg" globalOnly="true" showDetail="true"></p:messages>
 
                     <p:spacer height="30"/>
 
@@ -249,7 +249,8 @@
 
                     <div class="pageButton">
                         <p:commandButton value="Opslaan" action="#{clubBeheerBean.opslaan}"
-                                         form="frm_kamppagina"></p:commandButton>
+                                         form="frm_kamppagina"
+                                         update="frm_kamppagina:msg"></p:commandButton>
                     </div>
 
                 </div>

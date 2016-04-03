@@ -13,6 +13,7 @@ public class Nieuws implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(length = 2000)
     private String nieuws;
 
     @Convert(converter = DatumConverter.class)
