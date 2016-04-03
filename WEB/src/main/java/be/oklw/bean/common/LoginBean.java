@@ -59,7 +59,10 @@ public class LoginBean {
         String redirectMessage = (String) session.getAttribute("redirectMessage");
 
         if (redirectMessage != null) {
-            facesContext.addMessage(null, new FacesMessage(redirectMessage));
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_WARN,
+                    "Oeps",
+                    redirectMessage));
         }
 
     }
