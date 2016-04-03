@@ -5,7 +5,7 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:o="http://omnifaces.org/ui"
 
-        >
+>
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -158,9 +158,11 @@
 
                                     <div class="ui-grid-col-3 right">
                                         <p:inputText size="20" value="#{registratieBean.lid.email}"
-                                                     validatorMessage="Email is verplicht"
+                                                     validatorMessage="Geen geldige email"
+                                                     requiredMessage="Email is verplicht"
+                                                     required="true"
                                                      id="email">
-                                            <f:validateRequired/>
+                                            <f:validator validatorId="emailValidator"/>
                                             <p:ajax event="change" update="email msg_email"/>
                                         </p:inputText>
                                     </div>

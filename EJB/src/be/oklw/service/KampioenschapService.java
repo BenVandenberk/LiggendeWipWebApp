@@ -58,6 +58,10 @@ public class KampioenschapService implements IKampioenschapService {
             throw new BusinessException("De inschrijfdeadline moet in de toekomst liggen");
         }
 
+        if (toernooi.heeftMenusMetZelfdeNaam()) {
+            throw new BusinessException("Menu's moeten verschillende namen hebben");
+        }
+
         try {
             entityManager.persist(toernooi);
             kampioenschap.addToernooi(toernooi);
@@ -83,6 +87,10 @@ public class KampioenschapService implements IKampioenschapService {
 
         if (toernooi.getInschrijfDeadline().compareTo(new Datum()) <= 0) {
             throw new BusinessException("De inschrijfdeadline moet in de toekomst liggen");
+        }
+
+        if (toernooi.heeftMenusMetZelfdeNaam()) {
+            throw new BusinessException("Menu's moeten verschillende namen hebben");
         }
 
         try {
