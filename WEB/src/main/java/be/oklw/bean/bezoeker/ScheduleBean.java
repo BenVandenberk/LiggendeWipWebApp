@@ -1,31 +1,22 @@
 package be.oklw.bean.bezoeker;
 
-        import java.io.Serializable;
-        import java.text.ParseException;
-        import java.util.Calendar;
-        import java.util.Date;
-        import java.util.List;
-        import javax.annotation.PostConstruct;
-        import javax.ejb.EJB;
-        import javax.faces.application.FacesMessage;
-        import javax.faces.bean.ManagedBean;
-        import javax.faces.bean.ManagedProperty;
-        import javax.faces.bean.ViewScoped;
-        import javax.faces.context.FacesContext;
-        import javax.faces.event.ActionEvent;
+import be.oklw.model.Evenement;
+import be.oklw.model.Kampioenschap;
+import be.oklw.service.IEvenementService;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.LazyScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
 
-        import be.oklw.model.Evenement;
-        import be.oklw.model.Kampioenschap;
-        import be.oklw.service.IEvenementService;
-        import be.oklw.service.IKampioenschapService;
-        import org.primefaces.event.ScheduleEntryMoveEvent;
-        import org.primefaces.event.ScheduleEntryResizeEvent;
-        import org.primefaces.event.SelectEvent;
-        import org.primefaces.model.DefaultScheduleEvent;
-        import org.primefaces.model.DefaultScheduleModel;
-        import org.primefaces.model.LazyScheduleModel;
-        import org.primefaces.model.ScheduleEvent;
-        import org.primefaces.model.ScheduleModel;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 
 @ManagedBean
 @ViewScoped
@@ -51,19 +42,20 @@ public class ScheduleBean implements Serializable {
 
         alleEvenementen = evenementService.getAlleEvenementen();
 
-        lazyModel = new LazyScheduleModel(){
+        lazyModel = new LazyScheduleModel() {
             @Override
-            public void loadEvents(Date start, Date end){
-                for (Evenement e : alleEvenementen){
+            public void loadEvents(Date start, Date end) {
+                for (Evenement e : alleEvenementen) {
                     try {
                         Date st = e.getBeginDatum().getDatuminDateFormat();
                         Date ei = e.getEindDatum().getDatuminDateFormat();
-                        if (((st.after(start)||st.equals(start)) && (st.before(end)||st.equals(end)))
-                                || ((ei.after(start)||ei.equals(end)) && (ei.before(end)||ei.equals(end)))){
-                            if (e instanceof Kampioenschap){
-                            addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "kamp"));
+                        if (((st.after(start) || st.equals(start)) && (st.before(end) || st.equals(end)))
+                                || ((ei.after(start) || ei.equals(end)) && (ei.before(end) || ei.equals(end)))) {
+                            if (e instanceof Kampioenschap) {
+                                addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "kamp"));
+                            } else {
+                                addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "even"));
                             }
-                            else {  addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "even")); }
                         }
                     } catch (ParseException e1) {
                         e1.printStackTrace();
@@ -83,11 +75,11 @@ public class ScheduleBean implements Serializable {
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
-        for (Evenement e : alleEvenementen){
+        for (Evenement e : alleEvenementen) {
             try {
                 if (event.getTitle().equals(e.getNaam())
                         && event.getStartDate().equals(e.getBeginDatum().getDatuminDateFormat())
-                        && event.getEndDate().equals(e.getEindDatum().getDatuminDateFormat())){
+                        && event.getEndDate().equals(e.getEindDatum().getDatuminDateFormat())) {
                     selectedEvenement = e;
                 }
             } catch (ParseException e1) {
@@ -96,14 +88,15 @@ public class ScheduleBean implements Serializable {
         }
     }
 
-    public boolean isKampioenschap(){
-        if (selectedEvenement instanceof Kampioenschap){
+    public boolean isKampioenschap() {
+        if (selectedEvenement instanceof Kampioenschap) {
             return true;
         }
         return false;
     }
 
     public ScheduleModel getLazyModel() {
+        alleEvenementen = evenementService.getAlleEvenementen();
         return lazyModel;
     }
 
