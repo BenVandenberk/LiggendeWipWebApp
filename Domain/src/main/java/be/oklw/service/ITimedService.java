@@ -4,4 +4,7 @@ import javax.ejb.Local;
 
 @Local
 public interface ITimedService {
+
+    void createTimer(long duration);
+
 }

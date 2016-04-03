@@ -18,12 +18,17 @@ public class ContactService implements IContactService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @EJB
+    ITimedService timedService;
+
     @Override
     public Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
         try{
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
 
         entityManager.persist(contact);
+
+            timedService.createTimer(240000l);
 
         return contact;
         } catch (Exception ex) {
@@ -68,8 +73,8 @@ public class ContactService implements IContactService {
 
     @Override
     public void verwijderOrphanContacten(){
-        List<Contact> orphanContacten = entityManager.createQuery("SELECT c FROM Contact c WHERE c.Club_id = :null")
-                .setParameter("null", null)
+        List<Contact> orphanContacten = entityManager
+                .createQuery("FROM Contact WHERE Club_id is null")
                 .getResultList();
         for (Contact c : orphanContacten){
             entityManager.remove(c);
