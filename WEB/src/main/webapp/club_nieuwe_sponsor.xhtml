@@ -21,10 +21,19 @@
 
                         <div class="ui-grid-row formRow">
                             <div class="ui-grid-col-1">
-                                <p:outputLabel value="Naam:"></p:outputLabel>
+                                <p:outputLabel value="Naam*:"></p:outputLabel>
                             </div>
                             <div class="ui-grid-col-3">
-                                <p:inputText value="#{sponsorBean.sponsor.naam}"></p:inputText>
+                                <p:inputText value="#{sponsorBean.sponsor.naam}"
+                                             id="naam"
+                                             validatorMessage="Naam is verplicht"
+                                >
+                                    <f:validateRequired/>
+                                    <p:ajax event="change" update=":frm:msg_naam :frm:naam"/>
+                                </p:inputText>
+                            </div>
+                            <div class="ui-grid-col-3">
+                                <p:message id="msg_naam" for="naam"></p:message>
                             </div>
                         </div>
 
@@ -84,7 +93,7 @@
                                             <h:form id="frm_upload" enctype="multipart/form-data">
 
                                                 <p:messages id="messages_upload" showDetail="true"
-                                                            closable="true"></p:messages>
+                                                            closable="true" globalOnly="false"></p:messages>
 
                                                 <p:fileUpload fileUploadListener="#{sponsorBean.uploadSponsorLogo}"
                                                               uploadLabel="Uploaden"
@@ -165,7 +174,7 @@
                             <p:commandButton value="Annuleren"></p:commandButton>
                             <p:spacer width="10"/>
                             <p:commandButton value="Opslaan" action="#{sponsorBean.opslaanNieuw}"
-                                             form=":frm"></p:commandButton>
+                                             form=":frm" update=":frm"></p:commandButton>
                         </div>
 
                     </h:form>
