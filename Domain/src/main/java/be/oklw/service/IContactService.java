@@ -17,4 +17,6 @@ public interface IContactService {
     Contact getNieuwsteContact () throws BusinessException;
 
     Contact getContact(int contactId);
+
+    void verwijderOrphanContacten();
 }

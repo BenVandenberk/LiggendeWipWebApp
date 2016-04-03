@@ -7,6 +7,7 @@ import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Stateless
@@ -63,5 +64,15 @@ public class ContactService implements IContactService {
     public Contact getContact(int id){
         Contact contact = entityManager.find(Contact.class, id);
         return contact;
+    }
+
+    @Override
+    public void verwijderOrphanContacten(){
+        List<Contact> orphanContacten = entityManager.createQuery("SELECT c FROM Contact c WHERE c.Club_id = :null")
+                .setParameter("null", null)
+                .getResultList();
+        for (Contact c : orphanContacten){
+            entityManager.remove(c);
+        }
     }
 }
