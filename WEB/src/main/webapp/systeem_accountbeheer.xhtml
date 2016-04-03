@@ -22,7 +22,9 @@
 
                             <h:form id="frm_paswoord" binding="#{frm_paswoord}">
 
-                                <p:messages id="messages" rendered="#{frm_paswoord.submitted}" closable="true" autoUpdate="true"></p:messages>
+                                <p:messages id="messages" rendered="#{frm_paswoord.submitted}"
+                                            closable="true" autoUpdate="true"
+                                showDetail="true"></p:messages>
                                 <o:validateEqual components="paswoord herhaald_paswoord" message="'Nieuw paswoord' en 'Herhaal nieuw paswoord' moeten hetzelfde zijn"></o:validateEqual>
 
                                 <div class="ui-grid-row formRow">
@@ -67,23 +69,25 @@
 
                         <p:fieldset legend="Contactgegevens">
                             <h:form id="frm_contactGegevens" binding="#{frm_contactGegevens}">
-                                <p:messages id="msg_contact" rendered="#{frm_contactGegevens.submitted}" closable="true" autoUpdate="true"></p:messages>
+                                <p:messages id="msg_contact" rendered="#{frm_contactGegevens.submitted}"
+                                            closable="true" autoUpdate="true"
+                                            showDetail="true"></p:messages>
 
                                 <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Nieuw emailadres:"></p:outputLabel>
+                                            <p:outputLabel value="Emailadres:"></p:outputLabel>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:inputText id="emailAdres" value="#{gebruikerController.newEmail}"
-                                                         validatorMessage="Geldig emailadres vereist">
+                                                         >
                                                     <f:validator validatorId="emailValidator"/>
-                                                    <f:ajax render="msg_contact emailAdres"/>
+                                                    <f:ajax render="msg_contact "/>
                                             </p:inputText>
                                         </div>
                                     </div>
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Nieuw telefoonnummer:"></p:outputLabel>
+                                            <p:outputLabel value="Telefoonnummer:"></p:outputLabel>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:inputText value="#{gebruikerController.newTelefoonNummer}"></p:inputText>
