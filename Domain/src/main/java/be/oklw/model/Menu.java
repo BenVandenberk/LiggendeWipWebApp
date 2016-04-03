@@ -40,7 +40,7 @@ public class Menu implements Serializable {
     }
 
     public String getOmschrijving() {
-        return omschrijving;
+        return omschrijving == null ? "" : omschrijving;
     }
 
     public void setOmschrijving(String omschrijving) {
@@ -48,7 +48,7 @@ public class Menu implements Serializable {
     }
 
     public BigDecimal getPrijs() {
-        return prijs;
+        return prijs == null ? BigDecimal.ZERO : prijs;
     }
 
     public void setPrijs(BigDecimal prijs) {

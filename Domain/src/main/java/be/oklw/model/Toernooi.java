@@ -207,12 +207,13 @@ public class Toernooi implements Serializable {
     /**
      * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN'<br/>
      * Voegt een inschrijving toe
+     *
      * @param inschrijving de toe te voegen Inschrijving
      * @throws IllegalStateException als
-     * <ul>
-     *     <li>Er al een Inschrijving is voor de Club</li>
-     *     <li>Inschrijven voor het Toernooi niet mogelijk is</li>
-     * </ul>
+     *                               <ul>
+     *                               <li>Er al een Inschrijving is voor de Club</li>
+     *                               <li>Inschrijven voor het Toernooi niet mogelijk is</li>
+     *                               </ul>
      */
     protected void addInschrijving(Inschrijving inschrijving) throws IllegalStateException {
         if (inschrijvingen.stream()
@@ -231,12 +232,13 @@ public class Toernooi implements Serializable {
     /**
      * METHOD TE GEBRUIKEN VOOR INSCHRIJVEN VIA 'INSCHRIJVEN BEHEREN'<br/>
      * Voegt een inschrijving toe
+     *
      * @param inschrijving de toe te voegen Inschrijving
      * @throws IllegalStateException als
-     * <ul>
-     *     <li>Er al een Inschrijving is voor de Club</li>
-     *     <li>Inschrijven beheren voor het Toernooi niet mogelijk is</li>
-     * </ul>
+     *                               <ul>
+     *                               <li>Er al een Inschrijving is voor de Club</li>
+     *                               <li>Inschrijven beheren voor het Toernooi niet mogelijk is</li>
+     *                               </ul>
      */
     protected void addInschrijvingBeheer(Inschrijving inschrijving) throws IllegalStateException {
         if (inschrijvingen.stream()
@@ -319,6 +321,20 @@ public class Toernooi implements Serializable {
         menus.removeIf(menu -> menu.getId() == menuId);
     }
 
+    public boolean heeftMenusMetZelfdeNaam() {
+        boolean menusMetZelfdeNaam = false;
+
+        String menuNaam = "";
+        for (int i = 0;!menusMetZelfdeNaam && i < menus.size() - 1; i++) {
+            menuNaam = menus.get(i).getNaam();
+            for (int j = i + 1;!menusMetZelfdeNaam && j < menus.size(); j++) {
+                menusMetZelfdeNaam = menuNaam.equals(menus.get(j).getNaam());
+            }
+        }
+
+        return menusMetZelfdeNaam;
+    }
+
     public void removeMenu(String menuMemoryKey) {
         menus.removeIf(menu -> menu.getInMemoryKey().toString().equals(menuMemoryKey));
     }
@@ -367,19 +383,19 @@ public class Toernooi implements Serializable {
 
     public boolean inschrijvingenAfgesloten() {
         return !(
-                    (status instanceof Aangemaakt) ||
-                    (status instanceof Ingesteld) ||
-                    (status instanceof InschrijvingenOpen) ||
-                    (status instanceof Vol)
-                );
+                (status instanceof Aangemaakt) ||
+                        (status instanceof Ingesteld) ||
+                        (status instanceof InschrijvingenOpen) ||
+                        (status instanceof Vol)
+        );
     }
 
     public boolean inschrijvenBeherenMogelijk() {
         return (
-                    (status instanceof InschrijvingenOpen) ||
-                    (status instanceof Vol) ||
-                    (status instanceof InschrijvingenAfgesloten)
-                );
+                (status instanceof InschrijvingenOpen) ||
+                        (status instanceof Vol) ||
+                        (status instanceof InschrijvingenAfgesloten)
+        );
     }
 
     /**
