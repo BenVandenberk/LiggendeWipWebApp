@@ -1,5 +1,5 @@
 $(function () {
-    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    //google.maps.event.addDomListener(window, 'load', initAutocomplete);
 });
 
 function initAutocomplete() {

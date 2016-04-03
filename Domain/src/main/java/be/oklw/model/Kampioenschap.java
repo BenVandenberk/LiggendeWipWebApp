@@ -16,7 +16,11 @@ public class Kampioenschap extends Evenement {
     //region PRIVATE MEMBERS
 
     private String rekeningnummer;
+
+    @Column(length = 2000)
     private String contact;
+
+    @Column(length = 2000)
     private String overnachtingInfo;
 
     private double locatieLat;

@@ -34,6 +34,8 @@ public class Toernooi implements Serializable {
     private BigDecimal inlegPerPloeg;
     private int maximumAantalPloegen;
     private int aantalWippen;
+
+    @Column(length = 2000)
     private String omschrijving;
     private boolean heeftMaaltijd;
     private boolean metInleg;

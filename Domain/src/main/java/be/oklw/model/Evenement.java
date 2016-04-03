@@ -2,7 +2,6 @@ package be.oklw.model;
 
 import be.oklw.usertype.DatumConverter;
 import be.oklw.util.Datum;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +20,11 @@ public class Evenement implements Serializable {
     protected int id;
 
     protected String naam;
+
+    @Column(length = 2000)
     protected String locatie;
+
+    @Column(length = 2000)
     protected String omschrijving;
 
     @Convert(converter = DatumConverter.class)
