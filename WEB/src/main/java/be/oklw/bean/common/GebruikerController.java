@@ -110,7 +110,8 @@ public class GebruikerController {
     }
 
     public String getNewEmail() {
-        return newEmail;
+        SysteemAccount sysUser = (SysteemAccount) user;
+        return sysUser.getEmail();
     }
 
     public void setNewEmail(String newEmail) {
@@ -118,7 +119,7 @@ public class GebruikerController {
     }
 
     public String getNewTelefoonNummer() {
-        return newTelefoonNummer;
+        return ((SysteemAccount)user).getTelefoonnummer();
     }
 
     public void setNewTelefoonNummer(String newTelefoonNummer) {
@@ -200,7 +201,7 @@ public class GebruikerController {
                 user = gebruikerService.veranderPaswoord(user, oudPaswoord, nieuwPaswoord);
                 HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
                 httpSession.setAttribute("user", user);
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paswoord succesvol gewijzigd", "Paswoord succesvol gewijzigd");
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Paswoord succesvol gewijzigd");
                 facesContext.addMessage(null, message);
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fout", "Om je paswoord te veranderen moet je ingelogd zijn");
@@ -221,7 +222,7 @@ public class GebruikerController {
                 user = gebruikerService.wijzigAdminContactGegevens((SysteemAccount) user, newEmail, newTelefoonNummer);
                 HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
                 httpSession.setAttribute("user", user);
-                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contactgegevens succesvol gewijzigd", "Contactgegevens succesvol gewijzigd");
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Contactgegevens succesvol gewijzigd");
                 facesContext.addMessage(null, message);
                 reset();
             } else {

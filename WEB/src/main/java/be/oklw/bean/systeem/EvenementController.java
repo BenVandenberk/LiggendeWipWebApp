@@ -25,6 +25,7 @@ import java.util.List;
 public class EvenementController implements Serializable{
 
     private List<Evenement> alleEvenementen;
+    private List<Evenement> alleEvenementenToekomst;
     private List<String> alleClubs;
 
     private String naamKampioenschap;
@@ -51,6 +52,8 @@ public class EvenementController implements Serializable{
         return evenementService.getAlleEvenementen();
     }
 
+    public List<Evenement> getAlleEvenementenToekomst(){return evenementService.getAlleEvenementenToekomst();}
+
     public List<Evenement> getEvenementenVanClub(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -65,7 +68,7 @@ public class EvenementController implements Serializable{
             }
         }
         List<Evenement> clubEvenementen = new ArrayList<>();
-        for (Evenement e : getAlleEvenementen()){
+        for (Evenement e : getAlleEvenementenToekomst()){
             if (e.getClub().equals(club)){
                 if (!(e instanceof Kampioenschap))
                 clubEvenementen.add(e);
@@ -193,6 +196,9 @@ public class EvenementController implements Serializable{
         FacesMessage message;
 
         try {
+            if(startDatumKampioenschap.kleinerDan(new Datum())){
+                throw new Exception(" Startdatum mag niet in het verleden zijn");
+            }
             evenementService.maakNieuwKampioenschapAan(naamKampioenschap, clubKampioenschap, startDatumKampioenschap, eindDatumKampioenschap);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw kampioenschap werd aangemaakt");
             facesContext.addMessage(null, message);
@@ -208,6 +214,9 @@ public class EvenementController implements Serializable{
         FacesMessage message;
 
         try {
+            if(startDatumEvenement.kleinerDan(new Datum())){
+                throw new Exception(" Startdatum mag niet in het verleden zijn");
+            }
             evenementService.maakNieuwEvenementAan(naamEvenement, clubEvenement, startDatumEvenement, eindDatumEvenement, locatieEvenement, omschrijvingEvenement);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwe schieting werd aangemaakt");
             facesContext.addMessage(null, message);

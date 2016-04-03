@@ -15,9 +15,17 @@
                         Clubbeheer
                     </div>
 
-                    <div class="subTitel">
-                        Nieuwe club
-                    </div>
+                    <h:panelGroup rendered="#{!clubController.showWijzig}">
+                        <div class="subTitel">
+                            Nieuwe club
+                        </div>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{clubController.showWijzig}">
+                        <div class="subTitel">
+                            Club aanpassen
+                        </div>
+                    </h:panelGroup>
 
                     <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
 
@@ -68,7 +76,7 @@
                         <p:commandButton rendered="#{clubController.showWijzig}" ajax="false" value="Clubgegevens wijzigen" action="#{clubController.wijzigClub}"/>
                     </div>
 
-                    <p:fieldset legend="contacten">
+                    <p:fieldset legend="Contacten">
 
                         <p:panelGrid class="noBorder transparentBackground" columns="1">
                             <p:outputPanel>
@@ -85,7 +93,7 @@
                                     <h:outputText value="#{contact.email}" />
                                 </p:column>
 
-                                <p:column headerText="accountbeheerder?">
+                                <p:column headerText="Accountbeheerder?">
                                     <p:selectBooleanCheckbox value="#{contact.beheerder}" disabled="true"/>
                                 </p:column>
                             </p:dataTable>

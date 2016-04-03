@@ -29,7 +29,7 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Naam:"/>
+                                            <p:outputLabel value="Naam*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:inputText validatorMessage="Naam verplicht"
@@ -39,7 +39,7 @@
                                             </p:inputText>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Startdatum:"/>
+                                            <p:outputLabel value="Startdatum*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:calendar mode="popup"
@@ -72,7 +72,7 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Club:"/>
+                                            <p:outputLabel value="Club*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:selectOneMenu validatorMessage="Selecteer een club!"
@@ -85,7 +85,7 @@
                                             </p:selectOneMenu>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Einddatum:"/>
+                                            <p:outputLabel value="Einddatum*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:calendar mode="popup"
@@ -143,7 +143,7 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Naam:"/>
+                                            <p:outputLabel value="Naam*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:inputText validatorMessage="Naam verplicht"
@@ -153,7 +153,7 @@
                                             </p:inputText>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Startdatum:"/>
+                                            <p:outputLabel value="Startdatum*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:calendar validatorMessage="Startdatum verplicht" id="Evstartdatum"
@@ -187,7 +187,7 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Club:"/>
+                                            <p:outputLabel value="Club*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:selectOneMenu id="Evclub" validatorMessage="Selecteer een club!"
@@ -200,7 +200,7 @@
                                             </p:selectOneMenu>
                                         </div>
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Einddatum:"/>
+                                            <p:outputLabel value="Einddatum*:"/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:calendar id="Eveinddatum" validatorMessage="Einddatum verplicht"
@@ -235,7 +235,7 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-3">
-                                            <p:outputLabel value="Locatie: "/>
+                                            <p:outputLabel value="Locatie*: "/>
                                         </div>
                                         <div class="ui-grid-col-3">
                                             <p:inputText id="Evlocatie" validatorMessage="Locatie verplicht"
@@ -290,7 +290,7 @@
                                     <h:form id="lijstForm">
                                         <h:panelGroup id="pnl_alle_evenementen">
 
-                                            <ui:repeat value="#{evenementController.alleEvenementen}" var="evenement">
+                                            <ui:repeat value="#{evenementController.alleEvenementenToekomst}" var="evenement">
 
                                                 <div class="ui-grid-responsive formGrid evenement">
 

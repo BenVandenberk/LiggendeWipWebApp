@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -25,6 +26,15 @@ public class EvenementService implements IEvenementService{
     public List<Evenement> getAlleEvenementen() {
         Query query = entityManager.createQuery("SELECT k FROM Evenement k");
         return (List<Evenement>) query.getResultList();
+    }
+
+    @Override
+    public List<Evenement> getAlleEvenementenToekomst() {
+        List<Evenement> alleEvenementen = getAlleEvenementen();
+        Datum vandaag = new Datum();
+        List<Evenement> result;
+        result = alleEvenementen.stream().filter(k -> k.getEindDatum().compareTo(vandaag) >= 0).collect(Collectors.toList());
+        return result;
     }
 
     @Override

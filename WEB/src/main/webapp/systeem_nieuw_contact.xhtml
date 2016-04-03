@@ -15,9 +15,17 @@
                         Clubbeheer
                     </div>
 
-                    <div class="subTitel">
-                        Nieuw contact toevoegen
-                    </div>
+                    <h:panelGroup rendered="#{!contactController.showWijzig}">
+                        <div class="subTitel">
+                            Nieuw contact toevoegen
+                        </div>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{contactController.showWijzig}">
+                        <div class="subTitel">
+                            Contact wijzigen
+                        </div>
+                    </h:panelGroup>
 
                     <div class="ui-grid ui-grid-responsive formGrid">
                         <div class="ui-grid-row formRow">

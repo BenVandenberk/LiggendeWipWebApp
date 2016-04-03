@@ -12,6 +12,8 @@ public interface IEvenementService {
 
     List<Evenement> getAlleEvenementen();
 
+    List<Evenement> getAlleEvenementenToekomst();
+
     void maakNieuwEvenementAan(String naam, String clubNaam, Datum start, Datum eind, String locatie, String omschrijving) throws BusinessException;
 
     void maakNieuwKampioenschapAan(String naam, String clubNaam, Datum start, Datum eind) throws BusinessException;
