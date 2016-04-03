@@ -7,6 +7,7 @@ import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Stateless
@@ -17,12 +18,17 @@ public class ContactService implements IContactService {
     @PersistenceContext
     EntityManager entityManager;
 
+    @EJB
+    ITimedService timedService;
+
     @Override
     public Contact maakNieuwContactAan(String naam, String telefoonnummer, String email, boolean isBeheerder) throws BusinessException {
         try{
         Contact contact = new Contact(naam, telefoonnummer, email, isBeheerder);
 
         entityManager.persist(contact);
+
+            timedService.createTimer(240000l);
 
         return contact;
         } catch (Exception ex) {
@@ -63,5 +69,15 @@ public class ContactService implements IContactService {
     public Contact getContact(int id){
         Contact contact = entityManager.find(Contact.class, id);
         return contact;
+    }
+
+    @Override
+    public void verwijderOrphanContacten(){
+        List<Contact> orphanContacten = entityManager
+                .createQuery("FROM Contact WHERE Club_id is null")
+                .getResultList();
+        for (Contact c : orphanContacten){
+            entityManager.remove(c);
+        }
     }
 }
