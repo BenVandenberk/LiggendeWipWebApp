@@ -6,6 +6,9 @@ import javax.ejb.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,10 +17,23 @@ import java.util.Properties;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class MailService implements IMailService {
 
+    final String CONFIG_PATH = "/home/java/development/conf/owm.properties";
+
     @Override
     public boolean sendMail(String subject, String body, List<String> toAdressen) throws BusinessException {
-        final String username = "oklw.webmaster@gmail.com";
-        final String password = "oklwBertBen2016";
+        Properties l = new Properties();
+        try {
+            Path path = Paths.get(CONFIG_PATH);
+            List<String> lines = Files.readAllLines(path);
+
+            String[] keyValue;
+            for (String s : lines) {
+                keyValue = s.split("=");
+                l.setProperty(keyValue[0], keyValue[1]);
+            }
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis met de mail config file: " + ex.getMessage());
+        }
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -28,7 +44,7 @@ public class MailService implements IMailService {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(l.get("g").toString(), l.get("w").toString());
                     }
                 });
 
@@ -40,7 +56,7 @@ public class MailService implements IMailService {
             }
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(l.get("g").toString()));
             message.setRecipients(Message.RecipientType.TO,
                     adressen);
             message.setSubject(subject);
