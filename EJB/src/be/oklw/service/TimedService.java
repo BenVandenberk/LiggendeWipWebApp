@@ -15,7 +15,6 @@ public class TimedService implements ITimedService {
     @EJB
     IContactService contactService;
 
-    // Roep deze method aan wanneer je een contact opslaagt
     @Override
     public void createTimer(long duration) {
         timerService.createTimer(duration, "Timer contacten gestart");
@@ -31,7 +30,6 @@ public class TimedService implements ITimedService {
 
     @Timeout
     private void orphanContactenVerwijderen() {
-        // Injecteer de service die je nodig hebt bovenaan en roep hier de method aan die de oprhan contacten verwijderd
         contactService.verwijderOrphanContacten();
     }
 
