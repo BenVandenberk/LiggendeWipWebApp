@@ -97,7 +97,7 @@ public class ContactController implements Serializable{
 
             Flash flash = facesContext.getExternalContext().getFlash();
             flash.setKeepMessages(true);
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw contact werd aangemaakt"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuw contact werd aangemaakt, vergeet  niet om de club nog op te slaan!"));
 
             reset();
 
@@ -117,7 +117,7 @@ public class ContactController implements Serializable{
             contactLijstBean.wijzigContact(selectedContact.getId());
             Flash flash = facesContext.getExternalContext().getFlash();
             flash.setKeepMessages(true);
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Contact werd gewijzigd"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Contact werd gewijzigd, vergeet niet om de club nog op te slaan!"));
 
             reset();
 
