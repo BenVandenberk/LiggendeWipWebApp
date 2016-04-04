@@ -6,8 +6,10 @@ import be.oklw.model.*;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Stateless
@@ -131,7 +133,22 @@ public class SponsorService implements ISponsorService {
 
     @Override
     public List<SiteSponsor> getSiteSponsors() {
-        return entityManager.createQuery("SELECT s FROM SiteSponsor s", SiteSponsor.class).getResultList();
+        List<SiteSponsor> siteSponsors = entityManager.createQuery("SELECT s FROM SiteSponsor s", SiteSponsor.class).getResultList();
+        int aantalSiteSponsors = siteSponsors.size();
+
+        Random random = new Random();
+        List<SiteSponsor> siteSponsorsWilleukeurigeVolgorde = new ArrayList<>();
+        int randomIndex;
+
+        for (int i = 0; i < aantalSiteSponsors; i++) {
+            randomIndex = random.nextInt(aantalSiteSponsors - i);
+            siteSponsorsWilleukeurigeVolgorde.add(
+              siteSponsors.get(randomIndex)
+            );
+            siteSponsors.remove(randomIndex);
+        }
+
+        return siteSponsorsWilleukeurigeVolgorde;
     }
 
     @Override

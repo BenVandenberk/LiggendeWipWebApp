@@ -74,7 +74,7 @@ public interface ISponsorService {
     void removeSiteSponsor(SysteemAccount systeemAccount, int siteSponsorId) throws BusinessException;
 
     /**
-     * Haalt alle SiteSponsors op
+     * Haalt alle SiteSponsors op in willekeurige volgorde
      * @return een List&lt;SiteSponsor&gt;
      */
     List<SiteSponsor> getSiteSponsors();
