@@ -15,6 +15,6 @@ public interface INieuwsService {
 
     List<Nieuws> getLaatsteNieuwtjes();
 
-    void verwijderNieuwtje(Nieuws nieuws);
+    void verwijderNieuwtje(Nieuws nieuws, Account account);
 
 }
