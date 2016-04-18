@@ -27,7 +27,7 @@
                                     Onder 'Inschrijven' ziet u alle kampioenschappen met toernooien waavoor de inschrijvingen open staan. Klik op een kampioenschap
                                     om de toernooien ervan te zien. Klik vervolgens op een toernooi om ploegen in te schrijven.<br/><br/>
                                     Onder 'Reeds Ingeschreven' ziet u alle inschrijvingen van uw club voor komende toernooien. Een groen vinkje betekent dat alle namen
-                                    zijn ingevuld en de inschrijving volledig is. Bij een rood kruisje moet u de namen van de ploegleden nog doorgeven.<br/><br/>
+                                    zijn ingevuld en de inschrijving volledig is. Bij een rood kruisje is de inschrijving onvolledig en moet u nog namen doorgeven.<br/><br/>
                                     Het is mogelijk dat een inschrijving onder 'Reeds Ingeschreven' niet meer beschikbaar is onder 'Inschrijven'. Dit is zo in het geval dat de
                                     organiserende club de inschrijvingen voor dat toernooi heeft afgesloten of de inschrijfdeadline verstreken is.
                                 </p>
@@ -144,7 +144,7 @@
                                             <div class="ui-grid-col-5 left">
 
                                                 <ui:repeat value="#{ploeg.deelnemers}" var="deeln" varStatus="status">
-                                                    #{deeln.deelnemerIsLid ? deeln.lid.fullName : deeln.naam}
+                                                    #{deeln.naamUI}
                                                     <p:outputLabel value="- " rendered="#{!status.last}"/>
                                                 </ui:repeat>
 

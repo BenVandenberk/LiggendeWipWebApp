@@ -202,7 +202,7 @@ public class InschrijvingenBeherenBean {
         }
 
         try {
-            toernooi = toernooiService.save(toernooi);
+            toernooi = toernooiService.saveToernooiInschrijvingen(toernooi, null);
             return "club_toernooi_aanpassen?faces-redirect=true";
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();

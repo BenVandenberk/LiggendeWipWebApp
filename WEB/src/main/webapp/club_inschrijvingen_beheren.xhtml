@@ -41,7 +41,7 @@
 
                     </div>
 
-                    <p:messages showDetail="true"></p:messages>
+                    <p:messages id="msg" showDetail="true" showSummary="true"></p:messages>
 
                     <div class="ui-grid ui-grid-responsive formGrid">
                         <div class="ui-grid-row formRow">
@@ -102,8 +102,10 @@
                                         </div>
                                     </div>
                                     <div class="ui-grid-col-3 labelNaastSubTitel right">
-                                        <p:outputLabel
-                                                value="[#{inschrijvingenBeherenBean.toernooi.aantalIngeschrevenPloegen()}/#{inschrijvingenBeherenBean.toernooi.maximumAantalPloegen}]"></p:outputLabel>
+                                        <h:panelGroup id="pnl_counter">
+                                            <p:outputLabel
+                                                    value="[#{inschrijvingenBeherenBean.toernooi.aantalIngeschrevenPloegen()}/#{inschrijvingenBeherenBean.toernooi.maximumAantalPloegen}]"></p:outputLabel>
+                                        </h:panelGroup>
                                     </div>
                                 </div>
 
@@ -221,7 +223,7 @@
                                                     <div class="ui-grid-col-1 right">
 
                                                         <p:commandLink styleClass="wrappedCommandLink"
-                                                                       update="@all :frm:tabs:pnl_maaltijden :frm:tabs:pnl_ploegen :frm:tabs:pnl_afrekening"
+                                                                       update="@all :frm:tabs:pnl_maaltijden :frm:tabs:pnl_ploegen :frm:tabs:pnl_afrekening :frm:tabs:pnl_counter"
                                                                        action="#{inschrijvingenBeherenBean.verwijderPloeg}">
                                                             <f:setPropertyActionListener value="#{ploeg.id}"
                                                                                          target="#{inschrijvingenBeherenBean.teVerwijderenPloegId}"/>
@@ -241,7 +243,8 @@
 
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-12 right">
-                                            <p:commandLink onclick="PF('dial_club').show();">
+                                            <p:commandLink onclick="PF('dial_club').show();"
+                                                           update=":frm:tabs:pnl_counter">
                                                 <i class="fa fa-plus-square-o plus"></i>
                                             </p:commandLink>
                                         </div>
@@ -306,11 +309,6 @@
                                         <p:separator style="margin:20px 0 20px 0" rendered="#{!status.last}"/>
 
                                     </ui:repeat>
-
-                                    <div class="pageButton">
-                                        <p:commandButton value="Opslaan"
-                                                         action="#{inschrijvingenBeherenBean.opslaan}"></p:commandButton>
-                                    </div>
 
                                 </div>
 
@@ -411,7 +409,8 @@
 
                     <div class="pageButton">
                         <p:commandButton value="Opslaan"
-                                         action="#{inschrijvingenBeherenBean.opslaan}"></p:commandButton>
+                                         action="#{inschrijvingenBeherenBean.opslaan}"
+                                         update=":frm:msg"></p:commandButton>
                     </div>
 
 

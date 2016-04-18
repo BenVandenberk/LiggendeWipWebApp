@@ -92,6 +92,20 @@ public class Deelnemer implements Serializable {
         return deelnemerIsLid && this.lid.equals(lid);
     }
 
+    /**
+     * Geeft de naam terug om te tonen aan de gebruiker. Geeft de string 'ONBEKEND' terug als de naam leeg is.
+     * @return de naam van de deelnemer of 'ONBEKEND' als de naam leeg is
+     */
+    public String getNaamUI() {
+        if (deelnemerIsLid) {
+            return lid.getFullName();
+        }
+        if (StringUtils.isBlank(naam)) {
+            return "ONBEKEND";
+        }
+        return naam;
+    }
+
     //endregion
 
 

@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Ploeg implements Serializable {
@@ -140,6 +141,24 @@ public class Ploeg implements Serializable {
         }
 
         return lidZitInPloeg;
+    }
+
+    public boolean heeftZelfdeLeden() {
+        boolean tweeDezelfdeDeelnemers = false;
+        List<Deelnemer> deelnemerList = new ArrayList(deelnemers);
+        deelnemerList = deelnemerList.stream().filter(d -> d.isDeelnemerIsLid()).collect(Collectors.toList());
+
+        Lid lid1, lid2;
+
+        for (int i = 0; !tweeDezelfdeDeelnemers && i < deelnemerList.size() - 1; i++) {
+            for (int j = i + 1; !tweeDezelfdeDeelnemers && j < deelnemerList.size(); j++) {
+                lid1 = deelnemerList.get(i).getLid();
+                lid2 = deelnemerList.get(j).getLid();
+                tweeDezelfdeDeelnemers = lid1.equals(lid2);
+            }
+        }
+
+        return tweeDezelfdeDeelnemers;
     }
 
     //endregion

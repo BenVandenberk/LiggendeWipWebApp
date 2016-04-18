@@ -155,7 +155,7 @@ public class ToonInschrijvingBean {
         }
 
         try {
-            toernooi = toernooiService.save(toernooi);
+            toernooi = toernooiService.saveToernooiInschrijvingen(toernooi, inschrijving);
             return "club_inschrijven?faces-redirect=true";
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
