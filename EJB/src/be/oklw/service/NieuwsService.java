@@ -41,10 +41,10 @@ public class NieuwsService implements INieuwsService {
     }
 
     @Override
-    public void verwijderNieuwtje(Nieuws nieuws){
+    public void verwijderNieuwtje(Nieuws nieuws, Account account){
         Nieuws teVerwijderenNieuws = entityManager.find(Nieuws.class, nieuws.getId());
-        nieuws.getAccount().removeNieuwtje(teVerwijderenNieuws);
+        account.removeNieuwtje(teVerwijderenNieuws);
         entityManager.remove(teVerwijderenNieuws);
-        entityManager.merge(nieuws.getAccount());
+        entityManager.merge(account);
     }
 }

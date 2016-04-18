@@ -54,10 +54,13 @@ public class NewsFeedBean implements Serializable {
 
     public void verwijderNieuwtje(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         FacesMessage message;
 
         try {
-            nieuwsService.verwijderNieuwtje(selectedNieuwtje);
+            Account user = (Account) session.getAttribute("user");
+            account = user;
+            nieuwsService.verwijderNieuwtje(selectedNieuwtje, account);
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Geslaagd!", "Nieuwtje werd verwijderd uit de feed");
             facesContext.addMessage(null, message);
             reset();
