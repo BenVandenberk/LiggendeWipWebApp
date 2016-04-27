@@ -1,12 +1,16 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
+import be.oklw.hulp.MailOrder;
 import be.oklw.model.Club;
 import be.oklw.model.Inschrijving;
 import be.oklw.model.Toernooi;
 import be.oklw.util.Datum;
 
+import javax.annotation.Resource;
 import javax.ejb.*;
+import javax.inject.Inject;
+import javax.jms.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
@@ -21,11 +25,15 @@ public class InschrijfService implements IInschrijfService {
     @EJB
     IToernooiService toernooiService;
 
-    @EJB
-    IMailService mailService;
-
     @PersistenceContext
     EntityManager entityManager;
+
+    @Inject
+    @JMSConnectionFactory("jms/oklwConnectionFactory")
+    private JMSContext jmsContext;
+
+    @Resource(lookup = "jms/oklwQueue/")
+    private Queue queue;
 
     @Override
     public void verwijderPloeg(int ploegId) {
@@ -69,10 +77,20 @@ public class InschrijfService implements IInschrijfService {
                 builder.append(String.format("De inschrijvingen voor het toernooi %s van club %s zijn geopend", toernooi.getNaam(), toernooi.getKampioenschap().getClub().getNaam()));
                 builder.append("\n\n\nDeze mail is automatisch gegenereerd. Gelieve hier niet op te antwoorden.");
 
-                mailService.sendMail("Inschrijvingen opengesteld", builder.toString(), emailAdressen);
+                // Message op de Queue zetten om asynchroon mails te versturen naar clubbeheerders
+
+                MailOrder mailOrder = new MailOrder("Inschrijvingen opengesteld", builder.toString(), emailAdressen);
+
+                ObjectMessage objectMessage = jmsContext.createObjectMessage();
+                try {
+                    objectMessage.setObject(mailOrder);
+                    jmsContext.createProducer().send(queue, objectMessage);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
                 builder = new StringBuilder();
-                builder.append("De inschrijvingen zijn geopend. Er werd een mail verstuurd naar:\n\n");
+                builder.append("De inschrijvingen zijn geopend. Er wordt een mail verstuurd naar:\n\n");
                 for (String adres : emailAdressen) {
                     builder.append(adres + "\n");
                 }
@@ -90,7 +108,7 @@ public class InschrijfService implements IInschrijfService {
         try {
             entityManager.merge(inschrijving);
         } catch (Exception ex) {
-            throw new BusinessException("Er ging iets mis: " + ex.getMessage());
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
     }
 }
