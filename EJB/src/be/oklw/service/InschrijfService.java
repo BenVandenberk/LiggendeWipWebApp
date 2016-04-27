@@ -70,6 +70,7 @@ public class InschrijfService implements IInschrijfService {
 
         try {
             List<String> emailAdressen = entityManager.createQuery("select c.email from Contact c", String.class).getResultList();
+            emailAdressen = emailAdressen.stream().filter(s -> s != null).collect(Collectors.toList());
 
             if (emailAdressen.size() > 0) {
                 StringBuilder builder = new StringBuilder();
@@ -89,12 +90,7 @@ public class InschrijfService implements IInschrijfService {
                     ex.printStackTrace();
                 }
 
-                builder = new StringBuilder();
-                builder.append("De inschrijvingen zijn geopend. Er wordt een mail verstuurd naar:\n\n");
-                for (String adres : emailAdressen) {
-                    builder.append(adres + "\n");
-                }
-                return builder.toString();
+                return "De inschrijvingen zijn geopend. Er wordt een mail verstuurd naar alle clubbeheerders.";
             }
             return "De inschrijvingen zijn geopend.";
 
