@@ -7,12 +7,36 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <div class="bodyWrapper">
 
                     <div class="titel">
                         Foto's
+                    </div>
+
+                    <div class="ui-grid-responsive">
+
+                        <div class="ui-grid-row">
+
+                            <div class="ui-grid-col-3 left">
+                                Toon kampioenschappen van:
+                            </div>
+
+                            <div class="ui-grid-col-3 left">
+                                <p:selectOneMenu
+                                        value="#{bezoekerFotosBean.selectedClubId}"
+                                >
+                                    <f:selectItem itemValue="-1" itemLabel="Alle clubs"/>
+                                    <f:selectItems value="#{bezoekerFotosBean.clubs}"/>
+
+                                    <p:ajax listener="#{bezoekerFotosBean.clubChanged}"
+                                            update="frm:pnl_kamp"/>
+                                </p:selectOneMenu>
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="subTitel">
@@ -21,48 +45,54 @@
 
                     <p:messages globalOnly="true" showDetail="true"></p:messages>
 
-                    <p:outputLabel value="Er zijn nog geen kampioenschappen met foto's"
-                                   rendered="#{bezoekerFotosBean.kampioenschappenMetFotos.size() == 0}"/>
-                    <ui:repeat value="#{bezoekerFotosBean.kampioenschappenMetFotos}" var="kamp">
+                    <h:panelGroup id="pnl_kamp">
 
-                        <h:link outcome="bezoeker_kampioenschap_fotos">
-                            <f:param name="id" value="#{kamp.id}"/>
+                        <p:outputLabel value="Er zijn nog geen kampioenschappen met foto's"
+                                       rendered="#{bezoekerFotosBean.kampioenschappenMetFotos.size() == 0}"/>
+                        <ui:repeat value="#{bezoekerFotosBean.kampioenschappenMetFotos}" var="kamp">
 
-                            <div class="ui-grid-responsive formGrid kampioenschap">
+                            <h:link outcome="bezoeker_kampioenschap_fotos">
+                                <f:param name="id" value="#{kamp.id}"/>
 
-                                <div class="ui-grid-row">
+                                <div class="ui-grid-responsive formGrid kampioenschap">
 
-                                    <div class="ui-grid-col-3">
-                                        <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="60"
-                                                        width="60"/>
-                                    </div>
+                                    <div class="ui-grid-row">
 
-                                    <div class="ui-grid-col-3">
-                                        <p:outputLabel value="#{kamp.club.naam}" styleClass="pointer"/>
-                                    </div>
-
-                                    <div class="ui-grid-col-6">
-
-                                        <div class="ui-grid-row">
-                                            <p:outputLabel value="#{kamp.naam}"
-                                                           styleClass="centerPlus pointer"></p:outputLabel>
+                                        <div class="ui-grid-col-3">
+                                            <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="40"
+                                                            width="40"/>
                                         </div>
 
-                                        <div class="ui-grid-row">
-                                            <p:outputLabel styleClass="centerPlus pointer"
-                                                           value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
-                                            </p:outputLabel>
+                                        <div class="ui-grid-col-6">
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{kamp.naam}"
+                                                               styleClass="centerPlus pointer"></p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus pointer"
+                                                               value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3 right boldPlain">
+
+                                            [#{kamp.club.naam}]
+
                                         </div>
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                            </h:link>
 
-                        </h:link>
+                        </ui:repeat>
 
-                    </ui:repeat>
+                    </h:panelGroup>
 
                 </div>
 

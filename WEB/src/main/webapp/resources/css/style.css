@@ -261,6 +261,7 @@ a {
   text-underline: none;
   text-align: center;
   border-radius: 10px;
+  width: 100%;
   background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
   color: #0073ea; }
 
@@ -285,9 +286,8 @@ a {
   margin-top: 3px;
   text-decoration: none;
   text-underline: none;
-  text-align: center;
   border-radius: 10px;
-  width: 90%;
+  width: 100%;
   background: #f6f6f6 url("/javax.faces.resource/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png.xhtml?ln=primefaces-flick") repeat-x scroll 50% 50%;
   color: #0073ea; }
 

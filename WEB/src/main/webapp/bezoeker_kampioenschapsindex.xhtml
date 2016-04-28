@@ -7,12 +7,36 @@
     <ui:composition template="/templates/template.xhtml">
 
         <ui:define name="bodycontent">
-            <h:form>
+            <h:form id="frm">
 
                 <div class="bodyWrapper">
 
                     <div class="titel">
                         Kampioenschappen
+                    </div>
+
+                    <div class="ui-grid-responsive">
+
+                        <div class="ui-grid-row">
+
+                            <div class="ui-grid-col-3 left">
+                                Toon kampioenschappen van:
+                            </div>
+
+                            <div class="ui-grid-col-3 left">
+                                <p:selectOneMenu
+                                        value="#{bezoekerKampioenschapBean.selectedClubId}"
+                                >
+                                    <f:selectItem itemValue="-1" itemLabel="Alle clubs"/>
+                                    <f:selectItems value="#{bezoekerKampioenschapBean.clubs}"/>
+
+                                    <p:ajax listener="#{bezoekerKampioenschapBean.clubChanged}"
+                                            update="frm:pnl_toekomst frm:pnl_verleden"/>
+                                </p:selectOneMenu>
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="subTitel">
@@ -28,29 +52,69 @@
                                 <div class="ui-grid-responsive formGrid kampioenschap">
 
                                     <div class="ui-grid-row">
-                                        <p:outputLabel value="#{kamp.naam}"
-                                                       styleClass="centerPlus pointer"></p:outputLabel>
-                                    </div>
 
-                                    <div class="ui-grid-row">
-                                        <p:outputLabel styleClass="centerPlus pointer"
-                                                       value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
-                                        </p:outputLabel>
+                                        <div class="ui-grid-col-3 left">
+                                            <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="40"
+                                                            width="40"/>
+                                        </div>
+
+                                        <div class="ui-grid-col-6">
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{kamp.naam}"
+                                                               styleClass="centerPlus pointer"></p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus pointer"
+                                                               value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3 right boldPlain">
+
+                                            [#{kamp.club.naam}]
+
+                                        </div>
+
                                     </div>
 
                                 </div>
                             </h:link>
 
-                            <ui:repeat value="#{kamp.toernooien}" var="toer">
+                            <ui:repeat value="#{kamp.toernooien}" var="toer" varStatus="status">
                                 <h:link outcome="bezoeker_toernooipagina" styleClass="wrappedCommandLink">
                                     <f:param name="toerId" value="#{toer.id}"/>
 
-                                    <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer"
-                                                       value="#{toer.naam}"></p:outputLabel>
+                                    <div class="ui-grid-responsive">
+
+                                        <div class="ui-grid-row subToernooi">
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:graphicImage value="images/toernooi.png"
+                                                                name="images/toernooi.png"
+                                                                width="76" height="25"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-6 center">
+                                                #{toer.naam}
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </h:link>
+
+                                <p:spacer height="30" rendered="#{status.last}"/>
+
                             </ui:repeat>
+
                         </ui:repeat>
                     </h:panelGroup>
 
@@ -67,28 +131,67 @@
                                 <div class="ui-grid-responsive formGrid kampioenschap">
 
                                     <div class="ui-grid-row">
-                                        <p:outputLabel value="#{kamp.naam}"
-                                                       styleClass="centerPlus pointer"></p:outputLabel>
-                                    </div>
 
-                                    <div class="ui-grid-row">
-                                        <p:outputLabel styleClass="centerPlus pointer"
-                                                       value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
-                                        </p:outputLabel>
+                                        <div class="ui-grid-col-3 left">
+                                            <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="40"
+                                                            width="40"/>
+                                        </div>
+
+                                        <div class="ui-grid-col-6">
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{kamp.naam}"
+                                                               styleClass="centerPlus pointer"></p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus pointer"
+                                                               value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3 right boldPlain">
+
+                                            [#{kamp.club.naam}]
+
+                                        </div>
+
                                     </div>
 
                                 </div>
                             </h:link>
 
-                            <ui:repeat value="#{kamp.toernooien}" var="toer">
+                            <ui:repeat value="#{kamp.toernooien}" var="toer" varStatus="status">
                                 <h:link outcome="bezoeker_toernooipagina" styleClass="wrappedCommandLink">
                                     <f:param name="toerId" value="#{toer.id}"/>
 
-                                    <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer"
-                                                       value="#{toer.naam}"></p:outputLabel>
+                                    <div class="ui-grid-responsive">
+
+                                        <div class="ui-grid-row subToernooi">
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:graphicImage value="images/toernooi.png"
+                                                                name="images/toernooi.png"
+                                                                width="76" height="25"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-6 center">
+                                                #{toer.naam}
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </h:link>
+
+                                <p:spacer height="30" rendered="#{status.last}"/>
+
                             </ui:repeat>
                         </ui:repeat>
                     </h:panelGroup>

@@ -360,6 +360,7 @@ a {
   text-underline: none;
   text-align: center;
   border-radius: 10px;
+  width: 100%;
   background: $button-background;
   color: $text-color;
 }
@@ -387,9 +388,8 @@ a {
   margin-top: 3px;
   text-decoration: none;
   text-underline: none;
-  text-align: center;
   border-radius: 10px;
-  width: 90%;
+  width: 100%;
   background: $button-background;
   color: $text-color;
 }
