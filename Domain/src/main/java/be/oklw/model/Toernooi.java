@@ -40,6 +40,8 @@ public class Toernooi implements Serializable {
     private boolean heeftMaaltijd;
     private boolean metInleg;
 
+    private String kleur;
+
     @Convert(converter = DatumConverter.class)
     private Datum datum;
 
@@ -198,6 +200,14 @@ public class Toernooi implements Serializable {
 
     public List<Inschrijving> getInschrijvingen() {
         return Collections.unmodifiableList(inschrijvingen);
+    }
+
+    public String getKleur() {
+        return kleur;
+    }
+
+    public void setKleur(String kleur) {
+        this.kleur = kleur;
     }
 
     //endregion

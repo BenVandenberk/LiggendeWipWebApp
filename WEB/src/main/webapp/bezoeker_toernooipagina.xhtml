@@ -47,7 +47,8 @@
 
                         <div class="ui-grid-row formRow">
 
-                            <div class="ui-grid-col-12 center toernooiPaginaTegel">
+                            <div class="ui-grid-col-12 center toernooiPaginaTegel"
+                                 style="background: \##{toonToernooiBean.toernooi.kleur}">
                                 <div class="big">
                                     #{toonToernooiBean.toernooi.datum.datumInEuropeesFormaat}, om #{toonToernooiBean.toernooi.startTijdstip}
                                 </div>
@@ -61,7 +62,8 @@
 
                         <div class="ui-grid-row formRow">
 
-                            <div class="ui-grid-col-7 toernooiPaginaTegel center vert-center">
+                            <div class="ui-grid-col-7 toernooiPaginaTegel center vert-center"
+                                 style="background: \##{toonToernooiBean.toernooi.kleur}">
 
                                 <div class="big">
                                     #{toonToernooiBean.toernooi.maximumAantalPloegen} Ploegen
@@ -98,7 +100,8 @@
 
                                 <h:panelGroup rendered="#{toonToernooiBean.toernooi.heeftMaaltijd}">
                                     <div class="ui-grid-row">
-                                        <div class="ui-grid-col-12 center toernooiPaginaTegel big">
+                                        <div class="ui-grid-col-12 center toernooiPaginaTegel big"
+                                             style="background: \##{toonToernooiBean.toernooi.kleur}">
 
                                             <div class="ui-grid-row formRow">
                                                 <div class="ui-grid-col-12 center bottom10">
@@ -139,7 +142,8 @@
                                 </h:panelGroup>
 
                                 <div class="ui-grid-row">
-                                    <div class="ui-grid-col-12 center toernooiPaginaTegel big">
+                                    <div class="ui-grid-col-12 center toernooiPaginaTegel big"
+                                         style="background: \##{toonToernooiBean.toernooi.kleur}">
                                         <h:outputText value="#{toonToernooiBean.kampioenschap.contact}"
                                                       escape="false">
                                             <f:converter converterId="NewLineConverter"/>

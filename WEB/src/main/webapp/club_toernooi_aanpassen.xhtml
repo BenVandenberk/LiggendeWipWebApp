@@ -25,9 +25,15 @@
                         </div>
                     </div>
 
-                    <p:messages showDetail="true" id="global_msg" globalOnly="true"></p:messages>
-
                     <p:spacer height="30"/>
+
+                    <p:messages showDetail="true" id="global_msg" globalOnly="true" closable="true"></p:messages>
+
+                    <div class="right">
+                        <p:link value="Toernooipagina"
+                                href="#{request.contextPath}/bezoeker_toernooipagina.xhtml?toerId=#{clubBeheerBean.toernooi.id}"
+                                target="_blank"/>
+                    </div>
 
                     <p:tabView id="tabs" cache="false">
 
@@ -385,8 +391,6 @@
                                     Inschrijvingen
                                 </div>
 
-                                <p:messages showDetail="true" id="msg"></p:messages>
-
                                 <div class="ui-grid ui-grid-responsive formGrid">
                                     <div class="ui-grid-row formRow">
                                         <div class="ui-grid-col-6">
@@ -427,7 +431,7 @@
                                                     </f:facet>
                                                     <p:commandButton value="Ja, de gegevens kloppen"
                                                                      actionListener="#{clubBeheerBean.openInschrijvingen}"
-                                                                     update="frm:tabs:inschrijvingen frm:tabs:msg @form frm_dial"
+                                                                     update="frm:tabs:inschrijvingen frm:global_msg @form frm_dial"
                                                                      oncomplete="PF('dial_ins').show();"
                                                     >
                                                         <p:ajaxStatus onstart="PF('statusDialog').show()"
@@ -444,7 +448,7 @@
 
                                             <p:commandButton
                                                     value="Inschrijvingen Afsluiten"
-                                                    update="frm:tabs:inschrijvingen frm:tabs:msg @form"
+                                                    update="frm:tabs:inschrijvingen frm:global_msg @form"
                                                     rendered="#{clubBeheerBean.toernooi.status.inschrijvingenOpen}"
                                                     actionListener="#{clubBeheerBean.sluitInschrijvingenAf}"
                                                     global="false">
@@ -470,6 +474,26 @@
                                 </div>
 
                             </h:panelGroup>
+
+                        </p:tab>
+
+                        <p:tab title="Layout">
+
+                            <div class="ui-grid-responsive formGrid">
+
+                                <div class="ui-grid-row formRow">
+
+                                    Kies een kleur voor de toernooipagina
+
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+
+                                    <p:colorPicker mode="inline" value="#{clubBeheerBean.toernooi.kleur}"/>
+
+                                </div>
+
+                            </div>
 
                         </p:tab>
 

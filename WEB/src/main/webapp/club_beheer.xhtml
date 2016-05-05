@@ -23,30 +23,76 @@
                     <h:panelGroup id="pnl_toekomst">
                         <ui:repeat value="#{clubBeheerBean.kampioenschappenToekomst}" var="kamp">
                             <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}" styleClass="wrappedCommandLink">
-                            <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}" />
+                                <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}"/>
 
                                 <div class="ui-grid-responsive formGrid kampioenschap">
 
-                                        <div class="ui-grid-row">
-                                            <p:outputLabel value="#{kamp.naam}" styleClass="centerPlus pointer"></p:outputLabel>
+                                    <div class="ui-grid-row">
+
+                                        <div class="ui-grid-col-3 left">
+                                            <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="40"
+                                                            width="40"/>
                                         </div>
 
-                                        <div class="ui-grid-row">
-                                            <p:outputLabel styleClass="centerPlus pointer" value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
-                                            </p:outputLabel>
+                                        <div class="ui-grid-col-6">
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{kamp.naam}"
+                                                               styleClass="centerPlus pointer"></p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus pointer"
+                                                               value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
                                         </div>
+
+                                        <div class="ui-grid-col-3 right boldPlain">
+
+                                            [#{kamp.club.naam}]
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
+
                             </h:commandLink>
 
                             <ui:repeat value="#{kamp.toernooien}" var="toer">
                                 <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
-                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
-                                    <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer" value="#{toer.naam}"></p:outputLabel>
+                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+
+                                    <div class="ui-grid-responsive">
+
+                                        <div class="ui-grid-row subToernooi">
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:graphicImage value="images/toernooi.png"
+                                                                name="images/toernooi.png"
+                                                                width="76" height="25"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-6 center">
+                                                #{toer.naam}
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
+
                                 </p:commandLink>
+
                             </ui:repeat>
+
+                            <p:spacer height="30"/>
+
                         </ui:repeat>
                     </h:panelGroup>
 
@@ -58,30 +104,76 @@
                     <h:panelGroup id="pnl_verleden">
                         <ui:repeat value="#{clubBeheerBean.kampioenschappenVerleden}" var="kamp">
                             <h:commandLink action="#{clubBeheerBean.kampioenschapKlik}" styleClass="wrappedCommandLink">
-                                <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}" />
+                                <f:setPropertyActionListener value="#{kamp.id}" target="#{clubBeheerBean.kampId}"/>
 
                                 <div class="ui-grid-responsive formGrid kampioenschap">
 
                                     <div class="ui-grid-row">
-                                        <p:outputLabel value="#{kamp.naam}" styleClass="centerPlus pointer"></p:outputLabel>
-                                    </div>
 
-                                    <div class="ui-grid-row">
-                                        <p:outputLabel styleClass="centerPlus pointer" value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
-                                        </p:outputLabel>
+                                        <div class="ui-grid-col-3 left">
+                                            <p:graphicImage value="#{kamp.club.logoFullPath}" alt="" height="40"
+                                                            width="40"/>
+                                        </div>
+
+                                        <div class="ui-grid-col-6">
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel value="#{kamp.naam}"
+                                                               styleClass="centerPlus pointer"></p:outputLabel>
+                                            </div>
+
+                                            <div class="ui-grid-row">
+                                                <p:outputLabel styleClass="centerPlus pointer"
+                                                               value="#{kamp.beginDatum.datumInEuropeesFormaat} tot #{kamp.eindDatum.datumInEuropeesFormaat}">
+                                                </p:outputLabel>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3 right boldPlain">
+
+                                            [#{kamp.club.naam}]
+
+                                        </div>
+
                                     </div>
 
                                 </div>
+
                             </h:commandLink>
 
                             <ui:repeat value="#{kamp.toernooien}" var="toer">
                                 <p:commandLink action="#{clubBeheerBean.toernooiKlik}" styleClass="wrappedCommandLink">
-                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}" />
-                                    <div class="subToernooi centerPlus">
-                                        <p:outputLabel styleClass="centerPlus pointer" value="#{toer.naam}"></p:outputLabel>
+                                    <f:setPropertyActionListener value="#{toer.id}" target="#{clubBeheerBean.toerId}"/>
+
+                                    <div class="ui-grid-responsive">
+
+                                        <div class="ui-grid-row subToernooi">
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:graphicImage value="images/toernooi.png"
+                                                                name="images/toernooi.png"
+                                                                width="76" height="25"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-6 center">
+                                                #{toer.naam}
+                                            </div>
+
+                                            <div class="ui-grid-col-3">
+
+                                            </div>
+
+                                        </div>
+
                                     </div>
+
                                 </p:commandLink>
+
                             </ui:repeat>
+
+                            <p:spacer height="30"/>
+
                         </ui:repeat>
                     </h:panelGroup>
 

@@ -244,7 +244,15 @@ public class ClubBeheerBean implements Serializable {
                 kampioenschapService.opslaanToernooi(toernooi);
             }
 
-            return "club_kampioenschapspagina?faces-redirect=true";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(
+                    null,
+                    new FacesMessage(
+                            FacesMessage.SEVERITY_INFO,
+                            "Geslaagd",
+                            "Wijzigingen zijn opgeslagen")
+            );
+            
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(

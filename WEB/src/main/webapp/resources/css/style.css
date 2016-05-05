@@ -351,8 +351,7 @@ a {
   border: 1px solid black;
   padding: 20px;
   margin: 10px;
-  border-radius: 10px;
-  background: #8ED4E5; }
+  border-radius: 10px; }
 
 .postForm {
   display: none; }
