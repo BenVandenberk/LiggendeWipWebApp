@@ -1,23 +1,18 @@
 package be.oklw.bean.bezoeker;
 
-import be.oklw.bean.common.GebruikerController;
 import be.oklw.model.Account;
-import be.oklw.model.Club;
 import be.oklw.model.Nieuws;
-import be.oklw.model.PermissieNiveau;
 import be.oklw.service.INieuwsService;
 import be.oklw.util.Datum;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @ManagedBean
@@ -32,7 +27,7 @@ public class NewsFeedBean implements Serializable {
     private Account account;
     private Nieuws selectedNieuwtje;
 
-    public void maakNieuwtjeAan(){
+    public void maakNieuwtjeAan() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         FacesMessage message;
@@ -52,7 +47,7 @@ public class NewsFeedBean implements Serializable {
         }
     }
 
-    public void verwijderNieuwtje(){
+    public void verwijderNieuwtje() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         FacesMessage message;
@@ -70,12 +65,17 @@ public class NewsFeedBean implements Serializable {
         }
     }
 
-    public List<Nieuws> getLaatsteNieuwtjes(){
+    public List<Nieuws> getLaatsteNieuwtjes() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage message;
 
         try {
-            return nieuwsService.getLaatsteNieuwtjes();
+            List<Nieuws> laatsteNieuwtjes = nieuwsService.getLaatsteNieuwtjes();
+            Collections.sort(
+                    laatsteNieuwtjes,
+                    Collections.reverseOrder((nieuwtje, nieuwtje2) -> nieuwtje.getDatum().compareTo(nieuwtje2.getDatum()))
+            );
+            return laatsteNieuwtjes;
 
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage());
@@ -85,18 +85,17 @@ public class NewsFeedBean implements Serializable {
     }
 
 
-
-    public void reset(){
-        this.nieuwtje="";
-        this.selectedNieuwtje=null;
-        this.tonenTot=null;
+    public void reset() {
+        this.nieuwtje = "";
+        this.selectedNieuwtje = null;
+        this.tonenTot = null;
     }
 
     public void setTonenTot(Datum tonenTot) {
         this.tonenTot = tonenTot;
     }
 
-    public Datum getTonenTot(){
+    public Datum getTonenTot() {
         return tonenTot;
     }
 

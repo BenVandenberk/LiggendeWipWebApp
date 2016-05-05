@@ -1,15 +1,18 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Account;
 import be.oklw.model.Contact;
 import be.oklw.model.Nieuws;
 import be.oklw.util.Datum;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -46,5 +49,36 @@ public class NieuwsService implements INieuwsService {
         account.removeNieuwtje(teVerwijderenNieuws);
         entityManager.remove(teVerwijderenNieuws);
         entityManager.merge(account);
+    }
+
+    @Override
+    public List<Nieuws> getAlleTeTonenNieuwtjes() {
+        List<Nieuws> alleNieuwtjes = entityManager.createQuery("select n from Nieuws n", Nieuws.class).getResultList();
+        Datum vandaag = new Datum();
+
+        return alleNieuwtjes.stream().filter(n -> vandaag.kleinerDan(n.getTonenTot())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveNieuwtje(Nieuws nieuws) throws BusinessException {
+        Datum vandaag = new Datum();
+
+        if (nieuws.getTonenTot() == null) {
+            throw new BusinessException("'Te tonen tot' is verplicht");
+        }
+
+        if (StringUtils.isBlank(nieuws.getNieuws())) {
+            throw new BusinessException("'Nieuws' is verplicht");
+        }
+
+        if (nieuws.getTonenTot().kleinerDan(vandaag)) {
+            throw new BusinessException("'Te tonen tot' moet in de toekomst liggen");
+        }
+
+        try {
+            entityManager.merge(nieuws);
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
     }
 }

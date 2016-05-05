@@ -32,6 +32,7 @@ public class AuthorizationFilter implements Filter {
         bezoekerUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         bezoekerUrls.add("/bezoeker_toernooipagina.xhtml");
         bezoekerUrls.add("/paswoord_vergeten.xhtml");
+        bezoekerUrls.add("/bezoeker_nieuws.xhtml");
 
         ArrayList<String> clubUrls = new ArrayList<>();
         clubUrls.add("/login.xhtml");
@@ -55,6 +56,7 @@ public class AuthorizationFilter implements Filter {
         clubUrls.add("/bezoeker_kampioenschapsindex.xhtml");
         clubUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         clubUrls.add("/bezoeker_toernooipagina.xhtml");
+        clubUrls.add("/bezoeker_nieuws.xhtml");
 
         ArrayList<String> systeemUrls = new ArrayList<>();
         systeemUrls.add("/login.xhtml");
@@ -71,6 +73,7 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/bezoeker_kampioenschapsindex.xhtml");
         systeemUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         systeemUrls.add("/bezoeker_toernooipagina.xhtml");
+        systeemUrls.add("/bezoeker_nieuws.xhtml");
 
         ArrayList<String> lidUrls = new ArrayList<>();
         lidUrls.add("/login.xhtml");
@@ -82,6 +85,7 @@ public class AuthorizationFilter implements Filter {
         lidUrls.add("/bezoeker_toernooipagina.xhtml");
         lidUrls.add("/lid_accountbeheer.xhtml");
         lidUrls.add("/lid_inschrijvingen.xhtml");
+        lidUrls.add("/bezoeker_nieuws.xhtml");
 
         toegelatenUrlsPerRol.put("club", clubUrls);
         toegelatenUrlsPerRol.put("bezoeker", bezoekerUrls);
@@ -93,8 +97,8 @@ public class AuthorizationFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
 
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession(false);
 
         PermissieNiveau permissieNiveau;
@@ -102,7 +106,7 @@ public class AuthorizationFilter implements Filter {
         if (session == null) {
             permissieNiveau = PermissieNiveau.BEZOEKER;
         } else {
-            Account account = (Account)session.getAttribute("user");
+            Account account = (Account) session.getAttribute("user");
 
             if (account == null) {
                 permissieNiveau = PermissieNiveau.BEZOEKER;

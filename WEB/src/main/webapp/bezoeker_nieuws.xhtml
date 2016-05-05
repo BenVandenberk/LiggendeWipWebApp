@@ -1,0 +1,154 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+            <h:form id="frm">
+
+                <div class="bodyWrapper">
+
+                    <div class="titel">
+                        Nieuws
+                    </div>
+
+                    <p:messages showDetail="true" showSummary="true" id="msg_edit" closable="true"/>
+
+                    <div class="ui-grid-responsive formGrid">
+
+                        <h:panelGroup id="pnl_nieuwtjes">
+
+                            <ui:repeat value="#{bezoekerNieuwsBean.nieuwtjes}" var="nieuwtje" varStatus="status">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-4">
+
+                                        <div class="ui-grid-row">
+                                            <div class="ui-grid-col-12 center">
+
+                                                <p:graphicImage value="#{bezoekerNieuwsBean.getLogoPad(nieuwtje)}"
+                                                                alt="Logo"
+                                                                rendered="#{!nieuwtje.vanWebMaster()}"
+                                                                width="100"
+                                                                height="100"
+                                                />
+
+                                                <p:graphicImage name="#{bezoekerNieuwsBean.getLogoPad(nieuwtje)}"
+                                                                alt="Logo"
+                                                                rendered="#{nieuwtje.vanWebMaster()}"
+                                                />
+
+                                            </div>
+
+                                            <div class="ui-grid-col-12 center boldPlain">
+
+                                                #{nieuwtje.account.userName}
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="ui-grid-col-7 left">
+
+                                        <div class="ui-grid-row">
+                                            #{nieuwtje.datum.datumInEuropeesFormaat}
+                                        </div>
+
+                                        <div class="ui-grid-row top10">
+                                            #{nieuwtje.nieuws}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="ui-grid-col-1 right">
+
+                                        <h:panelGroup rendered="#{bezoekerNieuwsBean.editable(nieuwtje)}">
+
+                                            <p:commandLink oncomplete="PF('dial_edit').show()"
+                                                           update="frm:dial_edit"
+                                                           styleClass="wrappedCommandLink">
+                                                <f:setPropertyActionListener value="#{nieuwtje.id}"
+                                                                             target="#{bezoekerNieuwsBean.teEditerenId}"/>
+                                                <i class="fa fa-edit edit"></i>
+                                            </p:commandLink>
+
+                                        </h:panelGroup>
+
+                                    </div>
+
+                                </div>
+
+                                <p:separator rendered="#{!status.last}" style="margin: 20px 0 20px 0"/>
+
+                            </ui:repeat>
+
+                        </h:panelGroup>
+
+                    </div>
+
+                </div>
+
+                <p:dialog id="dial_edit" widgetVar="dial_edit" header="Editeren" title="Editeren" modal="true"
+                          width="50%">
+
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+                            Nieuws:
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+
+                            <p:inputTextarea id="nieuwtje"
+                                             value="#{bezoekerNieuwsBean.teEditeren.nieuws}"
+                                             maxlength="250"
+                                             style="width:98.5%">
+                            </p:inputTextarea>
+
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+                            Te tonen tot:
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-6 left">
+
+                                <p:calendar id="tonenTot"
+                                            mode="popup"
+                                            pattern="dd/MM/yyyy"
+                                            value="#{bezoekerNieuwsBean.teEditeren.tonenTot}"
+                                            navigator="true"
+                                            locale="nl">
+                                    <f:converter converterId="DatumConverter"/>
+                                </p:calendar>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ui-grid-row formRow">
+
+                            <p:commandButton value="Opslaan"
+                                             actionListener="#{bezoekerNieuwsBean.saveNieuwtje}"
+                                             update="frm:msg_edit frm:pnl_nieuwtjes"
+                                             oncomplete="PF('dial_edit').hide()"
+                            />
+
+                        </div>
+
+                    </div>
+
+                </p:dialog>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>

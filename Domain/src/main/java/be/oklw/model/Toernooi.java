@@ -40,7 +40,7 @@ public class Toernooi implements Serializable {
     private boolean heeftMaaltijd;
     private boolean metInleg;
 
-    private String kleur;
+    private String kleur = "FFFFFF";
 
     @Convert(converter = DatumConverter.class)
     private Datum datum;

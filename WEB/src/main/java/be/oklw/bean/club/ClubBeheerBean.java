@@ -240,6 +240,7 @@ public class ClubBeheerBean implements Serializable {
         try {
             if (isNieuwToernooi) {
                 kampioenschapService.nieuwToernooi(toernooi, kampioenschap);
+                isNieuwToernooi = false;
             } else {
                 kampioenschapService.opslaanToernooi(toernooi);
             }
@@ -252,7 +253,7 @@ public class ClubBeheerBean implements Serializable {
                             "Geslaagd",
                             "Wijzigingen zijn opgeslagen")
             );
-            
+
         } catch (Exception ex) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(

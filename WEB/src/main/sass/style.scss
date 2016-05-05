@@ -237,6 +237,15 @@ a {
   color: $hover-color;
 }
 
+.edit {
+  color: black;
+  font-size: 25px;
+}
+
+.edit:hover {
+  color: $hover-color;
+}
+
 .left {
   text-align: left;
 }
@@ -492,6 +501,10 @@ a {
 .ui-widget, .ui-widget .ui-widget {
   font-family: $font-stack !important;
   font-size: 1em;
+}
+
+.ui-widget-content .ui-carousel-item {
+  border: none;
 }
 
 .fc-time {

@@ -70,10 +70,10 @@ public class GebruikerService implements IGebruikerService {
     @Override
     public void createAdmin() {
 
-        SysteemAccount systeemAccount = new SysteemAccount("admin");
-        systeemAccount.setUserName("admin");
+        SysteemAccount systeemAccount = new SysteemAccount("Webmaster");
+        systeemAccount.setUserName("Webmaster");
         byte[] salt = Authentication.nextSalt();
-        byte[] pwHash = Authentication.hashPw("admin", salt);
+        byte[] pwHash = Authentication.hashPw("adminpw", salt);
         systeemAccount.setPwHash(pwHash);
         systeemAccount.setPwSalt(salt);
         entityManager.persist(systeemAccount);

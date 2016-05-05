@@ -73,4 +73,8 @@ public class Nieuws implements Serializable {
     public void setTonenTot(Datum tonenTot) {
         this.tonenTot = tonenTot;
     }
+
+    public boolean vanWebMaster() {
+        return account.getPermissieNiveau().equals(PermissieNiveau.SYSTEEM);
+    }
 }

@@ -1,5 +1,6 @@
 package be.oklw.service;
 
+import be.oklw.exception.BusinessException;
 import be.oklw.model.Account;
 import be.oklw.model.Nieuws;
 import be.oklw.util.Datum;
@@ -16,5 +17,9 @@ public interface INieuwsService {
     List<Nieuws> getLaatsteNieuwtjes();
 
     void verwijderNieuwtje(Nieuws nieuws, Account account);
+
+    List<Nieuws> getAlleTeTonenNieuwtjes();
+
+    void saveNieuwtje(Nieuws nieuws) throws BusinessException;
 
 }

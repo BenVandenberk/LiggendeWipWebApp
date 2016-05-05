@@ -17,7 +17,7 @@
             <div class="ui-grid-responsive formGrid">
 
 
-                <div class="ui-grid-row formRow center">
+                <div class="ui-grid-row center">
                     <div class="ui-grid-col-8 centerPlus">
                         <h:form id="carouselForm">
                             <p:carousel value="#{newsFeedBean.getLaatsteNieuwtjes()}"
@@ -26,28 +26,47 @@
                                         circular="true"
                                         autoPlayInterval="10000"
                                         numVisible="1"
-                                        responsive="true">
+                                        responsive="true"
+                                        style="width:100%"
+                            >
 
-                                <p:graphicImage value="#{news.account.getClub().logoFullPath}"
-                                                height="40px"/>
+                                <div class="ui-grid-col-2 left">
+                                    <p:graphicImage value="#{news.account.getClub().logoFullPath}"
+                                                    height="40px"
+                                                    rendered="#{!news.vanWebMaster()}"
+                                    />
 
-                                <h:outputText
-                                        value="op #{news.datum.datumInEuropeesFormaat} zei #{news.account.getClub().naam}"
-                                        style="font-size: small"/>
-                                <h:outputText value="admin "
-                                              rendered="#{news.account.getPermissieNiveau().toString() == 'systeem'}"
-                                              style="font-size: small"/>
-                                <br/>
-                                <h:outputText value="#{news.nieuws}"/><br/>
-                                <!--<p:inputTextarea readonly="true" value="#{news.nieuws}"-->
-                                <!--style="width:98.5%"/><br/>-->
-                                <p:commandButton rendered="#{gebruikerController.heeftRol('systeem')}"
-                                                 action="#{newsFeedBean.verwijderNieuwtje}"
-                                                 value="Verwijder"
-                                                 update=":carouselForm">
-                                    <f:setPropertyActionListener value="#{news}"
-                                                                 target="#{newsFeedBean.selectedNieuwtje}"/>
-                                </p:commandButton>
+                                    <p:graphicImage name="images/webmaster.png"
+                                                    rendered="#{news.vanWebMaster()}"
+                                    />
+                                </div>
+
+                                <div class="ui-grid-col-8 left">
+
+                                    <h:outputText
+                                            value="op #{news.datum.datumInEuropeesFormaat} zei #{news.account.getClub().naam}"
+                                            style="font-size: small"/>
+                                    <h:outputText value="admin "
+                                                  rendered="#{news.account.getPermissieNiveau().toString() == 'systeem'}"
+                                                  style="font-size: small"/>
+                                    <br/>
+                                    <h:outputText value="#{news.nieuws}"/><br/>
+
+
+                                </div>
+
+                                <div class="ui-grid-col-2 left top10">
+
+                                    <p:commandButton rendered="#{gebruikerController.heeftRol('systeem')}"
+                                                     action="#{newsFeedBean.verwijderNieuwtje}"
+                                                     value="Verwijder"
+                                                     update=":carouselForm">
+                                        <f:setPropertyActionListener value="#{news}"
+                                                                     target="#{newsFeedBean.selectedNieuwtje}"/>
+                                    </p:commandButton>
+
+                                </div>
+
 
                             </p:carousel>
 
