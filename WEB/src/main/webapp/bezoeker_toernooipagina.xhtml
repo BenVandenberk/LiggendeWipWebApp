@@ -54,12 +54,7 @@
                                 <div class="top10">
                                     Inschrijfdeadline: #{toonToernooiBean.toernooi.inschrijfDeadline.datumInEuropeesFormaat}
                                 </div>
-                                <div class="top10">
-                                    <h:outputText value="#{toonToernooiBean.toernooi.omschrijving}" escape="false">
-                                        <f:converter converterId="NewLineConverter"/>
-                                    </h:outputText>
 
-                                </div>
                             </div>
 
                         </div>
@@ -88,6 +83,14 @@
                                         Rekeningnummer: #{toonToernooiBean.kampioenschap.rekeningnummer}
                                     </div>
                                 </h:panelGroup>
+
+                                <div class="top10">
+
+                                    <h:outputText value="#{toonToernooiBean.toernooi.omschrijving}" escape="false">
+                                        <f:converter converterId="NewLineConverter"/>
+                                    </h:outputText>
+
+                                </div>
 
                             </div>
 

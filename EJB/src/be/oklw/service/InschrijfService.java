@@ -6,6 +6,7 @@ import be.oklw.model.Club;
 import be.oklw.model.Inschrijving;
 import be.oklw.model.Toernooi;
 import be.oklw.util.Datum;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Resource;
 import javax.ejb.*;
@@ -70,7 +71,7 @@ public class InschrijfService implements IInschrijfService {
 
         try {
             List<String> emailAdressen = entityManager.createQuery("select c.email from Contact c", String.class).getResultList();
-            emailAdressen = emailAdressen.stream().filter(s -> s != null).collect(Collectors.toList());
+            emailAdressen = emailAdressen.stream().filter(s -> StringUtils.isNotBlank(s)).collect(Collectors.toList());
 
             if (emailAdressen.size() > 0) {
                 StringBuilder builder = new StringBuilder();
