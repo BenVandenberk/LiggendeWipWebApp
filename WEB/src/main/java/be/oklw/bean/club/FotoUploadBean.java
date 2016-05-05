@@ -1,19 +1,16 @@
 package be.oklw.bean.club;
 
-import be.oklw.model.Foto;
 import be.oklw.model.Kampioenschap;
 import be.oklw.service.IKampioenschapService;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.util.Optional;
 
 @ManagedBean
 @ViewScoped
@@ -27,8 +24,6 @@ public class FotoUploadBean {
 
     private UploadedFile file;
     private int geselecteerdeFotoId;
-
-    private String tag;
 
     //region GETTERS en SETTERS
 
@@ -52,14 +47,6 @@ public class FotoUploadBean {
         this.geselecteerdeFotoId = geselecteerdeFotoId;
     }
 
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
     public Kampioenschap getKampioenschap() {
         return clubBeheerBean.getKampioenschap();
     }
@@ -67,6 +54,8 @@ public class FotoUploadBean {
     //endregion
 
     public void uploadFoto(FileUploadEvent fileUploadEvent) {
+        fileUploadEvent.getComponent().setTransient(false);
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
         FacesMessage facesMessage;
 
@@ -111,20 +100,22 @@ public class FotoUploadBean {
         }
     }
 
-    public void saveTag() {
+    public void saveTags() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
         try {
-            Optional<Foto> foto = getKampioenschap().getFotos().stream().filter(f -> f.getId() == geselecteerdeFotoId).findFirst();
-            if (foto.isPresent()) {
-                foto.get().setCaption(tag);
-                kampioenschapService.saveFoto(foto.get());
-                tag = "";
-            }
+            kampioenschapService.opslaan(getKampioenschap());
+
+            facesContext.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Geslaagd",
+                    "Tags opgeslagen"
+            ));
         } catch (Exception ex) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
             facesContext.addMessage(null, new FacesMessage(
                     FacesMessage.SEVERITY_ERROR,
                     "Fout",
-                    "Er ging iets mis bij het aanpassen van de tag"
+                    "Er ging iets mis bij het opslaan"
             ));
         }
     }

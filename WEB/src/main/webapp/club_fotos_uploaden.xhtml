@@ -1,8 +1,7 @@
 <ui:fragment xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
-             xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:ui="http://java.sun.com/jsf/facelets">
+             xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/templates/template.xhtml">
 
@@ -38,67 +37,118 @@
                                               invalidSizeMessage="Maximum toegelaten bestandsgrootte is 20 MB"
                                               multiple="true"
                                               id="file_foto"
-                                              update=":frm:galleria :frm:lbl_galleria @all @form"
-                                              oncomplete="fancyUp()"
+                                              update=":frm:pnl_fotos :frm:pnl_preview @all"
                                               sequential="true"
-                                        />
+                                />
 
                             </div>
+                        </div>
+
+                        <div class="subTitel">
+                            Foto's
+                        </div>
+
+                        <p:messages id="msg_fotos" closable="true" showSummary="true" showDetail="true"/>
+
+                        <div class="ui-grid-responsive formGrid">
+
+                            <div class="ui-grid-row formRow">
+                                <div class="ui-grid-col-12 right">
+
+                                    <p:commandButton value="Save Tags"
+                                                     actionListener="#{fotoUploadBean.saveTags}"
+                                                     update="frm:pnl_preview frm:msg_fotos"
+                                    />
+                                    <p:separator/>
+
+                                </div>
+                            </div>
+
+                            <h:panelGroup id="pnl_fotos">
+
+                                <ui:repeat value="#{fotoUploadBean.kampioenschap.fotos}" var="foto" varStatus="status">
+
+                                    <div class="ui-grid-row formRow">
+
+                                        <div class="ui-grid-col-3">
+
+                                            <p:graphicImage value="#{foto.fullPath}" width="50" height="50"/>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3">
+
+                                            #{foto.originalFilename}
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3">
+
+                                            Tag:
+                                            <p:inputText value="#{foto.caption}" size="10"/>
+
+                                        </div>
+
+                                        <div class="ui-grid-col-3 center">
+
+                                            <p:commandLink action="#{fotoUploadBean.verwijderFoto}"
+                                                           update="frm:pnl_fotos frm:pnl_preview"
+                                                           styleClass="wrappedCommandLink">
+                                                <f:setPropertyActionListener value="#{foto.id}"
+                                                                             target="#{fotoUploadBean.geselecteerdeFotoId}"/>
+                                                <i class="fa fa-minus-square-o plus"></i>
+                                            </p:commandLink>
+
+                                        </div>
+
+                                    </div>
+
+                                    <p:separator rendered="#{!status.last}" style="margin: 20px 0 20px 0"/>
+
+                                </ui:repeat>
+
+                            </h:panelGroup>
+
                         </div>
 
                         <div class="subTitel">
                             Preview
                         </div>
 
-                        <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's" rendered="#{fotoUploadBean.kampioenschap.fotos.size() == 0}" />
+                        <h:panelGroup id="pnl_preview">
 
-                        <p:galleria id="galleria" value="#{fotoUploadBean.kampioenschap.fotos}" var="foto" autoPlay="false" styleClass="centerPlus" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}" showCaption="true">
-                            <a href="#{foto.fullPath}" class="fotoLink">
-                                <p:graphicImage value="#{foto.fullPath}" alt="#{foto.caption}" title="#{foto.originalFilename}" styleClass="fancybox"></p:graphicImage>
-                            </a>
+                            <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's"
+                                           rendered="#{fotoUploadBean.kampioenschap.fotos.size() == 0}"/>
 
-                            <p:commandButton styleClass="btn_verwijderen"
-                                             value="Verwijderen"
-                                             actionListener="#{fotoUploadBean.verwijderFoto}"
-                                             style="position:absolute; top:2px; right:0; z-index:10;"
-                                             onclick="setId(this)"
-                                             process="@form"
-                                             update="@form :frm:galleria @all"
-                                             oncomplete="fancyUp()"
-                                    />
+                            <div class="left">
+                                <ui:repeat value="#{fotoUploadBean.kampioenschap.fotos}" var="foto">
 
-                            <p:commandButton value="Voeg tag toe"
-                                             actionListener="#{fotoUploadBean.saveTag}"
-                                             onclick="setId(this)"
-                                             style="position: absolute; top:42px; right:0; z-index:10;"
-                                             process="@form"
-                                             update="@form"
-                                             oncomplete="fancyUp()"
-                                    />
+                                    <a class="fancybox-button" rel="fancybox-button" href="#{foto.fullPath}"
+                                       title="#{foto.originalFilename}">
+                                        <img src="#{foto.fullPath}" alt="#{foto.caption}" width="200" height="200"/>
+                                    </a>
 
-                            <p:outputLabel style="display: none;" value="#{foto.id}" styleClass="lbl_id"/>
-                        </p:galleria>
+                                </ui:repeat>
+                            </div>
 
-                        <div class="center top10">
-                            <p:outputLabel value="Tag" styleClass="right10" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}"/>
-                            <p:inputText value="#{fotoUploadBean.tag}" rendered="#{fotoUploadBean.kampioenschap.fotos.size() > 0}"></p:inputText>
-                        </div>
+                        </h:panelGroup>
+
 
                         <div class="pageButton">
-                            <p:commandButton value="Terug" action="club_kampioenschapspagina?faces-redirect=true"></p:commandButton>
+                            <p:commandButton value="Terug"
+                                             action="club_kampioenschapspagina?faces-redirect=true"></p:commandButton>
                         </div>
-
-                        <h:inputHidden id="hdn_geselecteerdeFotoId" value="#{fotoUploadBean.geselecteerdeFotoId}" />
 
                     </h:form>
 
                 </div>
             </div>
 
-            <h:outputScript library="js" name="galleria.js" target="head"></h:outputScript>
             <h:outputScript library="js" name="jquery.fancybox.pack.js" target="head"></h:outputScript>
-            <h:outputScript library="js" name="galleriaFancyBox.js" target="head"/>
-            <h:outputStylesheet name="css/jquery.fancybox.css" />
+            <h:outputScript library="css" name="helpers/jquery.fancybox-buttons.js"></h:outputScript>
+            <h:outputScript library="js" name="fancyBoxOklw.js" target="head"/>
+            <h:outputStylesheet name="css/jquery.fancybox.css"/>
+            <h:outputStylesheet name="css/helpers/jquery.fancybox-buttons.css"/>
 
         </ui:define>
 

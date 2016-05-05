@@ -10,7 +10,7 @@
             <h:form>
 
                 <f:metadata>
-                    <f:viewParam name="id" value="#{toonFotosBean.kampioenschapsId}" />
+                    <f:viewParam name="id" value="#{toonFotosBean.kampioenschapsId}"/>
                 </f:metadata>
 
                 <div class="bodyWrapper">
@@ -19,18 +19,24 @@
                         Foto's
 
                         <div class="onderTitel">
-                           #{toonFotosBean.kampioenschap.naam}
+                            #{toonFotosBean.kampioenschap.naam}
                         </div>
                     </div>
 
 
-                    <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's" rendered="#{toonFotosBean.fotos.size() == 0}" />
+                    <p:outputLabel id="lbl_galleria" value="Voor dit kampioenschap zijn er nog geen foto's"
+                                   rendered="#{toonFotosBean.fotos.size() == 0}"/>
 
-                    <p:galleria id="galleria" value="#{toonFotosBean.fotos}" var="foto" autoPlay="false" styleClass="centerPlus" rendered="#{toonFotosBean.fotos.size() > 0}" showCaption="true">
-                        <a href="#{foto.fullPath}" class="fotoLink">
-                            <p:graphicImage value="#{foto.fullPath}" alt="#{foto.caption}" title="#{foto.originalFilename}" styleClass="fancybox"></p:graphicImage>
-                        </a>
-                    </p:galleria>
+                    <div class="left">
+                        <ui:repeat value="#{toonFotosBean.fotos}" var="foto">
+
+                            <a class="fancybox-button" rel="fancybox-button" href="#{foto.fullPath}"
+                               title="#{foto.originalFilename}">
+                                <img src="#{foto.fullPath}" alt="#{foto.caption}" width="200" height="200"/>
+                            </a>
+
+                        </ui:repeat>
+                    </div>
 
                     <div class="pageButton">
                         <p:commandButton value="Terug" action="bezoeker_fotos?faces-redirect=true"></p:commandButton>
@@ -40,10 +46,11 @@
 
             </h:form>
 
-            <h:outputScript library="js" name="galleria.js" target="head"></h:outputScript>
             <h:outputScript library="js" name="jquery.fancybox.pack.js" target="head"></h:outputScript>
-            <h:outputScript library="js" name="galleriaFancyBox.js" target="head"/>
-            <h:outputStylesheet name="css/jquery.fancybox.css" />
+            <h:outputScript library="css" name="helpers/jquery.fancybox-buttons.js"></h:outputScript>
+            <h:outputScript library="js" name="fancyBoxOklw.js" target="head"/>
+            <h:outputStylesheet name="css/jquery.fancybox.css"/>
+            <h:outputStylesheet name="css/helpers/jquery.fancybox-buttons.css"/>
 
         </ui:define>
 

@@ -35,6 +35,7 @@ public class Kampioenschap extends Evenement {
     private List<Toernooi> toernooien;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "kampioenschap", orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
     private List<Foto> fotos;
 
     //endregion
