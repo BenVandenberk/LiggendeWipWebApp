@@ -31,7 +31,7 @@
                                              value="#{paswoordVergetenBean.gebruikersNaam}"
                                              validatorMessage="Gebruikersnaam is verplicht"
                                              id="gebruikersnaam"
-                                        >
+                                >
                                     <f:validateRequired/>
                                 </p:inputText>
                             </div>
@@ -50,7 +50,7 @@
                                                  actionListener="#{paswoordVergetenBean.zoekAccount}"
                                                  update=":frm_reset:pnl_reset @form msg frm_reset"
                                                  global="false"
-                                        />
+                                />
 
                             </div>
 
@@ -86,7 +86,7 @@
                                 <div class="ui-grid-col-3 right">
                                     <p:outputLabel value="#{paswoordVergetenBean.email}"
                                                    styleClass="boldPlain"
-                                            />
+                                    />
                                 </div>
 
                             </div>
@@ -95,12 +95,12 @@
 
                                 <div class="ui-grid-col-5 right">
 
-                                    <p:commandButton actionListener="#{paswoordVergetenBean.resetPaswoord}"
-                                                     value="Paswoord Resetten"
+                                    <p:commandButton actionListener="#{paswoordVergetenBean.verstuurLink}"
+                                                     value="Resetlink Versturen"
                                                      update="msg"
-                                            >
+                                    >
                                         <p:confirm header="Bevestiging"
-                                                   message="Ben je zeker dat je je paswoord wil resetten met behulp van volgende mail: [#{paswoordVergetenBean.email}]?"
+                                                   message="Wil je een resetlink laten versturen naar volgende mail: [#{paswoordVergetenBean.email}]?"
                                                    icon="ui-icon-alert"/>
                                         <p:ajaxStatus onstart="PF('statusDialog').show()"
                                                       onsuccess="PF('statusDialog').hide()"/>

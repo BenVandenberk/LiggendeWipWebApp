@@ -20,5 +20,6 @@
     <entity class="Inschrijving"></entity>
     <entity class="MenuBestelling"></entity>
     <entity class="Lid"></entity>
+    <entity class="PaswoordResetInfo"></entity>
 
 </entity-mappings>

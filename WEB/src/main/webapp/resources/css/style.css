@@ -171,6 +171,10 @@ a {
 .edit:hover {
   color: #0073ea; }
 
+.warningTriangle {
+  color: red;
+  font-size: 25px; }
+
 .left {
   text-align: left; }
 

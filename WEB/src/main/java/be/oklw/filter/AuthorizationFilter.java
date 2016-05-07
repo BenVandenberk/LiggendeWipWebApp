@@ -33,6 +33,7 @@ public class AuthorizationFilter implements Filter {
         bezoekerUrls.add("/bezoeker_toernooipagina.xhtml");
         bezoekerUrls.add("/paswoord_vergeten.xhtml");
         bezoekerUrls.add("/bezoeker_nieuws.xhtml");
+        bezoekerUrls.add("/paswoord_reset.xhtml");
 
         ArrayList<String> clubUrls = new ArrayList<>();
         clubUrls.add("/login.xhtml");
@@ -57,6 +58,7 @@ public class AuthorizationFilter implements Filter {
         clubUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         clubUrls.add("/bezoeker_toernooipagina.xhtml");
         clubUrls.add("/bezoeker_nieuws.xhtml");
+        clubUrls.add("/paswoord_reset.xhtml");
 
         ArrayList<String> systeemUrls = new ArrayList<>();
         systeemUrls.add("/login.xhtml");
@@ -74,6 +76,7 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/bezoeker_kampioenschapspagina.xhtml");
         systeemUrls.add("/bezoeker_toernooipagina.xhtml");
         systeemUrls.add("/bezoeker_nieuws.xhtml");
+        systeemUrls.add("/paswoord_reset.xhtml");
 
         ArrayList<String> lidUrls = new ArrayList<>();
         lidUrls.add("/login.xhtml");
@@ -86,6 +89,7 @@ public class AuthorizationFilter implements Filter {
         lidUrls.add("/lid_accountbeheer.xhtml");
         lidUrls.add("/lid_inschrijvingen.xhtml");
         lidUrls.add("/bezoeker_nieuws.xhtml");
+        lidUrls.add("/paswoord_reset.xhtml");
 
         toegelatenUrlsPerRol.put("club", clubUrls);
         toegelatenUrlsPerRol.put("bezoeker", bezoekerUrls);

@@ -73,18 +73,18 @@ public class PaswoordVergetenBean {
         }
     }
 
-    public void resetPaswoord() {
+    public void verstuurLink() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         try {
-            gebruikerService.resetPaswoord(account);
+            gebruikerService.verstuurPaswoordResetLink(account);
 
             facesContext.addMessage(
                     null,
                     new FacesMessage(
                             FacesMessage.SEVERITY_INFO,
                             "Geslaagd",
-                            String.format("Paswoord succesvol gereset. Er werd een mail gestuurd naar %s", account.getEmail())
+                            String.format("Er werd een mail met resetlink verstuurd naar %s", account.getEmail())
                     )
             );
         } catch (Exception ex) {

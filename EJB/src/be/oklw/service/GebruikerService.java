@@ -1,10 +1,7 @@
 package be.oklw.service;
 
 import be.oklw.exception.BusinessException;
-import be.oklw.model.Account;
-import be.oklw.model.Club;
-import be.oklw.model.Lid;
-import be.oklw.model.SysteemAccount;
+import be.oklw.model.*;
 import be.oklw.util.Authentication;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -26,6 +24,9 @@ public class GebruikerService implements IGebruikerService {
 
     @EJB
     IMailService mailService;
+
+    @EJB
+    IPaswoordTimerService paswoordTimerService;
 
     @Override
     public Account login(String userName, String password) throws BusinessException {
@@ -193,6 +194,48 @@ public class GebruikerService implements IGebruikerService {
             emailAdres.add(account.getEmail());
             mailService.sendMail("Accountsupport LiggendeWip.be", emailMessage.toString(), emailAdres);
 
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public void verstuurPaswoordResetLink(Account account) throws BusinessException {
+
+        try {
+
+            PaswoordResetInfo paswoordResetInfo = PaswoordResetInfo.create(account.getId());
+            entityManager.persist(paswoordResetInfo);
+
+            String resetLink = String.format("http://www.liggendewip.be/paswoord_reset.xhtml?uuid=%s", paswoordResetInfo.getLinkUUID().toString());
+
+            StringBuilder emailMessage = new StringBuilder();
+            emailMessage.append(String.format("Beste %s,\n\n", account.getUserName()));
+            emailMessage.append(String.format("Klik op onderstaande link op uw paswoord te resetten: \n%s", resetLink));
+            emailMessage.append(String.format("\nDeze link is 2 uur geldig"));
+            emailMessage.append("\n\n\nDeze mail is automatisch gegenereerd. Gelieve hier niet op te antwoorden.");
+
+            ArrayList<String> emailAdres = new ArrayList<String>();
+            emailAdres.add(account.getEmail());
+            mailService.sendMail("Accountsupport LiggendeWip.be", emailMessage.toString(), emailAdres);
+
+            paswoordTimerService.createResetLinkExpirationTimer(7200000, paswoordResetInfo);
+
+        } catch (Exception ex) {
+            throw new BusinessException("Er liep iets mis: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public Account valideerResetLink(UUID linkUUUD) throws BusinessException {
+        try {
+            PaswoordResetInfo paswoordResetInfo = entityManager.createQuery("select pwInfo from PaswoordResetInfo pwInfo where pwInfo.linkUUID = :uuid", PaswoordResetInfo.class)
+                    .setParameter("uuid", linkUUUD)
+                    .getSingleResult();
+
+            return entityManager.find(Account.class, paswoordResetInfo.getAccountId());
+        } catch (NoResultException noResEx) {
+            return null;
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }

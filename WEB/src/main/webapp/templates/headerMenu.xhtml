@@ -49,6 +49,14 @@
 
                     <f:facet name="options">
 
+                        <h:panelGroup id="pnl_warning" rendered="#{!gebruikerController.emailIngevuld()}">
+                            <i class="fa fa-exclamation-triangle warningTriangle">
+                                <p:tooltip
+                                        value="Stel een e-mailadres in voor uw account. Zo kan u later uw paswoord resetten."
+                                        for="frm_header:pnl_warning"/>
+                            </i>
+                        </h:panelGroup>
+
                         <p:link rendered="#{gebruikerController.loggedIn and gebruikerController.heeftRol('club')}"
                                 value="Ingelogd als: #{gebruikerController.user.userName}" outcome="club_accountbeheer"
                                 styleClass="menuLink">

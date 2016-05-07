@@ -3,6 +3,7 @@ package be.oklw.bean.common;
 import be.oklw.model.*;
 import be.oklw.service.IClubService;
 import be.oklw.service.IGebruikerService;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -119,7 +120,7 @@ public class GebruikerController {
     }
 
     public String getNewTelefoonNummer() {
-        return ((SysteemAccount)user).getTelefoonnummer();
+        return ((SysteemAccount) user).getTelefoonnummer();
     }
 
     public void setNewTelefoonNummer(String newTelefoonNummer) {
@@ -301,6 +302,13 @@ public class GebruikerController {
                     )
             );
         }
+    }
+
+    public boolean emailIngevuld() {
+        if (!loggedIn) {
+            return true;
+        }
+        return StringUtils.isNotBlank(user.getEmail());
     }
 
     @PostConstruct
