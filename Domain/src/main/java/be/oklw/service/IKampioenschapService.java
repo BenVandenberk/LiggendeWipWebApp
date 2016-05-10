@@ -30,9 +30,10 @@ public interface IKampioenschapService {
      * Voegt een nieuw Toernooi toe aan een Kampioenschap.
      * @param toernooi het Toernooi om toe te voegen
      * @param kampioenschap het Kampioenschap waar het Toernooi aan toegevoegd wordt
+     * @return het aangemaakte Toernooi
      * @throws BusinessException als er iets misloopt bij de data-access (entity state, transaction state, ...)
      */
-    void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
+    Toernooi nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException;
 
     /**
      * Save een bestaand Toernooi in de database ('merge')

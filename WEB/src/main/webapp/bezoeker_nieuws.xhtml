@@ -32,8 +32,8 @@
                                                 <p:graphicImage value="#{bezoekerNieuwsBean.getLogoPad(nieuwtje)}"
                                                                 alt="Logo"
                                                                 rendered="#{!nieuwtje.vanWebMaster()}"
-                                                                width="100"
-                                                                height="100"
+                                                                width="#{nieuwtje.account.club.getLogoBreedteIFVHoogte(50)}"
+                                                                height="50"
                                                 />
 
                                                 <p:graphicImage name="#{bezoekerNieuwsBean.getLogoPad(nieuwtje)}"
@@ -55,11 +55,15 @@
                                     <div class="ui-grid-col-7 left">
 
                                         <div class="ui-grid-row">
-                                            #{nieuwtje.datum.datumInEuropeesFormaat}
+                                            <div class="ui-grid-col-12 right">
+                                                #{nieuwtje.datum.datumInEuropeesFormaat}
+                                            </div>
                                         </div>
 
                                         <div class="ui-grid-row top10">
-                                            #{nieuwtje.nieuws}
+                                            <div class="ui-grid-col-12 right">
+                                                #{nieuwtje.nieuws}
+                                            </div>
                                         </div>
 
                                     </div>

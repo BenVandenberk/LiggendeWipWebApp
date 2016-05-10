@@ -239,10 +239,12 @@ public class ClubBeheerBean implements Serializable {
     public String opslaanToernooi() {
         try {
             if (isNieuwToernooi) {
-                kampioenschapService.nieuwToernooi(toernooi, kampioenschap);
+                toerId = kampioenschapService.nieuwToernooi(toernooi, kampioenschap).getId();
                 isNieuwToernooi = false;
+                toernooi = toernooiService.getToernooi(toerId);
             } else {
                 kampioenschapService.opslaanToernooi(toernooi);
+                toernooi = toernooiService.getToernooi(toerId);
             }
 
             FacesContext facesContext = FacesContext.getCurrentInstance();

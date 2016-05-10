@@ -41,7 +41,7 @@ public class KampioenschapService implements IKampioenschapService {
     }
 
     @Override
-    public void nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
+    public Toernooi nieuwToernooi(Toernooi toernooi, Kampioenschap kampioenschap) throws BusinessException {
 
         // De validatie moet alleen gebeuren wanneer een toernooi nog aanpasbaar is (statussen Aangemaakt en Ingesteld)
         if (toernooi.isAanpasbaar()) {
@@ -75,6 +75,8 @@ public class KampioenschapService implements IKampioenschapService {
         } catch (Exception ex) {
             throw new BusinessException("Er liep iets mis: " + ex.getMessage());
         }
+
+        return toernooi;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class KampioenschapService implements IKampioenschapService {
 
         // De validatie moet alleen gebeuren wanneer een toernooi nog aanpasbaar is (statussen Aangemaakt en Ingesteld)
         if (toernooi.isAanpasbaar()) {
-            
+
             if (toernooi.getDatum().compareTo(toernooi.getKampioenschap().getBeginDatum()) < 0 || toernooi.getDatum().compareTo(toernooi.getKampioenschap().getEindDatum()) > 0) {
                 throw new BusinessException(String.format(
                         "De toernooidatum moet liggen tussen %s en %s",

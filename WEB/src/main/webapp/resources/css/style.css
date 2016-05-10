@@ -212,6 +212,9 @@ a {
 .big {
   font-size: x-large; }
 
+.medium {
+  font-size: medium; }
+
 .bottomLeft {
   position: absolute;
   bottom: 0px;

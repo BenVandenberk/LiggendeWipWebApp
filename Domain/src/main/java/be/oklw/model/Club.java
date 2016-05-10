@@ -248,6 +248,16 @@ public class Club implements Serializable {
     public static String getRelativePad() {
         return RELATIVE_PAD;
     }
+
+    public int getLogoBreedteIFVHoogte(int hoogte) {
+        double ratio = (double)this.logoBreedte / (double)this.logoHoogte;
+        return (int)(ratio * hoogte);
+    }
+
+    public int getLogoHoogteIFVBreedte(int breedte) {
+        double ratio = (double)this.logoHoogte / (double)this.logoBreedte;
+        return (int)(ratio * breedte);
+    }
     //endregion
 
     //region OBJECT METHODS
