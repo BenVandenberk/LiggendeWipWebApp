@@ -63,6 +63,7 @@ public class LoginBean {
                     FacesMessage.SEVERITY_WARN,
                     "Oeps",
                     redirectMessage));
+            session.setAttribute("redirectMessage", null);
         }
 
     }

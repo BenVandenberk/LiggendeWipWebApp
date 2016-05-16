@@ -35,6 +35,13 @@
                         <p:menuitem value="Clubcontacten" outcome="club_contactbeheer"></p:menuitem>
                     </p:submenu>
 
+                    <p:menuitem
+                            rendered="#{gebruikerController.heeftRol('club')}"
+                            value="Handleiding"
+                            target="_blank"
+                            url="#{request.contextPath}/resources/Handleiding_Clubbeheer.pdf">
+                        ></p:menuitem>
+
                     <p:submenu rendered="#{gebruikerController.heeftRol('systeem')}" label="Administrator"
                                styleClass="right10">
                         <p:menuitem value="Kalenderbeheer" outcome="systeem_nieuw_kampioenschap"></p:menuitem>

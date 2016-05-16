@@ -135,12 +135,16 @@
 
                         <p:dialog widgetVar="eventDialog" header="Detail" showEffect="clip" hideEffect="clip">
                             <h:panelGrid id="eventDetails">
-                                <p:outputLabel id="title" value="#{scheduleBean.selectedEvenement.naam}"/>
+                                <p:outputLabel id="title" value="#{scheduleBean.selectedEvenement.naam}"
+                                               styleClass="boldPlain"/>
                                 <p:outputLabel id="club"
                                                value="organisator: #{scheduleBean.selectedEvenement.club.naam}"/>
                                 <p:outputLabel id="locatie" value="#{scheduleBean.selectedEvenement.locatie}"/>
                                 <p:outputLabel rendered="#{!scheduleBean.isKampioenschap()}" id="omschrijving"
-                                               value="#{scheduleBean.selectedEvenement.omschrijving}"/>
+                                               value="#{scheduleBean.selectedEvenement.omschrijving}"
+                                               escape="false">
+                                    <f:converter converterId="NewLineConverter"/>
+                                </p:outputLabel>
                                 <h:link outcome="bezoeker_kampioenschapspagina"
                                         value="Ga naar"
                                         rendered="#{scheduleBean.isKampioenschap()}">
