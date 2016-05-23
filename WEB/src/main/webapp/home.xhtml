@@ -125,10 +125,12 @@
                         <p:schedule id="schedule" value="#{scheduleBean.lazyModel}"
                                     widgetVar="myschedule"
                                     locale="nl"
-                                    draggable="false"
                                     timeFormat=""
+                                    draggable="false"
                                     leftHeaderTemplate="prev, next"
-                                    rightHeaderTemplate="today">
+                                    rightHeaderTemplate="today"
+                                    ignoreTimezone="false"
+                        >
                             <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails"
                                     oncomplete="PF('eventDialog').show();"/>
                         </p:schedule>
