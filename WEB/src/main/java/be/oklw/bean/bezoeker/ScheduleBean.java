@@ -48,7 +48,10 @@ public class ScheduleBean implements Serializable {
                 for (Evenement e : alleEvenementen) {
                     try {
                         Date st = e.getBeginDatum().getDatuminDateFormat();
+                        // Halve dag bijtellen zodat schedule bij een meerdaags evenement de verschillende dagen inkleurt
+                        st.setTime(st.getTime() + 43200000);
                         Date ei = e.getEindDatum().getDatuminDateFormat();
+                        ei.setTime(ei.getTime() + 43200000);
                         if (((st.after(start) || st.equals(start)) && (st.before(end) || st.equals(end)))
                                 || ((ei.after(start) || ei.equals(end)) && (ei.before(end) || ei.equals(end)))) {
                             if (e instanceof Kampioenschap) {

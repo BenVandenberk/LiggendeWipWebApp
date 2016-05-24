@@ -130,6 +130,7 @@
                                     leftHeaderTemplate="prev, next"
                                     rightHeaderTemplate="today"
                                     ignoreTimezone="false"
+                                    timeZone="GMT+1"
                         >
                             <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails"
                                     oncomplete="PF('eventDialog').show();"/>
