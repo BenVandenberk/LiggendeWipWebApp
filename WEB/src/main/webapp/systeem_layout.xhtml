@@ -1,0 +1,134 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+>
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="bodycontent">
+
+            <div class="bodyWrapper">
+
+                <h:form id="frm">
+
+                    <div class="titel">
+                        Site Layout
+                    </div>
+
+                    <div class="subTitel">
+                        Achtergrondkleuren
+                    </div>
+
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+
+                            <div class="ui-grid-col-12">
+
+                                <div class="ui-grid-row boldPlain">
+                                    Balk bovenaan en onderaan
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+                                        Met kleurenovergang:
+                                    </div>
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:selectBooleanCheckbox
+                                                value="#{setLayoutBean.siteBackground.gradientBanners}"
+                                        />
+                                    </div>
+
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+                                        Kleur 1:
+                                    </div>
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:colorPicker
+                                                mode="inline"
+                                                value="#{setLayoutBean.kleur1Banners}"
+                                        />
+                                    </div>
+
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+                                        Kleur 2:
+                                    </div>
+
+                                    <div class="ui-grid-col-3 left">
+                                        <p:colorPicker
+                                                mode="inline"
+                                                value="#{setLayoutBean.kleur2Banners}"
+                                        />
+                                    </div>
+
+                                </div>
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-3">
+                                        Kleurovergang:
+                                    </div>
+
+                                    <div class="ui-grid-col-9 left">
+                                        <p:selectOneRadio value="#{setLayoutBean.gradientTypeBanners}">
+                                            <f:selectItem itemLabel="Links naar Rechts" itemValue="LeftRight"/>
+                                            <f:selectItem itemLabel="Linksonder naar Rechtsboven"
+                                                          itemValue="DiagonalDownUp"/>
+                                            <f:selectItem itemLabel="Linksboven naar Rechtsonder"
+                                                          itemValue="DiagonalUpDown"/>
+                                            <f:selectItem itemLabel="Concentrisch" itemValue="Radial"/>
+                                        </p:selectOneRadio>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="pageButton">
+                        <p:commandButton
+                                value="Opslaan"
+                                actionListener="#{setLayoutBean.opslaan}"
+                        />
+                    </div>
+
+                    <div class="subTitel">
+                        Preview
+                    </div>
+
+                    <div class="ui-grid-responsive formGrid">
+
+                        <div class="ui-grid-row formRow">
+
+                        </div>
+
+                    </div>
+
+
+                </h:form>
+
+            </div>
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:fragment>

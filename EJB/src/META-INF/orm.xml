@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+                 version="1.0">
 
-    <package>be.oklw.model</package>
 
-    <entity class="Account"></entity>
-    <entity class="Club"></entity>
-    <entity class="Contact"></entity>
-    <entity class="Deelnemer"></entity>
-    <entity class="Evenement"></entity>
-    <entity class="Kampioenschap"></entity>
-    <entity class="Ploeg"></entity>
-    <entity class="Sponsor"></entity>
-    <entity class="Toernooi"></entity>
-    <entity class="SysteemAccount"></entity>
-    <entity class="SiteSponsor"></entity>
-    <entity class="Foto"></entity>
-    <entity class="Nieuws"></entity>
-    <entity class="Menu"></entity>
-    <entity class="Inschrijving"></entity>
-    <entity class="MenuBestelling"></entity>
-    <entity class="Lid"></entity>
-    <entity class="PaswoordResetInfo"></entity>
+    <entity class="be.oklw.model.Account"></entity>
+    <entity class="be.oklw.model.Club"></entity>
+    <entity class="be.oklw.model.Contact"></entity>
+    <entity class="be.oklw.model.Deelnemer"></entity>
+    <entity class="be.oklw.model.Evenement"></entity>
+    <entity class="be.oklw.model.Kampioenschap"></entity>
+    <entity class="be.oklw.model.Ploeg"></entity>
+    <entity class="be.oklw.model.Sponsor"></entity>
+    <entity class="be.oklw.model.Toernooi"></entity>
+    <entity class="be.oklw.model.SysteemAccount"></entity>
+    <entity class="be.oklw.model.SiteSponsor"></entity>
+    <entity class="be.oklw.model.Foto"></entity>
+    <entity class="be.oklw.model.Nieuws"></entity>
+    <entity class="be.oklw.model.Menu"></entity>
+    <entity class="be.oklw.model.Inschrijving"></entity>
+    <entity class="be.oklw.model.MenuBestelling"></entity>
+    <entity class="be.oklw.model.Lid"></entity>
+    <entity class="be.oklw.model.PaswoordResetInfo"></entity>
+    <entity class="be.oklw.layout.Background"></entity>
+    <entity class="be.oklw.layout.Gradient"></entity>
+    <entity class="be.oklw.layout.LeftRightGradient"></entity>
+    <entity class="be.oklw.layout.DiagonalDownUpGradient"></entity>
+    <entity class="be.oklw.layout.DiagonalUpDownGradient"></entity>
+    <entity class="be.oklw.layout.RadialGradiant"></entity>
 
 </entity-mappings>

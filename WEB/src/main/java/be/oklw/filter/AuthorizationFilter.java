@@ -77,6 +77,7 @@ public class AuthorizationFilter implements Filter {
         systeemUrls.add("/bezoeker_toernooipagina.xhtml");
         systeemUrls.add("/bezoeker_nieuws.xhtml");
         systeemUrls.add("/paswoord_reset.xhtml");
+        systeemUrls.add("/systeem_layout.xhtml");
 
         ArrayList<String> lidUrls = new ArrayList<>();
         lidUrls.add("/login.xhtml");

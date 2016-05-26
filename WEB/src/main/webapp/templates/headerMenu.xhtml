@@ -10,7 +10,7 @@
 
             <div class="ui-grid-col-12">
 
-                <p:menubar styleClass="center">
+                <p:menubar styleClass="center" style="#{layoutBean.siteBackground.bannersCss()}">
 
                     <p:menuitem outcome="home" styleClass="right10">
                         <p:graphicImage value="/images/black.png" height="40%" width="40%"/>
@@ -47,6 +47,7 @@
                         <p:menuitem value="Kalenderbeheer" outcome="systeem_nieuw_kampioenschap"></p:menuitem>
                         <p:menuitem value="Clubbeheer" outcome="systeem_clubbeheer"></p:menuitem>
                         <p:menuitem value="Sitesponsoring" outcome="systeem_site_sponsoring"></p:menuitem>
+                        <p:menuitem value="Layout" outcome="systeem_layout"></p:menuitem>
                     </p:submenu>
 
                     <p:submenu rendered="#{gebruikerController.heeftRol('lid')}" label="Lid"

@@ -16,21 +16,21 @@
 
     <f:view id="mainview">
 
-        <div class="ui-grid ui-grid-responsive headerbody">
+        <div class="ui-grid ui-grid-responsive headerbody" style="#{layoutBean.siteBackground.bodyCss()}">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-12 header">
                     <ui:include src="headerMenu.xhtml"/>
                 </div>
             </div>
 
-            <div class="ui-grid-row ">
+            <div class="ui-grid-row maxHeight">
                 <div class="ui-grid-col-12 body">
                     <ui:insert name="bodycontent"/>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
+        <div class="footer" style="#{layoutBean.siteBackground.bannersCss()}">
             <ui:include src="footer.xhtml"/>
         </div>
 
