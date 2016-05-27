@@ -10,34 +10,45 @@ public class RadialGradiant extends Gradient {
     public RadialGradiant() {
     }
 
-    public RadialGradiant(String startKleur, String eindKleur) {
-        super(startKleur, eindKleur);
+    public RadialGradiant(String startKleur, String eindKleur, int start, int stop) {
+        super(startKleur, eindKleur, start, stop);
     }
 
     @Override
     public String firefox() {
         return backgroundProperty(String.format(
-                "-moz-radial-gradient(center, ellipse cover,  %s 51%%, %s 90%%)",
+                "-moz-radial-gradient(center, ellipse cover,  %s %d%%, %s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String chromeAndSafari() {
         return backgroundProperty(String.format(
-                "-webkit-radial-gradient(center, ellipse cover,  %s 51%%,%s 90%%)",
+                "-webkit-radial-gradient(center, ellipse cover,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String modernBrowsers() {
         return backgroundProperty(String.format(
-                "radial-gradient(ellipse at center,  %s 51%%,%s 90%%)",
+                "radial-gradient(ellipse at center,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
+    }
+
+    @Override
+    public String type() {
+        return "Radial";
     }
 }

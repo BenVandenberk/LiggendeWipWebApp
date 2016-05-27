@@ -8,15 +8,15 @@ public class Background {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    private boolean isGradientBody;
+
+    private boolean bodyHasGradient;
     private String kleurBody;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Gradient gradientBody;
 
-    private boolean isGradientBanners;
+    private boolean bannersHaveGradient;
     private String kleurBanners;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Gradient gradientBanners;
 
     public Background() {
@@ -24,26 +24,26 @@ public class Background {
     }
 
     public Background(String kleurBody, String kleurBanners) {
-        isGradientBody = false;
-        isGradientBanners = false;
+        bodyHasGradient = false;
+        bannersHaveGradient = false;
         this.kleurBanners = kleurBanners;
         this.kleurBody = kleurBody;
     }
 
-    public boolean isGradientBody() {
-        return isGradientBody;
+    public boolean isBodyHasGradient() {
+        return bodyHasGradient;
     }
 
-    public void setGradientBody(boolean gradientBody) {
-        isGradientBody = gradientBody;
+    public void setBodyHasGradient(boolean bodyHasGradient) {
+        this.bodyHasGradient = bodyHasGradient;
+
+        if (gradientBody == null) {
+            gradientBody = new LeftRightGradient();
+        }
     }
 
     public String getKleurBody() {
         return kleurBody;
-    }
-
-    public void setKleurBody(String kleurBody) {
-        this.kleurBody = kleurBody;
     }
 
     public Gradient getGradientBody() {
@@ -51,24 +51,24 @@ public class Background {
     }
 
     public void setGradientBody(Gradient gradientBody) {
-        isGradientBody = true;
+        bodyHasGradient = true;
         this.gradientBody = gradientBody;
     }
 
-    public boolean isGradientBanners() {
-        return isGradientBanners;
+    public boolean isBannersHaveGradient() {
+        return bannersHaveGradient;
     }
 
-    public void setGradientBanners(boolean gradientBanners) {
-        isGradientBanners = gradientBanners;
+    public void setBannersHaveGradient(boolean bannersHaveGradient) {
+        this.bannersHaveGradient = bannersHaveGradient;
+
+        if (gradientBanners == null) {
+            gradientBanners = new LeftRightGradient();
+        }
     }
 
     public String getKleurBanners() {
         return kleurBanners;
-    }
-
-    public void setKleurBanners(String kleurBanners) {
-        this.kleurBanners = kleurBanners;
     }
 
     public Gradient getGradientBanners() {
@@ -76,12 +76,62 @@ public class Background {
     }
 
     public void setGradientBanners(Gradient gradientBanners) {
-        isGradientBanners = true;
+        bannersHaveGradient = true;
         this.gradientBanners = gradientBanners;
     }
 
+    /**
+     * Stelt de primaire kleur van de body in. De primaire kleur is de kleur die als achtergrond gebruikt wordt als er geen gradient ingesteld is.
+     * Als er wel een gradient ingesteld is, wordt de primaire kleur ook de startkleur van de gradient.
+     *
+     * @param primaireKleurBody Formaat: #xxxxxx
+     */
+    public void setPrimaireKleurBody(String primaireKleurBody) {
+        this.kleurBody = primaireKleurBody;
+
+        if (bodyHasGradient) {
+            gradientBody.setStartKleur(primaireKleurBody);
+        }
+    }
+
+    /**
+     * Stelt de primaire kleur van de banners in. De primaire kleur is de kleur die als achtergrond gebruikt wordt als er geen gradient ingesteld is.
+     * Als er wel een gradient ingesteld is, wordt de primaire kleur ook de startkleur van de gradient.
+     *
+     * @param primaireKleurBanners Formaat: #xxxxxx
+     */
+    public void setPrimaireKleurBanners(String primaireKleurBanners) {
+        this.kleurBanners = primaireKleurBanners;
+
+        if (bannersHaveGradient) {
+            gradientBanners.setStartKleur(primaireKleurBanners);
+        }
+    }
+
+    /**
+     * Stelt de eindkleur van de gradient van de body in. Dit gebeurt enkel als er voor de body een gradient gebruikt wordt.
+     *
+     * @param secundaireKleurBody Formaat: #xxxxxx
+     */
+    public void setSecundaireKleurBody(String secundaireKleurBody) {
+        if (bodyHasGradient) {
+            gradientBody.setEindKleur(secundaireKleurBody);
+        }
+    }
+
+    /**
+     * Stelt de eindkleur van de gradient van de banners in. Dit gebeurt enkel als er voor de body een gradient gebruikt wordt.
+     *
+     * @param secundaireKleurBanners Formaat: #xxxxxx
+     */
+    public void setSecundaireKleurBanners(String secundaireKleurBanners) {
+        if (bannersHaveGradient) {
+            gradientBanners.setEindKleur(secundaireKleurBanners);
+        }
+    }
+
     public String bodyCss() {
-        if (isGradientBody) {
+        if (bodyHasGradient) {
             return gradientBody.css();
         }
 
@@ -92,7 +142,7 @@ public class Background {
     }
 
     public String bannersCss() {
-        if (isGradientBanners) {
+        if (bannersHaveGradient) {
             return gradientBanners.css();
         }
 

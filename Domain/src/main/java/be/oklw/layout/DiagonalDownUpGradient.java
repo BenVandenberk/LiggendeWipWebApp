@@ -10,34 +10,45 @@ public class DiagonalDownUpGradient extends Gradient {
     public DiagonalDownUpGradient() {
     }
 
-    public DiagonalDownUpGradient(String startKleur, String eindKleur) {
-        super(startKleur, eindKleur);
+    public DiagonalDownUpGradient(String startKleur, String eindKleur, int start, int stop) {
+        super(startKleur, eindKleur, start, stop);
     }
 
     @Override
     public String firefox() {
         return backgroundProperty(String.format(
-                "-moz-linear-gradient(45deg,  %s 51%%, %s 90%%)",
+                "-moz-linear-gradient(45deg,  %s %d%%, %s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String chromeAndSafari() {
         return backgroundProperty(String.format(
-                "-webkit-linear-gradient(45deg,  %s 51%%,%s 90%%)",
+                "-webkit-linear-gradient(45deg,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String modernBrowsers() {
         return backgroundProperty(String.format(
-                "linear-gradient(45deg,  %s 51%%,%s 90%%)",
+                "linear-gradient(45deg,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
+    }
+
+    @Override
+    public String type() {
+        return "DiagonalDownUp";
     }
 }

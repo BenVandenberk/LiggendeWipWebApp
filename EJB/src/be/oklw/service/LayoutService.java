@@ -1,8 +1,6 @@
 package be.oklw.service;
 
 import be.oklw.layout.Background;
-import be.oklw.layout.Gradient;
-import be.oklw.layout.LeftRightGradient;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
@@ -23,9 +21,8 @@ public class LayoutService implements ILayoutService {
 
         if (backgrounds.size() == 0) {
             Background siteBackground = new Background();
-            Gradient gradient = new LeftRightGradient("#E5B3A8", "#E5473A");
-            siteBackground.setGradientBanners(gradient);
-            siteBackground.setGradientBody(gradient);
+            siteBackground.setPrimaireKleurBody("#ffffff");
+            siteBackground.setPrimaireKleurBanners("#ffffff");
             entityManager.persist(siteBackground);
         }
     }

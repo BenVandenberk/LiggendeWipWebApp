@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "LeftRight")
 public class LeftRightGradient extends Gradient {
 
-    public LeftRightGradient(String startKleur, String eindKleur) {
-        super(startKleur, eindKleur);
+    public LeftRightGradient(String startKleur, String eindKleur, int start, int stop) {
+        super(startKleur, eindKleur, start, stop);
     }
 
     public LeftRightGradient() {
@@ -18,27 +18,38 @@ public class LeftRightGradient extends Gradient {
     @Override
     public String firefox() {
         return backgroundProperty(String.format(
-                "-moz-linear-gradient(left,  %s 51%%, %s 90%%)",
+                "-moz-linear-gradient(left,  %s %d%%, %s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String chromeAndSafari() {
         return backgroundProperty(String.format(
-                "-webkit-linear-gradient(left,  %s 51%%,%s 90%%)",
+                "-webkit-linear-gradient(left,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
     }
 
     @Override
     public String modernBrowsers() {
         return backgroundProperty(String.format(
-                "linear-gradient(to right,  %s 51%%,%s 90%%)",
+                "linear-gradient(to right,  %s %d%%,%s %d%%)",
                 getStartKleur(),
-                getEindKleur()
+                getStart(),
+                getEindKleur(),
+                getStop()
         ));
+    }
+
+    @Override
+    public String type() {
+        return "LeftRight";
     }
 }

@@ -21,75 +21,151 @@
                         Achtergrondkleuren
                     </div>
 
-                    <div class="ui-grid-responsive formGrid">
+                    <p:tabView id="tabs">
 
-                        <div class="ui-grid-row formRow">
+                        <p:tab title="Balken boven en onder">
 
-                            <div class="ui-grid-col-12">
-
-                                <div class="ui-grid-row boldPlain">
-                                    Balk bovenaan en onderaan
-                                </div>
+                            <div class="ui-grid-responsive formGrid">
 
                                 <div class="ui-grid-row formRow">
 
-                                    <div class="ui-grid-col-3">
-                                        Met kleurenovergang:
-                                    </div>
+                                    <div class="ui-grid-col-12">
 
-                                    <div class="ui-grid-col-3 left">
-                                        <p:selectBooleanCheckbox
-                                                value="#{setLayoutBean.siteBackground.gradientBanners}"
-                                        />
-                                    </div>
+                                        <div class="ui-grid-row boldPlain">
+                                            Balk bovenaan en onderaan
+                                        </div>
 
-                                </div>
+                                        <div class="ui-grid-row formRow">
 
-                                <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-3">
+                                                Met kleurenovergang:
+                                            </div>
 
-                                    <div class="ui-grid-col-3">
-                                        Kleur 1:
-                                    </div>
+                                            <div class="ui-grid-col-3 left">
+                                                <p:selectBooleanCheckbox
+                                                        value="#{setLayoutBean.siteBackground.bannersHaveGradient}"
+                                                >
+                                                    <p:ajax event="change"
+                                                            update="frm:tabs:col_kleur2Banners frm:tabs:radio_gradientTypeBanners frm:tabs:slider_bannerStart frm:tabs:slider_bannerStop"/>
+                                                </p:selectBooleanCheckbox>
+                                            </div>
 
-                                    <div class="ui-grid-col-3 left">
-                                        <p:colorPicker
-                                                mode="inline"
-                                                value="#{setLayoutBean.kleur1Banners}"
-                                        />
-                                    </div>
+                                        </div>
 
-                                </div>
+                                        <div class="ui-grid-row formRow">
 
-                                <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-3">
+                                                Kleur 1:
+                                            </div>
 
-                                    <div class="ui-grid-col-3">
-                                        Kleur 2:
-                                    </div>
+                                            <div class="ui-grid-col-3 left">
+                                                <p:colorPicker
+                                                        mode="inline"
+                                                        value="#{setLayoutBean.primaireKleurBanners}"
+                                                />
+                                            </div>
 
-                                    <div class="ui-grid-col-3 left">
-                                        <p:colorPicker
-                                                mode="inline"
-                                                value="#{setLayoutBean.kleur2Banners}"
-                                        />
-                                    </div>
+                                        </div>
 
-                                </div>
+                                        <div class="ui-grid-row formRow">
 
-                                <div class="ui-grid-row formRow">
+                                            <div class="ui-grid-col-3">
+                                                Startpositie:
+                                            </div>
 
-                                    <div class="ui-grid-col-3">
-                                        Kleurovergang:
-                                    </div>
+                                            <div class="ui-grid-col-3 left">
+                                                <p:slider
+                                                        id="slider_bannerStart"
+                                                        for="hdn_bannerStart"
+                                                        display="out_bannerStart"
+                                                        displayTemplate="{value}"
+                                                        minValue="0"
+                                                        maxValue="100"
+                                                        step="1"
+                                                        disabled="#{!setLayoutBean.siteBackground.bannersHaveGradient}"
 
-                                    <div class="ui-grid-col-9 left">
-                                        <p:selectOneRadio value="#{setLayoutBean.gradientTypeBanners}">
-                                            <f:selectItem itemLabel="Links naar Rechts" itemValue="LeftRight"/>
-                                            <f:selectItem itemLabel="Linksonder naar Rechtsboven"
-                                                          itemValue="DiagonalDownUp"/>
-                                            <f:selectItem itemLabel="Linksboven naar Rechtsonder"
-                                                          itemValue="DiagonalUpDown"/>
-                                            <f:selectItem itemLabel="Concentrisch" itemValue="Radial"/>
-                                        </p:selectOneRadio>
+                                                />
+                                                <h:inputHidden id="hdn_bannerStart"
+                                                               value="#{setLayoutBean.bannerStart}"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-1 left left30 boldPlain">
+                                                <h:outputText id="out_bannerStart"
+                                                              value="#{setLayoutBean.bannerStart}"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Kleur 2:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:colorPicker
+                                                        mode="inline"
+                                                        value="#{setLayoutBean.secundaireKleurBanners}"
+                                                        id="col_kleur2Banners"
+                                                        disabled="#{!setLayoutBean.siteBackground.bannersHaveGradient}"
+                                                />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Stoppositie:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:slider
+                                                        id="slider_bannerStop"
+                                                        for="hdn_bannerStop"
+                                                        display="out_bannerStop"
+                                                        displayTemplate="{value}"
+                                                        minValue="0"
+                                                        maxValue="100"
+                                                        step="1"
+                                                        disabled="#{!setLayoutBean.siteBackground.bannersHaveGradient}"
+
+                                                />
+                                                <h:inputHidden id="hdn_bannerStop" value="#{setLayoutBean.bannerStop}"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-1 left left30 boldPlain">
+                                                <h:outputText id="out_bannerStop" value="#{setLayoutBean.bannerStop}"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Kleurovergang:
+                                            </div>
+
+                                            <div class="ui-grid-col-9 left">
+                                                <p:selectOneRadio
+                                                        value="#{setLayoutBean.gradientTypeBanners}"
+                                                        disabled="#{!setLayoutBean.siteBackground.bannersHaveGradient}"
+                                                        id="radio_gradientTypeBanners"
+                                                        layout="pageDirection"
+                                                >
+                                                    <f:selectItem itemLabel="Horizontaal" itemValue="LeftRight"/>
+                                                    <f:selectItem itemLabel="Verticaal" itemValue="TopDown"/>
+                                                    <f:selectItem itemLabel="Linksonder naar Rechtsboven"
+                                                                  itemValue="DiagonalDownUp"/>
+                                                    <f:selectItem itemLabel="Linksboven naar Rechtsonder"
+                                                                  itemValue="DiagonalUpDown"/>
+                                                    <f:selectItem itemLabel="Concentrisch" itemValue="Radial"/>
+                                                </p:selectOneRadio>
+                                            </div>
+
+                                        </div>
+
+
                                     </div>
 
                                 </div>
@@ -97,15 +173,165 @@
 
                             </div>
 
-                        </div>
+                        </p:tab>
+
+                        <p:tab title="Middenstuk">
+
+                            <div class="ui-grid-responsive formGrid">
+
+                                <div class="ui-grid-row formRow">
+
+                                    <div class="ui-grid-col-12">
+
+                                        <div class="ui-grid-row boldPlain">
+                                            Middenstuk
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Met kleurenovergang:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:selectBooleanCheckbox
+                                                        value="#{setLayoutBean.siteBackground.bodyHasGradient}"
+                                                >
+                                                    <p:ajax event="change"
+                                                            update="frm:tabs:col_kleur2Body frm:tabs:radio_gradientTypeBody frm:tabs:slider_bodyStart frm:tabs:slider_bodyStop"/>
+                                                </p:selectBooleanCheckbox>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Kleur 1:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:colorPicker
+                                                        mode="inline"
+                                                        value="#{setLayoutBean.primaireKleurBody}"
+                                                />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Startpositie:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:slider
+                                                        id="slider_bodyStart"
+                                                        for="hdn_bodyStart"
+                                                        display="out_bodyStart"
+                                                        displayTemplate="{value}"
+                                                        minValue="0"
+                                                        maxValue="100"
+                                                        step="1"
+                                                        disabled="#{!setLayoutBean.siteBackground.bodyHasGradient}"
+
+                                                />
+                                                <h:inputHidden id="hdn_bodyStart" value="#{setLayoutBean.bodyStart}"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-1 left left30 boldPlain">
+                                                <h:outputText id="out_bodyStart" value="#{setLayoutBean.bodyStart}"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Kleur 2:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:colorPicker
+                                                        mode="inline"
+                                                        value="#{setLayoutBean.secundaireKleurBody}"
+                                                        id="col_kleur2Body"
+                                                        disabled="#{!setLayoutBean.siteBackground.bodyHasGradient}"
+                                                />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Stoppositie:
+                                            </div>
+
+                                            <div class="ui-grid-col-3 left">
+                                                <p:slider
+                                                        id="slider_bodyStop"
+                                                        for="hdn_bodyStop"
+                                                        display="out_bodyStop"
+                                                        displayTemplate="{value}"
+                                                        minValue="0"
+                                                        maxValue="100"
+                                                        step="1"
+                                                        disabled="#{!setLayoutBean.siteBackground.bodyHasGradient}"
+
+                                                />
+                                                <h:inputHidden id="hdn_bodyStop" value="#{setLayoutBean.bodyStop}"/>
+                                            </div>
+
+                                            <div class="ui-grid-col-1 left left30 boldPlain">
+                                                <h:outputText id="out_bodyStop" value="#{setLayoutBean.bodyStop}"/>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="ui-grid-row formRow">
+
+                                            <div class="ui-grid-col-3">
+                                                Kleurovergang:
+                                            </div>
+
+                                            <div class="ui-grid-col-9 left">
+                                                <p:selectOneRadio
+                                                        value="#{setLayoutBean.gradientTypeBody}"
+                                                        disabled="#{!setLayoutBean.siteBackground.bodyHasGradient}"
+                                                        id="radio_gradientTypeBody"
+                                                        layout="pageDirection"
+                                                >
+                                                    <f:selectItem itemLabel="Horizontaal" itemValue="LeftRight"/>
+                                                    <f:selectItem itemLabel="Verticaal" itemValue="TopDown"/>
+                                                    <f:selectItem itemLabel="Linksonder naar Rechtsboven"
+                                                                  itemValue="DiagonalDownUp"/>
+                                                    <f:selectItem itemLabel="Linksboven naar Rechtsonder"
+                                                                  itemValue="DiagonalUpDown"/>
+                                                    <f:selectItem itemLabel="Concentrisch" itemValue="Radial"/>
+                                                </p:selectOneRadio>
+                                            </div>
+
+                                        </div>
 
 
-                    </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </p:tab>
+
+                    </p:tabView>
 
                     <div class="pageButton">
                         <p:commandButton
                                 value="Opslaan"
                                 actionListener="#{setLayoutBean.opslaan}"
+                                update="frm:pnl_preview"
                         />
                     </div>
 
@@ -113,13 +339,24 @@
                         Preview
                     </div>
 
-                    <div class="ui-grid-responsive formGrid">
+                    <h:panelGroup id="pnl_preview">
 
-                        <div class="ui-grid-row formRow">
-
+                        <div class="previewDiv previewBanner"
+                             style="#{setLayoutBean.siteBackground.bannersCss()}"
+                        >
                         </div>
 
-                    </div>
+                        <div class="previewDiv previewBody"
+                             style="#{setLayoutBean.siteBackground.bodyCss()}"
+                        >
+                        </div>
+
+                        <div class="previewDiv previewBanner"
+                             style="#{setLayoutBean.siteBackground.bannersCss()}"
+                        >
+                        </div>
+
+                    </h:panelGroup>
 
 
                 </h:form>

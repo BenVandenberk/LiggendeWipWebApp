@@ -15,13 +15,52 @@ public abstract class Gradient {
     private String startKleur;
     private String eindKleur;
 
-    public Gradient() {
+    private int start;
+    private int stop;
 
+    public Gradient() {
+        start = 0;
+        stop = 100;
     }
 
-    public Gradient(String startKleur, String eindKleur) {
+    public Gradient(String startKleur, String eindKleur, int start, int stop) {
         this.startKleur = startKleur;
         this.eindKleur = eindKleur;
+        this.start = start;
+        this.stop = stop;
+    }
+
+    /**
+     * Factory method om een Gradient aan te maken. De Magic Strings voor gradienttypes zijn:
+     * <ul>
+     *     <li>LeftRight -> LeftRightGradient</li>
+     *     <li>DiagonalUpDown -> DiagonalUpDownGradient</li>
+     *     <li>DiagonalDownUp -> DiagonalDownUpGradient</li>
+     *     <li>Radial -> RadialGradient</li>
+     *     <li>TopDown -> TopDownGradient</li>
+     * </ul>
+     * @param type de String met het type Gradient
+     * @param startKleur de kleur waarmee de Gradient start. Formaat: #xxxxxx
+     * @param eindKleur de kleur waarmee de Gradient eindigt. Formaat: #xxxxxx
+     * @return het aangemaakte Gradient object of null als er een ongeldige typestring meegegeven is
+     */
+    public static Gradient maak(String type, String startKleur, String eindKleur, int start, int stop) {
+        
+        switch (type) {
+            case "Radial":
+                    return new RadialGradiant(startKleur, eindKleur, start, stop);
+            case "DiagonalUpDown":;
+                    return new DiagonalUpDownGradient(startKleur, eindKleur, start, stop);
+            case "DiagonalDownUp":
+                return new DiagonalDownUpGradient(startKleur, eindKleur, start, stop);
+            case "LeftRight":
+                return new LeftRightGradient(startKleur, eindKleur, start, stop);
+            case "TopDown":
+                return new TopDownGradient(startKleur, eindKleur, start, stop);
+            default:
+                return null;
+        }
+        
     }
 
     public String getStartKleur() {
@@ -38,6 +77,26 @@ public abstract class Gradient {
 
     public void setEindKleur(String eindKleur) {
         this.eindKleur = eindKleur;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getStop() {
+        return stop;
+    }
+
+    public void setStop(int stop) {
+        this.stop = stop;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String css() {
@@ -74,4 +133,6 @@ public abstract class Gradient {
     public abstract String firefox();
     public abstract String chromeAndSafari();
     public abstract String modernBrowsers();
+
+    public abstract String type();
 }

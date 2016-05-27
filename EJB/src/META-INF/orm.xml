@@ -29,5 +29,6 @@
     <entity class="be.oklw.layout.DiagonalDownUpGradient"></entity>
     <entity class="be.oklw.layout.DiagonalUpDownGradient"></entity>
     <entity class="be.oklw.layout.RadialGradiant"></entity>
+    <entity class="be.oklw.layout.TopDownGradient"></entity>
 
 </entity-mappings>
