@@ -54,11 +54,14 @@ public class ScheduleBean implements Serializable {
                         ei.setTime(ei.getTime() + 43200000);
                         if (((st.after(start) || st.equals(start)) && (st.before(end) || st.equals(end)))
                                 || ((ei.after(start) || ei.equals(end)) && (ei.before(end) || ei.equals(end)))) {
+                            DefaultScheduleEvent defaultScheduleEvent;
                             if (e instanceof Kampioenschap) {
-                                addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "kamp"));
+                                defaultScheduleEvent = new DefaultScheduleEvent(e.getNaam(), st, ei, "kamp");
                             } else {
-                                addEvent(new DefaultScheduleEvent(e.getNaam(), st, ei, "even"));
+                                defaultScheduleEvent = new DefaultScheduleEvent(e.getNaam(), st, ei, "even");
                             }
+                            defaultScheduleEvent.setData(e.getId());
+                            addEvent(defaultScheduleEvent);
                         }
                     } catch (ParseException e1) {
                         e1.printStackTrace();
@@ -78,15 +81,11 @@ public class ScheduleBean implements Serializable {
 
     public void onEventSelect(SelectEvent selectEvent) {
         event = (ScheduleEvent) selectEvent.getObject();
+        int eventId = (Integer) event.getData();
+
         for (Evenement e : alleEvenementen) {
-            try {
-                if (event.getTitle().equals(e.getNaam())
-                        && event.getStartDate().equals(e.getBeginDatum().getDatuminDateFormat())
-                        && event.getEndDate().equals(e.getEindDatum().getDatuminDateFormat())) {
-                    selectedEvenement = e;
-                }
-            } catch (ParseException e1) {
-                e1.printStackTrace();
+            if (eventId == e.getId()) {
+                selectedEvenement = e;
             }
         }
     }

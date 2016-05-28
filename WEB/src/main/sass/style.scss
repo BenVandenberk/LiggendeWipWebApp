@@ -494,12 +494,12 @@ a {
   border-radius: 10px;
   background: $button-background;
   color: $text-color;
-}
 
-.sponsor:hover {
-  border: 2px solid black;
-  background: $button-hover;
-  color: $hover-text-color;
+  &:hover {
+    border: 2px solid black;
+    background: $button-hover;
+    color: $hover-text-color;
+  }
 }
 
 .sponsorKampioenschap {
@@ -555,15 +555,16 @@ a {
   width: 50%;
   border: 1px solid black;
   margin: 0 auto;
+
+  &.previewBanner {
+    min-height: 50px;
+  }
+
+  &.previewBody {
+    min-height: 300px;
+  }
 }
 
-.previewBanner {
-  min-height: 50px;
-}
-
-.previewBody {
-  min-height: 300px;
-}
 
 /* -------------------------
      PRIMEFACES CLASSES
