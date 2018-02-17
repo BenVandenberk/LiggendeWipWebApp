@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class FileService implements IFileService {
 
-    final String UPLOAD_PATH = "/home/java/development/upload";
+    final String UPLOAD_PATH = "/home/oklwbb/upload";
 
     @Override
     public String upload(byte[] fileContent, String fileName, String relativePath) throws IOException {

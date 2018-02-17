@@ -17,7 +17,7 @@ import java.util.Properties;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class MailService implements IMailService {
 
-    final String CONFIG_PATH = "/home/java/development/conf/owm.properties";
+    final String CONFIG_PATH = "/home/oklwbb/conf/owm.properties";
 
     @Override
     public boolean sendMail(String subject, String body, List<String> toAdressen) throws BusinessException {
